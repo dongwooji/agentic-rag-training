@@ -1,0 +1,132 @@
+{
+  "version": "literature_corpus_v1",
+  "search_date": "2026-08-25",
+  "language": "en",
+  "target_paper_count": {
+    "minimum": 15,
+    "preferred": 20,
+    "maximum": 25
+  },
+  "sources": [
+    "PubMed",
+    "PubMed Central"
+  ],
+  "seed_pmcids": [
+    "PMC6081873",
+    "PMC9302196",
+    "PMC8363540",
+    "PMC8067909",
+    "PMC11235667",
+    "PMC8962955",
+    "PMC6692867",
+    "PMC7994759",
+    "PMC10511399",
+    "PMC7593778",
+    "PMC5005843",
+    "PMC11705206",
+    "PMC13236796",
+    "PMC11239729",
+    "PMC13377779",
+    "PMC8884877"
+  ],
+  "searches": [
+    {
+      "topic": "training_volume",
+      "target_selected": 4,
+      "query": "(\"resistance training\"[Title/Abstract]) AND (volume[Title/Abstract] OR \"weekly sets\"[Title/Abstract] OR dose-response[Title/Abstract]) AND (strength[Title/Abstract] OR hypertrophy[Title/Abstract]) AND (meta-analysis[Publication Type] OR systematic review[Title/Abstract] OR randomized controlled trial[Publication Type]) AND humans[MeSH Terms]"
+    },
+    {
+      "topic": "training_frequency",
+      "target_selected": 3,
+      "query": "(\"resistance training\"[Title/Abstract]) AND (frequency[Title/Abstract] OR \"sessions per week\"[Title/Abstract]) AND (strength[Title/Abstract] OR hypertrophy[Title/Abstract]) AND (meta-analysis[Publication Type] OR systematic review[Title/Abstract] OR randomized controlled trial[Publication Type]) AND humans[MeSH Terms]"
+    },
+    {
+      "topic": "detraining",
+      "target_selected": 3,
+      "query": "(detraining[Title/Abstract] OR \"training cessation\"[Title/Abstract] OR \"reduced training\"[Title/Abstract]) AND (strength[Title/Abstract] OR \"resistance training\"[Title/Abstract]) AND humans[MeSH Terms]"
+    },
+    {
+      "topic": "periodization_progression",
+      "target_selected": 3,
+      "query": "(\"resistance training\"[Title/Abstract]) AND (periodization[Title/Abstract] OR periodisation[Title/Abstract] OR \"progression models\"[Title/Abstract] OR \"progressive overload\"[Title/Abstract] OR autoregulation[Title/Abstract]) AND (strength[Title/Abstract] OR hypertrophy[Title/Abstract]) AND (meta-analysis[Publication Type] OR systematic review[Title/Abstract] OR guideline[Publication Type] OR consensus[Title/Abstract]) AND humans[MeSH Terms]"
+    },
+    {
+      "topic": "training_to_failure",
+      "target_selected": 3,
+      "query": "(\"resistance training\"[Title/Abstract]) AND (failure[Title/Abstract] OR \"proximity to failure\"[Title/Abstract] OR non-failure[Title/Abstract]) AND (strength[Title/Abstract] OR hypertrophy[Title/Abstract]) AND (meta-analysis[Publication Type] OR systematic review[Title/Abstract] OR randomized controlled trial[Publication Type]) AND humans[MeSH Terms]"
+    },
+    {
+      "topic": "strength_adaptation",
+      "target_selected": 4,
+      "query": "(\"resistance training\"[Title/Abstract]) AND (prescription[Title/Abstract] OR load[Title/Abstract] OR intensity[Title/Abstract] OR adaptation[Title/Abstract]) AND strength[Title/Abstract] AND (umbrella review[Title/Abstract] OR network meta-analysis[Title/Abstract] OR meta-analysis[Publication Type] OR position stand[Title/Abstract]) AND humans[MeSH Terms]"
+    }
+  ],
+  "inclusion_criteria": [
+    "Peer-reviewed human resistance-training research",
+    "English full text",
+    "Stable identifier such as PMID and DOI",
+    "Direct relevance to at least one EDA-derived topic",
+    "Study design and participant population can be identified",
+    "Full text available from PubMed Central for deterministic structured parsing"
+  ],
+  "exclusion_criteria": [
+    "Duplicate or superseded publication",
+    "Protocol, editorial, letter, or abstract-only record without usable results",
+    "Clinical rehabilitation-only population with low transferability to healthy adult training logs",
+    "Endurance-only or concurrent-training-only question without separable resistance-training evidence",
+    "No legally accessible full text",
+    "Insufficient topic coverage or redundant evidence after higher-level reviews are selected"
+  ],
+  "preferred_study_types": [
+    "umbrella review",
+    "systematic review",
+    "meta-analysis",
+    "position stand",
+    "randomized controlled trial"
+  ],
+  "chunking": {
+    "strategy": "jats_section_paragraph",
+    "target_words": 350,
+    "minimum_words": 80,
+    "maximum_words": 550,
+    "overlap_words": 60,
+    "excluded_sections": [
+      "references",
+      "acknowledgments",
+      "acknowledgements",
+      "author contributions",
+      "authors’ contributions",
+      "authors' contributions",
+      "competing interests",
+      "conflict of interest",
+      "funding",
+      "ethics approval",
+      "data availability",
+      "supplementary material"
+    ]
+  },
+  "required_paper_metadata": [
+    "paper_id",
+    "pmid",
+    "pmcid",
+    "doi",
+    "title",
+    "authors",
+    "year",
+    "journal",
+    "study_type",
+    "topics",
+    "population",
+    "source_url",
+    "license",
+    "source_sha256",
+    "corpus_version"
+  ],
+  "selection_policy": {
+    "use_retrieval_outputs": false,
+    "prefer_open_structured_full_text": true,
+    "allow_topic_overlap": true,
+    "record_every_exclusion_reason": true,
+    "freeze_before_evaluation_set": true
+  }
+}

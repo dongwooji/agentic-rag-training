@@ -1,0 +1,18 @@
+raw_name,canonical_name,decision,evidence,rationale
+Squat,Squat (Barbell),merge,265/265 smaller-name sets co-recorded identically,Generic label is fully shadowed by the explicit barbell label.
+Incline Bench Press,Incline Bench Press (Barbell),merge,198/198 smaller-name sets co-recorded identically,Generic label is fully shadowed by the explicit barbell label.
+Seated Military Press,Seated Shoulder Press (Barbell),merge,134/134 smaller-name sets co-recorded identically,All generic-label sets are duplicated under the explicit barbell label.
+Seated Row,Seated Cable Row (close Grip),merge,88/88 smaller-name sets co-recorded identically,All generic-label sets are duplicated under the cable close-grip label.
+Lateral Raise,Lateral Raise (Dumbbells),merge,38/38 smaller-name sets co-recorded identically,All generic-label sets are duplicated under the dumbbell label.
+Seated Military Press (Dumbbell),Seated Shoulder Press (Dumbbell),merge,33/33 smaller-name sets co-recorded identically,All source-label sets are duplicated under the selected canonical label.
+Hammer seated row,Hammer seated row (CLOSE GRIP),merge,30/30 smaller-name sets co-recorded identically,All generic-label sets are duplicated under the close-grip label.
+Good Morning,Good Morning (Barbell),merge,17/17 smaller-name sets co-recorded identically,All generic-label sets are duplicated under the explicit barbell label.
+Military Press (Standing),Shoulder Press (Standing),merge,10/10 smaller-name sets co-recorded identically,All source-label sets are duplicated under the selected canonical label.
+Deadlift,Deadlift (Barbell),merge,10/10 smaller-name sets co-recorded identically,All generic-label sets are duplicated under the explicit barbell label.
+Bicep Curl (barbell ),Bicep Curl (Barbell),merge,case and parenthesis-spacing variant with 63 co-recorded sets,Formatting-only variant of the same movement label.
+Lat Pulldown,Lat Pulldown,merge,trailing-whitespace variant with 28 co-recorded sets,Whitespace-only normalization.
+Lateral Raise (Dumbbell),Lateral Raise (Dumbbells),merge,singular/plural equipment-label variant,Formatting-only equipment-label variant; no conflicting co-recorded values were found.
+Leg press,Leg press (hinge ),defer,27/31 smaller-name sets co-recorded identically,The hinge qualifier may represent a distinct machine or setup.
+Hammer Curl,Hammer Curl (Dumbbell),defer,17/28 smaller-name sets co-recorded identically,The generic label does not prove the same equipment or implementation.
+Curl Dumbbell,Bicep Curl (Dumbbell),defer,word-order similarity only,No strong co-record evidence supports an automatic merge.
+Incline Press (Dumbbell),Low Incline Dumbbell Bench,defer,similar movement wording only,The bench angle or exercise definition may differ.

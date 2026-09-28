@@ -1,0 +1,35 @@
+{
+  "component": "runtime_evidence_grader",
+  "purpose": "production_literature_evidence_sufficiency_gate",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "temperature": 0.0,
+  "reasoning_effort": "none",
+  "verbosity": "low",
+  "max_output_tokens": 900,
+  "store": false,
+  "service_tier": "default",
+  "timeout_seconds": 120.0,
+  "max_retries": 0,
+  "prompt_path": "config/runtime_evidence_grader_prompt.md",
+  "model_output_schema": "RuntimeEvidenceAssessmentDraft",
+  "decision_policy": "deterministic_all_required_supported",
+  "structured_channel_policy": "log_and_metric_evidence_excluded_and_evaluated_separately",
+  "pricing_usd_per_million_tokens": {
+    "input": 0.75,
+    "cached_input": 0.075,
+    "output": 4.5
+  },
+  "controls": {
+    "provider_retry": false,
+    "query_rewrite": false,
+    "re_retrieval": false,
+    "recovery_agent": false,
+    "answer_generation": false,
+    "model_global_verdict": false,
+    "model_exact_quote": false,
+    "model_confidence": false
+  }
+}
+

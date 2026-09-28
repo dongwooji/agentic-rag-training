@@ -1,0 +1,37 @@
+{
+  "component": "evidence_recovery_agent",
+  "purpose": "runtime_missing_literature_component_query_generation",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "temperature": 0.0,
+  "reasoning_effort": "none",
+  "verbosity": "low",
+  "max_output_tokens": 700,
+  "store": false,
+  "service_tier": "default",
+  "timeout_seconds": 120.0,
+  "max_retries": 0,
+  "max_retry": 2,
+  "prompt_path": "config/recovery_agent_prompt.md",
+  "model_output_schema": "RecoveryQueryDraft",
+  "structured_channel_policy": "log_and_metric_evidence_excluded",
+  "pricing_usd_per_million_tokens": {
+    "input": 0.75,
+    "cached_input": 0.075,
+    "output": 4.5
+  },
+  "controls": {
+    "provider_retry": false,
+    "gold_or_evaluation_access": false,
+    "tool_selection": false,
+    "literature_tool_execution": false,
+    "evidence_fusion": false,
+    "sufficiency_decision": false,
+    "log_or_metric_processing": false,
+    "answer_generation": false,
+    "abstention_decision": false,
+    "query_rewrite_loop": false,
+    "langgraph_connection": false
+  }
+}

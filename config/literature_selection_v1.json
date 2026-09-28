@@ -1,0 +1,161 @@
+{
+  "corpus_version": "literature_corpus_v1",
+  "selection_date": "2026-08-25",
+  "selection_basis": "EDA-derived question coverage, evidence hierarchy, healthy or trained population transferability, and structured PMC full-text availability",
+  "selected": [
+    {
+      "pmcid": "PMC12965823",
+      "study_type": "position stand and overview of reviews",
+      "population": "healthy adults",
+      "topics": ["strength_adaptation", "training_volume", "training_frequency", "progressive_overload", "training_to_failure"],
+      "reason": "Current ACSM synthesis anchors definitions, prescription variables, and evidence limitations."
+    },
+    {
+      "pmcid": "PMC10818109",
+      "study_type": "umbrella review",
+      "population": "healthy adults",
+      "topics": ["strength_adaptation", "training_volume", "training_frequency", "periodization_progression", "training_to_failure"],
+      "reason": "Broad evidence synthesis directly maps prescription variables to strength and hypertrophy outcomes."
+    },
+    {
+      "pmcid": "PMC10579494",
+      "study_type": "systematic review and network meta-analysis",
+      "population": "healthy adults",
+      "topics": ["strength_adaptation", "training_volume", "training_frequency"],
+      "reason": "Compares combinations of load, sets, and frequency across a large randomized-trial network."
+    },
+    {
+      "pmcid": "PMC11239729",
+      "study_type": "meta-analysis",
+      "population": "healthy trained and untrained adults",
+      "topics": ["strength_adaptation", "training_volume", "training_frequency"],
+      "reason": "Models dose-response relationships and outcome specificity across strength and conditioning studies."
+    },
+    {
+      "pmcid": "PMC8126497",
+      "study_type": "systematic review and network meta-analysis",
+      "population": "healthy adults with mixed training status",
+      "topics": ["strength_adaptation", "training_load", "training_to_failure"],
+      "reason": "Separates load effects on maximal strength from hypertrophy under volitional-failure protocols."
+    },
+    {
+      "pmcid": "PMC9302196",
+      "study_type": "umbrella review",
+      "population": "healthy adults",
+      "topics": ["training_volume", "training_frequency", "training_load", "periodization_progression"],
+      "reason": "Provides a structured comparison of hypertrophy-related prescription variables."
+    },
+    {
+      "pmcid": "PMC8884877",
+      "study_type": "systematic review and meta-analysis",
+      "population": "young resistance-trained adults",
+      "topics": ["training_volume", "hypertrophy"],
+      "reason": "Focused evidence on moderate versus high weekly volume in trained participants."
+    },
+    {
+      "pmcid": "PMC6303131",
+      "study_type": "randomized controlled trial",
+      "population": "resistance-trained young men",
+      "topics": ["training_volume", "strength_adaptation", "hypertrophy"],
+      "reason": "Primary study directly tests weekly set volume in a trained population."
+    },
+    {
+      "pmcid": "PMC8962955",
+      "study_type": "controlled training study",
+      "population": "previously resistance-trained men",
+      "topics": ["training_volume", "training_load", "strength_adaptation", "hypertrophy"],
+      "reason": "Contrasts high-volume and high-load training with both strength and hypertrophy outcomes."
+    },
+    {
+      "pmcid": "PMC6081873",
+      "study_type": "systematic review and meta-analysis",
+      "population": "adults with mixed training status",
+      "topics": ["training_frequency", "strength_adaptation"],
+      "reason": "Directly evaluates frequency and volume-equated strength outcomes."
+    },
+    {
+      "pmcid": "PMC8363540",
+      "study_type": "systematic review and meta-analysis",
+      "population": "well-trained athletes",
+      "topics": ["training_frequency", "strength_adaptation"],
+      "reason": "Addresses transferability of frequency findings to trained populations and in-season maintenance."
+    },
+    {
+      "pmcid": "PMC8067909",
+      "study_type": "randomized controlled trial",
+      "population": "recreationally resistance-trained men",
+      "topics": ["training_frequency", "strength_adaptation"],
+      "reason": "Volume-equated comparison of two versus four weekly sessions."
+    },
+    {
+      "pmcid": "PMC9068575",
+      "study_type": "systematic review and meta-analysis",
+      "population": "young adults with mixed training status",
+      "topics": ["training_to_failure", "strength_adaptation", "hypertrophy"],
+      "reason": "Core synthesis of failure versus non-failure training with volume and training-status moderators."
+    },
+    {
+      "pmcid": "PMC9935748",
+      "study_type": "systematic review and meta-analysis",
+      "population": "healthy adults with mixed training status",
+      "topics": ["training_to_failure", "hypertrophy"],
+      "reason": "Clarifies inconsistent failure definitions and proximity-to-failure evidence."
+    },
+    {
+      "pmcid": "PMC6692867",
+      "study_type": "systematic review of meta-analyses",
+      "population": "mixed exercise populations",
+      "topics": ["periodization_progression", "strength_adaptation"],
+      "reason": "Documents methodological limitations in periodized versus non-periodized comparisons."
+    },
+    {
+      "pmcid": "PMC7994759",
+      "study_type": "systematic review and meta-analysis",
+      "population": "athletes",
+      "topics": ["periodization_progression", "autoregulation", "strength_adaptation"],
+      "reason": "Evaluates autoregulated progression against fixed loading for maximal strength."
+    },
+    {
+      "pmcid": "PMC13236796",
+      "study_type": "narrative review",
+      "population": "general resistance-exercise research",
+      "topics": ["progressive_overload", "strength_adaptation"],
+      "reason": "Provides current operational definitions of resistance exercise and progressive overload."
+    },
+    {
+      "pmcid": "PMC6950543",
+      "study_type": "systematic review",
+      "population": "healthy adults aged 19 to 44",
+      "topics": ["periodization_progression", "training_volume", "hypertrophy"],
+      "reason": "Covers advanced techniques proposed for progression and plateau contexts while exposing evidence gaps."
+    },
+    {
+      "pmcid": "PMC10511399",
+      "study_type": "Delphi consensus study",
+      "population": "strength and physique sport coaches and athletes",
+      "topics": ["deloading", "periodization_progression"],
+      "reason": "Defines applied deload practice and makes the limited empirical evidence explicit."
+    },
+    {
+      "pmcid": "PMC10809978",
+      "study_type": "randomized controlled trial",
+      "population": "resistance-trained adults",
+      "topics": ["deloading", "detraining", "strength_adaptation"],
+      "reason": "Directly tests a one-week training cessation period within supervised resistance training."
+    },
+    {
+      "pmcid": "PMC7593778",
+      "study_type": "narrative review",
+      "population": "athletes",
+      "topics": ["detraining", "strength_adaptation"],
+      "reason": "Synthesizes mechanisms, time course, and prevention considerations for athlete detraining."
+    },
+    {
+      "pmcid": "PMC11705206",
+      "study_type": "systematic review, meta-analysis, and meta-regression",
+      "population": "older adults",
+      "topics": ["detraining", "strength_adaptation"],
+      "reason": "Quantifies residual effects after training cessation and documents population limitations."
+    }
+  ]
+}

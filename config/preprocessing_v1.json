@@ -1,0 +1,81 @@
+{
+  "version": "preprocessing_v1",
+  "source_file": "data/raw/weightlifting_721_workouts.csv",
+  "expected_columns": [
+    "Date",
+    "Workout Name",
+    "Exercise Name",
+    "Set Order",
+    "Weight",
+    "Reps",
+    "Distance",
+    "Seconds",
+    "Notes",
+    "Workout Notes"
+  ],
+  "session_key": ["Date"],
+  "session_key_note": "Date timestamp is provisional because the source has no explicit session id.",
+  "source_row_numbering": "CSV header is row 1; data rows begin at source_row 2.",
+  "units": {
+    "weight": "unknown_source_unit",
+    "distance": "unknown_source_unit",
+    "seconds": "seconds"
+  },
+  "exact_duplicate_policy": {
+    "key": "all ten raw columns",
+    "action": "retain every raw row in lineage; keep the lowest source_row as the processed representative"
+  },
+  "alias_policy": {
+    "decision_file": "config/exercise_aliases_v1.csv",
+    "merge_rule": "apply only rows whose decision is merge",
+    "deferred_rule": "do not merge deferred or rejected candidates",
+    "alias_shadow_action": "retain in lineage and map to the representative processed_set_id"
+  },
+  "set_order_collision_policy": {
+    "key": ["session_timestamp", "canonical_exercise_name", "set_order"],
+    "action": "retain all distinct value rows and flag the collision"
+  },
+  "outlier_policy": {
+    "retain_flagged_rows": true,
+    "rules": [
+      {
+        "rule_id": "extreme_weight_ge_1000",
+        "condition": "Weight >= 1000",
+        "metric_action": "exclude from volume and e1RM until reviewed"
+      },
+      {
+        "rule_id": "high_reps_ge_25",
+        "condition": "Reps >= 25",
+        "metric_action": "retain for volume when otherwise valid; exclude from e1RM"
+      },
+      {
+        "rule_id": "positive_weight_zero_reps",
+        "condition": "Weight > 0 and Reps == 0 and Distance == 0 and Seconds == 0",
+        "metric_action": "exclude from volume and e1RM until reviewed"
+      },
+      {
+        "rule_id": "negative_numeric_value",
+        "condition": "Weight, Reps, Distance, or Seconds < 0",
+        "metric_action": "exclude from volume and e1RM"
+      },
+      {
+        "rule_id": "non_positive_set_order",
+        "condition": "Set Order <= 0",
+        "metric_action": "retain row, flag for review"
+      }
+    ]
+  },
+  "metrics": {
+    "volume_load": {
+      "formula": "weight * reps",
+      "eligibility": "representative row, weight > 0, reps > 0, no metric-blocking outlier"
+    },
+    "estimated_1rm": {
+      "formula_version": "epley_v1",
+      "formula": "weight * (1 + reps / 30)",
+      "rep_min": 1,
+      "rep_max": 12,
+      "eligibility": "representative row, weight > 0, reps in [1, 12], no metric-blocking outlier"
+    }
+  }
+}

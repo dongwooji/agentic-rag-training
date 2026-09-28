@@ -1,0 +1,51 @@
+# Python and local build/runtime files
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.venv/
+venv/
+.build/
+build/
+dist/
+*.egg-info/
+.coverage
+htmlcov/
+
+# Credentials: only the blank template is public
+.env
+.env.*
+!.env.example
+*.pgpass
+pgpass.conf
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+secrets*.json
+
+# Local research archive (preserved on disk; not redistributed)
+/data/
+/reports/
+/PROJECT_PLAN.md
+*.csv
+!config/exercise_aliases_v1.csv
+*.parquet
+*.sqlite*
+*.dump
+*.backup
+*.pt
+*.pth
+*.safetensors
+*.pdf
+*.zip
+*.log
+*.tmp
+
+# Local editor/agent state
+.idea/
+.vscode/
+.codex/
+.agents/
+.DS_Store
+Thumbs.db

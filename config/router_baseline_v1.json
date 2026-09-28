@@ -1,0 +1,212 @@
+{
+  "router_version": "router_baseline_v1",
+  "status": "preregistered_before_first_evaluation",
+  "registered_at": "2026-08-26",
+  "input_contract": "question text only",
+  "tool_ids": {
+    "training_log": "query_training_log",
+    "metric": "compute_metrics",
+    "literature": "search_literature"
+  },
+  "execution_order": [
+    "query_training_log",
+    "compute_metrics",
+    "search_literature"
+  ],
+  "precedence": [
+    "malformed_input",
+    "unsupported_missing_data_without_literature_request",
+    "hybrid",
+    "log_metric",
+    "log_lookup",
+    "literature_only",
+    "ambiguous"
+  ],
+  "unsupported_signals": {
+    "missing_data_literals": [
+      "누적 피로",
+      "피로 때문",
+      "수면 부족",
+      "수면 시간",
+      "수면 질",
+      "rpe",
+      "rir",
+      "단백질 섭취",
+      "식단",
+      "체중 변화",
+      "체중 시계열",
+      "부상 때문",
+      "통증",
+      "의료 기록",
+      "회복 상태",
+      "recovery state",
+      "injury",
+      "sleep quality",
+      "protein intake"
+    ],
+    "personalized_prescription_literals": [
+      "정확히 몇 세트",
+      "개인 맞춤 숫자",
+      "개인 맞춤 처방",
+      "다음 주에 몇 세트",
+      "exactly how many sets",
+      "personalized prescription"
+    ],
+    "rule": "If any missing-data or personalized-prescription signal is present and no literature signal is present, return unsupported with no tools."
+  },
+  "structured_log_signals": {
+    "literals": [
+      "운동 로그",
+      "운동 기록",
+      "현재 기록",
+      "정제된 운동",
+      "원본 9,932",
+      "8,228 set",
+      "canonical exercise",
+      "timestamp",
+      "session 간",
+      "session 목록",
+      "first session",
+      "last session",
+      "training log",
+      "workout log",
+      "stored record"
+    ],
+    "regex": [
+      "\\b(?:bench press|incline bench press|seated shoulder press|squat|deadlift)\\s*\\(barbell\\)",
+      "\\b20\\d{2}-\\d{2}-\\d{2}\\b",
+      "\\b(?:first|last|latest)\\s+\\d+-session\\b"
+    ],
+    "rule": "Any structured-log literal or regex establishes that the user's own frozen training records are in scope."
+  },
+  "metric_signals": {
+    "literals": [
+      "e1rm",
+      "estimated 1rm",
+      "session-best",
+      "session best",
+      "median",
+      "주간 volume",
+      "weekly volume",
+      "frequency",
+      "training gap",
+      "session 간 공백",
+      "plateau candidate",
+      "정체 구간",
+      "peak보다",
+      "최고 e1rm",
+      "전후 주요 운동 e1rm",
+      "얼마나 달라",
+      "변화는 얼마",
+      "변화와"
+    ],
+    "regex": [
+      "(?:첫|처음|마지막|최근)\\s*[·/]?\\s*(?:마지막\\s*)?\\d+-session",
+      "(?:직전|이후|전후).{0,20}(?:e1rm|volume|frequency)",
+      "(?:e1rm|volume|frequency).{0,20}(?:변화|달라|비교|추세)"
+    ],
+    "rule": "Metric signals add compute_metrics only when a structured-log signal is also present. Counts and raw record lookup alone stay in Training Log Tool."
+  },
+  "literature_signals": {
+    "explicit_literals": [
+      "문헌",
+      "연구에서",
+      "연구 문헌",
+      "메타분석",
+      "meta-analysis",
+      "delphi",
+      "일반화",
+      "과학적 근거",
+      "문헌 근거",
+      "literature",
+      "study evidence",
+      "research evidence"
+    ],
+    "concept_literals": [
+      "progressive overload",
+      "periodization",
+      "periodized",
+      "non-periodized",
+      "autoregulation",
+      "fixed-loading",
+      "detraining",
+      "deloading",
+      "proximity-to-failure",
+      "training to failure",
+      "muscle failure",
+      "volitional failure",
+      "hypertrophy",
+      "근비대",
+      "dose-response",
+      "maximum strength"
+    ],
+    "regex": [
+      "(?:low|moderate|high)-load",
+      "(?:근력|strength).{0,25}(?:향상|효과|outcome)",
+      "(?:training|훈련).{0,20}frequency.{0,20}(?:근력|strength|효과)"
+    ],
+    "rule": "Explicit evidence language or a registered scientific concept establishes literature scope. Without log scope this routes literature-only; with log scope it routes hybrid."
+  },
+  "route_rules": [
+    {
+      "rule_id": "R-UNSUPPORTED-MISSING-DATA",
+      "condition": "unsupported signal AND NOT literature signal",
+      "task_type": "unsupported",
+      "selected_tools": []
+    },
+    {
+      "rule_id": "R-HYBRID-WITH-METRIC",
+      "condition": "structured log AND metric AND literature",
+      "task_type": "hybrid",
+      "selected_tools": ["query_training_log", "compute_metrics", "search_literature"]
+    },
+    {
+      "rule_id": "R-HYBRID-LOOKUP-LITERATURE",
+      "condition": "structured log AND NOT metric AND literature",
+      "task_type": "hybrid",
+      "selected_tools": ["query_training_log", "search_literature"]
+    },
+    {
+      "rule_id": "R-LOG-METRIC",
+      "condition": "structured log AND metric AND NOT literature",
+      "task_type": "log_metric",
+      "selected_tools": ["query_training_log", "compute_metrics"]
+    },
+    {
+      "rule_id": "R-LOG-LOOKUP",
+      "condition": "structured log AND NOT metric AND NOT literature",
+      "task_type": "log_lookup",
+      "selected_tools": ["query_training_log"]
+    },
+    {
+      "rule_id": "R-LITERATURE-ONLY",
+      "condition": "literature AND NOT structured log",
+      "task_type": "literature_only",
+      "selected_tools": ["search_literature"]
+    },
+    {
+      "rule_id": "R-AMBIGUOUS",
+      "condition": "no supported signal combination",
+      "task_type": "ambiguous",
+      "selected_tools": []
+    }
+  ],
+  "confidence_policy": {
+    "unsupported": 1.0,
+    "hybrid": 0.95,
+    "log_metric": 0.95,
+    "log_lookup": 0.9,
+    "literature_explicit": 0.95,
+    "literature_concept_only": 0.85,
+    "ambiguous": 0.0,
+    "invalid": 0.0
+  },
+  "controls": {
+    "llm_used": false,
+    "case_id_or_category_used_by_router": false,
+    "gold_required_tools_used_by_router": false,
+    "answer_generation": false,
+    "tool_execution": false,
+    "post_evaluation_tuning_allowed": false
+  }
+}

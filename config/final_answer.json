@@ -1,0 +1,33 @@
+{
+  "component": "final_answer_layer",
+  "purpose": "grounded_runtime_answer_drafting",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "temperature": 0.0,
+  "reasoning_effort": "none",
+  "verbosity": "low",
+  "max_output_tokens": 1200,
+  "store": false,
+  "service_tier": "default",
+  "timeout_seconds": 120.0,
+  "max_retries": 0,
+  "evidence_budget": 10,
+  "prompt_path": "config/final_answer_prompt.md",
+  "model_output_schema": "FinalAnswerDraft",
+  "controls": {
+    "provider_retry": false,
+    "retrieval": false,
+    "tool_execution": false,
+    "evidence_grading": false,
+    "query_rewrite": false,
+    "recovery": false,
+    "model_global_status": false,
+    "model_exact_quote": false
+  },
+  "pricing_usd_per_million_tokens": {
+    "input": 0.75,
+    "cached_input": 0.075,
+    "output": 4.5
+  }
+}
