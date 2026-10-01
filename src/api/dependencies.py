@@ -15,9 +15,15 @@ from src.grading.runtime_grader import RuntimeEvidenceGrader
 from src.grading.runtime_provider import OpenAIRuntimeEvidenceProvider
 from src.graph.tool_input_provider import OpenAIToolInputProvider
 from src.graph.tool_input_resolver import ToolInputResolver
+from src.graph.runtime_tool_input_resolver import RuntimeToolInputResolver
 from src.graph.workflow import AgenticRAGWorkflow
+from src.graph.interpreted_workflow import InterpretedWorkflow
+from src.interpretation.interpreter import QuestionInterpreter
+from src.interpretation.provider import OpenAIQuestionInterpreterProvider
 from src.recovery.agent import EvidenceRecoveryAgent
 from src.recovery.provider import OpenAIEvidenceRecoveryProvider
+from src.routing.runtime import RuntimeRouter
+from src.routing.runtime_language import RuntimeQuestionNormalizer
 from src.tools.literature import LiteratureTool
 from src.tools.metric import MetricTool
 from src.tools.training_log import PsycopgTrainingRepository, TrainingLogTool
@@ -45,7 +51,7 @@ class RuntimeWorkflow:
     def __init__(
         self,
         *,
-        workflow: AgenticRAGWorkflow,
+        workflow: AgenticRAGWorkflow | InterpretedWorkflow,
         literature_tool: LiteratureTool,
     ) -> None:
         self._workflow = workflow
@@ -105,25 +111,33 @@ def _build_runtime_workflow() -> RuntimeWorkflow:
         recovery = EvidenceRecoveryAgent(
             OpenAIEvidenceRecoveryProvider(api_key=openai_api_key)
         )
-        tool_input_resolver = ToolInputResolver(
-            exercise_repository=training_repository,
-            provider=OpenAIToolInputProvider(api_key=openai_api_key),
-        )
         executor = DeterministicToolExecutor(
             training_log_tool=training_tool,
             metric_tool=metric_tool,
             literature_tool=literature_tool,
         )
-        workflow = AgenticRAGWorkflow(
-            tool_executor=executor,
-            literature_tool=literature_tool,
-            runtime_grader=grader,
-            recovery_agent=recovery,
-            tool_input_resolver=tool_input_resolver,
-            final_response_layer=FinalResponseLayer(
-                OpenAIFinalAnswerProvider(api_key=openai_api_key)
-            ),
+        shared = dict(
+            tool_executor=executor, literature_tool=literature_tool,
+            runtime_grader=grader, recovery_agent=recovery,
+            final_response_layer=FinalResponseLayer(OpenAIFinalAnswerProvider(api_key=openai_api_key)),
         )
+        mode = os.environ.get("AGENTIC_RAG_QUESTION_INTERPRETATION", "legacy")
+        if mode == "phase_a":
+            # Do not even construct the legacy LLM argument provider here.
+            workflow = InterpretedWorkflow(
+                interpreter=QuestionInterpreter(exercise_repository=training_repository,
+                                                provider=OpenAIQuestionInterpreterProvider(api_key=openai_api_key)),
+                **shared,
+            )
+        elif mode == "legacy":
+            normalizer = RuntimeQuestionNormalizer()
+            tool_input_resolver = RuntimeToolInputResolver(
+                ToolInputResolver(exercise_repository=training_repository,
+                                  provider=OpenAIToolInputProvider(api_key=openai_api_key)), normalizer,
+            )
+            workflow = AgenticRAGWorkflow(router=RuntimeRouter(normalizer), tool_input_resolver=tool_input_resolver, **shared)
+        else:
+            raise WorkflowConfigurationError("Unsupported question interpretation mode")
         return RuntimeWorkflow(
             workflow=workflow,
             literature_tool=literature_tool,

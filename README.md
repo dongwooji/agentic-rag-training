@@ -71,6 +71,10 @@ python -m uvicorn src.api.app:app --host 127.0.0.1 --port 8000
 
 응답은 `final_status`, `answer_text`, `route`, `tools_used`, `retry_count`, `recovery_used`, `used_literature_chunk_ids`, `limitations`, `latency_ms`를 포함합니다. 정상적인 graph 종료인 answer_ready / abstain_ready / execution_failure는 HTTP 200 structured response로 반환합니다.
 
+로컬 API는 `내 데드리프트의 처음 3세션과 최근 3세션의 median e1RM을 비교해줘`처럼 한글 운동명과 세션 표현도 처리합니다. 지원 표현과 범위는 [한국어 입력 안내](docs/KOREAN_INPUT.md)를 참고하세요. 기존 동결 Router와 평가 산출물을 보존하고 API 구성에 실행용 어댑터를 연결한 변경입니다. 서버를 재시작해야 적용됩니다.
+
+선택적으로 `AGENTIC_RAG_QUESTION_INTERPRETATION=phase_a`를 설정하면 규칙 우선 + LLM fallback 질문 해석을 사용합니다. 실제 DB 운동 후보 선택과 typed 검증 후 기존 single-metric workflow에 연결하며, 불명확한 조건은 Tool 실행 전에 확인합니다. 설정하지 않으면 legacy 경로를 사용합니다. [Phase A 실행 안내와 한계](docs/QUESTION_INTERPRETATION.md)를 참고하세요. 이 변경은 기존 frozen 평가 이후의 runtime 개선으로, 과거 평가 성능이 개선됐다는 의미가 아닙니다.
+
 **이 공개 저장소는 코드와 검토된 문서 배포본입니다.** 원본 데이터와 frozen 실행 산출물은 포함하지 않으므로 clone만으로 전체 `/query`나 과거 평가를 재현할 수 없습니다. 자료 준비 및 DB 적재 절차는 [db/README.md](db/README.md), 공개 범위는 [PUBLISHING.md](docs/PUBLISHING.md)에 정리했습니다. 인증·rate limiting·다중 사용자 데이터 격리가 없는 로컬 데모이므로 현재 실행 예시는 loopback 주소를 사용합니다.
 
 ## 테스트
@@ -81,13 +85,14 @@ python -m uvicorn src.api.app:app --host 127.0.0.1 --port 8000
 python -m pytest tests/test_api_health.py tests/test_api_query.py tests/test_api_smoke_v2_harness.py -q
 ```
 
-로컬 연구 자료가 있는 환경에서는 `python -m pytest -q`로 전체 suite를 실행합니다. 직전 전체 검증은 **309 passed**였습니다. 전체 suite 중 frozen integrity·corpus·평가 테스트는 비공개 로컬 artifacts에 의존하며, 이를 숨기기 위해 테스트를 skip하거나 계약을 바꾸지 않았습니다.
+로컬 연구 자료가 있는 환경에서는 `python -m pytest -q`로 전체 suite를 실행합니다. Phase A.1 이후 전체 검증은 **417 passed**였습니다. 전체 suite 중 frozen integrity·corpus·평가 및 실제 운동 후보 테스트는 비공개 로컬 artifacts에 의존하며, 이를 숨기기 위해 테스트를 skip하거나 계약을 바꾸지 않았습니다.
 
 ## 코드 구성
 
 ```text
 src/api/             FastAPI endpoints and runtime dependencies
 src/graph/           LangGraph orchestration and Tool Input Resolver
+src/interpretation/  Rule-first question interpretation and exercise validation
 src/tools/           Training Log, Metric, Literature contracts
 src/retrieval/       Dense, BM25, RRF and baseline runners
 src/grading/         Grader experiments and Runtime Evidence Grader

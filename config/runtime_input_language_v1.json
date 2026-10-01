@@ -1,0 +1,24 @@
+{
+  "version": "runtime_korean_input_v1",
+  "exercise_aliases": {
+    "Deadlift (Barbell)": ["데드리프트", "데드 리프트", "바벨 데드리프트", "바벨 데드 리프트", "Deadlift"],
+    "Bench Press (Barbell)": ["벤치프레스", "벤치 프레스", "바벨 벤치프레스", "바벨 벤치 프레스", "Bench Press"],
+    "Squat (Barbell)": ["스쿼트", "스쾃", "바벨 스쿼트", "Squat"],
+    "Incline Bench Press (Barbell)": ["인클라인 벤치프레스", "인클라인 벤치 프레스", "바벨 인클라인 벤치프레스", "Incline Bench Press"],
+    "Seated Shoulder Press (Barbell)": ["시티드 바벨 숄더프레스", "시티드 바벨 숄더 프레스", "Seated Shoulder Press"]
+  },
+  "unsupported_exercise_modifiers": ["덤벨", "dumbbell", "스모", "sumo", "루마니안", "romanian", "트랩바", "trap bar", "스미스", "smith", "머신", "machine", "디클라인", "decline", "고블릿", "goblet", "프론트", "front"],
+  "metric_aliases": {
+    "weekly volume": ["주간 훈련량", "주별 훈련량", "주당 훈련량", "주간 운동량", "주간 볼륨", "주별 볼륨"],
+    "weekly frequency": ["주간 빈도", "주당 빈도", "주별 빈도", "주별 수행 횟수", "주간 훈련 빈도", "주당 운동 횟수"],
+    "training gap": ["훈련 공백", "운동 공백", "세션 간 공백", "훈련 간격", "운동 간격"],
+    "plateau candidate": ["정체 구간", "정체 후보 구간"],
+    "e1RM": ["추정 1RM", "예상 1RM", "추정 최대 중량", "추정 최대중량"],
+    "median": ["중앙값"]
+  },
+  "personal_record_patterns": [
+    "(?<![가-힣A-Za-z0-9])(?:내|나의|제|저의)\\s*(?:(?:운동|훈련)\\s*)?(?:기록|로그)",
+    "(?<![가-힣A-Za-z0-9])(?:내가|제가)\\s*(?:한|수행한|남긴)\\s*(?:운동|훈련)",
+    "(?<![가-힣A-Za-z0-9])(?:나|저)의\\s*(?:운동|훈련)\\s*(?:이력|내역)"
+  ]
+}

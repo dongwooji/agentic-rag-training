@@ -40,6 +40,9 @@ class FakeExerciseRepository:
         matches = [item for item in self.names if item.casefold() == name.casefold()]
         return matches[0] if len(matches) == 1 else None
 
+    def list_canonical_exercises(self):
+        return list(self.names)
+
 
 class FakeProvider:
     def __init__(

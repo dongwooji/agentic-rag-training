@@ -1,0 +1,12 @@
+{
+  "version": "question_interpretation_phase_a_v1",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "temperature": 0.0,
+  "reasoning_effort": "none",
+  "verbosity": "low",
+  "max_output_tokens": 2400,
+  "timeout_seconds": 60.0,
+  "max_retries": 0,
+  "prompt_path": "config/question_interpreter_prompt.md",
+  "pricing_usd_per_million_tokens": {"input": 0.75, "cached_input": 0.075, "output": 4.5}
+}
