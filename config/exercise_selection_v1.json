@@ -1,0 +1,24 @@
+{
+  "version": "exercise_selection_v1",
+  "candidate_sets": [
+    {
+      "mentions": ["해머컬", "해머 컬", "Hammer Curl"],
+      "candidates": ["Hammer Curl", "Hammer Curl (Dumbbell)"]
+    },
+    {
+      "mentions": ["시티드 숄더 프레스", "시티드 숄더프레스", "Seated Shoulder Press"],
+      "candidates": ["Seated Shoulder Press (Barbell)", "Seated Shoulder Press (Dumbbell)"]
+    },
+    {
+      "mentions": ["랫풀다운", "랫 풀다운", "Lat Pulldown"],
+      "candidates": ["Lat Pulldown", "Lat Pulldown (Cable)", "Lat Pulldown Closegrip"]
+    }
+  ],
+  "explicit_mentions": [
+    {"mentions": ["덤벨 해머컬", "덤벨 해머 컬", "Hammer Curl (Dumbbell)"], "canonical": "Hammer Curl (Dumbbell)"},
+    {"mentions": ["바벨 시티드 숄더 프레스", "시티드 숄더 프레스 바벨", "Seated Shoulder Press (Barbell)"], "canonical": "Seated Shoulder Press (Barbell)"},
+    {"mentions": ["덤벨 시티드 숄더 프레스", "시티드 숄더 프레스 덤벨", "Seated Shoulder Press (Dumbbell)"], "canonical": "Seated Shoulder Press (Dumbbell)"},
+    {"mentions": ["케이블 랫풀다운", "Lat Pulldown (Cable)"], "canonical": "Lat Pulldown (Cable)"},
+    {"mentions": ["클로즈그립 랫풀다운", "Lat Pulldown Closegrip"], "canonical": "Lat Pulldown Closegrip"}
+  ]
+}

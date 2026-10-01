@@ -55,6 +55,26 @@ class PublicQueryError(PublicModel):
     message: str = Field(min_length=1)
 
 
+class ClarifyRequest(PublicModel):
+    clarification_id: str = Field(min_length=1, max_length=64)
+    selected_option: str = Field(min_length=1, max_length=16, examples=["2"])
+
+
+class ExerciseOption(PublicModel):
+    id: str
+    label: str
+    canonical_exercises: list[str] = Field(min_length=1, max_length=12)
+
+
+class ClarificationMetadata(PublicModel):
+    response_mode: Literal["clarification", "clarification_required"]
+    clarification_required: bool
+    clarification_id: str | None = None
+    clarification_type: Literal["exercise_selection"] | None = None
+    options: list[ExerciseOption] = Field(default_factory=list, max_length=13)
+    expires_at: str | None = None
+
+
 class QueryResponse(PublicModel):
     final_status: FinalResponseStatus
     answer_text: str = Field(min_length=1)
@@ -69,6 +89,7 @@ class QueryResponse(PublicModel):
     limitations: list[str] = Field(default_factory=list)
     latency_ms: float = Field(ge=0.0)
     error: PublicQueryError | None = None
+    response_metadata: ClarificationMetadata | None = None
 
     model_config = ConfigDict(
         extra="forbid",

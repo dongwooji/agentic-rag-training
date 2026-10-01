@@ -43,5 +43,6 @@ def candidate_schema(names: tuple[str, ...]):
     return create_model(
         "CatalogInterpretationDraft", __base__=InterpretationDraft,
         canonical_exercise_name=(allowed | None, ...),
+        candidate_exercises=(list[allowed], ...),
         exercise_resolution_status=(Literal["resolved", "ambiguous", "not_found"] | None, ...),
     )

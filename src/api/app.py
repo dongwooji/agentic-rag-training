@@ -15,6 +15,8 @@ from src.recovery.evidence_fusion import EVIDENCE_BUDGET, FUSION_POLICY
 from src.retrieval.rrf import DEFAULT_RRF_K
 
 from .contracts import (
+    ClarifyRequest,
+    ClarificationMetadata,
     HealthResponse,
     PublicQueryError,
     QueryRequest,
@@ -22,6 +24,7 @@ from .contracts import (
     VersionResponse,
 )
 from .dependencies import (
+    WorkflowClarificationUnavailable,
     WorkflowConfigurationError,
     WorkflowInitializationError,
     WorkflowPort,
@@ -111,6 +114,8 @@ def query_response_from_state(
         limitations=list(response.limitations),
         latency_ms=latency_ms,
         error=_public_error(response),
+        response_metadata=(ClarificationMetadata.model_validate(response.provenance.response_metadata)
+                           if response.provenance.response_metadata.get("clarification_required") else None),
     )
 
 
@@ -221,6 +226,30 @@ def create_app() -> FastAPI:
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="The request could not be processed safely.",
             ) from exc
+
+    @application.post("/query/clarify", response_model=QueryResponse, response_model_exclude_none=True,
+                      tags=["agentic-rag"], summary="운동 후보 선택 후 실행 재개",
+                      description="/query 응답의 clarification_id와 option id를 전달합니다. Interpreter를 다시 호출하지 않습니다.",
+                      responses={400: {"description": "허용되지 않은 선택"},
+                                 404: {"description": "존재하지 않거나 사용한 요청"},
+                                 409: {"description": "Phase A 실행 모드 필요"},
+                                 410: {"description": "만료된 요청; 새 질문 필요"}})
+    def clarify(request: ClarifyRequest, workflow: WorkflowPort = Depends(get_workflow)) -> QueryResponse:
+        from src.interpretation.clarification import ClarificationError
+        started = perf_counter()
+        if not callable(getattr(workflow, "clarify", None)):
+            raise HTTPException(status_code=409, detail="Exercise selection requires Phase A runtime.")
+        try:
+            state = workflow.clarify(request.clarification_id, request.selected_option)
+            return query_response_from_state(state, latency_ms=(perf_counter() - started) * 1000)
+        except WorkflowClarificationUnavailable as exc:
+            raise HTTPException(status_code=409, detail="Exercise selection requires Phase A runtime.") from exc
+        except ClarificationError as exc:
+            code = {"clarification_not_found": 404, "clarification_expired": 410}.get(exc.code, 400)
+            raise HTTPException(status_code=code, detail={"code": exc.code,
+                "message": "허용된 선택지를 확인해주세요. 요청이 만료되거나 없다면 새 질문을 보내주세요."}) from exc
+        except Exception as exc:
+            raise HTTPException(status_code=500, detail="The request could not be processed safely.") from exc
 
     return application
 

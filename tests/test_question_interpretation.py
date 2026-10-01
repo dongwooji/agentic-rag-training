@@ -23,6 +23,7 @@ def draft(**updates):
         personal_record_requested=True, literature_requested=False,
         exercise_mention="데드리프트", canonical_exercise_name="Deadlift (Barbell)",
         exercise_resolution_status="resolved",
+        candidate_exercises=[],
         time_condition={"scope": "all_records", "start_date": None, "end_date": None, "source_text": ""},
         record_operation="exercise_records", session_id=None,
         requested_analyses=[{"operation": "first_last_n_session_median_e1rm", "n_sessions": 3, "source_text": "초반 세 세션이랑 마지막 세 세션"}],

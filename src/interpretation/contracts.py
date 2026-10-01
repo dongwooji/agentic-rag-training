@@ -47,6 +47,7 @@ class InterpretationDraft(StrictModel):
     # Null is retained for existing rule/fixture contracts. LLM schema requires
     # this field explicitly; canonical_exercise_name is a catalog candidate.
     exercise_resolution_status: Literal["resolved", "ambiguous", "not_found"] | None = None
+    candidate_exercises: list[str] = Field(default_factory=list, max_length=12)
     time_condition: TimeCondition
     record_operation: Literal["exercise_records", "exercise_first_last", "get_session", "list_sessions"] | None
     session_id: str | None

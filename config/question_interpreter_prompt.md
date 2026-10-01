@@ -17,6 +17,10 @@ You have no evaluation/Gold data and no personal training records.
   context return ambiguous and null; for no suitable candidate return
   not_found and null. For literature-only with no exercise return null status.
   Korean shorthand can resolve only when context identifies one candidate.
+  Return candidate_exercises containing all plausible supplied canonical labels
+  for the original mention. If more than one remains, return ambiguous, null
+  canonical_exercise_name and clarification_required=true. Do not merge names.
+  Explicit equipment/grip/angle must narrow candidates, not be discarded.
   Resolving an exercise does not resolve vague periods or strength indices:
   preserve those unresolved_fields instead of inventing dates, N or metrics.
   Do not replace dumbbell, incline, sumo or other variants with generic barbell

@@ -35,6 +35,7 @@ DEFAULT_MODEL_CACHE = PROJECT_ROOT / "data" / "models" / "huggingface"
 
 class WorkflowPort(Protocol):
     def invoke(self, question: str) -> Mapping[str, Any]: ...
+    def clarify(self, clarification_id: str, selected_option: str) -> Mapping[str, Any]: ...
 
 
 class WorkflowConfigurationError(RuntimeError):
@@ -43,6 +44,10 @@ class WorkflowConfigurationError(RuntimeError):
 
 class WorkflowInitializationError(RuntimeError):
     """Raised when external runtime dependencies cannot be initialized."""
+
+
+class WorkflowClarificationUnavailable(RuntimeError):
+    """The underlying legacy workflow does not support selection resume."""
 
 
 class RuntimeWorkflow:
@@ -64,6 +69,16 @@ class RuntimeWorkflow:
             if self._closed:
                 raise RuntimeError("workflow runtime is closed")
             return self._workflow.invoke(question)
+
+    def clarify(self, clarification_id: str, selected_option: str) -> Mapping[str, Any]:
+        """Forward selection to the same live graph under its existing lock."""
+        with self._invoke_lock:
+            if self._closed:
+                raise RuntimeError("workflow runtime is closed")
+            resume = getattr(self._workflow, "clarify", None)
+            if not callable(resume):
+                raise WorkflowClarificationUnavailable()
+            return resume(clarification_id, selected_option)
 
     def close(self) -> None:
         with self._invoke_lock:

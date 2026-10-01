@@ -63,7 +63,7 @@ def test_existing_clear_korean_alias_rule_zero_llm(mention, canonical, actual_na
 
 
 @pytest.mark.parametrize("mention,canonical", [
-    ("인클라인 벤치프레스", "Incline Bench Press (Barbell)"),
+    ("바벨 인클라인 벤치프레스", "Incline Bench Press (Barbell)"),
     ("덤벨 해머컬", "Hammer Curl (Dumbbell)"),
     ("중량 딥스", "Weighted dips"),
     ("데드", "Deadlift (Barbell)"),
@@ -81,7 +81,7 @@ def test_same_interpreter_selects_actual_dataset_candidate_once(mention, canonic
     assert result.provider.response_metadata["canonical_catalog_count"] == 70
 
 
-@pytest.mark.parametrize("mention", ["해머컬", "딥스", "데드", "벤치"])
+@pytest.mark.parametrize("mention", ["딥스", "데드", "벤치"])
 def test_ambiguous_selection_never_executes_tools(mention, actual_names):
     # Ambiguity is supplied by the typed Interpreter, not an alias guessing rule.
     assert "Hammer Curl" in actual_names and "Hammer Curl (Dumbbell)" in actual_names

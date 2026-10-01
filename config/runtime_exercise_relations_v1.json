@@ -1,0 +1,40 @@
+{
+  "version": "runtime_exercise_relations_v1",
+  "scope": "phase_a_local_dataset_only",
+  "groups": [
+    {
+      "id": "hammer_curl",
+      "canonical_label": "Hammer Curl (Dumbbell)",
+      "members": ["Hammer Curl", "Hammer Curl (Dumbbell)"],
+      "mentions": ["해머컬", "해머 컬", "덤벨 해머컬", "덤벨 해머 컬", "Hammer Curl", "Hammer Curl (Dumbbell)"],
+      "approval": "User approved joint lookup for this local dataset; not a global equipment inference.",
+      "overlap_policy": "retain_source_rows_and_block_metrics"
+    }
+  ],
+  "restricted_generic_mentions": [
+    {
+      "id": "hammer_curl_other_equipment",
+      "patterns": ["(?:케이블|바벨|머신|로프)\\s*해머\\s*컬", "(?:cable|barbell|machine|rope)\\s+hammer\\s+curl"],
+      "qualifiers": [],
+      "message": "명시한 해머컬 장비는 승인된 덤벨 운동 그룹에 포함되지 않습니다. 다른 장비의 운동을 덤벨 기록으로 대체하지 않습니다."
+    },
+    {
+      "id": "incline_bench_unspecified",
+      "patterns": ["인클라인\\s*벤치\\s*프레스", "Incline\\s+Bench\\s+Press"],
+      "qualifiers": ["바벨", "덤벨", "barbell", "dumbbell"],
+      "message": "인클라인 벤치프레스의 장비를 지정해주세요. 장비가 생략됐다고 덤벨로 추정하지 않습니다. 현재 일반 이름의 원자료 분리 조회는 지원하지 않습니다."
+    },
+    {
+      "id": "seated_row_unspecified",
+      "patterns": ["시티드\\s*케이블\\s*로우", "시티드\\s*로우", "Seated\\s+Cable\\s+Row", "Seated\\s+Row"],
+      "qualifiers": ["클로즈\\s*그립", "close\\s*grip"],
+      "message": "시티드 로우의 그립과 장비를 확인해주세요. 일반 로우를 클로즈그립으로 대체하지 않습니다. 현재 일반 이름의 원자료 분리 조회는 지원하지 않습니다."
+    },
+    {
+      "id": "hammer_seated_row_unspecified",
+      "patterns": ["해머\\s*시티드\\s*로우", "Hammer\\s+seated\\s+row"],
+      "qualifiers": ["클로즈\\s*그립", "close\\s*grip"],
+      "message": "해머 시티드 로우의 그립을 확인해주세요. 일반 이름을 클로즈그립으로 대체하지 않습니다. 현재 일반 이름의 원자료 분리 조회는 지원하지 않습니다."
+    }
+  ]
+}

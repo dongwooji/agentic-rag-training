@@ -85,7 +85,7 @@ python -m uvicorn src.api.app:app --host 127.0.0.1 --port 8000
 python -m pytest tests/test_api_health.py tests/test_api_query.py tests/test_api_smoke_v2_harness.py -q
 ```
 
-로컬 연구 자료가 있는 환경에서는 `python -m pytest -q`로 전체 suite를 실행합니다. Phase A.1 이후 전체 검증은 **417 passed**였습니다. 전체 suite 중 frozen integrity·corpus·평가 및 실제 운동 후보 테스트는 비공개 로컬 artifacts에 의존하며, 이를 숨기기 위해 테스트를 skip하거나 계약을 바꾸지 않았습니다.
+로컬 연구 자료가 있는 환경에서는 `python -m pytest -q`로 전체 suite를 실행합니다. Phase A.2 이후 전체 검증은 **468 passed**입니다. 전체 suite 중 frozen integrity·corpus·평가 및 실제 운동 후보 테스트는 비공개 로컬 artifacts에 의존하며, 이를 숨기기 위해 테스트를 skip하거나 계약을 바꾸지 않았습니다.
 
 ## 코드 구성
 
@@ -111,3 +111,10 @@ docs/                Public evaluation and publishing notes
 ```
 
 기존 baseline runner는 연구 이력 설명을 위해 포함하며, 공개 준비 과정에서 baseline/API 평가를 재실행하지 않았습니다. frozen v1/v2 산출물은 로컬에서 그대로 보존합니다.
+
+## 운동 후보 확인 (Phase A.2)
+
+Phase A 실행 모드에서 여러 저장 운동 후보가 남으면 선택을 요청하고 Tool 실행을 보류합니다.
+`POST /query/clarify`에 반환된 확인 ID와 option ID를 보내면 해석을 반복하지 않고 실행을 재개합니다.
+명시적 공동 조회만 허용하며 로컬 메모리 state는 20분 후 만료됩니다.
+사용 방법과 제한은 [운동 후보 선택 문서](docs/EXERCISE_CLARIFICATION.md)를 참고하세요.

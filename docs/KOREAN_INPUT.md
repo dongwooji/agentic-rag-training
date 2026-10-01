@@ -71,10 +71,15 @@
 - `tests/test_runtime_korean_input.py`: 한국어 변형, 부정 사례, 입력 검증,
   mock 그래프 경로, API 구성과 기존 파일 해시 검증 43개.
 
-초기 한국어 입력 어댑터 단계의 전체 테스트는 352 passed였으며, Phase A.1까지 포함한 최신 로컬 전체 검증은 417 passed이다. 이 테스트에서 DB/API 실호출과 baseline 재평가는 수행하지 않았다.
+초기 한국어 입력 어댑터는 352 passed, Phase A.1은 417 passed였으며, 현재 Phase A.2까지 포함한 로컬 전체 검증은 468 passed이다. DB/API 실호출과 baseline 재평가는 수행하지 않았다.
 기존 Router/Resolver 구현과 설정, 전처리 별칭, 동결 v1/v2 산출물은 보존했다.
 
 위 표는 legacy runtime의 연결 정책이다. 선택형 Phase A/A.1 경로는
 [질문 해석 안내](QUESTION_INTERPRETATION.md)를 참고한다. 생략된 운동명을 특정 장비로
-연결하는 기존 정책의 재검토는 진행 중이며, 해머컬 병합이나 인클라인/로우 분리 정책은
-아직 구현하지 않았다.
+연결하는 legacy 정책은 그대로 남아 있다. Phase A.2에서는 운동 후보 선택 후 명시적 공동 조회와
+인클라인/로우의 생략명 제한을 적용한다. 기존 통합 데이터의 분리 조회는 구현하지 않았다.
+
+## Phase A.2 안내
+
+Phase A의 운동 모호성은 자동 병합 대신 [후보 선택 흐름](EXERCISE_CLARIFICATION.md)으로 처리한다.
+덤벨 해머컬처럼 명확한 표현은 해당 기록만 조회한다. 기존 단계의 공동 조회 설명은 이전 정책이다.

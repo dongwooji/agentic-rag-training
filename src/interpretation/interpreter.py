@@ -11,6 +11,7 @@ from .provider import InterpreterProviderResult
 from .rule_parser import RuleQuestionParser
 from .validator import GroundingError, validate_interpretation
 from .exercise_catalog import RepositoryExerciseCatalog, catalog_sha256
+from .exercise_relations import RuntimeExerciseRelations
 
 
 class InterpreterProvider(Protocol):
@@ -31,6 +32,7 @@ class QuestionInterpreter:
         self.provider = provider
         self.rule_parser = RuleQuestionParser()
         self.exercise_catalog = RepositoryExerciseCatalog(exercise_repository)
+        self.exercise_relations = RuntimeExerciseRelations()
 
     def interpret(self, question: str) -> InterpretationResult:
         started = perf_counter()
@@ -55,7 +57,7 @@ class QuestionInterpreter:
                 raw = provider_result.raw_interpretation
             interpretation = validate_interpretation(question, raw, source=source, canonicalizer=self.canonicalizer,
                                                        normalizer=self.rule_parser.normalizer,
-                                                       canonical_exercises=candidates)
+                                                       canonical_exercises=candidates, exercise_relations=self.exercise_relations)
             return InterpretationResult(execution_status="clarification_required" if interpretation.clarification_required else "ready",
                                         interpretation=interpretation, provider=provider_result,
                                         latency_ms=(perf_counter() - started) * 1000)
