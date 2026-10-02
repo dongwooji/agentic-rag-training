@@ -110,6 +110,8 @@ tests/               Mock/fixture and local artifact integrity tests
 docs/                Public evaluation and publishing notes
 ```
 
+현재 실행 구조와 과거 실험 코드의 파일별 구분은 [저장소 구성 지도](docs/REPOSITORY_MAP.md)를 참고하세요.
+
 기존 baseline runner는 연구 이력 설명을 위해 포함하며, 공개 준비 과정에서 baseline/API 평가를 재실행하지 않았습니다. frozen v1/v2 산출물은 로컬에서 그대로 보존합니다.
 
 ## 운동 후보 확인 (Phase A.2)

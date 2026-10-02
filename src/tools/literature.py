@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any, Protocol
 
 from src.database.config import DatabaseConfig
-from src.retrieval.baseline import EMBEDDING_RUN_ID
+from src.retrieval.runtime_config import EMBEDDING_RUN_ID
 from src.retrieval.dense import MiniLMEncoder
 from src.retrieval.hybrid import (
     FrozenHybridRetriever,

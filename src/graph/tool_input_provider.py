@@ -10,7 +10,7 @@ from time import perf_counter
 from typing import Any
 
 from src.agent.contracts import PlannerUsage
-from src.agent.planner import _extract_planning_json_text, estimate_cost_usd
+from src.llm_support import estimate_cost_usd, extract_planning_json_text
 
 from .tool_input_resolver import (
     ResolverProviderResult,
@@ -114,7 +114,7 @@ class OpenAIToolInputProvider:
                 store=False,
                 service_tier=self.config["service_tier"],
             )
-            raw_text = _extract_planning_json_text(response)
+            raw_text = extract_planning_json_text(response)
             parsed = json.loads(raw_text)
             if not isinstance(parsed, dict):
                 raise TypeError("Tool input output must be a JSON object")

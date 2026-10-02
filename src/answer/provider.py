@@ -10,8 +10,7 @@ from pathlib import Path
 from time import perf_counter
 from typing import Any, Protocol
 
-from src.agent.planner import estimate_cost_usd
-from src.grading.provider import _extract_final_json_text
+from src.llm_support import estimate_cost_usd, extract_final_json_text
 
 from .contracts import AnswerTokenUsage, FinalAnswerDraft, FinalAnswerInput
 
@@ -181,7 +180,7 @@ class OpenAIFinalAnswerProvider:
             )
             response_id = _read_attr(response, "id")
             return FinalAnswerProviderResult(
-                raw_output_text=_extract_final_json_text(response),
+                raw_output_text=extract_final_json_text(response),
                 model=str(_read_attr(response, "model", self.model)),
                 prompt_sha256=self.prompt_sha256,
                 config_sha256=self.config_sha256,

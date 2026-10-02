@@ -10,9 +10,8 @@ from pathlib import Path
 from time import perf_counter
 from typing import Any
 
-from src.agent.planner import estimate_cost_usd
+from src.llm_support import estimate_cost_usd, extract_final_json_text
 
-from .provider import _extract_final_json_text
 from .runtime_contracts import (
     RuntimeErrorCode,
     RuntimeEvidenceAssessmentDraft,
@@ -183,7 +182,7 @@ class OpenAIRuntimeEvidenceProvider:
             token_usage = _usage_from_response(response, self.config)
             response_id = getattr(response, "id", None)
             return RuntimeProviderResult(
-                raw_output_text=_extract_final_json_text(response),
+                raw_output_text=extract_final_json_text(response),
                 model=str(getattr(response, "model", self.model)),
                 prompt_sha256=self.prompt_sha256,
                 config_sha256=self.config_sha256,
