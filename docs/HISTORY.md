@@ -5,7 +5,7 @@
 
 ## 과거 코드 보존 위치
 
-과거 실험 전용 코드·설정·테스트는 Git tag **`legacy-pre-retrieval-v2`** (커밋 `f23909f`)에 보존한다.
+과거 실험 전용 코드·설정·테스트는 Git tag **`legacy-pre-retrieval-v2`**에 보존한다.
 
 ```powershell
 git show legacy-pre-retrieval-v2:src/agent/planner.py
