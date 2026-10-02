@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from pathlib import Path
-import tempfile
 import unittest
 
 from src.retrieval.bm25 import (
@@ -10,13 +8,6 @@ from src.retrieval.bm25 import (
     DEFAULT_K1,
     TOKENIZER_VERSION,
     tokenize,
-)
-from src.retrieval.hybrid_baseline import (
-    PHASE7_VERSION,
-    build_comparison,
-    run_bm25_retrieval,
-    run_rrf_fusion,
-    write_immutable_phase7_artifacts,
 )
 from src.retrieval.rrf import DEFAULT_RRF_K, reciprocal_rank_fusion
 
@@ -74,82 +65,6 @@ class RRFTest(unittest.TestCase):
     def test_rrf_rejects_duplicate_input_ids(self) -> None:
         with self.assertRaises(ValueError):
             reciprocal_rank_fusion(["a", "a"], ["b"], top_k=1)
-
-
-class HybridComparisonTest(unittest.TestCase):
-    @staticmethod
-    def _result(case_id: str, question: str, ranking: list[str]) -> dict:
-        return {
-            "case_id": case_id,
-            "question": question,
-            "retrieved": [
-                {"rank": rank, "chunk_id": chunk_id, "score": 1.0 / rank}
-                for rank, chunk_id in enumerate(ranking, 1)
-            ],
-            "latency_ms": {"end_to_end": 1.0, "bm25_search": 0.2, "rrf_fusion": 0.1},
-        }
-
-    def test_any_all_group_rank_movement_is_preserved(self) -> None:
-        case = {
-            "id": "CASE-1",
-            "category": "literature_only",
-            "question": "fixed query",
-            "gold": {
-                "literature_evidence_groups": [
-                    {
-                        "id": "EG-ANY",
-                        "claim": "alternative evidence",
-                        "required": True,
-                        "match": "any",
-                        "chunk_ids": ["a1", "a2"],
-                    },
-                    {
-                        "id": "EG-ALL",
-                        "claim": "joint evidence",
-                        "required": True,
-                        "match": "all",
-                        "chunk_ids": ["b1", "b2"],
-                    },
-                ]
-            },
-        }
-        dense = self._result("CASE-1", "fixed query", ["a1", "b1", "x"])
-        bm25 = self._result("CASE-1", "fixed query", ["a2", "b2", "b1"])
-        hybrid = self._result("CASE-1", "fixed query", ["a1", "b1", "b2"])
-        comparison, cases = build_comparison(
-            cases=[case],
-            dense_results=[dense],
-            bm25_results=[bm25],
-            hybrid_results=[hybrid],
-        )
-        groups = {item["evidence_group_id"]: item for item in cases[0]["evidence_group_rank_movement"]}
-        self.assertEqual(groups["EG-ANY"]["completion_rank"], {"dense": 1, "bm25": 1, "hybrid": 1})
-        self.assertEqual(groups["EG-ALL"]["completion_rank"], {"dense": None, "bm25": 3, "hybrid": 3})
-        self.assertEqual(comparison["metrics"]["dense"]["macro"]["complete_evidence@5"], 0.0)
-        self.assertEqual(comparison["metrics"]["hybrid"]["macro"]["complete_evidence@5"], 1.0)
-
-    def test_ranking_functions_have_no_gold_input(self) -> None:
-        self.assertNotIn("gold", run_bm25_retrieval.__annotations__)
-        self.assertNotIn("gold", run_rrf_fusion.__annotations__)
-
-    def test_immutable_writer_refuses_existing_directory(self) -> None:
-        with tempfile.TemporaryDirectory() as temp_dir:
-            target = Path(temp_dir) / PHASE7_VERSION
-            target.mkdir()
-            marker = target / "preserve.txt"
-            marker.write_text("yes", encoding="utf-8")
-            with self.assertRaises(FileExistsError):
-                write_immutable_phase7_artifacts(
-                    output_dir=target,
-                    index_metadata={},
-                    bm25_results=[],
-                    hybrid_results=[],
-                    comparison={},
-                    case_comparisons=[],
-                    reproducibility={},
-                    report="",
-                )
-            self.assertEqual(marker.read_text(encoding="utf-8"), "yes")
 
 
 if __name__ == "__main__":

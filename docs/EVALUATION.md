@@ -1,6 +1,6 @@
 # 평가 이력과 현재 한계
 
-이 문서는 로컬 frozen 결과 및 분석 문서에서 aggregate만 옮긴 공개 요약입니다. 원문 논문·개별 운동 기록·provider 응답은 재배포하지 않습니다.
+이 문서는 로컬 frozen 결과 및 분석 문서에서 aggregate만 옮긴 공개 요약입니다. 원문 논문·개별 운동 기록·provider 응답은 재배포하지 않습니다. 이 결과를 만든 실험 코드는 Git tag `legacy-pre-retrieval-v2`에 보존되어 있으며, 실험 순서와 Retrieval v1 구조 진단은 [HISTORY.md](HISTORY.md)에 정리했습니다.
 
 ## 연구 과정
 

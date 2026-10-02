@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -22,7 +21,6 @@ from src.answer.generator import (
     TRAINING_LOG_SEQUENCE_LIMIT,
     FinalResponseLayer,
 )
-from src.evaluation.end_to_end_runner import load_frozen_cases
 from src.recovery.contracts import MAX_RETRY
 from src.recovery.evidence_fusion import (
     EVIDENCE_BUDGET as FUSION_EVIDENCE_BUDGET,
@@ -34,9 +32,14 @@ from src.tools.metric import MetricTool
 
 
 ROOT = Path(__file__).resolve().parents[1]
-FROZEN_V1_MANIFEST_SHA256 = (
-    "fd6d45414010033d61971fbddbea26fcd19c485aa51b2cb64c2ef0caff3478e6"
-)
+EVAL_DATASET_PATH = ROOT / "data/evaluation/eval_dataset_v1.json"
+
+
+def load_frozen_cases() -> list[dict[str, Any]]:
+    """Read frozen eval_dataset_v1 cases; only their question text is used here."""
+
+    payload = json.loads(EVAL_DATASET_PATH.read_text(encoding="utf-8"))
+    return [dict(case) for case in payload["cases"]]
 
 
 class SessionSummaryTrainingTool:
@@ -278,23 +281,3 @@ def test_fixed_retry_top_ten_and_fusion_policy_are_unchanged() -> None:
     assert MAX_RETRY == 2
     assert FUSION_POLICY == "retry_evidence_fusion_v1"
     assert DEFAULT_RRF_K == 60
-
-
-def test_frozen_end_to_end_v1_artifacts_are_unchanged() -> None:
-    directory = ROOT / "reports/baselines/end_to_end_baseline_v1"
-    manifest_path = directory / "manifest.json"
-    assert hashlib.sha256(manifest_path.read_bytes()).hexdigest() == (
-        FROZEN_V1_MANIFEST_SHA256
-    )
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    assert manifest["status"] == "FROZEN_COMPLETE"
-    assert manifest["post_result_tuning"] is False
-    preregistration = (
-        ROOT
-        / "reports/baselines/end_to_end_baseline_v1_preregistration/manifest.json"
-    )
-    assert hashlib.sha256(preregistration.read_bytes()).hexdigest() == manifest[
-        "preregistration_sha256"
-    ]
-    for name, expected in manifest["artifact_hashes"].items():
-        assert hashlib.sha256((directory / name).read_bytes()).hexdigest() == expected

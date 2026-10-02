@@ -33,6 +33,6 @@
 
 ## 재현성과 테스트 범위
 
-코드와 테스트를 모두 보존하지만 데이터/산출물은 배포하지 않으므로 전체 suite와 실험 재현에는 로컬 자료가 필요합니다. README의 artifact-free API 테스트 명령은 clean source export에서 별도로 검증합니다. 과거 frozen 결과와 현재 post-baseline source는 같은 스냅샷이 아니며, 기존 baseline을 현재 코드로 덮어쓰지 않습니다.
+현재 브랜치에는 실행·평가·데이터 준비 코드와 테스트를 두고, 과거 실험 전용 코드는 Git tag `legacy-pre-retrieval-v2`에 보존합니다([HISTORY.md](HISTORY.md)). 데이터/산출물은 배포하지 않으므로 전체 suite와 실험 재현에는 로컬 자료가 필요합니다. README의 artifact-free API 테스트 명령은 clean source export에서 별도로 검증합니다. 과거 frozen 결과와 현재 post-baseline source는 같은 스냅샷이 아니며, 기존 baseline을 현재 코드로 덮어쓰지 않습니다.
 
 문헌·데이터의 라이선스를 확인하지 않은 상태에서 포괄적인 데이터 라이선스를 부여하지 않습니다. 이 초기 공개 준비에서는 코드 재사용 라이선스도 임의로 추가하지 않았습니다.

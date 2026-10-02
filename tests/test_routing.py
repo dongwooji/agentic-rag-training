@@ -2,19 +2,17 @@ from __future__ import annotations
 
 import hashlib
 from pathlib import Path
-import tempfile
 import unittest
 
 from src.evaluation.routing_metrics import evaluate_routing
 from src.routing import DeterministicRouter, RouterInput, RoutingStatus, TaskType
-from src.routing.baseline import (
-    EXPECTED_CONFIG_SHA256,
-    produce_routes,
-    write_immutable_router_artifacts,
-)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+# Runtime router configuration hash, pinned when router_baseline_v1 was frozen.
+EXPECTED_CONFIG_SHA256 = (
+    "034f72ea19ca6c364ac96e66402626bfdcc1345be677245202795bbe115acb77"
+)
 
 
 class DeterministicRouterTest(unittest.TestCase):
@@ -172,38 +170,6 @@ class RoutingEvaluationTest(unittest.TestCase):
         self.assertEqual(aggregate["unnecessary_tool_call_rate"], 0.5)
         self.assertEqual(aggregate["missing_required_tool_rate"], 0.0)
         self.assertEqual(aggregate["unanswerable_no_tool_routing_accuracy"], 0.0)
-
-    def test_router_boundary_receives_question_only(self) -> None:
-        cases = [
-            {
-                "id": "SECRET-ID",
-                "category": "unanswerable",
-                "question": "정제된 운동 로그의 session 목록",
-                "required_tools": [],
-                "gold": {"hidden": "must not enter router"},
-            }
-        ]
-        route = produce_routes(cases, DeterministicRouter())[0]
-        self.assertNotIn("category", route)
-        self.assertNotIn("required_tools", route)
-        self.assertNotIn("gold", route)
-        self.assertEqual(route["question"], cases[0]["question"])
-
-    def test_immutable_writer_refuses_existing_directory(self) -> None:
-        with tempfile.TemporaryDirectory() as temp_dir:
-            target = Path(temp_dir) / "router_baseline_v1"
-            target.mkdir()
-            marker = target / "preserve.txt"
-            marker.write_text("yes", encoding="utf-8")
-            with self.assertRaises(FileExistsError):
-                write_immutable_router_artifacts(
-                    output_dir=target,
-                    routes=[],
-                    metrics={"per_case": [], "aggregate": {"case_count": 0}},
-                    reproduction={"created_at_utc": "now"},
-                    rule_config={},
-                )
-            self.assertEqual(marker.read_text(encoding="utf-8"), "yes")
 
 
 if __name__ == "__main__":

@@ -1,9 +1,8 @@
 """Shared OpenAI Responses helpers for runtime providers.
 
-Behavior-identical copies of helpers that originate in frozen experiment
-modules (``src.agent.planner`` and ``src.grading.provider``). The originals are
-left untouched so historical baselines keep their recorded source; runtime
-providers import from here instead. Error messages are preserved verbatim.
+Behavior-identical copies of helpers that originated in the historical LLM
+Planner and Grader v1 provider modules, which are preserved in the
+``legacy-pre-retrieval-v2`` Git tag. Error messages are preserved verbatim.
 """
 
 from __future__ import annotations
@@ -36,7 +35,7 @@ def _read_attr(value: Any, name: str, default: Any = None) -> Any:
 
 
 def extract_final_json_text(response: Any) -> str:
-    """Copy of ``src.grading.provider._extract_final_json_text``."""
+    """Copy of the historical Grader v1 ``_extract_final_json_text``."""
 
     outputs = _read_attr(response, "output")
     if isinstance(outputs, (list, tuple)):
@@ -71,7 +70,7 @@ def extract_final_json_text(response: Any) -> str:
 
 
 def extract_planning_json_text(response: Any) -> str:
-    """Copy of ``src.agent.planner._extract_planning_json_text``.
+    """Copy of the historical LLM Planner ``_extract_planning_json_text``.
 
     Select the final structured message without aggregating commentary JSON.
     """

@@ -24,29 +24,19 @@ flowchart TD
     R -->|Unsupported| B
 ```
 
-- **Router:** Tool 종류와 순서를 규칙 기반으로 결정합니다. LLM Planner 비교 실험은 별도로 보존합니다.
+- **Router:** Tool 종류와 순서를 규칙 기반으로 결정합니다. LLM Planner 비교 결과는 [실험 이력](docs/HISTORY.md)에 정리했습니다.
 - **Tool Input Resolver:** 선택된 structured Tool의 인자만 추출합니다. 명시적인 운동명·N·날짜는 deterministic parsing, 복잡한 표현은 typed LLM fallback을 사용합니다.
 - **Training Log / Metric:** 기록 조회와 Epley e1RM, first/last N-session median, weekly volume/frequency, training gap 등을 분리합니다.
 - **Literature:** frozen corpus 22편·488 chunks, Dense + BM25(k1=1.2, b=0.75) + RRF(k=60), Top-10을 사용합니다.
 - **Runtime Grader / Recovery:** required component의 근거를 확인하고 최대 2회 재검색합니다. Fusion 이후에도 evidence budget은 10개입니다.
 - **Answer:** structured 기록과 문헌 근거를 구분하고 사용한 Tool 결과와 chunk ID를 추적합니다.
 
-## 평가에서 확인한 결과와 한계
+## 프로젝트 이력
 
-기존 frozen 30 cases(Literature 10 / Log-Metric 6 / Hybrid 8 / Unanswerable 6)를 재사용한 **integration baseline**입니다. 독립적인 일반화 성능 평가가 아닙니다.
-
-| 지표 | E2E v1 | E2E v2 |
-|---|---:|---:|
-| answer_ready | 13/30 | 19/30 |
-| execution_failure | 4/30 | 1/30 |
-| Hybrid answer_ready | 0/8 | 4/8 |
-| Log/Metric answer_ready | 4/6 | 6/6 |
-| Unanswerable abstention | 6/6 | 6/6 |
-| Gold 기준 unsafe answer | 2 | 5 |
-
-v2는 session→metric adapter, Hybrid literature subquestion 분리, Final Answer payload 제한이라는 세 integration defect를 수정한 후 평가했습니다. 실행 성공률은 높아졌지만 **답변 가능 상태가 곧 정확한 답변을 의미하지 않습니다.** v2의 19 answer_ready 중 5건은 Gold Final CompleteEvidence=false였습니다. Grounding ID 검증은 의미적 사실 검증을 대체하지 않습니다.
-
-Recovery는 v2에서 HYB-006의 Gold evidence completeness를 개선했지만 최종 응답은 abstain이었습니다. Grader 판단과 제한된 evidence fusion에는 여전히 병목이 있습니다. [평가 요약과 재현 범위](docs/EVALUATION.md)를 참고하세요.
+- 초기에는 frozen 30 cases로 Retrieval v1(Dense / BM25 / Hybrid), Router vs LLM Planner, Grader v1/v2/v2.1, E2E v1/v2 실험을 수행했습니다. 같은 평가셋을 반복 사용한 integration 비교이며 독립적인 일반화 성능이 아닙니다.
+- 후속 실패 원인 분석에서 Retrieval 설계 문제가 발견됐습니다. 예를 들어 문헌 청크의 94.67%가 임베딩 모델 입력 한도(128토큰)를 넘어 잘리고, 점수가 0인 BM25 결과도 RRF 순위에 기여합니다.
+- 과거 실험 소스는 Git tag `legacy-pre-retrieval-v2`에 보존했습니다. 결과 요약은 [실험 이력](docs/HISTORY.md)과 [평가 요약](docs/EVALUATION.md)에 있습니다.
+- 현재 브랜치에서는 Retrieval v2를 변수 하나씩 독립적으로 비교하는 방식으로 재설계합니다.
 
 최근 실제 REST smoke test에서는 같은 개발용 질문 3개가 모두 HTTP 200 / answer_ready로 완료됐습니다. Log/Metric과 Hybrid의 Resolver는 deterministic 방식으로 작동했습니다. 이는 연결 검증이며 성능 평가 결과에 합산하지 않았습니다.
 
@@ -85,7 +75,7 @@ python -m uvicorn src.api.app:app --host 127.0.0.1 --port 8000
 python -m pytest tests/test_api_health.py tests/test_api_query.py tests/test_api_smoke_v2_harness.py -q
 ```
 
-로컬 연구 자료가 있는 환경에서는 `python -m pytest -q`로 전체 suite를 실행합니다. Phase A.2 이후 전체 검증은 **468 passed**입니다. 전체 suite 중 frozen integrity·corpus·평가 및 실제 운동 후보 테스트는 비공개 로컬 artifacts에 의존하며, 이를 숨기기 위해 테스트를 skip하거나 계약을 바꾸지 않았습니다.
+로컬 연구 자료가 있는 환경에서는 `python -m pytest -q`로 전체 suite를 실행합니다. 과거 실험 코드를 tag로 분리한 뒤 전체 검증은 **435 passed**입니다. 전체 suite 중 frozen integrity·corpus·평가 및 실제 운동 후보 테스트는 비공개 로컬 artifacts에 의존하며, 이를 숨기기 위해 테스트를 skip하거나 계약을 바꾸지 않았습니다.
 
 ## 코드 구성
 
@@ -94,25 +84,23 @@ src/api/             FastAPI endpoints and runtime dependencies
 src/graph/           LangGraph orchestration and Tool Input Resolver
 src/interpretation/  Rule-first question interpretation and exercise validation
 src/tools/           Training Log, Metric, Literature contracts
-src/retrieval/       Dense, BM25, RRF and baseline runners
-src/grading/         Grader experiments and Runtime Evidence Grader
+src/retrieval/       Dense, BM25, RRF and pgvector retrieval
+src/grading/         Runtime Evidence Grader and Grader evaluation metric
 src/recovery/        Recovery query generation and evidence fusion
 src/answer/          Grounded answer and abstention
-src/evaluation/      Frozen evaluation contracts and metrics
-src/agent/           LLM Planner comparison and typed executor
+src/evaluation/      Evaluation-set contracts and retrieval/routing/E2E metrics
+src/agent/           Typed tool-plan contracts and executor
 src/routing/         Deterministic Router
 src/preprocessing/   Training-log normalization and eligibility
 src/literature/      Literature ingestion and provenance
 db/                  PostgreSQL schemas and pgvector setup
 config/              Non-secret configuration and prompts
-scripts/             Setup, validation, experiment and smoke entrypoints
-tests/               Mock/fixture and local artifact integrity tests
-docs/                Public evaluation and publishing notes
+scripts/             Setup, evaluation-set and smoke entrypoints
+tests/               Runtime, evaluation and data-preparation tests
+docs/                Repository map, history, evaluation and publishing notes
 ```
 
-현재 실행 구조와 과거 실험 코드의 파일별 구분은 [저장소 구성 지도](docs/REPOSITORY_MAP.md)를 참고하세요.
-
-기존 baseline runner는 연구 이력 설명을 위해 포함하며, 공개 준비 과정에서 baseline/API 평가를 재실행하지 않았습니다. frozen v1/v2 산출물은 로컬에서 그대로 보존합니다.
+파일별 역할(실행 / 평가 / 데이터 준비)은 [저장소 구성 지도](docs/REPOSITORY_MAP.md)를 참고하세요. 과거 실험 전용 코드는 현재 브랜치에 없으며 `legacy-pre-retrieval-v2` tag에서 확인할 수 있습니다. frozen v1/v2 산출물은 로컬에서 그대로 보존합니다.
 
 ## 운동 후보 확인 (Phase A.2)
 

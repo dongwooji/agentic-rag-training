@@ -3,14 +3,15 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import hashlib
 import json
 from pathlib import Path
 from time import perf_counter
 from typing import Any, Mapping, Protocol, Sequence
 
-from .baseline import CORPUS_VERSION, EMBEDDING_RUN_ID, sha256_file
 from .bm25 import BM25Index, DEFAULT_B, DEFAULT_K1, TOKENIZER_VERSION
 from .rrf import DEFAULT_RRF_K, reciprocal_rank_fusion
+from .runtime_config import CORPUS_VERSION, EMBEDDING_RUN_ID
 
 
 HYBRID_VERSION = "hybrid_baseline_v1"
@@ -34,6 +35,14 @@ class DenseVectorStore(Protocol):
     def search_exact_cosine(
         self, query_embedding: Any, *, embedding_run_id: str, top_k: int
     ) -> Any: ...
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
 
 
 @dataclass(frozen=True)
