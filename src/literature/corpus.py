@@ -104,13 +104,17 @@ def _chunk_section(
     current_texts: list[str] = []
     paragraph_numbers: list[int] = []
     current_words = 0
+    # A short source paragraph is not an overlap-only buffer.
+    current_new_words = 0
+    carried_overlap_words = 0
     for text, paragraph_number in units:
         words = text.split()
         if current_texts and current_words + len(words) > maximum_words:
-            if current_words <= overlap_words:
+            if not current_new_words:
                 current_texts = []
                 paragraph_numbers = []
                 current_words = 0
+                carried_overlap_words = 0
             else:
                 combined = "\n\n".join(current_texts)
                 chunks.append(
@@ -124,9 +128,12 @@ def _chunk_section(
                 current_texts = [" ".join(overlap)] if overlap else []
                 paragraph_numbers = [max(paragraph_numbers)] if overlap else []
                 current_words = len(overlap)
+                carried_overlap_words = len(overlap)
+                current_new_words = 0
         current_texts.append(text)
         paragraph_numbers.append(paragraph_number)
         current_words += len(words)
+        current_new_words += len(words)
         if current_words >= target_words:
             combined = "\n\n".join(current_texts)
             chunks.append(
@@ -140,9 +147,11 @@ def _chunk_section(
             current_texts = [" ".join(overlap)] if overlap else []
             paragraph_numbers = [max(paragraph_numbers)] if overlap else []
             current_words = len(overlap)
-    if current_texts and current_words > overlap_words:
+            carried_overlap_words = len(overlap)
+            current_new_words = 0
+    if current_texts and current_new_words:
         final_text = "\n\n".join(current_texts)
-        unique_tail = final_text.split()[overlap_words:] if chunks else final_text.split()
+        unique_tail = final_text.split()[carried_overlap_words:]
         merged_word_count = (
             len(chunks[-1]["text"].split()) + len(unique_tail) if chunks else 0
         )
