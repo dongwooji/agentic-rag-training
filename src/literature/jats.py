@@ -10,6 +10,7 @@ import xml.etree.ElementTree as ET
 
 _SPACE = re.compile(r"\s+")
 _BLOCK_TEXT_TAGS = {"fig", "table-wrap", "supplementary-material", "media"}
+_SPECIAL_TEXT_TAGS = {"list", "list-item", "boxed-text", "def-list"}
 
 
 @dataclass(frozen=True)
@@ -151,6 +152,72 @@ def _paragraphs(parent: ET.Element) -> list[str]:
     return values
 
 
+def _special_contents(node: ET.Element) -> str:
+    """Render structural children once, retaining inline text between blocks."""
+    lines: list[str] = []
+    inline = [node.text or ""]
+
+    def flush_inline() -> None:
+        text = clean_text(" ".join(inline))
+        if text:
+            lines.append(text)
+        inline.clear()
+
+    for child in node:
+        if child.tag.rsplit("}", 1)[-1] in _BLOCK_TEXT_TAGS:
+            pass
+        elif child.tag in _SPECIAL_TEXT_TAGS | {"sec", "def-item", "p", "title", "label", "caption"}:
+            flush_inline()
+            text = _special_text(child)
+            if text:
+                lines.append(text)
+        else:
+            inline.append(node_text(child))
+        if child.tail:
+            inline.append(child.tail)
+    flush_inline()
+    return "\n".join(lines)
+
+
+def _special_text(node: ET.Element) -> str:
+    if node.tag in {"p", "title", "label", "caption"}:
+        # Atomic paragraphs/captions already consume their inline descendants.
+        return node_text(node)
+    if node.tag == "def-item":
+        term = node_text(node.find("./term"))
+        definition = node.find("./def")
+        value = _special_contents(definition) if definition is not None else ""
+        return f"{term}: {value}" if term and value else term or value
+    text = _special_contents(node)
+    if node.tag == "list-item" and text:
+        return "- " + text.replace("\n", "\n  ")
+    return text
+
+
+def _walk_body_blocks(
+    parent: ET.Element,
+    path: tuple[str, ...],
+    output: list[SectionText],
+) -> None:
+    """Consume direct body/section blocks in order, without descendant re-emits."""
+    paragraphs: list[str] = []
+
+    def flush() -> None:
+        if paragraphs:
+            output.append(SectionText(" > ".join(path) or "Body", tuple(paragraphs)))
+            paragraphs.clear()
+
+    for child in parent:
+        if child.tag == "sec":
+            flush()
+            _walk_section(child, path, output)
+        elif child.tag == "p" or child.tag in _SPECIAL_TEXT_TAGS:
+            text = node_text(child) if child.tag == "p" else _special_text(child)
+            if text:
+                paragraphs.append(text)
+    flush()
+
+
 def _walk_section(
     section: ET.Element,
     parent_titles: tuple[str, ...],
@@ -158,11 +225,7 @@ def _walk_section(
 ) -> None:
     title = node_text(section.find("./title")) or section.attrib.get("sec-type", "section")
     path = tuple(value for value in (*parent_titles, title) if value)
-    paragraphs = _paragraphs(section)
-    if paragraphs:
-        output.append(SectionText(" > ".join(path), tuple(paragraphs)))
-    for child in section.findall("./sec"):
-        _walk_section(child, path, output)
+    _walk_body_blocks(section, path, output)
 
 
 def extract_sections(xml_path: Path) -> list[SectionText]:
@@ -180,9 +243,5 @@ def extract_sections(xml_path: Path) -> list[SectionText]:
     body = root.find(".//body")
     if body is None:
         return sections
-    direct_paragraphs = _paragraphs(body)
-    if direct_paragraphs:
-        sections.append(SectionText("Body", tuple(direct_paragraphs)))
-    for section in body.findall("./sec"):
-        _walk_section(section, (), sections)
+    _walk_body_blocks(body, (), sections)
     return sections
