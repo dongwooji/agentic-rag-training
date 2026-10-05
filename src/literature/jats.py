@@ -23,6 +23,10 @@ def clean_text(value: str) -> str:
     return _SPACE.sub(" ", value).strip()
 
 
+def _local_name(tag: str) -> str:
+    return tag.rsplit("}", 1)[-1]
+
+
 def node_text(node: ET.Element | None) -> str:
     if node is None:
         return ""
@@ -32,7 +36,7 @@ def node_text(node: ET.Element | None) -> str:
         if current.text:
             values.append(current.text)
         for child in current:
-            local_name = child.tag.rsplit("}", 1)[-1]
+            local_name = _local_name(child.tag)
             if local_name not in _BLOCK_TEXT_TAGS:
                 walk(child)
             if child.tail:
@@ -52,7 +56,7 @@ def _first(root: ET.Element, paths: tuple[str, ...]) -> ET.Element | None:
 
 def _article_ids(root: ET.Element) -> dict[str, str]:
     values: dict[str, str] = {}
-    for node in root.findall(".//article-meta/article-id"):
+    for node in root.findall(".//{*}article-meta/{*}article-id"):
         value = node_text(node)
         id_type = node.attrib.get("pub-id-type", "").casefold()
         if value and id_type:
@@ -62,15 +66,15 @@ def _article_ids(root: ET.Element) -> dict[str, str]:
 
 def _authors(root: ET.Element) -> list[str]:
     values: list[str] = []
-    for contrib in root.findall(".//article-meta/contrib-group/contrib"):
+    for contrib in root.findall(".//{*}article-meta/{*}contrib-group/{*}contrib"):
         if contrib.attrib.get("contrib-type", "author") != "author":
             continue
-        collective = node_text(contrib.find("collab"))
+        collective = node_text(contrib.find("{*}collab"))
         if collective:
             values.append(collective)
             continue
-        surname = node_text(contrib.find(".//surname"))
-        given = node_text(contrib.find(".//given-names"))
+        surname = node_text(contrib.find(".//{*}surname"))
+        given = node_text(contrib.find(".//{*}given-names"))
         name = clean_text(f"{surname} {given}")
         if name:
             values.append(name)
@@ -80,11 +84,11 @@ def _authors(root: ET.Element) -> list[str]:
 def _year(root: ET.Element) -> int | None:
     for pub_type in ("epub", "ppub", "collection"):
         value = root.findtext(
-            f".//article-meta/pub-date[@pub-type='{pub_type}']/year", ""
+            f".//{{*}}article-meta/{{*}}pub-date[@pub-type='{pub_type}']/{{*}}year", ""
         ).strip()
         if value.isdigit():
             return int(value)
-    for node in root.findall(".//article-meta/pub-date/year"):
+    for node in root.findall(".//{*}article-meta/{*}pub-date/{*}year"):
         value = (node.text or "").strip()
         if value.isdigit():
             return int(value)
@@ -92,9 +96,9 @@ def _year(root: ET.Element) -> int | None:
 
 
 def _license(root: ET.Element) -> tuple[str, str]:
-    license_node = root.find(".//article-meta/permissions/license")
+    license_node = root.find(".//{*}article-meta/{*}permissions/{*}license")
     if license_node is None:
-        copyright_node = root.find(".//article-meta/permissions/copyright-statement")
+        copyright_node = root.find(".//{*}article-meta/{*}permissions/{*}copyright-statement")
         return node_text(copyright_node), ""
     url = ""
     for key, value in license_node.attrib.items():
@@ -117,15 +121,15 @@ def _license(root: ET.Element) -> tuple[str, str]:
 def paper_metadata(xml_path: Path) -> dict[str, object]:
     root = ET.parse(xml_path).getroot()
     identifiers = _article_ids(root)
-    title = node_text(_first(root, (".//article-meta/title-group/article-title",)))
+    title = node_text(_first(root, (".//{*}article-meta/{*}title-group/{*}article-title",)))
     journal = node_text(
         _first(
             root,
             (
-                ".//journal-meta/journal-title",
-                ".//journal-meta/journal-id[@journal-id-type='nlm-ta']",
-                ".//journal-meta/journal-id[@journal-id-type='iso-abbrev']",
-                ".//journal-meta/journal-id",
+                ".//{*}journal-meta/{*}journal-title",
+                ".//{*}journal-meta/{*}journal-id[@journal-id-type='nlm-ta']",
+                ".//{*}journal-meta/{*}journal-id[@journal-id-type='iso-abbrev']",
+                ".//{*}journal-meta/{*}journal-id",
             ),
         )
     )
@@ -145,7 +149,7 @@ def paper_metadata(xml_path: Path) -> dict[str, object]:
 
 def _paragraphs(parent: ET.Element) -> list[str]:
     values: list[str] = []
-    for paragraph in parent.findall("./p"):
+    for paragraph in parent.findall("./{*}p"):
         text = node_text(paragraph)
         if text:
             values.append(text)
@@ -164,9 +168,10 @@ def _special_contents(node: ET.Element) -> str:
         inline.clear()
 
     for child in node:
-        if child.tag.rsplit("}", 1)[-1] in _BLOCK_TEXT_TAGS:
+        tag = _local_name(child.tag)
+        if tag in _BLOCK_TEXT_TAGS:
             pass
-        elif child.tag in _SPECIAL_TEXT_TAGS | {"sec", "def-item", "p", "title", "label", "caption"}:
+        elif tag in _SPECIAL_TEXT_TAGS | {"sec", "def-item", "p", "title", "label", "caption"}:
             flush_inline()
             text = _special_text(child)
             if text:
@@ -180,16 +185,17 @@ def _special_contents(node: ET.Element) -> str:
 
 
 def _special_text(node: ET.Element) -> str:
-    if node.tag in {"p", "title", "label", "caption"}:
+    tag = _local_name(node.tag)
+    if tag in {"p", "title", "label", "caption"}:
         # Atomic paragraphs/captions already consume their inline descendants.
         return node_text(node)
-    if node.tag == "def-item":
-        term = node_text(node.find("./term"))
-        definition = node.find("./def")
+    if tag == "def-item":
+        term = node_text(node.find("./{*}term"))
+        definition = node.find("./{*}def")
         value = _special_contents(definition) if definition is not None else ""
         return f"{term}: {value}" if term and value else term or value
     text = _special_contents(node)
-    if node.tag == "list-item" and text:
+    if tag == "list-item" and text:
         return "- " + text.replace("\n", "\n  ")
     return text
 
@@ -208,11 +214,12 @@ def _walk_body_blocks(
             paragraphs.clear()
 
     for child in parent:
-        if child.tag == "sec":
+        tag = _local_name(child.tag)
+        if tag == "sec":
             flush()
             _walk_section(child, path, output)
-        elif child.tag == "p" or child.tag in _SPECIAL_TEXT_TAGS:
-            text = node_text(child) if child.tag == "p" else _special_text(child)
+        elif tag == "p" or tag in _SPECIAL_TEXT_TAGS:
+            text = node_text(child) if tag == "p" else _special_text(child)
             if text:
                 paragraphs.append(text)
     flush()
@@ -223,7 +230,7 @@ def _walk_section(
     parent_titles: tuple[str, ...],
     output: list[SectionText],
 ) -> None:
-    title = node_text(section.find("./title")) or section.attrib.get("sec-type", "section")
+    title = node_text(section.find("./{*}title")) or section.attrib.get("sec-type", "section")
     path = tuple(value for value in (*parent_titles, title) if value)
     _walk_body_blocks(section, path, output)
 
@@ -232,7 +239,7 @@ def extract_sections(xml_path: Path) -> list[SectionText]:
     root = ET.parse(xml_path).getroot()
     sections: list[SectionText] = []
 
-    for abstract in root.findall(".//article-meta/abstract"):
+    for abstract in root.findall(".//{*}article-meta/{*}abstract"):
         paragraphs = _paragraphs(abstract)
         if not paragraphs:
             text = node_text(abstract)
@@ -240,7 +247,7 @@ def extract_sections(xml_path: Path) -> list[SectionText]:
         if paragraphs:
             sections.append(SectionText("Abstract", tuple(paragraphs)))
 
-    body = root.find(".//body")
+    body = root.find(".//{*}body")
     if body is None:
         return sections
     _walk_body_blocks(body, (), sections)

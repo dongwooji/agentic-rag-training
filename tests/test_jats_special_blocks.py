@@ -124,10 +124,10 @@ def test_abstract_and_outside_body_behavior_unchanged(tmp_path):
         SectionText("Abstract", ("Direct abstract",)), SectionText("Body", ("Body text",))]
 
 
-def test_namespace_support_not_added(tmp_path):
+def test_namespaced_special_block_preserves_representation(tmp_path):
     path = tmp_path / "namespaced.xml"
     path.write_text('<article xmlns="urn:jats"><body><list><list-item><p>Not selected</p></list-item></list></body></article>', encoding="utf-8")
-    assert extract_sections(path) == []
+    assert extract_sections(path) == [SectionText("Body", ("- Not selected",))]
 
 
 def test_ordinary_paragraph_node_text_unchanged(tmp_path):
