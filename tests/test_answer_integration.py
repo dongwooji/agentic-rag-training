@@ -1,3 +1,4 @@
+import pytest
 import hashlib
 from pathlib import Path
 
@@ -158,6 +159,7 @@ def test_final_response_node_is_in_compiled_graph() -> None:
     )
 
 
+@pytest.mark.requires_local_artifacts
 def test_frozen_artifact_manifests_remain_unchanged_after_answer_layer() -> None:
     for relative_path, expected_hash in FROZEN_MANIFEST_HASHES.items():
         actual = hashlib.sha256((ROOT / relative_path).read_bytes()).hexdigest()

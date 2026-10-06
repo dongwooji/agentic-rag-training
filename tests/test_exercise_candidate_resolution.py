@@ -54,6 +54,7 @@ def lookup(mention, candidate, status="resolved", **kwargs):
     ("벤치 프레스", "Bench Press (Barbell)"),
     ("스쿼트", "Squat (Barbell)"),
 ])
+@pytest.mark.requires_local_artifacts
 def test_existing_clear_korean_alias_rule_zero_llm(mention, canonical, actual_names):
     result, provider = run(f"내 {mention}의 기록을 조회해줘.", None, actual_names)
     assert result.execution_status == "ready"
@@ -69,6 +70,7 @@ def test_existing_clear_korean_alias_rule_zero_llm(mention, canonical, actual_na
     ("데드", "Deadlift (Barbell)"),
     ("벤치", "Bench Press (Barbell)"),
 ])
+@pytest.mark.requires_local_artifacts
 def test_same_interpreter_selects_actual_dataset_candidate_once(mention, canonical, actual_names):
     assert canonical in actual_names
     question = f"내 {mention} 기록 좀 확인해줘."
@@ -82,6 +84,7 @@ def test_same_interpreter_selects_actual_dataset_candidate_once(mention, canonic
 
 
 @pytest.mark.parametrize("mention", ["딥스", "데드", "벤치"])
+@pytest.mark.requires_local_artifacts
 def test_ambiguous_selection_never_executes_tools(mention, actual_names):
     # Ambiguity is supplied by the typed Interpreter, not an alias guessing rule.
     assert "Hammer Curl" in actual_names and "Hammer Curl (Dumbbell)" in actual_names
@@ -97,12 +100,14 @@ def test_ambiguous_selection_never_executes_tools(mention, actual_names):
 
 
 @pytest.mark.parametrize("candidate,status", [(None, "not_found"), ("Invented Cosmic Lift", "resolved")])
+@pytest.mark.requires_local_artifacts
 def test_unknown_or_hallucinated_candidate_cannot_execute(candidate, status, actual_names):
     result, _ = run("내 우주리프트 기록 좀 확인해줘.", lookup("우주리프트", candidate, status), actual_names)
     assert result.execution_status == "clarification_required"
     assert result.interpretation.canonical_exercise_name is None
 
 
+@pytest.mark.requires_local_artifacts
 def test_candidate_schema_enforces_membership(actual_names):
     schema = candidate_schema(tuple(actual_names))
     with pytest.raises(ValueError):
@@ -111,6 +116,7 @@ def test_candidate_schema_enforces_membership(actual_names):
 
 
 @pytest.mark.parametrize("mention", ["데드", "데드리프트"])
+@pytest.mark.requires_local_artifacts
 def test_live_vague_question_resolves_exercise_but_not_period_or_strength_metric(mention, actual_names):
     question = f"내가 예전에 {mention}할 때보다 요즘 얼마나 세졌는지 기록으로 한번 봐줘."
     output = lookup(mention, "Deadlift (Barbell)",
@@ -125,6 +131,7 @@ def test_live_vague_question_resolves_exercise_but_not_period_or_strength_metric
     assert len(provider.calls) == 1
 
 
+@pytest.mark.requires_local_artifacts
 def test_existing_success_question_still_rule_fast_path(actual_names):
     result, provider = run("내 데드리프트 처음 3세션과 최근 3세션 median e1RM 비교해줘.", None, actual_names)
     assert result.execution_status == "ready"
@@ -141,6 +148,7 @@ def test_actual_repository_adapter_read_only_selection():
     assert params == ()
 
 
+@pytest.mark.requires_local_artifacts
 def test_provider_gets_dynamic_enum_and_catalog_in_same_one_request(actual_names):
     client = MagicMock()
     client.responses.parse.return_value = SimpleNamespace(
@@ -154,6 +162,7 @@ def test_provider_gets_dynamic_enum_and_catalog_in_same_one_request(actual_names
     assert set(args["text_format"].model_json_schema()["properties"]["canonical_exercise_name"]["anyOf"][0]["enum"]) == set(actual_names)
 
 
+@pytest.mark.requires_local_artifacts
 def test_provider_hallucinated_candidate_is_schema_failure_without_retry(actual_names):
     client = MagicMock()
     client.responses.parse.return_value = SimpleNamespace(output_parsed=lookup("우주리프트", "Invented Cosmic Lift"), usage=None)
@@ -163,6 +172,7 @@ def test_provider_hallucinated_candidate_is_schema_failure_without_retry(actual_
     assert client.responses.parse.call_count == 1
 
 
+@pytest.mark.requires_local_artifacts
 def test_previous_literal_grounding_reproduces_reported_failure_paths(actual_names):
     # No live raw output was supplied. These are controlled examples of the
     # old code paths, not claims about the actual provider's raw response.
@@ -184,6 +194,7 @@ def test_catalog_failure_calls_no_llm():
     assert provider.calls == []
 
 
+@pytest.mark.requires_local_artifacts
 def test_missing_resolution_status_requires_clarification(actual_names):
     result, _ = run("내 데드 기록 좀 확인해줘.", lookup("데드", "Deadlift (Barbell)", None), actual_names)
     assert result.execution_status == "clarification_required"

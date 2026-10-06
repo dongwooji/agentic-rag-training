@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import pytest
 from datetime import datetime, timedelta
 import shutil
 import tempfile
@@ -353,6 +354,7 @@ class LiteratureToolTest(unittest.TestCase):
         )
         cls.tool = LiteratureTool(assets=cls.assets, retriever=cls.retriever)
 
+    @pytest.mark.requires_local_artifacts
     def test_frozen_assets_and_config_are_pinned(self) -> None:
         self.assertEqual(self.assets.corpus_chunks_sha256, FROZEN_CORPUS_CHUNKS_SHA256)
         self.assertEqual(
@@ -366,6 +368,7 @@ class LiteratureToolTest(unittest.TestCase):
             {"dense": 1.0, "bm25": 1.0},
         )
 
+    @pytest.mark.requires_local_artifacts
     def test_literature_top_k_contains_text_scores_and_provenance(self) -> None:
         response = self.tool.execute(
             LiteratureInput(
@@ -395,6 +398,7 @@ class LiteratureToolTest(unittest.TestCase):
             self.assertIn(field, first)
         self.assertEqual(response.provenance["retrieval_version"], "hybrid_baseline_v1")
 
+    @pytest.mark.requires_local_artifacts
     def test_invalid_query_and_top_k_are_structured(self) -> None:
         blank = self.tool.execute(
             LiteratureInput(operation="search", query="", top_k=3)
@@ -405,6 +409,7 @@ class LiteratureToolTest(unittest.TestCase):
         self.assertEqual(blank.error.code, ToolErrorCode.INVALID_INPUT)
         self.assertEqual(too_deep.error.code, ToolErrorCode.INVALID_INPUT)
 
+    @pytest.mark.requires_local_artifacts
     def test_tampered_frozen_corpus_is_rejected(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

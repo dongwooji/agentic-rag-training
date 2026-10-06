@@ -1,3 +1,4 @@
+import pytest
 from pathlib import Path
 import json
 import unittest
@@ -40,6 +41,7 @@ class LiteratureCorpusTest(unittest.TestCase):
             PROJECT_ROOT / "data" / "literature" / "processed" / "chunks.jsonl"
         )
 
+    @pytest.mark.requires_local_artifacts
     def test_selection_and_corpus_counts(self) -> None:
         self.assertEqual(len(self.selection["selected"]), 22)
         self.assertEqual(len(self.papers), 22)
@@ -47,6 +49,7 @@ class LiteratureCorpusTest(unittest.TestCase):
         self.assertTrue(self.validation["all_checks_passed"])
         self.assertTrue(all(self.validation["checks"].values()))
 
+    @pytest.mark.requires_local_artifacts
     def test_every_paper_has_traceable_source_and_license(self) -> None:
         for paper in self.papers:
             self.assertTrue(paper["pmid"])
@@ -56,6 +59,7 @@ class LiteratureCorpusTest(unittest.TestCase):
             self.assertTrue(paper["license"])
             self.assertEqual(len(paper["source_sha256"]), 64)
 
+    @pytest.mark.requires_local_artifacts
     def test_chunks_preserve_section_and_provenance(self) -> None:
         paper_ids = {paper["paper_id"] for paper in self.papers}
         for chunk in self.chunks:
@@ -66,6 +70,7 @@ class LiteratureCorpusTest(unittest.TestCase):
             self.assertEqual(len(chunk["text_sha256"]), 64)
             self.assertNotIn("<table-wrap", chunk["text"])
 
+    @pytest.mark.requires_local_artifacts
     def test_topic_coverage_matches_eda_questions(self) -> None:
         topics = {topic for paper in self.papers for topic in paper["topics"]}
         expected = {
@@ -79,6 +84,7 @@ class LiteratureCorpusTest(unittest.TestCase):
         }
         self.assertTrue(expected.issubset(topics))
 
+    @pytest.mark.requires_local_artifacts
     def test_candidate_screen_records_inclusions_and_api_failures(self) -> None:
         screened = json.loads(
             (
@@ -103,6 +109,7 @@ class LiteratureCorpusTest(unittest.TestCase):
             all("could not be acquired" in reason for reason in failed_sources.values())
         )
 
+    @pytest.mark.requires_local_artifacts
     def test_phase4_does_not_add_embeddings_or_retrieval_tuning(self) -> None:
         migration = (
             PROJECT_ROOT / "db" / "migrations" / "002_literature_schema.sql"
@@ -112,6 +119,7 @@ class LiteratureCorpusTest(unittest.TestCase):
         self.assertNotIn("embedding vector", migration)
         self.assertFalse(self.config["selection_policy"]["use_retrieval_outputs"])
 
+    @pytest.mark.requires_local_artifacts
     def test_database_load_sql_is_transactional_and_validated(self) -> None:
         inputs = load_literature_inputs(PROJECT_ROOT)
         sql = build_literature_load_sql(inputs)

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import pytest
 import json
 import unittest
 from collections import Counter
@@ -33,6 +34,7 @@ class EvidenceHumanReviewV2Test(unittest.TestCase):
             for group in cls.cases[case_id]["gold"]["literature_evidence_groups"]
         }
 
+    @pytest.mark.requires_local_artifacts
     def test_hashes_and_requested_scope_are_fixed(self) -> None:
         self.assertEqual(
             self.overrides["dataset_before_sha256"],
@@ -46,6 +48,7 @@ class EvidenceHumanReviewV2Test(unittest.TestCase):
             {"EG-LIT-010-03", "EG-HYB-002-02"},
         )
 
+    @pytest.mark.requires_local_artifacts
     def test_revised_group_shapes(self) -> None:
         expected_single_gold = {
             "EG-LIT-004-03": "paper_pmc9935748_conclusions_001_d77d57c2",
@@ -64,6 +67,7 @@ class EvidenceHumanReviewV2Test(unittest.TestCase):
         self.assertNotIn("EG-LIT-010-03", self.groups)
         self.assertNotIn("EG-HYB-002-02", self.groups)
 
+    @pytest.mark.requires_local_artifacts
     def test_previously_approved_group_definitions_are_unchanged(self) -> None:
         modified = set(self.overrides["modified_group_ids"])
         for case_id, mapping in MAPPINGS.items():
@@ -79,6 +83,7 @@ class EvidenceHumanReviewV2Test(unittest.TestCase):
                 for field in ("claim", "required", "match", "chunk_ids"):
                     self.assertEqual(current[field], original[field], f"{group_id}/{field}")
 
+    @pytest.mark.requires_local_artifacts
     def test_every_any_assignment_is_independently_supported(self) -> None:
         self.assertEqual(set(self.annotations["groups"]), set(self.groups))
         for group_id, group in self.groups.items():
@@ -88,6 +93,7 @@ class EvidenceHumanReviewV2Test(unittest.TestCase):
                 for chunk_review in review["chunks"].values():
                     self.assertEqual(chunk_review["rating"], "SUPPORTED", group_id)
 
+    @pytest.mark.requires_local_artifacts
     def test_all_group_has_complementary_required_roles(self) -> None:
         all_groups = [group for group in self.groups.values() if group["match"] == "all"]
         self.assertEqual([group["id"] for group in all_groups], ["EG-LIT-010-02"])
@@ -97,6 +103,7 @@ class EvidenceHumanReviewV2Test(unittest.TestCase):
         self.assertTrue(review["match_all_analysis"]["why_all"])
         self.assertIn("어느 한 chunk도", review["match_all_analysis"]["single_chunk_sufficiency"])
 
+    @pytest.mark.requires_local_artifacts
     def test_no_unsupported_gold_assignments_remain(self) -> None:
         ratings = Counter(
             chunk_review["rating"]
@@ -110,6 +117,7 @@ class EvidenceHumanReviewV2Test(unittest.TestCase):
         self.assertEqual(ratings, {"SUPPORTED": 61, "PARTIAL": 2})
         self.assertEqual(decisions, {"APPROVE": 44})
 
+    @pytest.mark.requires_local_artifacts
     def test_complete_evidence_at_5_is_feasible_for_every_case(self) -> None:
         minimums = {
             case_id: minimum_required_gold_chunks(self.cases[case_id])
@@ -118,6 +126,7 @@ class EvidenceHumanReviewV2Test(unittest.TestCase):
         self.assertLessEqual(max(minimums.values()), 5)
         self.assertEqual(max(minimums.values()), 2)
 
+    @pytest.mark.requires_local_artifacts
     def test_v2_report_records_final_human_approval(self) -> None:
         report = REPORT.read_text(encoding="utf-8")
         self.assertIn("Human Review V2", report)

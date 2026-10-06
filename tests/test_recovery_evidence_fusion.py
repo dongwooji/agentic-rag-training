@@ -203,6 +203,7 @@ def test_input_rejects_duplicate_source_ids_noncontiguous_rank_and_mismatch() ->
         _input(initial, recovery)
 
 
+@pytest.mark.requires_local_artifacts
 def test_frozen_artifact_manifests_remain_unchanged() -> None:
     for relative_path, expected_hash in FROZEN_MANIFEST_HASHES.items():
         actual = hashlib.sha256((ROOT / relative_path).read_bytes()).hexdigest()

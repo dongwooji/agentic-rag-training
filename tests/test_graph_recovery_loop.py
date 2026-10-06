@@ -1,3 +1,4 @@
+import pytest
 import hashlib
 from pathlib import Path
 
@@ -187,6 +188,7 @@ def test_empty_recovery_search_is_regraded_and_consumes_bounded_attempts() -> No
     assert [item["status"] for item in recovery_records] == ["empty", "empty"]
 
 
+@pytest.mark.requires_local_artifacts
 def test_frozen_artifact_manifests_remain_unchanged() -> None:
     for relative_path, expected_hash in FROZEN_MANIFEST_HASHES.items():
         actual = hashlib.sha256((ROOT / relative_path).read_bytes()).hexdigest()

@@ -1,3 +1,4 @@
+import pytest
 from pathlib import Path
 import unittest
 
@@ -16,6 +17,7 @@ class DatabasePhase3Test(unittest.TestCase):
             PROJECT_ROOT / "db" / "migrations" / "001_training_schema.sql"
         ).read_text(encoding="utf-8")
 
+    @pytest.mark.requires_local_artifacts
     def test_load_inputs_match_validated_phase2_outputs(self) -> None:
         self.assertEqual(self.inputs.version, "preprocessing_v1")
         self.assertEqual(
@@ -25,12 +27,14 @@ class DatabasePhase3Test(unittest.TestCase):
             self.inputs.validation["reconciliation"]["lineage_rows"], 9_932
         )
 
+    @pytest.mark.requires_local_artifacts
     def test_schema_preserves_provenance_and_known_collisions(self) -> None:
         self.assertIn("CREATE TABLE IF NOT EXISTS training.row_lineage", self.migration)
         self.assertIn("raw_row_count", self.migration)
         self.assertIn("set_order_collision_group_id", self.migration)
         self.assertNotIn("UNIQUE (session_id, exercise_id, set_order)", self.migration)
 
+    @pytest.mark.requires_local_artifacts
     def test_generated_load_is_transactional_and_reconciles_counts(self) -> None:
         sql = build_load_sql(self.inputs)
         self.assertTrue(sql.startswith("BEGIN;"))
@@ -40,12 +44,14 @@ class DatabasePhase3Test(unittest.TestCase):
         self.assertIn("per-set lineage reconciliation failed", sql)
         self.assertIn("training schema already contains data", sql)
 
+    @pytest.mark.requires_local_artifacts
     def test_replace_mode_is_explicit(self) -> None:
         sql = build_load_sql(self.inputs, replace=True)
         self.assertIn("TRUNCATE TABLE", sql)
         self.assertIn("RESTART IDENTITY", sql)
         self.assertNotIn("training schema already contains data", sql)
 
+    @pytest.mark.requires_local_artifacts
     def test_sql_helpers_reject_unsafe_identifiers_and_escape_literals(self) -> None:
         self.assertEqual(validate_identifier("agentic_rag_app"), "agentic_rag_app")
         with self.assertRaises(ValueError):

@@ -1,3 +1,4 @@
+import pytest
 import json
 from pathlib import Path
 
@@ -190,6 +191,7 @@ def test_hybrid_structured_evidence_never_enters_provider_input() -> None:
     ]
 
 
+@pytest.mark.requires_local_artifacts
 def test_frozen_grader_artifacts_remain_unchanged() -> None:
     import hashlib
 

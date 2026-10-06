@@ -381,6 +381,7 @@ def test_graph_inserts_resolver_between_router_and_initial_tools() -> None:
     assert len(grader.calls) == 1
 
 
+@pytest.mark.requires_local_artifacts
 def test_frozen_end_to_end_output_artifacts_remain_unchanged() -> None:
     expected = {
         "end_to_end_baseline_v1": (

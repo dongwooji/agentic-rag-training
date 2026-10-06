@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import pytest
 import json
 import subprocess
 import sys
@@ -23,6 +24,7 @@ class EvaluationSetPhase5Test(unittest.TestCase):
         cls.dataset = json.loads(DRAFT.read_text(encoding="utf-8"))
         cls.validation = validate_dataset(DRAFT, ROOT)
 
+    @pytest.mark.requires_local_artifacts
     def test_distribution_and_automated_validation(self) -> None:
         self.assertTrue(self.validation["all_automated_checks_passed"])
         self.assertEqual(self.validation["case_count"], 30)
@@ -41,11 +43,13 @@ class EvaluationSetPhase5Test(unittest.TestCase):
         )
         self.assertEqual(self.validation["complete_evidence_at_5"]["cases_over_5"], {})
 
+    @pytest.mark.requires_local_artifacts
     def test_eval_was_created_without_retrieval_outputs(self) -> None:
         self.assertTrue(self.dataset["protocol"]["created_before_retrieval_baseline"])
         self.assertFalse(self.dataset["protocol"]["retrieval_outputs_used_for_labeling"])
         self.assertTrue(self.validation["checks"]["no_retrieval_output_leakage"])
 
+    @pytest.mark.requires_local_artifacts
     def test_gold_chunks_and_source_hashes_are_stable(self) -> None:
         self.assertTrue(self.validation["checks"]["gold_chunk_ids_exist"])
         self.assertTrue(self.validation["checks"]["claim_evidence_groups_valid"])
@@ -54,6 +58,7 @@ class EvaluationSetPhase5Test(unittest.TestCase):
         self.assertEqual(self.validation["literature_query_count"], 18)
         self.assertGreaterEqual(self.validation["unique_gold_chunk_count"], 20)
 
+    @pytest.mark.requires_local_artifacts
     def test_unanswerable_cases_require_abstention_without_tools(self) -> None:
         cases = [
             case for case in self.dataset["cases"] if case["category"] == "unanswerable"
@@ -64,6 +69,7 @@ class EvaluationSetPhase5Test(unittest.TestCase):
             self.assertEqual(case["required_tools"], [])
             self.assertTrue(case["gold"]["missing_fields"])
 
+    @pytest.mark.requires_local_artifacts
     def test_representative_reference_metrics(self) -> None:
         gap = compute_reference("longest_training_gap", {})
         self.assertAlmostEqual(gap["gap_days"], 41.73512731481481)
@@ -73,6 +79,7 @@ class EvaluationSetPhase5Test(unittest.TestCase):
         )
         self.assertAlmostEqual(shoulder["change_pct"], 39.393939393939384)
 
+    @pytest.mark.requires_local_artifacts
     def test_human_review_is_approved_for_the_current_draft(self) -> None:
         review = json.loads(REVIEW.read_text(encoding="utf-8"))
         self.assertEqual(review["status"], "approved")
@@ -88,6 +95,7 @@ class EvaluationSetPhase5Test(unittest.TestCase):
         self.assertTrue(self.validation["checks"]["human_review_approved"])
         self.assertTrue(self.validation["ready_to_freeze"])
 
+    @pytest.mark.requires_local_artifacts
     def test_frozen_dataset_and_manifest_match_approved_draft(self) -> None:
         self.assertTrue(FROZEN.exists())
         self.assertTrue(MANIFEST.exists())
@@ -107,6 +115,7 @@ class EvaluationSetPhase5Test(unittest.TestCase):
             self.assertEqual(draft_case["id"], frozen_case["id"])
             self.assertEqual(draft_case["gold"], frozen_case["gold"])
 
+    @pytest.mark.requires_local_artifacts
     def test_freeze_command_refuses_without_confirmation(self) -> None:
         result = subprocess.run(
             [sys.executable, "scripts/freeze_evaluation_set.py"],

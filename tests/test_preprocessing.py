@@ -1,3 +1,4 @@
+import pytest
 from pathlib import Path
 import unittest
 
@@ -31,6 +32,7 @@ class PreprocessingTest(unittest.TestCase):
             cls.raw, cls.policy, cls.alias_decisions, cls.source_hash
         )
 
+    @pytest.mark.requires_local_artifacts
     def test_row_reconciliation(self) -> None:
         self.assertEqual(len(self.raw), 9_932)
         self.assertEqual(len(self.lineage), 9_932)
@@ -44,6 +46,7 @@ class PreprocessingTest(unittest.TestCase):
             len(self.raw),
         )
 
+    @pytest.mark.requires_local_artifacts
     def test_alias_shadow_maps_to_representative(self) -> None:
         generic = self.lineage.loc[self.lineage["source_row"].eq(3_015)].iloc[0]
         explicit = self.lineage.loc[self.lineage["source_row"].eq(3_031)].iloc[0]
@@ -56,6 +59,7 @@ class PreprocessingTest(unittest.TestCase):
             explicit["canonical_exercise_name"], "Incline Bench Press (Barbell)"
         )
 
+    @pytest.mark.requires_local_artifacts
     def test_deferred_aliases_remain_distinct(self) -> None:
         pairs = (
             self.processed.loc[
@@ -70,6 +74,7 @@ class PreprocessingTest(unittest.TestCase):
         self.assertEqual(pairs["Leg press"], "Leg press")
         self.assertEqual(pairs["Hammer Curl"], "Hammer Curl")
 
+    @pytest.mark.requires_local_artifacts
     def test_outlier_and_metric_eligibility_flags(self) -> None:
         squat_spike = self.processed.loc[
             self.processed["representative_source_row"].eq(4_815)
@@ -86,6 +91,7 @@ class PreprocessingTest(unittest.TestCase):
         self.assertTrue(bool(high_rep["include_in_volume_metrics"]))
         self.assertFalse(bool(high_rep["include_in_e1rm"]))
 
+    @pytest.mark.requires_local_artifacts
     def test_set_order_collisions_are_retained_and_flagged(self) -> None:
         collisions = self.processed.loc[self.processed["has_set_order_collision"]]
 
@@ -93,6 +99,7 @@ class PreprocessingTest(unittest.TestCase):
         self.assertEqual(collisions["set_order_collision_group_id"].nunique(), 2)
         self.assertEqual(set(collisions["canonical_exercise_name"]), {"Good Morning (Barbell)"})
 
+    @pytest.mark.requires_local_artifacts
     def test_primary_exercise_session_counts_match_eda(self) -> None:
         expected = {
             "Squat (Barbell)": 173,
@@ -112,6 +119,7 @@ class PreprocessingTest(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
+    @pytest.mark.requires_local_artifacts
     def test_ids_are_deterministic(self) -> None:
         second_processed, second_lineage = build_preprocessed_views(
             self.raw, self.policy, self.alias_decisions, self.source_hash
@@ -128,6 +136,7 @@ class PreprocessingTest(unittest.TestCase):
             self.lineage["row_status"], second_lineage["row_status"]
         )
 
+    @pytest.mark.requires_local_artifacts
     def test_validation_summary_passes(self) -> None:
         summary = build_validation_summary(
             raw=self.raw,

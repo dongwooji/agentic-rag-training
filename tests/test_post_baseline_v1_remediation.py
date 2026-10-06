@@ -166,6 +166,7 @@ def test_list_sessions_feeds_training_gap_for_log_and_hybrid(hybrid: bool) -> No
         ),
     ],
 )
+@pytest.mark.requires_local_artifacts
 def test_hybrid_grader_receives_literature_only_scope(
     case_id: str,
     excluded_terms: list[str],
@@ -192,6 +193,7 @@ def test_hybrid_grader_receives_literature_only_scope(
         assert term.casefold() not in scope.casefold()
 
 
+@pytest.mark.requires_local_artifacts
 def test_clean_literature_scope_is_shared_with_recovery_agent() -> None:
     case = next(item for item in load_frozen_cases() if item["id"] == "HYB-005")
     recovery_query = "VBT autoregulation fixed loading maximal strength evidence"

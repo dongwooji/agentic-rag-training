@@ -1,3 +1,4 @@
+import pytest
 from pathlib import Path
 import unittest
 
@@ -18,6 +19,7 @@ RAW_PATH = Path("data/raw/weightlifting_721_workouts.csv")
 
 
 class EdaWorkoutsTest(unittest.TestCase):
+    @pytest.mark.requires_local_artifacts
     def test_source_dataset_contract(self) -> None:
         frame = load_workouts(RAW_PATH)
 

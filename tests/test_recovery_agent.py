@@ -334,6 +334,7 @@ def test_openai_provider_transport_failure_calls_client_once() -> None:
     assert result.error.code == RecoveryErrorCode.PROVIDER_FAILURE
 
 
+@pytest.mark.requires_local_artifacts
 def test_frozen_artifact_manifests_remain_unchanged() -> None:
     for relative_path, expected_hash in FROZEN_MANIFEST_HASHES.items():
         actual = hashlib.sha256((ROOT / relative_path).read_bytes()).hexdigest()

@@ -1,3 +1,4 @@
+import pytest
 from dataclasses import dataclass, field
 
 from src.answer.contracts import AnswerTokenUsage
@@ -40,12 +41,14 @@ class FakeProvider:
         return FakeProviderResult(raw_output_text="secret raw model output")
 
 
+@pytest.mark.requires_local_artifacts
 def test_smoke_questions_are_unique_and_isolated_from_frozen_inputs() -> None:
     validate_smoke_case_isolation()
     assert len(SMOKE_CASES) == 3
     assert len({item.question for item in SMOKE_CASES}) == 3
 
 
+@pytest.mark.requires_local_artifacts
 def test_readable_frozen_dependencies_match_expected_hashes() -> None:
     assert len(verify_frozen_integrity()) == 7
 

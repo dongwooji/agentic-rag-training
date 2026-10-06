@@ -337,6 +337,7 @@ def test_sdk_client_initialization_disables_automatic_retries(monkeypatch):
     assert factory.call_args.kwargs["max_retries"] == 0
 
 
+@pytest.mark.requires_local_artifacts
 def test_phase_a_frozen_manifests_and_legacy_execution_contracts_unchanged():
     import hashlib
     from pathlib import Path

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import pytest
 import copy
 import json
 import tempfile
@@ -26,6 +27,7 @@ class ClaimEvidenceMetricsTest(unittest.TestCase):
         dataset = json.loads(DRAFT.read_text(encoding="utf-8"))
         cls.cases = {case["id"]: case for case in dataset["cases"]}
 
+    @pytest.mark.requires_local_artifacts
     def test_any_groups_and_all_required_semantics(self) -> None:
         case = self.cases["LIT-001"]
         conclusion = "paper_pmc6081873_conclusions_001_f2473a22"
@@ -36,6 +38,7 @@ class ClaimEvidenceMetricsTest(unittest.TestCase):
         self.assertEqual(evidence_group_recall_at_k(case, ranked, 3), 1.0)
         self.assertEqual(complete_evidence_at_k(case, ranked, 3), 1.0)
 
+    @pytest.mark.requires_local_artifacts
     def test_match_all_group_requires_every_chunk(self) -> None:
         case = self.cases["LIT-010"]
         definition = (
@@ -55,12 +58,14 @@ class ClaimEvidenceMetricsTest(unittest.TestCase):
             complete_evidence_at_k(case, [definition, individualization], 2), 1.0
         )
 
+    @pytest.mark.requires_local_artifacts
     def test_optional_groups_do_not_block_complete_evidence(self) -> None:
         case = self.cases["HYB-001"]
         required = "paper_pmc12965823_abstract_001_8343007d"
         self.assertEqual(evidence_group_recall_at_k(case, [required], 1), 1.0)
         self.assertEqual(complete_evidence_at_k(case, [required], 1), 1.0)
 
+    @pytest.mark.requires_local_artifacts
     def test_chunk_recall_and_mrr_are_retained(self) -> None:
         case = self.cases["LIT-001"]
         conclusion = "paper_pmc6081873_conclusions_001_f2473a22"
@@ -70,6 +75,7 @@ class ClaimEvidenceMetricsTest(unittest.TestCase):
         self.assertAlmostEqual(chunk_recall_at_k(case, ranked, 3), 2 / 3)
         self.assertEqual(reciprocal_rank(case, ranked), 0.5)
 
+    @pytest.mark.requires_local_artifacts
     def test_macro_evaluator_reports_all_metrics(self) -> None:
         cases = [self.cases["LIT-001"], self.cases["HYB-001"]]
         results = {
@@ -86,6 +92,7 @@ class ClaimEvidenceMetricsTest(unittest.TestCase):
         self.assertIn("chunk_recall@2", metrics["macro"])
         self.assertIn("mrr", metrics["macro"])
 
+    @pytest.mark.requires_local_artifacts
     def test_validator_rejects_bad_group_semantics_and_mapping(self) -> None:
         dataset = json.loads(DRAFT.read_text(encoding="utf-8"))
         broken = copy.deepcopy(dataset)
