@@ -1,0 +1,137 @@
+{
+  "version": "literature_corpus_v2",
+  "build_revision": 1,
+  "selection_manifest": "data/literature/v2/manifests/selection_freeze_v1/selection_manifest.json",
+  "selection_sha256": "b8aac64d65222093db9370d2cbb954dd0615d36a074cedc3915f3dff8f9b526c",
+  "selected_count": 26,
+  "chunking_policy_reference": "config/literature_corpus_v1.json",
+  "chunking": {
+    "strategy": "jats_section_paragraph",
+    "target_words": 350,
+    "minimum_words": 80,
+    "maximum_words": 550,
+    "overlap_words": 60,
+    "excluded_sections": [
+      "references",
+      "acknowledgments",
+      "acknowledgements",
+      "author contributions",
+      "authors’ contributions",
+      "authors' contributions",
+      "competing interests",
+      "conflict of interest",
+      "funding",
+      "ethics approval",
+      "data availability",
+      "supplementary material"
+    ]
+  },
+  "evidence_preservation_checks": [
+    {
+      "pmid": "42784046",
+      "requirement": "resistance-trained adults",
+      "patterns": [
+        "resistance.trained",
+        "(adults|years)"
+      ],
+      "section_pattern": "Participants"
+    },
+    {
+      "pmid": "42784046",
+      "requirement": "8-week intervention",
+      "patterns": [
+        "(eight|8)[ -]week"
+      ],
+      "section_pattern": "Experimental Approach"
+    },
+    {
+      "pmid": "42784046",
+      "requirement": "failure condition",
+      "patterns": [
+        "FAIL",
+        "failure"
+      ],
+      "section_pattern": "Procedures"
+    },
+    {
+      "pmid": "42784046",
+      "requirement": "prescribed 1–3 RIR",
+      "patterns": [
+        "1[–-]3",
+        "RIR"
+      ],
+      "section_pattern": "Procedures"
+    },
+    {
+      "pmid": "42784046",
+      "requirement": "direct hypertrophy measurement",
+      "patterns": [
+        "(ultrasound|ultrason)",
+        "thickness"
+      ],
+      "section_pattern": "Muscle Thickness Assessment"
+    },
+    {
+      "pmid": "42784046",
+      "requirement": "relevant result",
+      "patterns": [
+        "thickness",
+        "0\\.032",
+        "FAIL",
+        "RIR"
+      ],
+      "section_pattern": "Results"
+    },
+    {
+      "pmid": "36228016",
+      "requirement": "RTEV condition and distinction from RTUV",
+      "patterns": [
+        "RTEV",
+        "RTUV",
+        "(equal|volume)"
+      ],
+      "section_pattern": "Experimental design"
+    },
+    {
+      "pmid": "36228016",
+      "requirement": "weekly volume matching",
+      "patterns": [
+        "RTEV",
+        "same TTV",
+        "weekly"
+      ],
+      "section_pattern": "Resistance training protocols"
+    },
+    {
+      "pmid": "36228016",
+      "requirement": "strength / 1RM outcome",
+      "patterns": [
+        "(1RM|1.RM)",
+        "(strength|maximum)"
+      ],
+      "section_pattern": "Maximum dynamic strength test"
+    },
+    {
+      "pmid": "36228016",
+      "requirement": "direct morphology / MRI",
+      "patterns": [
+        "(magnetic resonance|MRI)",
+        "(CSA|cross.sectional)"
+      ],
+      "section_pattern": "Muscle cross-sectional area measurement"
+    },
+    {
+      "pmid": "36228016",
+      "requirement": "relevant result",
+      "patterns": [
+        "RTEV",
+        "RTUV",
+        "1RM",
+        "CSA",
+        "0\\.15",
+        "0\\.51"
+      ],
+      "section_pattern": "^Results$"
+    }
+  ]
+}
