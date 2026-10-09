@@ -28,8 +28,8 @@ class RRFResponse:
     candidate_count: int
 
 
-def _validate_ranking(name: str, ranking: Sequence[str]) -> None:
-    if not ranking:
+def _validate_ranking(name: str, ranking: Sequence[str], *, allow_empty: bool = False) -> None:
+    if not ranking and not allow_empty:
         raise ValueError(f"{name} ranking cannot be empty")
     if len(ranking) != len(set(ranking)):
         raise ValueError(f"{name} ranking contains duplicate chunk IDs")
@@ -49,7 +49,7 @@ def reciprocal_rank_fusion(
     if top_k <= 0:
         raise ValueError("top_k must be positive")
     _validate_ranking("Dense", dense_ranking)
-    _validate_ranking("BM25", bm25_ranking)
+    _validate_ranking("BM25", bm25_ranking, allow_empty=True)
     started = perf_counter()
     dense_ranks = {chunk_id: rank for rank, chunk_id in enumerate(dense_ranking, 1)}
     bm25_ranks = {chunk_id: rank for rank, chunk_id in enumerate(bm25_ranking, 1)}
@@ -96,4 +96,3 @@ def reciprocal_rank_fusion(
         latency_ms=(perf_counter() - started) * 1000.0,
         candidate_count=len(candidates),
     )
-
