@@ -9,22 +9,17 @@ from pathlib import Path
 from time import perf_counter
 from typing import Any, Mapping, Protocol, Sequence
 
-from .bm25 import BM25Index, DEFAULT_B, DEFAULT_K1, TOKENIZER_VERSION
-from .rrf import DEFAULT_RRF_K, reciprocal_rank_fusion
-from .runtime_config import CORPUS_VERSION, EMBEDDING_RUN_ID
+from .bm25 import BM25Index
+from .rrf import reciprocal_rank_fusion
+from .runtime_config import DEFAULT_RETRIEVAL_CONFIG, RetrievalConfig
 
 
-HYBRID_VERSION = "hybrid_baseline_v1"
-SOURCE_DEPTH = 10
-FROZEN_CORPUS_CHUNKS_SHA256 = (
-    "640bf8bcf3b6126c1755e27844286e9945743c1cb8b7b983d67590ad27ca0177"
-)
-FROZEN_CORPUS_MANIFEST_SHA256 = (
-    "84982b1bf7f4226755c8a1335b7a1dd6da0271fc241b00a15212db445133ca66"
-)
-FROZEN_PHASE7_MANIFEST_SHA256 = (
-    "015924df97fc29130e81f971aed7b7f1946e9daf7f02c63315995bf21bf92e1f"
-)
+HYBRID_VERSION = DEFAULT_RETRIEVAL_CONFIG.retrieval_version
+SOURCE_DEPTH = DEFAULT_RETRIEVAL_CONFIG.rrf.top_k
+# Retained import aliases; hash values are defined only in the versioned config.
+FROZEN_CORPUS_CHUNKS_SHA256 = DEFAULT_RETRIEVAL_CONFIG.validation.corpus_chunks_sha256
+FROZEN_CORPUS_MANIFEST_SHA256 = DEFAULT_RETRIEVAL_CONFIG.validation.corpus_manifest_sha256
+FROZEN_PHASE7_MANIFEST_SHA256 = DEFAULT_RETRIEVAL_CONFIG.validation.hybrid_manifest_sha256
 
 
 class DenseEncoder(Protocol):
@@ -58,6 +53,7 @@ class FrozenLiteratureAssets:
     phase7_artifact_hashes: Mapping[str, str]
     bm25_metadata: Mapping[str, Any]
     phase7_reproducibility: Mapping[str, Any]
+    retrieval_config: RetrievalConfig | None = None
 
 
 @dataclass(frozen=True)
@@ -94,10 +90,13 @@ def _read_jsonl(path: Path) -> list[dict[str, Any]]:
 
 def load_frozen_literature_assets(
     project_root: str | Path,
+    *,
+    config: RetrievalConfig | None = None,
 ) -> FrozenLiteratureAssets:
     """Load corpus/config only; evaluation questions and Gold are never opened."""
 
     root = Path(project_root).resolve()
+    settings = config or DEFAULT_RETRIEVAL_CONFIG
     chunks_path = root / "data/literature/processed/chunks.jsonl"
     corpus_manifest_path = root / "data/literature/manifests/corpus_v1.json"
     phase7_dir = root / "reports/baselines/hybrid_baseline_v1"
@@ -118,11 +117,11 @@ def load_frozen_literature_assets(
     chunks_hash = sha256_file(chunks_path)
     corpus_manifest_hash = sha256_file(corpus_manifest_path)
     phase7_manifest_hash = sha256_file(phase7_manifest_path)
-    if chunks_hash != FROZEN_CORPUS_CHUNKS_SHA256:
+    if chunks_hash != settings.validation.corpus_chunks_sha256:
         raise RuntimeError("Frozen literature_corpus_v1 chunks hash changed")
-    if corpus_manifest_hash != FROZEN_CORPUS_MANIFEST_SHA256:
+    if corpus_manifest_hash != settings.validation.corpus_manifest_sha256:
         raise RuntimeError("Frozen literature_corpus_v1 manifest hash changed")
-    if phase7_manifest_hash != FROZEN_PHASE7_MANIFEST_SHA256:
+    if phase7_manifest_hash != settings.validation.hybrid_manifest_sha256:
         raise RuntimeError("Frozen hybrid_baseline_v1 manifest hash changed")
 
     corpus_manifest = _read_json(corpus_manifest_path)
@@ -133,6 +132,8 @@ def load_frozen_literature_assets(
     artifact_hashes: dict[str, str] = {}
     for artifact in phase7_manifest.get("artifacts", []):
         artifact_path = phase7_dir / str(artifact["path"])
+        if artifact_path.resolve().parent != phase7_dir.resolve():
+            raise RuntimeError('Frozen artifact path must stay within baseline directory')
         actual = sha256_file(artifact_path)
         if actual != artifact.get("sha256"):
             raise RuntimeError(
@@ -142,29 +143,29 @@ def load_frozen_literature_assets(
 
     checks = {
         "phase7_status": phase7_manifest.get("status") == "frozen",
-        "phase7_version": phase7_manifest.get("phase7_version") == HYBRID_VERSION,
+        "phase7_version": phase7_manifest.get("phase7_version") == settings.retrieval_version,
         "configuration_status": phase7_manifest.get("configuration_status")
         == "untuned_first_configuration",
-        "reproduction_version": reproduction.get("phase7_version") == HYBRID_VERSION,
+        "reproduction_version": reproduction.get("phase7_version") == settings.retrieval_version,
         "reproduction_corpus": reproduction.get("inputs", {}).get(
             "corpus_chunks_sha256"
         )
         == chunks_hash,
-        "corpus_version": corpus_manifest.get("corpus_version") == CORPUS_VERSION,
-        "corpus_count": corpus_manifest.get("chunk_count") == len(chunks) == 488,
+        "corpus_version": corpus_manifest.get("corpus_version") == settings.corpus_version,
+        "corpus_count": corpus_manifest.get("chunk_count") == len(chunks) == settings.validation.expected_chunk_count,
         "chunk_versions": all(
-            chunk.get("corpus_version") == CORPUS_VERSION for chunk in chunks
+            chunk.get("corpus_version") == settings.corpus_version for chunk in chunks
         ),
         "chunk_ids": len({chunk.get("chunk_id") for chunk in chunks}) == len(chunks),
-        "bm25_k1": reproduction.get("bm25", {}).get("k1") == DEFAULT_K1,
-        "bm25_b": reproduction.get("bm25", {}).get("b") == DEFAULT_B,
+        "bm25_k1": reproduction.get("bm25", {}).get("k1") == settings.bm25.k1,
+        "bm25_b": reproduction.get("bm25", {}).get("b") == settings.bm25.b,
         "tokenizer": reproduction.get("bm25", {}).get("tokenizer_version")
-        == TOKENIZER_VERSION,
-        "rrf_k": reproduction.get("rrf", {}).get("rrf_k") == DEFAULT_RRF_K,
+        == settings.bm25.tokenizer_version,
+        "rrf_k": reproduction.get("rrf", {}).get("rrf_k") == settings.rrf.k,
         "rrf_weights": reproduction.get("rrf", {}).get("weights")
-        == {"dense": 1.0, "bm25": 1.0},
+        == {"dense": settings.rrf.dense_weight, "bm25": settings.rrf.bm25_weight},
         "source_depth": reproduction.get("rrf", {}).get("source_depth")
-        == {"dense": SOURCE_DEPTH, "bm25": SOURCE_DEPTH},
+        == {"dense": settings.dense.source_depth, "bm25": settings.bm25.source_depth},
     }
     failed = sorted(name for name, passed in checks.items() if not passed)
     if failed:
@@ -175,7 +176,7 @@ def load_frozen_literature_assets(
         project_root=root,
         chunks=chunks,
         chunks_by_id=by_id,
-        corpus_version=CORPUS_VERSION,
+        corpus_version=settings.corpus_version,
         corpus_chunks_sha256=chunks_hash,
         corpus_manifest_sha256=corpus_manifest_hash,
         phase7_manifest_sha256=phase7_manifest_hash,
@@ -183,6 +184,7 @@ def load_frozen_literature_assets(
         phase7_artifact_hashes=artifact_hashes,
         bm25_metadata=bm25_metadata,
         phase7_reproducibility=reproduction,
+        retrieval_config=settings,
     )
 
 
@@ -195,11 +197,20 @@ class FrozenHybridRetriever:
         assets: FrozenLiteratureAssets,
         encoder: DenseEncoder,
         vector_store: DenseVectorStore,
+        config: RetrievalConfig | None = None,
     ) -> None:
         self.assets = assets
+        self.config = config or assets.retrieval_config or DEFAULT_RETRIEVAL_CONFIG
+        if assets.retrieval_config is not None and self.config != assets.retrieval_config:
+            raise RuntimeError('Retriever config differs from validated assets')
         self._encoder = encoder
         self._vector_store = vector_store
-        self._bm25 = BM25Index(assets.chunks, k1=DEFAULT_K1, b=DEFAULT_B)
+        encoder_metadata = getattr(encoder, 'metadata', None)
+        if encoder_metadata is not None:
+            for field in ('model_id', 'model_revision', 'embedding_dimension', 'max_sequence_length', 'normalize_embeddings', 'precision', 'batch_size'):
+                if getattr(encoder_metadata, field) != getattr(self.config.dense, field):
+                    raise RuntimeError(f'Encoder differs from retrieval config: {field}')
+        self._bm25 = BM25Index(assets.chunks, k1=self.config.bm25.k1, b=self.config.bm25.b)
         for field in (
             "implementation",
             "k1",
@@ -215,25 +226,25 @@ class FrozenHybridRetriever:
     def search(self, query: str, *, top_k: int = SOURCE_DEPTH) -> HybridRuntimeResponse:
         if not isinstance(query, str) or not query.strip():
             raise ValueError("query must be non-empty text")
-        if not isinstance(top_k, int) or not 1 <= top_k <= SOURCE_DEPTH:
-            raise ValueError(f"top_k must be between 1 and {SOURCE_DEPTH}")
+        if not isinstance(top_k, int) or not 1 <= top_k <= self.config.rrf.top_k:
+            raise ValueError(f"top_k must be between 1 and {self.config.rrf.top_k}")
         total_started = perf_counter()
         embedding_started = perf_counter()
         query_vector = self._encoder.encode([query], show_progress=False)[0]
         embedding_ms = (perf_counter() - embedding_started) * 1000.0
         dense = self._vector_store.search_exact_cosine(
             query_vector,
-            embedding_run_id=EMBEDDING_RUN_ID,
-            top_k=SOURCE_DEPTH,
+            embedding_run_id=self.config.embedding_run_id,
+            top_k=self.config.dense.source_depth,
         )
-        bm25 = self._bm25.search(query, top_k=SOURCE_DEPTH)
+        bm25 = self._bm25.search(query, top_k=self.config.bm25.source_depth)
         dense_ids = [str(hit.chunk_id) for hit in dense.hits]
         bm25_ids = [str(hit.chunk_id) for hit in bm25.hits]
         fused = reciprocal_rank_fusion(
             dense_ids,
             bm25_ids,
-            rrf_k=DEFAULT_RRF_K,
-            top_k=SOURCE_DEPTH,
+            rrf_k=self.config.rrf.k,
+            top_k=self.config.rrf.top_k,
         )
         dense_scores = {str(hit.chunk_id): float(hit.score) for hit in dense.hits}
         bm25_scores = {str(hit.chunk_id): float(hit.score) for hit in bm25.hits}

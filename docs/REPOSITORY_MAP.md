@@ -36,6 +36,7 @@
 | `preprocessing/` | 데이터 준비 | 운동 기록 정규화와 eligibility 정책. `policy.py`·`clean_workouts.py`는 지표 정의를 통해 실행 중에도 로드된다 |
 | `literature/` | 데이터 준비 | PubMed/JATS 수집, chunk 구성, 문헌 DB 적재 |
 | `evaluation/retrieval_metrics.py` | 평가 | EvidenceGroupRecall, CompleteEvidence, ChunkRecall, MRR, Gold 근거 묶음 처리 |
+| `evaluation/retrieval_preparation.py`, `dev_ko.py` | 평가 | Retrieval v2 H0 재현 비교, 사용자 검토 후 한국어 개발셋 동결·검증 |
 | `evaluation/routing_metrics.py` | 평가 | Router Tool 선택 지표 |
 | `evaluation/end_to_end_metrics.py` | 평가 | 완료된 graph state와 평가 계약을 비교하는 E2E 지표 |
 | `evaluation/validation.py`, `reference.py`, `report.py` | 평가 | 평가셋 계약 검증, 기록 기반 기준값 계산, 사람 검토용 보고서 |
@@ -50,6 +51,7 @@
 | `router_baseline_v1.json` | 실행. 현재 Router가 로드하는 설정 (이름은 최초 동결 당시 버전) |
 | `exercise_aliases_v1.csv`, `preprocessing_v1.json` | 실행 + 데이터 준비 (frozen) |
 | `literature_corpus_v1.json`, `literature_selection_v1.json` | 데이터 준비 |
+| `retrieval_h0_v1.json` | 실행 (H0 검색 설정과 frozen 자산 검증 해시; 평가 질문·Gold 없음) |
 
 ## scripts/
 
@@ -57,6 +59,7 @@
 |---|---|
 | 실행 확인 | `run_api_integration_smoke.py`, `run_end_to_end_smoke.py` |
 | 평가셋 구축·검증 | `freeze_evaluation_set.py`, `validate_evaluation_set.py`, `build_evaluation_evidence_human_review.py`, `migrate_evidence_groups.py` |
+| Retrieval 개발 평가 | `run_retrieval_v2_preparation.py`, `freeze_dev_ko.py` (사용자 승인 기록 필수) |
 | 데이터 준비 | `setup_postgres.py`, `load_postgres.py`, `load_literature_postgres.py`, `setup_dense_retrieval.py`, `preprocess_workouts.py`, `build_literature_corpus.py`, `search_literature.py`, `eda_workouts.py`, `test_postgres_integration.py` |
 
 ## tests/
