@@ -9,7 +9,7 @@ import json
 import math
 import re
 from time import perf_counter
-from typing import Any, Sequence
+from typing import Any, Literal, Sequence
 
 import numpy as np
 
@@ -131,9 +131,14 @@ class BM25Index:
             "build_latency_ms": (perf_counter() - started) * 1000.0,
         }
 
-    def search(self, query: str, *, top_k: int = 10) -> BM25SearchResponse:
+    def search(
+        self, query: str, *, top_k: int = 10,
+        score_policy: Literal['retain_zero', 'positive_only'] = 'retain_zero',
+    ) -> BM25SearchResponse:
         if top_k <= 0 or top_k > self.document_count:
             raise ValueError("top_k must be between one and the document count")
+        if score_policy not in ('retain_zero', 'positive_only'):
+            raise ValueError('Unsupported BM25 score policy')
         started = perf_counter()
         query_tokens = tokenize(query)
         query_frequencies = Counter(query_tokens)
@@ -159,7 +164,8 @@ class BM25Index:
                 )
 
         ranked_indices = sorted(
-            range(self.document_count),
+            (index for index in range(self.document_count)
+             if score_policy == 'retain_zero' or scores[index] > 0),
             key=lambda index: (-float(scores[index]), self.chunk_ids[index]),
         )[:top_k]
         hits = [

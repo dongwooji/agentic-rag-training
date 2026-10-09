@@ -237,7 +237,10 @@ class FrozenHybridRetriever:
             embedding_run_id=self.config.embedding_run_id,
             top_k=self.config.dense.source_depth,
         )
-        bm25 = self._bm25.search(query, top_k=self.config.bm25.source_depth)
+        bm25 = self._bm25.search(
+            query, top_k=self.config.bm25.source_depth,
+            score_policy=self.config.bm25.score_policy,
+        )
         dense_ids = [str(hit.chunk_id) for hit in dense.hits]
         bm25_ids = [str(hit.chunk_id) for hit in bm25.hits]
         fused = reciprocal_rank_fusion(

@@ -33,7 +33,7 @@ class BM25Settings(FrozenSettings):
     b: float = Field(ge=0, le=1)
     tokenizer_version: Literal['script_aware_unicode_alnum_casefold_v1']
     source_depth: int = Field(gt=0)
-    score_policy: Literal['retain_zero']
+    score_policy: Literal['retain_zero', 'positive_only']
     metadata: Literal[False]
 
 
@@ -55,7 +55,7 @@ class AssetValidation(FrozenSettings):
 class RetrievalConfig(FrozenSettings):
     schema_version: Literal[1]
     config_version: str = Field(min_length=1)
-    setting: Literal['H0']
+    setting: Literal['H0', 'H1']
     retrieval_version: str = Field(min_length=1)
     corpus_version: str = Field(min_length=1)
     embedding_run_id: str = Field(min_length=1)
@@ -67,6 +67,9 @@ class RetrievalConfig(FrozenSettings):
 
     @model_validator(mode='after')
     def validate_depth(self):
+        expected_policy = 'retain_zero' if self.setting == 'H0' else 'positive_only'
+        if self.bm25.score_policy != expected_policy:
+            raise ValueError('BM25 score policy differs from declared H0/H1 setting')
         if self.rrf.top_k > min(self.dense.source_depth, self.bm25.source_depth):
             raise ValueError('Final Top-K exceeds source depth')
         if max(self.dense.source_depth, self.bm25.source_depth) > self.validation.expected_chunk_count:

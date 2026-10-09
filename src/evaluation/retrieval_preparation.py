@@ -127,3 +127,71 @@ def rankings_equal_with_tolerance(before: dict[str, list[dict[str, Any]]], after
                 elif value != other:
                     return False
     return True
+
+
+def metric_changes(before: dict[str, Any], after: dict[str, Any]) -> dict[str, Any]:
+    """Compare each metric separately; mixed changes are never hidden in one label."""
+    if set(before['per_case']) != set(after['per_case']) or set(before['macro']) != set(after['macro']):
+        raise ValueError('Metric comparison requires identical cases and metrics')
+
+    def change(old: float, new: float) -> dict[str, Any]:
+        delta = new - old
+        direction = 'unchanged' if math.isclose(old, new, rel_tol=0, abs_tol=METRIC_ATOL) else ('improved' if delta > 0 else 'worsened')
+        return {'h0': old, 'h1': new, 'delta': delta, 'direction': direction}
+
+    per_case = {}
+    counts: dict[str, dict[str, int]] = {}
+    for case_id, values in before['per_case'].items():
+        if set(values) != set(after['per_case'][case_id]):
+            raise ValueError('Per-case metrics differ')
+        per_case[case_id] = {}
+        for name, old in values.items():
+            item = change(old, after['per_case'][case_id][name])
+            per_case[case_id][name] = item
+            counts.setdefault(name, {'improved': 0, 'worsened': 0, 'unchanged': 0})[item['direction']] += 1
+    return {
+        'macro': {name: change(old, after['macro'][name]) for name, old in before['macro'].items()},
+        'per_case': per_case, 'counts': counts, 'metric_atol': METRIC_ATOL,
+    }
+
+
+def compare_h1_to_h0(result: dict[str, Any], rankings: dict[str, Any], sources: dict[str, Any], reference_dir: Path) -> dict[str, Any]:
+    """Validate the single changed policy and report performance without tuning it."""
+    read = lambda name: json.loads((reference_dir / name).read_text(encoding='utf-8'))
+    reference = read('result.json')
+    old_sources = read('source_rankings.json')
+    old_config = reference['config']
+    normalized = json.loads(json.dumps(result['config']))
+    normalized['setting'] = old_config['setting']
+    normalized['config_version'] = old_config['config_version']
+    normalized['bm25']['score_policy'] = old_config['bm25']['score_policy']
+    expected_bm25 = {case_id: [hit for hit in hits if hit['score'] > 0] for case_id, hits in old_sources['bm25'].items()}
+    empty_cases = [case_id for case_id, hits in sources['bm25'].items() if not hits]
+    empty_fusion_checks = {}
+    for case_id in empty_cases:
+        hits = rankings[case_id]
+        empty_fusion_checks[case_id] = (
+            [h['chunk_id'] for h in hits] == [h['chunk_id'] for h in sources['dense'][case_id]][:result['config']['rrf']['top_k']]
+            and all(h['bm25_rank'] is None and h['bm25_score'] is None and h['bm25_rrf_contribution'] == 0 for h in hits)
+        )
+    checks = {
+        'reference_completed': reference['passed'],
+        'settings': old_config['setting'] == 'H0' and old_config['bm25']['score_policy'] == 'retain_zero' and result['config']['setting'] == 'H1' and result['config']['bm25']['score_policy'] == 'positive_only',
+        'one_policy_only': normalized == old_config,
+        'inputs_match': all(result.get(key) == reference.get(key) for key in ('dataset', 'corpus_sha256', 'dev_sha256', 'dev_ko_manifest_sha256', 'encoder', 'backend')),
+        'case_ids_match': set(rankings) == set(read('rankings.json')) == set(sources['dense']) == set(sources['bm25']),
+        'dense_unchanged': rankings_equal_with_tolerance(old_sources['dense'], sources['dense']) and result['source_metrics']['dense'] == reference['source_metrics']['dense'],
+        'bm25_positive_subset': rankings_equal_with_tolerance(expected_bm25, sources['bm25']),
+        'empty_bm25_fuses_dense': all(empty_fusion_checks.values()),
+    }
+    floor = reference['source_metrics']['dense']['macro']['evidence_group_recall@10']
+    hybrid_egr = result['metrics']['macro']['evidence_group_recall@10']
+    return {
+        'checks': checks, 'passed': all(checks.values()),
+        'performance': metric_changes(reference['metrics'], result['metrics']),
+        'source_performance': {name: metric_changes(reference['source_metrics'][name], result['source_metrics'][name]) for name in ('dense', 'bm25')},
+        'bm25_candidate_counts': {case_id: len(hits) for case_id, hits in sources['bm25'].items()},
+        'empty_bm25_cases': empty_cases, 'empty_fusion_checks': empty_fusion_checks,
+        'hybrid_vs_h0_dense_egr': {'h0_dense': floor, 'h1_hybrid': hybrid_egr, 'delta': hybrid_egr - floor, 'at_least_dense': hybrid_egr >= floor - METRIC_ATOL},
+        'note': 'Performance comparisons are diagnostics, not execution success or independent generalization.',
+    }
