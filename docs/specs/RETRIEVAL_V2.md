@@ -192,6 +192,20 @@ Step 4·5는 사용자 승인에 따라 하나의 branch·PR에서 순서대로 
 - 이 순서대로 매번 직전 채택 설정에 합산 사전 기준을 적용한다. child 경로의 검색 풀은 50개로 유지한다.
   parent 중복 제거 후 목표보다 후보가 적으면 추가 검색하지 않고 실제 수를 보고한다.
 
+### 5.1. Reranker 후보 진단 및 독립 비교
+
+- 사용자 추가 승인에 따라 Step 3b 영어 검색어와 parent 원문을 유지하고 reranker만 비교한다.
+- 지정 모델 `cross-encoder/ms-marco-MiniLM-L-6-v2`의 canonical 저장소
+  `cross-encoder/ms-marco-MiniLM-L6-v2`, revision `233902d25c440f23af6f7d6e94d2946bac0bee0a`를 고정한다.
+- A: Dense10+BM25_10, B: Dense50+BM25_50 중복 제거 후보 → reranker → 최종 10.
+  동결된 같은 후보의 기존 RRF와 각각 비교하며 채택은 둘 다 Step 3b 대비 독립 판정한다.
+- 검색 전 고정한 기준: 합산 CE@10 비감소 AND EGR 개선 수 > 악화 수 AND CPU 평균 지연 ≤ 3초.
+  둘 다 통과하면 합산 CE → EGR → 후보가 적은 A 순으로 선택한다. 미통과 시 Step 3b 유지.
+- Gold는 모든 A/B 순위를 저장한 뒤 후보 포함 진단·지표에만 쓴다. 누락 required group은
+  깊이 10 후보 안 / 깊이 50에서만 발견 / 둘 다 밖으로 집계한다. 입력 잘림은 reranker tokenizer로 측정한다.
+- 사전 기준·CPU 측정 범위: `docs/decisions/RETRIEVAL_V2_RERANKER.md`.
+  실행 안내: `docs/RETRIEVAL_V2_RERANKER.md`. 서비스 기본값 legacy/H0와 held-out 제한은 유지한다.
+
 ### 6. metadata (이번 범위에서 제외)
 
 - 변경: 검색 입력에 논문 제목과 섹션 경로를 추가하는 효과를 본다.
