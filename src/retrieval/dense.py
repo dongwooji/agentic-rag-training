@@ -59,6 +59,7 @@ class MiniLMEncoder:
         batch_size: int = DEFAULT_BATCH_SIZE,
         cache_dir: str | Path | None = None,
         device: str = "cpu",
+        max_seq_length: int | None = None,
     ) -> None:
         try:
             from huggingface_hub import snapshot_download
@@ -75,6 +76,13 @@ class MiniLMEncoder:
             allow_patterns=MODEL_RUNTIME_FILES,
         )
         self._model = SentenceTransformer(snapshot_path, device=device)
+        if max_seq_length is not None:
+            if type(max_seq_length) is not int or max_seq_length not in (128, 256, 512):
+                raise ValueError('Only declared input lengths 128, 256, 512 are supported')
+            position_limit = self._model[0].auto_model.config.max_position_embeddings
+            if max_seq_length > position_limit:
+                raise ValueError('Input length exceeds model position capacity')
+            self._model.max_seq_length = max_seq_length
         self._batch_size = batch_size
         self._model_id = model_id
         self._model_revision = model_revision

@@ -43,6 +43,7 @@
 | `evaluation/query_retrieval.py` | 평가 | Step 2/3 사전 채택 기준과 누적 비교 기준 자동 적용 |
 | `retrieval/child.py` | 실행 공용 | 별도 child 표현의 문장/토큰 경계 구성, 고정 child 풀 검색 후 최고 순위 parent 중복 제거 |
 | `evaluation/child_depth.py` | 평가 | Step 4/5 dev+dev-ko 합산 사전 채택 기준 |
+| `retrieval/child_quota.py`, `evaluation/dense_length.py` | 실행 공용 / 평가 | 고유 parent 후보 수 보정, 입력 잘림 진단과 Step 3b 독립 비교·복수 통과 선택 |
 | `evaluation/routing_metrics.py` | 평가 | Router Tool 선택 지표 |
 | `evaluation/end_to_end_metrics.py` | 평가 | 완료된 graph state와 평가 계약을 비교하는 E2E 지표 |
 | `evaluation/validation.py`, `reference.py`, `report.py` | 평가 | 평가셋 계약 검증, 기록 기반 기준값 계산, 사람 검토용 보고서 |
@@ -62,6 +63,7 @@
 | `retrieval_step2_generation_v1.json`, `retrieval_step3a_translation_v1.json`, `retrieval_step3b_translation_v1.json` | 실행 (H1 고정 검색 설정 + 첫 검색어의 생성·언어 조건) |
 | `literature_query_model_v1.json`, `literature_query_generation_v1.md`, `literature_query_translation_v1.md` | 실행 (전용 생성·번역 모델 설정과 prompt) |
 | `retrieval_step4_child_v1.json`, `retrieval_step5_{child,parent}_d{10,20,50}_v1.json` | Step 4/5 실험 설정. 서비스 기본값 H0 유지, child pgvector 적용은 후속 확인 필요 |
+| `retrieval_step4_child_corrected_v2.json`, `retrieval_parent_length{256,512}_v1.json` | Step 4 구현 보정 / 같은 MiniLM 입력 길이 독립 실험. 기존 설정 보존 |
 
 ## scripts/
 
@@ -73,6 +75,7 @@
 | Retrieval 검색 전 준비 | `prepare_literature_queries.py` (한국어 생성 또는 동결된 query 번역만 실행. 검색 없음) |
 | 동결 query 재검증·평가 | `revalidate_literature_translation.py` (추가 LLM 호출 없음), `run_retrieval_query_evaluation.py` (대응표 승인 뒤 dev/dev-ko만 평가) |
 | Child 표현 준비·깊이 평가 | `build_retrieval_children.py` (질문·Gold 없이 별도 표현 동결), `run_retrieval_child_depth.py` (Step 3b 재현 → child → 직전 채택 표현에서 후보 깊이 비교) |
+| Child 보정·입력 길이 비교 | `build_retrieval_parent_lengths.py` (256/512 parent embedding 새 version), `run_retrieval_child_length.py` (세 조건 각각 Step 3b 독립 비교) |
 | 과거 Phase A 진단 | `prepare_retrieval_v2_queries.py` (기존 v1 동결·진단 보존용) |
 | 데이터 준비 | `setup_postgres.py`, `load_postgres.py`, `load_literature_postgres.py`, `setup_dense_retrieval.py`, `preprocess_workouts.py`, `build_literature_corpus.py`, `search_literature.py`, `eda_workouts.py`, `test_postgres_integration.py` |
 

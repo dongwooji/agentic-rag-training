@@ -210,6 +210,9 @@ class FrozenHybridRetriever:
         self._vector_store = vector_store
         if self.config.dense.unit == 'child' and getattr(vector_store, 'search_unit', None) != 'child':
             raise RuntimeError('Child retrieval requires a validated parent-mapping store')
+        if (self.config.dense.child and self.config.dense.child.parent_selection == 'unique_parent_quota'
+                and getattr(vector_store, 'parent_selection', None) != 'unique_parent_quota'):
+            raise RuntimeError('Corrected child retrieval requires a parent-quota store')
         encoder_metadata = getattr(encoder, 'metadata', None)
         if encoder_metadata is not None:
             for field in ('model_id', 'model_revision', 'embedding_dimension', 'max_sequence_length', 'normalize_embeddings', 'precision', 'batch_size'):

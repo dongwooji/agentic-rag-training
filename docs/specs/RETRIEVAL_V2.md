@@ -175,6 +175,16 @@ Step 4·5는 사용자 승인에 따라 하나의 branch·PR에서 순서대로 
 - parent chunk ID를 그대로 쓰므로 기존 Gold를 그대로 사용한다.
 - child ID, 소속 parent ID, child 토큰 수 분포를 기록한다.
 
+#### Step 4 구현 보정 및 입력 길이 독립 비교
+
+- 원 지시의 후보 수는 고유 parent 10개다. 이전 Step 4 구현의 parent 20~47개 RRF 입력은 명세 불일치였다.
+- 기존 child 동결본을 재사용해 고유 parent 10개를 채울 때까지 조회하고 상위 10개만 전달한다.
+  이전 결과는 보존하고 보정 결과를 새 version으로 저장한다.
+- 같은 MiniLM·parent에서 max_seq_length 256 / 512만 별도로 비교하고 새 embedding version을 만든다.
+- 세 조건은 각각 Step 3b와 독립 비교한다. 합산 CE@10 비감소 AND 문항별 EGR 개선 > 악화가 채택 기준이다.
+- 복수 통과 시 합산 CE → 합산 EGR → 단순성(512 > 256 > child) 순으로 선택한다. 미통과 시 Step 3b 유지.
+- 사전 기준·보정의 성격·보존·실행 순서: `docs/decisions/RETRIEVAL_V2_CHILD_CORRECTION_LENGTH.md`.
+
 ### 5. candidate depth
 
 - 변경: RRF에 넣는 Dense·BM25 후보 수만 바꾼다. 최종 Top-K는 10으로 고정한다.
@@ -216,3 +226,4 @@ Step 4·5는 사용자 승인에 따라 하나의 branch·PR에서 순서대로 
 - 표·그림 근거
 - 중복 행정 안내문 chunk 처리
 - Retrieval 변경 이후 Grader 재평가와 E2E 평가
+- 향후 과제: BGE-M3 등 긴 입력 모델 비교, child 벡터 결합 parent 검색. 이번에는 구현·평가하지 않는다.

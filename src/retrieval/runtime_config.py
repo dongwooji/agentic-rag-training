@@ -18,6 +18,14 @@ class ChildSettings(FrozenSettings):
     representation_version: Literal['retrieval_child_v1']
     max_tokens: Literal[110]
     search_depth: Literal[50]
+    parent_selection: Literal['unique_parent_quota'] | None = None
+
+    @model_serializer(mode='wrap')
+    def serialize_historical_fields(self, handler):
+        result = handler(self)
+        if self.parent_selection is None:
+            result.pop('parent_selection', None)
+        return result
 
 
 class DenseSettings(FrozenSettings):
@@ -75,7 +83,7 @@ class AssetValidation(FrozenSettings):
 
 
 class RetrievalConfig(FrozenSettings):
-    schema_version: Literal[1, 2]
+    schema_version: Literal[1, 2, 3]
     config_version: str = Field(min_length=1)
     setting: Literal['H0', 'H1']
     retrieval_version: str = Field(min_length=1)
@@ -89,6 +97,17 @@ class RetrievalConfig(FrozenSettings):
 
     @model_validator(mode='after')
     def validate_depth(self):
+        if self.schema_version == 3:
+            if (self.query_mode != 'translated_both' or self.setting != 'H1' or
+                    self.dense.source_depth != 10 or self.bm25.source_depth != 10 or self.rrf.top_k != 10):
+                raise ValueError('Correction/length experiment keeps Step 3b queries and depths')
+            if self.dense.unit == 'child':
+                if self.dense.max_sequence_length != 128 or self.dense.child.parent_selection != 'unique_parent_quota':
+                    raise ValueError('Corrected child requires parent quota with input length 128')
+            elif self.dense.max_sequence_length not in (256, 512):
+                raise ValueError('Parent length experiment only permits 256 or 512')
+        elif self.dense.child and self.dense.child.parent_selection is not None:
+            raise ValueError('Parent quota belongs to the new correction schema')
         if self.schema_version == 1 and self.dense.unit != 'parent':
             raise ValueError('Historical schema only supports parent retrieval')
         if self.schema_version == 2 and (
