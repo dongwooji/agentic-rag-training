@@ -80,7 +80,9 @@ class LiteratureTool:
             raise ValueError('Child pgvector representation is not configured')
         assets = load_frozen_literature_assets(project_root, config=settings)
         encoder = MiniLMEncoder(model_id=settings.dense.model_id, model_revision=settings.dense.model_revision,
-                                batch_size=settings.dense.batch_size, cache_dir=cache_dir, device="cpu")
+                                batch_size=settings.dense.batch_size, cache_dir=cache_dir, device="cpu",
+                                **({'max_seq_length': settings.dense.max_sequence_length}
+                                   if settings.schema_version == 3 else {}))
         store = PgVectorStore(
             config=config or DatabaseConfig.from_environment(), password=password
         )
@@ -121,7 +123,7 @@ class LiteratureTool:
                 "source_depth": settings.dense.source_depth,
                 **({"unit": settings.dense.unit,
                     "child": settings.dense.child.model_dump() if settings.dense.child else None}
-                   if settings.schema_version == 2 else {}),
+                   if settings.schema_version >= 2 else {}),
             },
             "bm25": {
                 "k1": reproduction["bm25"]["k1"],
