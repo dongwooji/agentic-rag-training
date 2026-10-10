@@ -3,7 +3,7 @@
 from pathlib import Path
 from typing import Annotated, Literal
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator, model_serializer
 
 
 DEFAULT_CONFIG_PATH = Path(__file__).resolve().parents[2] / 'config/retrieval_h0_v1.json'
@@ -12,6 +12,12 @@ Sha256 = Annotated[str, Field(pattern=r'^[0-9a-f]{64}$')]
 
 class FrozenSettings(BaseModel):
     model_config = ConfigDict(frozen=True, extra='forbid', strict=True, protected_namespaces=())
+
+
+class ChildSettings(FrozenSettings):
+    representation_version: Literal['retrieval_child_v1']
+    max_tokens: Literal[110]
+    search_depth: Literal[50]
 
 
 class DenseSettings(FrozenSettings):
@@ -23,9 +29,25 @@ class DenseSettings(FrozenSettings):
     precision: Literal['float32']
     batch_size: int = Field(gt=0)
     source_depth: int = Field(gt=0)
-    unit: Literal['parent']
+    unit: Literal['parent', 'child']
+    child: ChildSettings | None = None
     similarity: Literal['cosine_exact']
     metadata: Literal[False]
+
+    @model_serializer(mode='wrap')
+    def serialize_without_unused_child(self, handler):
+        result = handler(self)
+        if self.child is None:
+            result.pop('child', None)
+        return result
+
+    @model_validator(mode='after')
+    def validate_child(self):
+        if (self.unit == 'child') != (self.child is not None):
+            raise ValueError('Child settings must match the Dense search unit')
+        if self.child and self.child.max_tokens > self.max_sequence_length:
+            raise ValueError('Child budget exceeds encoder input limit')
+        return self
 
 
 class BM25Settings(FrozenSettings):
@@ -53,7 +75,7 @@ class AssetValidation(FrozenSettings):
 
 
 class RetrievalConfig(FrozenSettings):
-    schema_version: Literal[1]
+    schema_version: Literal[1, 2]
     config_version: str = Field(min_length=1)
     setting: Literal['H0', 'H1']
     retrieval_version: str = Field(min_length=1)
@@ -67,6 +89,14 @@ class RetrievalConfig(FrozenSettings):
 
     @model_validator(mode='after')
     def validate_depth(self):
+        if self.schema_version == 1 and self.dense.unit != 'parent':
+            raise ValueError('Historical schema only supports parent retrieval')
+        if self.schema_version == 2 and (
+            self.query_mode != 'translated_both' or
+            self.dense.source_depth not in (10, 20, 50) or
+            self.bm25.source_depth not in (10, 20, 50)
+        ):
+            raise ValueError('Step 4/5 requires Step 3b queries and declared candidate depths')
         expected_policy = 'retain_zero' if self.setting == 'H0' else 'positive_only'
         if self.bm25.score_policy != expected_policy:
             raise ValueError('BM25 score policy differs from declared H0/H1 setting')
