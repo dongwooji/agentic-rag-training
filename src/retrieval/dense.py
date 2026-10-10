@@ -101,6 +101,11 @@ class MiniLMEncoder:
             platform=platform.platform(),
         )
 
+    @property
+    def tokenizer(self):
+        """The exact loaded model tokenizer, shared by representation building."""
+        return self._model.tokenizer
+
     def encode(self, texts: Sequence[str], *, show_progress: bool = False) -> np.ndarray:
         if not texts:
             return np.empty((0, EXPECTED_EMBEDDING_DIMENSION), dtype=np.float32)

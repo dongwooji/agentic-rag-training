@@ -165,7 +165,10 @@ def load_frozen_literature_assets(
         "rrf_weights": reproduction.get("rrf", {}).get("weights")
         == {"dense": settings.rrf.dense_weight, "bm25": settings.rrf.bm25_weight},
         "source_depth": reproduction.get("rrf", {}).get("source_depth")
-        == {"dense": settings.dense.source_depth, "bm25": settings.bm25.source_depth},
+        == ({"dense": settings.dense.source_depth, "bm25": settings.bm25.source_depth}
+            if settings.schema_version == 1 else
+            {"dense": DEFAULT_RETRIEVAL_CONFIG.dense.source_depth,
+             "bm25": DEFAULT_RETRIEVAL_CONFIG.bm25.source_depth}),
     }
     failed = sorted(name for name, passed in checks.items() if not passed)
     if failed:
@@ -205,6 +208,8 @@ class FrozenHybridRetriever:
             raise RuntimeError('Retriever config differs from validated assets')
         self._encoder = encoder
         self._vector_store = vector_store
+        if self.config.dense.unit == 'child' and getattr(vector_store, 'search_unit', None) != 'child':
+            raise RuntimeError('Child retrieval requires a validated parent-mapping store')
         encoder_metadata = getattr(encoder, 'metadata', None)
         if encoder_metadata is not None:
             for field in ('model_id', 'model_revision', 'embedding_dimension', 'max_sequence_length', 'normalize_embeddings', 'precision', 'batch_size'):

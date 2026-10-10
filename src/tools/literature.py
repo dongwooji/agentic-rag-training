@@ -73,6 +73,11 @@ class LiteratureTool:
         """Construct the pinned model + existing pgvector embedding runtime."""
 
         settings = retrieval_config or DEFAULT_RETRIEVAL_CONFIG
+        if settings.dense.unit == 'child':
+            # Child embeddings are a separate representation, not entries in
+            # the historical parent-only pgvector table. Step 7 verifies that
+            # production path separately; fail before opening a DB connection.
+            raise ValueError('Child pgvector representation is not configured')
         assets = load_frozen_literature_assets(project_root, config=settings)
         encoder = MiniLMEncoder(model_id=settings.dense.model_id, model_revision=settings.dense.model_revision,
                                 batch_size=settings.dense.batch_size, cache_dir=cache_dir, device="cpu")
@@ -99,6 +104,7 @@ class LiteratureTool:
     @property
     def provenance(self) -> dict[str, Any]:
         reproduction = self._assets.phase7_reproducibility
+        settings = self._assets.retrieval_config or DEFAULT_RETRIEVAL_CONFIG
         return {
             "tool": TOOL_VERSION,
             "retrieval_version": HYBRID_VERSION,
@@ -110,15 +116,18 @@ class LiteratureTool:
                 self._assets.phase7_reproducibility_sha256
             ),
             "dense": {
-                "embedding_run_id": EMBEDDING_RUN_ID,
+                "embedding_run_id": settings.embedding_run_id,
                 "similarity": "cosine_exact",
-                "source_depth": SOURCE_DEPTH,
+                "source_depth": settings.dense.source_depth,
+                **({"unit": settings.dense.unit,
+                    "child": settings.dense.child.model_dump() if settings.dense.child else None}
+                   if settings.schema_version == 2 else {}),
             },
             "bm25": {
                 "k1": reproduction["bm25"]["k1"],
                 "b": reproduction["bm25"]["b"],
                 "tokenizer_version": reproduction["bm25"]["tokenizer_version"],
-                "source_depth": SOURCE_DEPTH,
+                "source_depth": settings.bm25.source_depth,
             },
             "rrf": {
                 "k": reproduction["rrf"]["rrf_k"],
@@ -226,7 +235,9 @@ class LiteratureTool:
                 provenance=self.provenance,
                 limitations=(
                     "Results are retrieval evidence, not a generated answer or evidence-grade judgment.",
-                    "The source depth is frozen at Dense Top-10 and BM25 Top-10.",
+                    ("The source depth is frozen at Dense Top-10 and BM25 Top-10."
+                     if (getattr(self._assets, 'retrieval_config', None) or DEFAULT_RETRIEVAL_CONFIG).schema_version == 1 else
+                     "Source candidate depths and child mapping follow the versioned retrieval config."),
                 ),
                 empty=not hits,
             )
