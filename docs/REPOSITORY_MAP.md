@@ -37,6 +37,10 @@
 | `literature/` | 데이터 준비 | PubMed/JATS 수집, chunk 구성, 문헌 DB 적재 |
 | `evaluation/retrieval_metrics.py` | 평가 | EvidenceGroupRecall, CompleteEvidence, ChunkRecall, MRR, Gold 근거 묶음 처리 |
 | `evaluation/retrieval_preparation.py`, `dev_ko.py` | 평가 | Retrieval v2 H0 재현·H1 비교, 사용자 검토 후 한국어 개발셋 동결·검증 |
+| `evaluation/query_preparation.py`, `graph/first_literature_query.py` | 과거 Phase A 진단 | v1 동결·진단 보존용. 현재 서비스 첫 검색어 선택에 사용하지 않음 |
+| `retrieval/literature_query.py`, `query_provider.py`, `graph/initial_literature_tool.py` | 실행 | 첫 문헌 검색 직전 한국어 생성·영어 번역, 공통 검증과 단계별 사용량 기록 |
+| `evaluation/literature_query_freeze.py` | 평가 준비 | 생성 동결 → 실제 query 번역 동결, 대응표·해시·사용자 승인 검증. 검색 없음 |
+| `evaluation/query_retrieval.py` | 평가 | Step 2/3 사전 채택 기준과 누적 비교 기준 자동 적용 |
 | `evaluation/routing_metrics.py` | 평가 | Router Tool 선택 지표 |
 | `evaluation/end_to_end_metrics.py` | 평가 | 완료된 graph state와 평가 계약을 비교하는 E2E 지표 |
 | `evaluation/validation.py`, `reference.py`, `report.py` | 평가 | 평가셋 계약 검증, 기록 기반 기준값 계산, 사람 검토용 보고서 |
@@ -52,6 +56,9 @@
 | `exercise_aliases_v1.csv`, `preprocessing_v1.json` | 실행 + 데이터 준비 (frozen) |
 | `literature_corpus_v1.json`, `literature_selection_v1.json` | 데이터 준비 |
 | `retrieval_h0_v1.json`, `retrieval_h1_v1.json` | 실행 (H0/H1 검색 설정과 frozen 자산 검증 해시; 서비스 기본값 H0, 평가 질문·Gold 없음) |
+| `retrieval_step2_v1.json` | 과거 Phase A 진단용 설정. 현재 서비스에서는 선택 불가 |
+| `retrieval_step2_generation_v1.json`, `retrieval_step3a_translation_v1.json`, `retrieval_step3b_translation_v1.json` | 실행 (H1 고정 검색 설정 + 첫 검색어의 생성·언어 조건) |
+| `literature_query_model_v1.json`, `literature_query_generation_v1.md`, `literature_query_translation_v1.md` | 실행 (전용 생성·번역 모델 설정과 prompt) |
 
 ## scripts/
 
@@ -60,6 +67,9 @@
 | 실행 확인 | `run_api_integration_smoke.py`, `run_end_to_end_smoke.py` |
 | 평가셋 구축·검증 | `freeze_evaluation_set.py`, `validate_evaluation_set.py`, `build_evaluation_evidence_human_review.py`, `migrate_evidence_groups.py` |
 | Retrieval 개발 평가 | `run_retrieval_v2_preparation.py`, `freeze_dev_ko.py` (사용자 승인 기록 필수) |
+| Retrieval 검색 전 준비 | `prepare_literature_queries.py` (한국어 생성 또는 동결된 query 번역만 실행. 검색 없음) |
+| 동결 query 재검증·평가 | `revalidate_literature_translation.py` (추가 LLM 호출 없음), `run_retrieval_query_evaluation.py` (대응표 승인 뒤 dev/dev-ko만 평가) |
+| 과거 Phase A 진단 | `prepare_retrieval_v2_queries.py` (기존 v1 동결·진단 보존용) |
 | 데이터 준비 | `setup_postgres.py`, `load_postgres.py`, `load_literature_postgres.py`, `setup_dense_retrieval.py`, `preprocess_workouts.py`, `build_literature_corpus.py`, `search_literature.py`, `eda_workouts.py`, `test_postgres_integration.py` |
 
 ## tests/

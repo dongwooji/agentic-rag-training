@@ -59,7 +59,7 @@ class RetrievalConfig(FrozenSettings):
     retrieval_version: str = Field(min_length=1)
     corpus_version: str = Field(min_length=1)
     embedding_run_id: str = Field(min_length=1)
-    query_mode: Literal['original_question']
+    query_mode: Literal['original_question', 'literature_subquestion', 'generated_ko', 'translated_bm25', 'translated_both']
     dense: DenseSettings
     bm25: BM25Settings
     rrf: RRFSettings
@@ -70,6 +70,8 @@ class RetrievalConfig(FrozenSettings):
         expected_policy = 'retain_zero' if self.setting == 'H0' else 'positive_only'
         if self.bm25.score_policy != expected_policy:
             raise ValueError('BM25 score policy differs from declared H0/H1 setting')
+        if self.query_mode != 'original_question' and self.setting != 'H1':
+            raise ValueError('Question isolation requires the H1 BM25 policy')
         if self.rrf.top_k > min(self.dense.source_depth, self.bm25.source_depth):
             raise ValueError('Final Top-K exceeds source depth')
         if max(self.dense.source_depth, self.bm25.source_depth) > self.validation.expected_chunk_count:

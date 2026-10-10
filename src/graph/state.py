@@ -30,6 +30,8 @@ class AgenticRAGState(TypedDict, total=False):
     literature_subquestion: str
     initial_query: str
     current_query: str
+    first_query_selection: dict[str, Any]
+    initial_bm25_query: str
     query_history: list[str]
     literature_evidence: list[dict[str, Any]]
     recovery_evidence: list[dict[str, Any]]
