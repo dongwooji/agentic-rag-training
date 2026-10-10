@@ -223,9 +223,11 @@ class FrozenHybridRetriever:
             if self._bm25.metadata.get(field) != assets.bm25_metadata.get(field):
                 raise RuntimeError(f"Runtime BM25 differs from frozen Phase 7: {field}")
 
-    def search(self, query: str, *, top_k: int = SOURCE_DEPTH) -> HybridRuntimeResponse:
+    def search(self, query: str, *, top_k: int = SOURCE_DEPTH, bm25_query: str | None = None) -> HybridRuntimeResponse:
         if not isinstance(query, str) or not query.strip():
             raise ValueError("query must be non-empty text")
+        if bm25_query is not None and (not isinstance(bm25_query, str) or not bm25_query.strip()):
+            raise ValueError("bm25_query must be non-empty text")
         if not isinstance(top_k, int) or not 1 <= top_k <= self.config.rrf.top_k:
             raise ValueError(f"top_k must be between 1 and {self.config.rrf.top_k}")
         total_started = perf_counter()
@@ -238,7 +240,7 @@ class FrozenHybridRetriever:
             top_k=self.config.dense.source_depth,
         )
         bm25 = self._bm25.search(
-            query, top_k=self.config.bm25.source_depth,
+            bm25_query if bm25_query is not None else query, top_k=self.config.bm25.source_depth,
             score_policy=self.config.bm25.score_policy,
         )
         dense_ids = [str(hit.chunk_id) for hit in dense.hits]

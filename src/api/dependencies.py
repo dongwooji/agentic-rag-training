@@ -27,6 +27,9 @@ from src.routing.runtime_language import RuntimeQuestionNormalizer
 from src.tools.literature import LiteratureTool
 from src.tools.metric import MetricTool
 from src.tools.training_log import PsycopgTrainingRepository, TrainingLogTool
+from src.retrieval.runtime_config import DEFAULT_CONFIG_PATH, load_retrieval_config
+from src.retrieval.literature_query import LiteratureQueryGenerator
+from src.retrieval.query_provider import OpenAILiteratureQueryProvider
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -108,6 +111,7 @@ def _build_runtime_workflow() -> RuntimeWorkflow:
 
     literature_tool: LiteratureTool | None = None
     try:
+        retrieval_config = load_retrieval_config(os.environ.get('AGENTIC_RAG_RETRIEVAL_CONFIG', str(DEFAULT_CONFIG_PATH)))
         database_config = DatabaseConfig.from_environment()
         training_repository = PsycopgTrainingRepository(
             config=database_config,
@@ -119,6 +123,7 @@ def _build_runtime_workflow() -> RuntimeWorkflow:
             password=postgres_password,
             config=database_config,
             cache_dir=cache_dir,
+            retrieval_config=retrieval_config,
         )
         grader = RuntimeEvidenceGrader(
             OpenAIRuntimeEvidenceProvider(api_key=openai_api_key)
@@ -135,7 +140,13 @@ def _build_runtime_workflow() -> RuntimeWorkflow:
             tool_executor=executor, literature_tool=literature_tool,
             runtime_grader=grader, recovery_agent=recovery,
             final_response_layer=FinalResponseLayer(OpenAIFinalAnswerProvider(api_key=openai_api_key)),
+            retrieval_config=retrieval_config,
         )
+        if retrieval_config.query_mode in ('generated_ko', 'translated_bm25', 'translated_both'):
+            translation = (OpenAILiteratureQueryProvider(stage='translation', api_key=openai_api_key)
+                           if retrieval_config.query_mode != 'generated_ko' else None)
+            shared['query_generator'] = LiteratureQueryGenerator(
+                OpenAILiteratureQueryProvider(stage='generation', api_key=openai_api_key), translation)
         mode = os.environ.get("AGENTIC_RAG_QUESTION_INTERPRETATION", "legacy")
         if mode == "phase_a":
             # Do not even construct the legacy LLM argument provider here.

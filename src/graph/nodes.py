@@ -21,6 +21,8 @@ from src.routing.contracts import RouterInput
 from src.tools.literature import LiteratureInput
 
 from .literature_scope import derive_literature_subquestion
+from .initial_literature_tool import InitialLiteratureTool
+from src.retrieval.literature_query import LiteratureQueryGenerator
 from .state import AgenticRAGState, GraphError
 from .tool_input_resolver import ToolInputResolverRequest
 
@@ -203,6 +205,8 @@ class WorkflowNodes:
         runtime_grader: RuntimeGraderPort,
         recovery_agent: RecoveryAgentPort,
         tool_input_resolver: ToolInputResolverPort | None = None,
+        query_mode: str = 'original_question',
+        query_generator: LiteratureQueryGenerator | None = None,
     ) -> None:
         self.router = router
         self.tool_executor = tool_executor
@@ -210,6 +214,12 @@ class WorkflowNodes:
         self.runtime_grader = runtime_grader
         self.recovery_agent = recovery_agent
         self.tool_input_resolver = tool_input_resolver
+        self.query_mode = query_mode
+        self.query_generator = query_generator
+        if query_mode == 'literature_subquestion':
+            raise ValueError('Historical Phase A query mode is audit-only')
+        if query_mode != 'original_question' and query_generator is None:
+            raise ValueError('Generated query mode requires a query generator')
 
     def route_question(self, state: AgenticRAGState) -> AgenticRAGState:
         try:
@@ -392,9 +402,17 @@ class WorkflowNodes:
         }
 
     def execute_initial_tools(self, state: AgenticRAGState) -> AgenticRAGState:
+        initial_tool = None
         try:
             plan = _build_tool_plan(state)
-            results = self.tool_executor.execute(plan, enabled=True)
+            executor = self.tool_executor
+            if self.query_generator is not None and self.query_mode != 'original_question':
+                ports = self.tool_executor._tools
+                initial_tool = InitialLiteratureTool(ports['search_literature'], self.query_generator,
+                                                     state['original_question'], self.query_mode)
+                executor = DeterministicToolExecutor(training_log_tool=ports['query_training_log'],
+                                                     metric_tool=ports['compute_metrics'], literature_tool=initial_tool)
+            results = executor.execute(plan, enabled=True)
         except Exception as exc:
             return {
                 "errors": _append_error(
@@ -420,6 +438,12 @@ class WorkflowNodes:
             "tool_results": results,
             "errors": errors,
         }
+        actual_query = state['initial_query']
+        if initial_tool is not None and initial_tool.selection is not None:
+            selection = initial_tool.selection
+            actual_query = selection['dense_query']
+            update.update(first_query_selection=selection, initial_query=actual_query,
+                          initial_bm25_query=selection['bm25_query'])
         if len(errors) > len(state.get("errors", [])):
             update["final_status"] = "execution_failure"
             return update
@@ -463,10 +487,10 @@ class WorkflowNodes:
             {
                 "literature_evidence": list(hits),
                 "fused_evidence": list(hits),
-                "current_query": state["initial_query"],
+                "current_query": actual_query,
                 "query_history": [
                     *state.get("query_history", []),
-                    state["initial_query"],
+                    actual_query,
                 ],
             }
         )

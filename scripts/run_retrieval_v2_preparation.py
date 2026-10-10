@@ -37,6 +37,8 @@ def main() -> int:
     os.environ['HF_HUB_OFFLINE'] = '1'
     os.environ['TRANSFORMERS_OFFLINE'] = '1'
     config = load_retrieval_config(args.config)
+    if config.query_mode != 'original_question':
+        parser.error('Step 2/3 requires frozen query mapping and user approval; this runner cannot run generated-query retrieval')
     if config.setting == 'H1' and not args.reference_run:
         parser.error('H1 requires a same-dataset H0 reference run')
     if args.reference_run:

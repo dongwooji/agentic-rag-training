@@ -11,6 +11,8 @@ from langgraph.graph import END, START, StateGraph
 from src.agent.executor import DeterministicToolExecutor
 from src.recovery.contracts import MAX_RETRY
 from src.routing.deterministic import DeterministicRouter
+from src.retrieval.runtime_config import DEFAULT_RETRIEVAL_CONFIG, RetrievalConfig
+from src.retrieval.literature_query import LiteratureQueryGenerator
 
 from .nodes import (
     LiteratureToolPort,
@@ -52,8 +54,11 @@ class AgenticRAGWorkflow:
         router: RouterPort | None = None,
         tool_input_resolver: ToolInputResolverPort | None = None,
         final_response_layer: FinalResponseLayerPort | None = None,
+        retrieval_config: RetrievalConfig | None = None,
+        query_generator: LiteratureQueryGenerator | None = None,
     ) -> None:
         self.final_response_layer = final_response_layer
+        self.retrieval_config = retrieval_config or DEFAULT_RETRIEVAL_CONFIG
         self.nodes = WorkflowNodes(
             router=router or DeterministicRouter(),
             tool_executor=tool_executor,
@@ -61,6 +66,8 @@ class AgenticRAGWorkflow:
             runtime_grader=runtime_grader,
             recovery_agent=recovery_agent,
             tool_input_resolver=tool_input_resolver,
+            query_mode=self.retrieval_config.query_mode,
+            query_generator=query_generator,
         )
         builder = StateGraph(AgenticRAGState)
         builder.add_node("route_question", self.nodes.route_question)

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "config_version": "retrieval_step3b_translation_v1",
+  "setting": "H1",
+  "retrieval_version": "hybrid_baseline_v1",
+  "corpus_version": "literature_corpus_v1",
+  "embedding_run_id": "dense_multilingual_minilm_l12_v2_literature_corpus_v1",
+  "query_mode": "translated_both",
+  "dense": {
+    "model_id": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "model_revision": "e8f8c211226b894fcb81acc59f3b34ba3efd5f42",
+    "embedding_dimension": 384,
+    "max_sequence_length": 128,
+    "normalize_embeddings": true,
+    "precision": "float32",
+    "batch_size": 32,
+    "source_depth": 10,
+    "unit": "parent",
+    "similarity": "cosine_exact",
+    "metadata": false
+  },
+  "bm25": {
+    "k1": 1.2,
+    "b": 0.75,
+    "tokenizer_version": "script_aware_unicode_alnum_casefold_v1",
+    "source_depth": 10,
+    "score_policy": "positive_only",
+    "metadata": false
+  },
+  "rrf": {
+    "k": 60,
+    "dense_weight": 1.0,
+    "bm25_weight": 1.0,
+    "top_k": 10,
+    "tie_breaker": "score_desc_best_rank_rank_sum_chunk_id"
+  },
+  "validation": {
+    "corpus_chunks_sha256": "640bf8bcf3b6126c1755e27844286e9945743c1cb8b7b983d67590ad27ca0177",
+    "corpus_manifest_sha256": "84982b1bf7f4226755c8a1335b7a1dd6da0271fc241b00a15212db445133ca66",
+    "hybrid_manifest_sha256": "015924df97fc29130e81f971aed7b7f1946e9daf7f02c63315995bf21bf92e1f",
+    "expected_chunk_count": 488
+  }
+}

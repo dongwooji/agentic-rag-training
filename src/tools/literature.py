@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any, Protocol
 
 from src.database.config import DatabaseConfig
-from src.retrieval.runtime_config import EMBEDDING_RUN_ID
+from src.retrieval.runtime_config import EMBEDDING_RUN_ID, DEFAULT_RETRIEVAL_CONFIG, RetrievalConfig
 from src.retrieval.dense import MiniLMEncoder
 from src.retrieval.hybrid import (
     FrozenHybridRetriever,
@@ -41,10 +41,11 @@ class LiteratureInput:
     operation: LiteratureOperation | str
     query: str
     top_k: int = 10
+    bm25_query: str | None = None
 
 
 class HybridRetriever(Protocol):
-    def search(self, query: str, *, top_k: int) -> Any: ...
+    def search(self, query: str, *, top_k: int, bm25_query: str | None = None) -> Any: ...
 
 
 class LiteratureTool:
@@ -67,11 +68,14 @@ class LiteratureTool:
         config: DatabaseConfig | None = None,
         cache_dir: str | Path | None = None,
         project_root: str | Path = PROJECT_ROOT,
+        retrieval_config: RetrievalConfig | None = None,
     ) -> "LiteratureTool":
         """Construct the pinned model + existing pgvector embedding runtime."""
 
-        assets = load_frozen_literature_assets(project_root)
-        encoder = MiniLMEncoder(cache_dir=cache_dir, device="cpu")
+        settings = retrieval_config or DEFAULT_RETRIEVAL_CONFIG
+        assets = load_frozen_literature_assets(project_root, config=settings)
+        encoder = MiniLMEncoder(model_id=settings.dense.model_id, model_revision=settings.dense.model_revision,
+                                batch_size=settings.dense.batch_size, cache_dir=cache_dir, device="cpu")
         store = PgVectorStore(
             config=config or DatabaseConfig.from_environment(), password=password
         )
@@ -81,7 +85,7 @@ class LiteratureTool:
             expected_chunk_count=len(assets.chunks),
         )
         store.validate_embedding_run(
-            embedding_run_id=EMBEDDING_RUN_ID,
+            embedding_run_id=settings.embedding_run_id,
             corpus_version=assets.corpus_version,
             corpus_chunks_sha256=assets.corpus_chunks_sha256,
             expected_chunk_count=len(assets.chunks),
@@ -168,8 +172,17 @@ class LiteratureTool:
                 ),
                 provenance=self.provenance,
             )
+        if request.bm25_query is not None and (
+            not isinstance(request.bm25_query, str) or not request.bm25_query.strip()
+        ):
+            return failure_response(operation=operation.value,
+                                    error=ToolError(ToolErrorCode.INVALID_INPUT, "bm25_query must be non-empty text"),
+                                    provenance=self.provenance)
         try:
-            response = self._retriever.search(request.query, top_k=request.top_k)
+            search_args = {"top_k": request.top_k}
+            if request.bm25_query is not None:
+                search_args["bm25_query"] = request.bm25_query
+            response = self._retriever.search(request.query, **search_args)
             hits = []
             for hit in response.hits:
                 chunk = self._assets.chunks_by_id.get(hit.chunk_id)
@@ -204,6 +217,7 @@ class LiteratureTool:
                 operation=operation.value,
                 result={
                     "query": request.query,
+                    **({"dense_query": request.query, "bm25_query": request.bm25_query} if request.bm25_query is not None else {}),
                     "top_k": request.top_k,
                     "candidate_count": response.candidate_count,
                     "hits": hits,

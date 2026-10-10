@@ -15,6 +15,7 @@ from src.tools.contracts import ToolError, ToolErrorCode, failure_response
 from .interpretation_binding import bind_interpretation
 from .workflow import AgenticRAGWorkflow
 from .runtime_group_training import RuntimeGroupTrainingTool
+from src.retrieval.runtime_config import DEFAULT_RETRIEVAL_CONFIG
 
 
 class _FixedRoute:
@@ -44,7 +45,7 @@ class _CompleteTrainingResult:
 
 class InterpretedWorkflow:
     def __init__(self, *, interpreter: QuestionInterpreter, tool_executor, literature_tool,
-                 runtime_grader, recovery_agent, final_response_layer=None):
+                 runtime_grader, recovery_agent, final_response_layer=None, retrieval_config=None, query_generator=None):
         self.interpreter = interpreter
         self.router = InterpretationRouter()
         self.tool_executor = tool_executor
@@ -53,6 +54,8 @@ class InterpretedWorkflow:
         self.recovery_agent = recovery_agent
         self.final_response_layer = final_response_layer
         self.clarification_store = ClarificationStore()
+        self.retrieval_config = retrieval_config or DEFAULT_RETRIEVAL_CONFIG
+        self.query_generator = query_generator
 
     def invoke(self, question: str):
         result = self.interpreter.interpret(question)
@@ -120,6 +123,8 @@ class InterpretedWorkflow:
                 runtime_grader=self.runtime_grader, recovery_agent=self.recovery_agent,
                 router=_FixedRoute(question.strip(), plan), tool_input_resolver=None,
                 final_response_layer=self.final_response_layer,
+                retrieval_config=self.retrieval_config,
+                query_generator=self.query_generator,
             )
             state = workflow.invoke(question, literature_subquestion=interpretation.literature_subquestion,
                                     initial_query=question, tool_inputs=tool_inputs)
