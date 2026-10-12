@@ -58,9 +58,18 @@ class InterpretationDraft(StrictModel):
     clarification_required: bool
 
 
+class PersonalRecordNormalization(StrictModel):
+    supplied_value: bool
+    derived_value: bool
+    mismatch: bool
+    signals: list[Literal["record_operation", "requested_analyses", "explicit_personal_request", "exercise_session_context"]]
+
+
 class QuestionInterpretation(InterpretationDraft):
     schema_version: Literal["question_interpretation_phase_a_v1"] = "question_interpretation_phase_a_v1"
     parsing_source: Literal["rule", "llm"]
     original_question: str
     normalized_question: str
     applied_policies: list[str] = Field(default_factory=list)
+    # Runtime output only: the LLM's InterpretationDraft schema stays unchanged.
+    personal_record_normalization: PersonalRecordNormalization | None = None
