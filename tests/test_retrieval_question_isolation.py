@@ -238,7 +238,7 @@ def test_existing_evaluation_runner_blocks_step2_before_loading_assets(monkeypat
 
 
 @pytest.mark.parametrize('mode', ['legacy', 'phase_a'])
-@pytest.mark.parametrize('setting', ['default', 'step2'])
+@pytest.mark.parametrize('setting', ['default', 'h0', 'step2'])
 def test_service_factory_passes_same_config_to_tool_and_workflow_without_external_calls(monkeypatch, mode, setting):
     from src.api import dependencies as dep
     monkeypatch.setenv('OPENAI_API_KEY', 'synthetic-not-a-secret')
@@ -246,6 +246,8 @@ def test_service_factory_passes_same_config_to_tool_and_workflow_without_externa
     monkeypatch.setenv('AGENTIC_RAG_QUESTION_INTERPRETATION', mode)
     if setting == 'step2':
         monkeypatch.setenv('AGENTIC_RAG_RETRIEVAL_CONFIG', str(ROOT / 'config/retrieval_step2_generation_v1.json'))
+    elif setting == 'h0':
+        monkeypatch.setenv('AGENTIC_RAG_RETRIEVAL_CONFIG', str(ROOT / 'config/retrieval_h0_v1.json'))
     else:
         monkeypatch.delenv('AGENTIC_RAG_RETRIEVAL_CONFIG', raising=False)
     for name in ('PsycopgTrainingRepository', 'TrainingLogTool', 'MetricTool', 'RuntimeEvidenceGrader',
@@ -259,9 +261,15 @@ def test_service_factory_passes_same_config_to_tool_and_workflow_without_externa
     workflow = Mock()
     monkeypatch.setattr(dep, 'InterpretedWorkflow' if mode == 'phase_a' else 'AgenticRAGWorkflow', workflow)
     dep._build_runtime_workflow()
-    expected = load_retrieval_config(ROOT / 'config/retrieval_step2_generation_v1.json') if setting == 'step2' else DEFAULT_RETRIEVAL_CONFIG
+    expected = (load_retrieval_config(ROOT / 'config/retrieval_step2_generation_v1.json') if setting == 'step2'
+                else load_retrieval_config(ROOT / 'config/retrieval_step3b_translation_v1.json') if setting == 'default'
+                else DEFAULT_RETRIEVAL_CONFIG)
     assert tool.call_args.kwargs['retrieval_config'] == expected
     assert workflow.call_args.kwargs['retrieval_config'] == expected
-    assert ('query_generator' in workflow.call_args.kwargs) == (setting == 'step2')
-    if setting == 'default':
+    assert ('query_generator' in workflow.call_args.kwargs) == (setting != 'h0')
+    if setting == 'h0':
         dep.OpenAILiteratureQueryProvider.assert_not_called()
+    elif setting == 'default':
+        assert [call.kwargs['stage'] for call in dep.OpenAILiteratureQueryProvider.call_args_list] == ['translation', 'generation']
+    else:
+        assert [call.kwargs['stage'] for call in dep.OpenAILiteratureQueryProvider.call_args_list] == ['generation']

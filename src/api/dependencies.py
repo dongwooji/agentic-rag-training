@@ -27,13 +27,16 @@ from src.routing.runtime_language import RuntimeQuestionNormalizer
 from src.tools.literature import LiteratureTool
 from src.tools.metric import MetricTool
 from src.tools.training_log import PsycopgTrainingRepository, TrainingLogTool
-from src.retrieval.runtime_config import DEFAULT_CONFIG_PATH, load_retrieval_config
+from src.retrieval.runtime_config import load_retrieval_config
 from src.retrieval.literature_query import LiteratureQueryGenerator
 from src.retrieval.query_provider import OpenAILiteratureQueryProvider
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_MODEL_CACHE = PROJECT_ROOT / "data" / "models" / "huggingface"
+# Final V2 search behavior, bound to the existing operating corpus v1.
+# The frozen corpus-v2 Final config is not a corpus migration instruction.
+DEFAULT_SERVICE_RETRIEVAL_CONFIG = PROJECT_ROOT / "config/retrieval_step3b_translation_v1.json"
 
 
 class WorkflowPort(Protocol):
@@ -111,7 +114,7 @@ def _build_runtime_workflow() -> RuntimeWorkflow:
 
     literature_tool: LiteratureTool | None = None
     try:
-        retrieval_config = load_retrieval_config(os.environ.get('AGENTIC_RAG_RETRIEVAL_CONFIG', str(DEFAULT_CONFIG_PATH)))
+        retrieval_config = load_retrieval_config(os.environ.get('AGENTIC_RAG_RETRIEVAL_CONFIG', str(DEFAULT_SERVICE_RETRIEVAL_CONFIG)))
         database_config = DatabaseConfig.from_environment()
         training_repository = PsycopgTrainingRepository(
             config=database_config,
