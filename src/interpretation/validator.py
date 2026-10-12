@@ -6,7 +6,7 @@ import unicodedata
 
 from src.graph.tool_input_resolver import ExerciseCanonicalizer
 from src.routing.runtime_language import InputLanguageError, RuntimeQuestionNormalizer
-from .contracts import InterpretationDraft, QuestionInterpretation, UnresolvedField
+from .contracts import InterpretationDraft, QuestionInterpretation, UnresolvedField, PersonalRecordNormalization
 from .exercise_selection import ExerciseSelectionPolicy
 
 
@@ -33,12 +33,36 @@ def mentioned_dates(question: str) -> list[str]:
     return list(dict.fromkeys(output))
 
 
+def _personal_record_requirement(question: str, draft: InterpretationDraft) -> PersonalRecordNormalization:
+    signals = []
+    if draft.record_operation is not None:
+        signals.append("record_operation")
+    if draft.requested_analyses:
+        signals.append("requested_analyses")
+    if PERSONAL_REQUEST.search(question):
+        signals.append("explicit_personal_request")
+    if (draft.candidate_exercises or draft.canonical_exercise_name) and draft.session_id:
+        signals.append("exercise_session_context")
+    derived = bool(signals)
+    return PersonalRecordNormalization(supplied_value=draft.personal_record_requested,
+                                       derived_value=derived, mismatch=derived != draft.personal_record_requested,
+                                       signals=signals)
+
+
 def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCanonicalizer, normalizer=None, canonical_exercises=None, exercise_relations=None):
     draft = InterpretationDraft.model_validate(raw)
     normalizer = normalizer or RuntimeQuestionNormalizer()
     original_nfkc = unicodedata.normalize("NFKC", question)
     issues = list(draft.unresolved_fields)
     policies = []
+    personal_normalization = _personal_record_requirement(original_nfkc, draft)
+    draft = draft.model_copy(update={"personal_record_requested": personal_normalization.derived_value})
+    # The normalized boolean is settled by code. Preserve every other missing
+    # input, including periods, exercise ambiguity, and numeric conditions.
+    normalized_issue_removed = personal_normalization.mismatch and any(
+        issue.field == "personal_record_requested" for issue in issues)
+    if normalized_issue_removed:
+        issues = [issue for issue in issues if issue.field != "personal_record_requested"]
 
     def unresolved(field, reason):
         if not any(x.field == field and x.reason == reason for x in issues):
@@ -63,11 +87,16 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
         unresolved("canonical_exercise_name", restriction["message"])
         policies.append("runtime_restriction:" + restriction["id"])
     supplied_candidates = list(dict.fromkeys(draft.candidate_exercises))
-    if supplied_candidates and (not draft.exercise_mention or not draft.personal_record_requested):
-        raise GroundingError("candidates need an original personal exercise mention")
+    if supplied_candidates and not draft.exercise_mention:
+        raise GroundingError("candidates need an original exercise mention")
     if any((canonical_exercises is not None and name not in canonical_exercises) or
            canonicalizer.repository.resolve_canonical_exercise(name) != name for name in supplied_candidates):
         raise GroundingError("exercise candidate is not in the stored catalog")
+    if draft.canonical_exercise_name and not draft.personal_record_requested:
+        name = draft.canonical_exercise_name
+        if ((canonical_exercises is not None and name not in canonical_exercises) or
+                canonicalizer.repository.resolve_canonical_exercise(name) != name):
+            raise GroundingError("canonical exercise candidate is not in the stored catalog")
     trusted = ExerciseSelectionPolicy().candidates(draft.exercise_mention, question) if draft.personal_record_requested else []
     if supplied_candidates and not trusted and draft.exercise_mention:
         try:
@@ -86,15 +115,16 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
         else:
             if draft.canonical_exercise_name not in {None, *candidates}:
                 raise GroundingError("canonical selection conflicts with candidates")
-            # Explicit qualifiers take priority over a model's generic ambiguity.
-            issues = [x for x in issues if x.field not in {"canonical_exercise_name", "exercise_resolution_status", "candidate_exercises"}]
-            if len(candidates) > 1:
-                unresolved("canonical_exercise_name", "여러 저장 운동이 있습니다. 조회할 운동을 선택해주세요.")
-            elif not trusted and source == "llm" and draft.exercise_resolution_status != "resolved":
-                unresolved("canonical_exercise_name", "후보의 운동 종류 또는 변형을 확인해주세요.")
-            else:
-                canonical = candidates[0]
-            policies.append("exercise_selection_v1")
+            if draft.personal_record_requested:
+                # Only a personal lookup requires selecting one stored exercise.
+                issues = [x for x in issues if x.field not in {"canonical_exercise_name", "exercise_resolution_status", "candidate_exercises"}]
+                if len(candidates) > 1:
+                    unresolved("canonical_exercise_name", "여러 저장 운동이 있습니다. 조회할 운동을 선택해주세요.")
+                elif not trusted and source == "llm" and draft.exercise_resolution_status != "resolved":
+                    unresolved("canonical_exercise_name", "후보의 운동 종류 또는 변형을 확인해주세요.")
+                else:
+                    canonical = candidates[0]
+                policies.append("exercise_selection_v1")
     elif source == "llm" and canonical_exercises is not None:
         candidate = draft.canonical_exercise_name
         status = draft.exercise_resolution_status
@@ -148,9 +178,9 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
         unresolved("time_condition", "원문의 날짜 조건을 모두 보존해야 합니다.")
     if time.scope == "all_records" and (found_dates or time.start_date or time.end_date):
         unresolved("time_condition", "명시된 날짜 조건을 전체 기록으로 대체할 수 없습니다.")
-    if time.scope == "unresolved":
+    if draft.personal_record_requested and time.scope == "unresolved":
         unresolved("time_condition", "분석 기간을 지정해주세요.")
-    if time.scope == "all_records":
+    if draft.personal_record_requested and time.scope == "all_records":
         if re.search(r"최근|요즘|지난|이번|정체|전보다", question) and not re.search(r"처음|첫|초반|first", question, re.I):
             unresolved("time_condition", "최근 또는 비교 분석의 기간을 지정해주세요.")
         else:
@@ -197,7 +227,7 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
             unresolved("literature_subquestion", "문헌 하위 질문에서 개인 기록 계산 요구를 분리해주세요.")
     if not draft.literature_requested and draft.literature_subquestion:
         unresolved("literature_requested", "문헌 질문과 문헌 요청 여부가 일치하지 않습니다.")
-    if draft.personal_record_requested and draft.record_operation is None:
+    if draft.personal_record_requested and draft.record_operation is None and not draft.requested_analyses:
         unresolved("record_operation", "조회 작업을 지정해주세요.")
     if draft.record_operation not in {None, "exercise_records", "list_sessions"}:
         unresolved("record_operation", "Phase A의 전체/기간 기록 조회로 표현할 수 없는 세션 선택입니다.")
@@ -210,7 +240,7 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
             raise GroundingError("user assumption must be an original question span")
     if re.search(r"가정|전제", question) and not draft.user_assumptions:
         unresolved("user_assumptions", "사용자 가정을 기록 사실과 분리해주세요.")
-    if draft.clarification_required and not issues and not (candidates and canonical):
+    if draft.clarification_required and not issues and not (candidates and canonical) and not normalized_issue_removed:
         unresolved("question", "실행에 필요한 조건을 추가로 확인해주세요.")
     if not draft.personal_record_requested and not draft.literature_requested:
         unresolved("question", "운동 기록 조회 또는 문헌 질문의 범위를 지정해주세요.")
@@ -221,5 +251,6 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
                    candidate_exercises=[] if restriction else (candidates or ([canonical] if canonical else [])),
                    exercise_resolution_status="ambiguous" if restriction or len(candidates) > 1 else ("resolved" if canonical else (draft.exercise_resolution_status or "not_found")),
                    unresolved_fields=issues, clarification_required=bool(issues),
-                   original_question=question, normalized_question=normalized, parsing_source=source, applied_policies=policies)
+                   original_question=question, normalized_question=normalized, parsing_source=source, applied_policies=policies,
+                   personal_record_normalization=personal_normalization)
     return QuestionInterpretation.model_validate(payload)
