@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "config_version": "reranker_minilm_v1",
+  "requested_model_id": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+  "model_id": "cross-encoder/ms-marco-MiniLM-L6-v2",
+  "model_revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+  "max_length": 512,
+  "batch_size": 16,
+  "cpu_threads": 4,
+  "device": "cpu",
+  "precision": "float32",
+  "truncation": "only_second",
+  "score": "raw_logit",
+  "tie_breaker": "score_desc_rrf_rank_chunk_id",
+  "top_k": 10
+}

@@ -98,6 +98,11 @@ frozen `eval_dataset_v1`의 질문 문장만 읽어 실행 graph에 넣는다(Go
 
 ## 새 코드를 추가할 때
 
+Reranker 실험 추가: `src/retrieval/reranker.py`는 평가 자료를 참조하지 않는 pinned CPU 점수화 모듈이다.
+`src/evaluation/reranker.py`와 `scripts/run_retrieval_reranker.py`는 동결 후보를 재사용하는 평가 전용 경로다.
+`config/reranker_minilm_v1.json`은 모델·입력 길이·CPU 설정을 고정한다. 서비스 기본값에는 자동 연결하지 않는다.
+합성 검증은 `tests/test_retrieval_reranker.py`, 실행 안내는 `docs/RETRIEVAL_V2_RERANKER.md`에 있다.
+
 - 실행 구조 코드는 평가·데이터 준비 모듈을 import하지 않는다. 공용 기능이 필요하면 실행 전용 위치에 둔다.
 - 새 실험은 기존 파일을 수정하지 않고 새 버전 파일·설정·보고서로 추가한다 (`AGENTS.md` 참조).
 - 과거 실험 코드를 현재 tree로 다시 복사하지 않는다. 필요하면 `legacy-pre-retrieval-v2` tag에서 참조한다.
