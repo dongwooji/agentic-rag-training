@@ -69,11 +69,11 @@ class ObservedProvider:
     def __getattr__(self, name):
         return getattr(self.delegate, name)
 
-    def invoke(self, value):
+    def invoke(self, value, **kwargs):
         start = perf_counter()
         event = dict(stage=self.stage, usage={}, usage_available=False)
         try:
-            result = self.delegate.invoke(value)
+            result = self.delegate.invoke(value, **kwargs)
             provenance = getattr(result, 'provenance', {})
             usage = json_safe(getattr(result, 'token_usage', getattr(result, 'usage', None)))
             if usage is None:
@@ -174,7 +174,7 @@ def compare(password, output):
         tool.close()
 
 
-def rest(output):
+def rest(output, *, interpretation_mode='legacy'):
     import uvicorn
     import src.api.dependencies as dependencies
     from src.api.app import create_app
@@ -182,6 +182,8 @@ def rest(output):
 
     if os.environ.get('AGENTIC_RAG_RETRIEVAL_CONFIG') or os.environ.get('AGENTIC_RAG_QUESTION_INTERPRETATION'):
         raise RuntimeError('Observation requires unchanged service defaults without environment overrides')
+    if interpretation_mode not in ('legacy', 'phase_a'):
+        raise ValueError('Unsupported observation interpretation mode')
     events = []
     constructors = {
         'OpenAIRuntimeEvidenceProvider': 'grader', 'OpenAIEvidenceRecoveryProvider': 'recovery',
@@ -190,6 +192,9 @@ def rest(output):
     }
     from contextlib import ExitStack
     with ExitStack() as stack:
+        # Only this observation selects the existing mode. The service default
+        # and all interpretation/retrieval configuration files stay unchanged.
+        stack.enter_context(patch.dict(os.environ, {'AGENTIC_RAG_QUESTION_INTERPRETATION': interpretation_mode}))
         for name, stage in constructors.items():
             constructor = getattr(dependencies, name)
 
@@ -198,7 +203,11 @@ def rest(output):
                 return ObservedProvider(_ctor(*args, **kwargs), actual_stage, events)
             stack.enter_context(patch.object(dependencies, name, factory))
         runtime = dependencies.get_workflow()
-    nodes = runtime._workflow.nodes
+    expected_class = dependencies.InterpretedWorkflow if interpretation_mode == 'phase_a' else dependencies.AgenticRAGWorkflow
+    if not isinstance(runtime._workflow, expected_class):
+        dependencies.close_workflow()
+        raise RuntimeError('Constructed workflow does not match requested interpretation mode')
+    nodes = getattr(runtime._workflow, 'nodes', runtime._workflow)
     grader = ObservedMethod(nodes.runtime_grader, 'grade')
     recovery = ObservedMethod(nodes.recovery_agent, 'generate')
     nodes.runtime_grader, nodes.recovery_agent = grader, recovery
@@ -219,6 +228,7 @@ def rest(output):
     results = dict(kind='AI-authored qualitative user-style smoke questions; no Gold; not benchmark or generalization evaluation',
                    started_at_utc=datetime.now(timezone.utc).isoformat(), requests_per_question=1,
                    default_interpretation='legacy', service_config_sha256=digest(dependencies.DEFAULT_SERVICE_RETRIEVAL_CONFIG),
+                   interpretation_mode=interpretation_mode, workflow_class=type(runtime._workflow).__name__,
                    corpus_version=runtime._literature_tool.provenance['corpus_version'], cases=[])
     try:
         for i, question in enumerate(QUESTIONS, 1):
@@ -241,6 +251,9 @@ def rest(output):
                           route=state.get('route'), step2=(state.get('first_query_selection') or {}).get('step2'),
                           step3=(state.get('first_query_selection') or {}).get('step3'),
                           initial_query=state.get('initial_query'), tool_results=state.get('tool_results', []),
+                          interpretation_status=state.get('interpretation_status'),
+                          question_interpretation=state.get('question_interpretation'),
+                          interpretation_trace=state.get('interpretation_trace'),
                           literature_calls=literature.calls[offsets[3]:], grader_calls=grader.calls[offsets[1]:],
                           recovery_calls=recovery.calls[offsets[2]:], retry_count=state.get('retry_count', 0),
                           terminal=state.get('final_status'), query_history=state.get('query_history', []),
@@ -261,7 +274,11 @@ def main():
     parser.add_argument('--stage', choices=('compare', 'rest'), required=True)
     parser.add_argument('--secrets-json', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--interpretation-mode', choices=('legacy', 'phase_a'), default='legacy',
+                        help='Select the existing mode for this REST observation only; service default is unchanged')
     args = parser.parse_args()
+    if args.stage != 'rest' and args.interpretation_mode != 'legacy':
+        parser.error('--interpretation-mode only applies to REST observations')
     args.output.mkdir(parents=True, exist_ok=False)
     secrets = json.loads(args.secrets_json.read_text(encoding='utf-8-sig'))
     for key in ('PGPASSWORD', 'OPENAI_API_KEY'):
@@ -271,7 +288,7 @@ def main():
         if args.stage == 'compare':
             compare(os.environ['PGPASSWORD'], args.output)
         else:
-            rest(args.output)
+            rest(args.output, interpretation_mode=args.interpretation_mode)
     finally:
         for key in ('PGPASSWORD', 'OPENAI_API_KEY'):
             os.environ.pop(key, None)

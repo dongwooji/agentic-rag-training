@@ -6,6 +6,7 @@ No network, OpenAI, PostgreSQL, corpus files or evaluation inputs are accessed.
 from hashlib import sha256
 from pathlib import Path
 from unittest.mock import Mock
+from types import SimpleNamespace
 
 from fastapi.testclient import TestClient
 import pytest
@@ -119,3 +120,39 @@ def test_service_keeps_explicit_config_override(monkeypatch):
     with pytest.raises(dependencies.WorkflowInitializationError):
         dependencies._build_runtime_workflow()
     assert factory.call_args.kwargs['retrieval_config'] == load_retrieval_config(override)
+
+
+def test_observed_phase_a_provider_forwards_catalog_and_preserves_usage():
+    from scripts.observe_service_retrieval_v2 import ObservedProvider, usage_summary
+    from src.interpretation.provider import InterpreterProviderResult
+    from src.agent.contracts import PlannerUsage
+
+    delegate = Mock(return_value=InterpreterProviderResult(
+        raw_interpretation={'synthetic': True}, api_requests=1, response_id='synthetic-response',
+        usage=PlannerUsage(input_tokens=7, output_tokens=3, total_tokens=10, estimated_cost_usd=0.0001)))
+    events = []
+    observed = ObservedProvider(SimpleNamespace(invoke=delegate), 'interpreter', events)
+    catalog = ('Synthetic Lift (Barbell)',)
+    result = observed.invoke('합성 질문', canonical_exercises=catalog)
+    delegate.assert_called_once_with('합성 질문', canonical_exercises=catalog)
+    assert result.raw_interpretation == {'synthetic': True}
+    assert len(events) == 1
+    assert events[0]['stage'] == 'interpreter'
+    assert events[0]['usage_available']
+    summary = usage_summary(events)
+    assert summary['by_stage'] == {'interpreter': 1}
+    assert (summary['input_tokens'], summary['output_tokens'], summary['total_tokens']) == (7, 3, 10)
+    assert summary['estimated_cost_usd'] == 0.0001
+    assert 'raw_interpretation' not in events[0]
+
+
+def test_rest_observation_rejects_unknown_mode_before_runtime(monkeypatch, tmp_path):
+    from scripts.observe_service_retrieval_v2 import rest
+
+    monkeypatch.delenv('AGENTIC_RAG_RETRIEVAL_CONFIG', raising=False)
+    monkeypatch.delenv('AGENTIC_RAG_QUESTION_INTERPRETATION', raising=False)
+    forbidden = Mock(side_effect=AssertionError('No runtime or provider construction'))
+    monkeypatch.setattr(dependencies, 'get_workflow', forbidden)
+    with pytest.raises(ValueError, match='Unsupported observation interpretation mode'):
+        rest(tmp_path, interpretation_mode='unknown')
+    forbidden.assert_not_called()
