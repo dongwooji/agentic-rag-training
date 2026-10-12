@@ -3,7 +3,7 @@
 from pathlib import Path
 from typing import Annotated, Literal
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator, model_serializer
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator, model_serializer
 
 
 DEFAULT_CONFIG_PATH = Path(__file__).resolve().parents[2] / 'config/retrieval_h0_v1.json'
@@ -78,12 +78,33 @@ class RRFSettings(FrozenSettings):
 class AssetValidation(FrozenSettings):
     corpus_chunks_sha256: Sha256
     corpus_manifest_sha256: Sha256
-    hybrid_manifest_sha256: Sha256
+    hybrid_manifest_sha256: Sha256 | None = None
     expected_chunk_count: int = Field(gt=0)
+
+    @model_serializer(mode='wrap')
+    def serialize_historical_fields(self, handler):
+        result = handler(self)
+        if self.hybrid_manifest_sha256 is None:
+            result.pop('hybrid_manifest_sha256', None)
+        return result
+
+
+class CorpusPaths(FrozenSettings):
+    chunks: str
+    manifest: str
+
+    @field_validator('chunks', 'manifest')
+    @classmethod
+    def validate_path(cls, value):
+        parts = value.split('/')
+        if (not value.startswith('data/literature/') or '\\' in value or ':' in value
+                or any(p in ('', '.', '..') for p in parts)):
+            raise ValueError('Corpus paths must stay under data/literature')
+        return value
 
 
 class RetrievalConfig(FrozenSettings):
-    schema_version: Literal[1, 2, 3]
+    schema_version: Literal[1, 2, 3, 4]
     config_version: str = Field(min_length=1)
     setting: Literal['H0', 'H1']
     retrieval_version: str = Field(min_length=1)
@@ -94,9 +115,26 @@ class RetrievalConfig(FrozenSettings):
     bm25: BM25Settings
     rrf: RRFSettings
     validation: AssetValidation
+    corpus_paths: CorpusPaths | None = None
+
+    @model_serializer(mode='wrap')
+    def serialize_historical_fields(self, handler):
+        result = handler(self)
+        if self.corpus_paths is None:
+            result.pop('corpus_paths', None)
+        return result
 
     @model_validator(mode='after')
     def validate_depth(self):
+        if self.schema_version == 4:
+            if (self.corpus_paths is None or self.validation.hybrid_manifest_sha256 is not None
+                    or self.query_mode not in ('original_question', 'generated_ko', 'translated_both')
+                    or self.dense.unit != 'parent' or self.dense.max_sequence_length != 128
+                    or self.dense.source_depth != 10 or self.bm25.source_depth != 10
+                    or self.rrf.top_k != 10):
+                raise ValueError('Final comparison requires configured parent corpus, length 128 and depths 10')
+        elif self.corpus_paths is not None or self.validation.hybrid_manifest_sha256 is None:
+            raise ValueError('Historical schemas retain the original frozen asset contract')
         if self.schema_version == 3:
             if (self.query_mode != 'translated_both' or self.setting != 'H1' or
                     self.dense.source_depth != 10 or self.bm25.source_depth != 10 or self.rrf.top_k != 10):

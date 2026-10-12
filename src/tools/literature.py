@@ -82,7 +82,7 @@ class LiteratureTool:
         encoder = MiniLMEncoder(model_id=settings.dense.model_id, model_revision=settings.dense.model_revision,
                                 batch_size=settings.dense.batch_size, cache_dir=cache_dir, device="cpu",
                                 **({'max_seq_length': settings.dense.max_sequence_length}
-                                   if settings.schema_version == 3 else {}))
+                                   if settings.schema_version >= 3 else {}))
         store = PgVectorStore(
             config=config or DatabaseConfig.from_environment(), password=password
         )
@@ -109,7 +109,7 @@ class LiteratureTool:
         settings = self._assets.retrieval_config or DEFAULT_RETRIEVAL_CONFIG
         return {
             "tool": TOOL_VERSION,
-            "retrieval_version": HYBRID_VERSION,
+            "retrieval_version": settings.retrieval_version,
             "corpus_version": self._assets.corpus_version,
             "corpus_chunks_sha256": self._assets.corpus_chunks_sha256,
             "corpus_manifest_sha256": self._assets.corpus_manifest_sha256,
