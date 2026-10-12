@@ -97,6 +97,8 @@ def load_frozen_literature_assets(
 
     root = Path(project_root).resolve()
     settings = config or DEFAULT_RETRIEVAL_CONFIG
+    if settings.corpus_paths is not None:
+        return _load_configured_corpus(root, settings)
     chunks_path = root / "data/literature/processed/chunks.jsonl"
     corpus_manifest_path = root / "data/literature/manifests/corpus_v1.json"
     phase7_dir = root / "reports/baselines/hybrid_baseline_v1"
@@ -188,6 +190,43 @@ def load_frozen_literature_assets(
         bm25_metadata=bm25_metadata,
         phase7_reproducibility=reproduction,
         retrieval_config=settings,
+    )
+
+
+def _load_configured_corpus(root: Path, settings: RetrievalConfig) -> FrozenLiteratureAssets:
+    """Validate an explicitly pinned build without reading historical baseline assets."""
+    paths = settings.corpus_paths
+    chunks_path, manifest_path = root / paths.chunks, root / paths.manifest
+    for path in (chunks_path, manifest_path):
+        if not path.resolve().is_relative_to((root / 'data/literature').resolve()):
+            raise RuntimeError('Configured corpus path escapes literature directory')
+    chunks_hash, manifest_hash = sha256_file(chunks_path), sha256_file(manifest_path)
+    if chunks_hash != settings.validation.corpus_chunks_sha256:
+        raise RuntimeError('Configured corpus chunks hash changed')
+    if manifest_hash != settings.validation.corpus_manifest_sha256:
+        raise RuntimeError('Configured corpus manifest hash changed')
+    manifest, chunks = _read_json(manifest_path), _read_jsonl(chunks_path)
+    if (manifest.get('status') not in ('FROZEN_BUILD', 'BUILD_FROZEN')
+            or manifest.get('corpus_version') != settings.corpus_version
+            or manifest.get('chunk_count') != len(chunks)):
+        raise RuntimeError('Configured corpus build contract changed')
+    if len(chunks) != settings.validation.expected_chunk_count:
+        raise RuntimeError('Configured corpus chunk count changed')
+    if manifest.get('output_files', {}).get('chunks') != dict(path=paths.chunks, sha256=chunks_hash):
+        raise RuntimeError('Configured corpus chunk reference changed')
+    by_id = {str(c['chunk_id']): c for c in chunks}
+    if len(by_id) != len(chunks) or any(c.get('corpus_version') != settings.corpus_version for c in chunks):
+        raise RuntimeError('Configured corpus membership changed')
+    metadata = BM25Index(chunks, k1=settings.bm25.k1, b=settings.bm25.b).metadata
+    return FrozenLiteratureAssets(
+        project_root=root, chunks=chunks, chunks_by_id=by_id, corpus_version=settings.corpus_version,
+        corpus_chunks_sha256=chunks_hash, corpus_manifest_sha256=manifest_hash,
+        phase7_manifest_sha256='', phase7_reproducibility_sha256='', phase7_artifact_hashes={},
+        bm25_metadata=metadata, phase7_reproducibility={
+            'bm25': metadata,
+            'rrf': {'rrf_k': settings.rrf.k, 'weights': {'dense': settings.rrf.dense_weight,
+                                                      'bm25': settings.rrf.bm25_weight}},
+        }, retrieval_config=settings,
     )
 
 

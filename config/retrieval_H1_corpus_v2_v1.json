@@ -1,0 +1,46 @@
+{
+  "schema_version": 4,
+  "config_version": "retrieval_H1_corpus_v2_v1",
+  "setting": "H1",
+  "retrieval_version": "retrieval_v2_final_v1",
+  "corpus_version": "literature_corpus_v2",
+  "embedding_run_id": "dense_minilm128_literature_corpus_v2_final_v1",
+  "query_mode": "original_question",
+  "dense": {
+    "model_id": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "model_revision": "e8f8c211226b894fcb81acc59f3b34ba3efd5f42",
+    "embedding_dimension": 384,
+    "max_sequence_length": 128,
+    "normalize_embeddings": true,
+    "precision": "float32",
+    "batch_size": 32,
+    "source_depth": 10,
+    "unit": "parent",
+    "similarity": "cosine_exact",
+    "metadata": false
+  },
+  "bm25": {
+    "k1": 1.2,
+    "b": 0.75,
+    "tokenizer_version": "script_aware_unicode_alnum_casefold_v1",
+    "source_depth": 10,
+    "score_policy": "positive_only",
+    "metadata": false
+  },
+  "rrf": {
+    "k": 60,
+    "dense_weight": 1.0,
+    "bm25_weight": 1.0,
+    "top_k": 10,
+    "tie_breaker": "score_desc_best_rank_rank_sum_chunk_id"
+  },
+  "validation": {
+    "corpus_chunks_sha256": "b790f71e0b9fac423553f2bdd7ab7cb68d70790ef965ffa792fe0ae63aac8fc3",
+    "corpus_manifest_sha256": "ec225a4878dc6e5aa1e6657af43848a0332e20960c591615b88b3879afb9c814",
+    "expected_chunk_count": 683
+  },
+  "corpus_paths": {
+    "chunks": "data/literature/v2/build_freeze_v1/chunks.jsonl",
+    "manifest": "data/literature/v2/build_freeze_v1/build_manifest.json"
+  }
+}

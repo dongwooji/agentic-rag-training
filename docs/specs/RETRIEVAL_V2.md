@@ -18,6 +18,7 @@
 포함:
 
 - 문헌 검색 단계의 검색어 생성, 검색 단위, 후보 수, 결과 결합 방식
+- 같은 MiniLM의 parent 입력 길이 256/512 실험(별도 embedding version, 기존 128 보존)
 
 제외:
 
@@ -62,6 +63,11 @@ dev 문항 대부분에 영어 전문용어가 섞여 있어 순수 한국어 �
 
 새 결과는 새 경로와 새 version으로 저장한다.
 
+최종 held-out Gold: `heldout_v2_v1_1_final`, `gold_evidence.json` SHA-256
+`7c491a55e96b70b26b10ce7625c535e1dc521b4d83ab9d4e984d5d2c84df4b42`.
+AI 대조 18/18 및 사람 검토 완료 후 현 freeze를 유지한다. 경미한 표현 지적 5건은 차기 version 후보로만
+기록한다. 상세 결정: [최종 결정](../decisions/RETRIEVAL_V2_FINAL.md).
+
 ## 비교 설정
 
 held-out에서 비교할 설정은 다음 네 가지다. Step 2/3 결과 확인 후 기준선 변경은
@@ -85,7 +91,8 @@ held-out에서 비교할 설정은 다음 네 가지다. Step 2/3 결과 확인 
 
 ## 채택 기준
 
-각 실험 결과를 보기 전에 정한다.
+각 실험 결과를 보기 전에 정한다. 아래 초기 dev 중심 기준은 Step 2/3까지의 역사적 기준이며,
+Step 4 이후에는 아래 합산 기준과 개별 사전 결정 기록을 적용했다. 문서 정정이며 기존 결과·판정은 변경하지 않는다.
 
 - dev의 CompleteEvidence@10이 직전 단계보다 나빠지지 않는다.
 - dev 문항별로 좋아진 수가 나빠진 수보다 많다.
@@ -101,13 +108,15 @@ Step 2/3에서는 위 기준을 검색 전에 다음과 같이 구체화한다. 
 - dev-ko EGR@10, CompleteEvidence@10, MRR은 모두 비감소.
 - 부동소수점 동일 판정은 기존 평가 구현의 허용 오차를 사용함.
 
-Step 4·5는 결과를 보기 전에 다음 새 기준으로 고정한다.
+Step 4·5 및 후속 보정·길이·reranker 비교는 결과를 보기 전에 다음 합산 기준으로 고정했다.
 
 - 주 기준: dev+dev-ko 합산 36문항 CompleteEvidence@10 비감소.
 - 합산 문항별 EGR@10 개선 수 > 악화 수.
 - dev/dev-ko 각각은 보고만 하며 별도 채택 조건을 두지 않는다.
 - 이후 누적 기준선 Step 3b는 결과 확인 후 사후 결정이다. 과거 사전 기준 결과는 소급 변경하지 않는다.
 - 자세한 순서·초과 문장 처리·후보 부족 처리: `docs/decisions/RETRIEVAL_V2_STEP45.md`.
+- 보정·길이 실험은 세 조건 각각 Step 3b 독립 비교와 사전 tie-break를 적용했다.
+  reranker는 동일 성능 기준에 CPU 평균 ≤3초를 추가했다. 각 개별 결정 기록이 상세 기준이다.
 
 ## 단계
 
@@ -157,9 +166,6 @@ Step 4·5는 사용자 승인에 따라 하나의 branch·PR에서 순서대로 
 - Step 3b: Dense=영어, BM25=같은 영어. Step 3a와 비교하며 추가 LLM 호출은 없다.
 - 채택 기준은 각 비교에 따로 적용한다. 앞 단계가 탈락하면 다음 조건은 직전 채택 설정과 직접 비교한다.
   결과를 본 뒤 주 조건을 바꾸지 않는다. 두 단계 실제 서비스 호출의 지연·토큰·비용을 각각 보고한다.
-- 후속 검토 항목(0단계에서는 구현하지 않음): 영문 약어와 숫자가 붙은 표기를 정규화한다.
-  예: `RIR2` → `RIR 2`, `RPE8` → `RPE 8`.
-  1단계 또는 이 단계에서 별도 변경으로 다루고, 효과를 다른 변경과 구분해 기록한다.
 
 ### 4. child search unit (Parent-Child Retrieval)
 
@@ -172,6 +178,7 @@ Step 4·5는 사용자 승인에 따라 하나의 branch·PR에서 순서대로 
 - Dense는 child를 임베딩하고 child 50개를 가져온다.
 - 각 parent의 순위는 그 parent에 속한 child 중 가장 높은 순위로 정한다. 같은 parent는 한 번만 센다.
 - BM25는 parent 단위 그대로다. RRF는 parent 단위 Dense 순위와 BM25 순위를 합친다.
+  고유 parent 후보 수와 과거 명세 불일치는 아래 **Step 4 구현 보정** 절을 참조한다. 보정은 parent 상위 10개만 전달한다.
 - parent chunk ID를 그대로 쓰므로 기존 Gold를 그대로 사용한다.
 - child ID, 소속 parent ID, child 토큰 수 분포를 기록한다.
 
@@ -216,16 +223,33 @@ Step 4·5는 사용자 승인에 따라 하나의 branch·PR에서 순서대로 
 
 - 채택된 변경을 모아 V2 설정을 만들고 freeze한다.
 - 설정 파일 hash와 채택·제외 근거를 기록한다.
+- 최종은 Step 3b 기반: 생성·원문 보완 → 영어 번역·실패 보완 → parent MiniLM 128,
+  Dense10 + BM25 positive_only10 → RRF Top-10. 두 검색 모두 실제 Step 3 query를 쓴다.
+  child/reranker는 미사용, 서비스 기본값 legacy/H0 유지. corpus 경로는 명시 설정에서만 지정한다.
+- [최종 결정](../decisions/RETRIEVAL_V2_FINAL.md)의 사후 선택 이력과 제외 이유를 config manifest에 연결한다.
 - 7단계 이후에는 확정된 V2 설정을 pgvector 운영 경로에서도 재현 확인한다.
   개발용 메모리 검색과 운영 경로의 결과를 비교하고, 차이가 있으면 원인을 기록한다.
   이 확인은 0단계에서 구현하거나 실행하지 않는다.
 
 ### 8. held-out 평가
 
+- 최종 V2 config와 manifest를 freeze한 이후에만 시작한다.
+- held-out 24문항에 Step 2 생성 → freeze → Step 3 번역 → freeze를 각각 1회만 수행한다.
+  입력은 `original_question`만 사용하며, 번역 입력은 동결된 Step 2 실제 query다.
+  Gold, evidence, case ID, 평가 분류, held-out 결과는 생성기/번역기 입력이나 query 선택에 사용하지 않는다.
+- 기존 동결 prompt, schema, validator, provider/model 설정을 그대로 사용한다. 사람이 생성/번역 검색어를
+  검토하거나 수정하지 않는다. 검증 실패는 dev의 사전 보완 규칙을 그대로 적용한다.
+- 검색 전에 두 query version을 동결하고 이후 재생성하지 않는다. 결과 확인 후 prompt·검증 규칙·검색어를 변경하지 않는다.
 - corpus v2로 H0 / H1 / Step 2 기반 / 최종 V2(Step 3b 기반) 각각의 인덱스를 만든다.
+- 네 설정의 전체 정의와 인덱스 참조를 manifest에 기록한다. H0/H1은 원 질문, Step 2는 동결된 실제 Step 2 query,
+  Final V2는 동결된 실제 Step 3 query를 Dense/BM25에 같이 사용한다.
 - held-out v2를 설정별로 한 번씩만 실행한다. 결과를 보고 설정을 바꾸지 않는다.
   설정을 바꿔야 한다면 새 held-out 평가가 필요하다.
+- 네 설정의 모든 검색 순위를 먼저 저장한 뒤에만 Gold로 지표를 계산한다. Gold·corpus·깊이도 결과를 보고 수정하지 않는다.
 - held-out 설계 기록에 있는 문항 구성(순수 한국어 문항 등)에 따라 별도로 집계한다.
+- required 근거 없는 문항은 retrieval 지표에서 명시적으로 제외하고 boundary를 따로 집계한다.
+  abstention correctness는 실제 schema/runtime에서 측정 가능한 경우에만 보고하며 검색 결과로 추정하지 않는다.
+- 호출·입력/출력 token·실패/보완·추정 비용과 결과 manifest/hash를 함께 동결한다.
 
 ## 보고
 
@@ -239,5 +263,6 @@ Step 4·5는 사용자 승인에 따라 하나의 branch·PR에서 순서대로 
 - 임베딩 모델 교체
 - 표·그림 근거
 - 중복 행정 안내문 chunk 처리
+- 영문 약어+숫자 정규화(`RIR2`→`RIR 2`, `RPE8`→`RPE 8`): 범위 밖, 미실시
 - Retrieval 변경 이후 Grader 재평가와 E2E 평가
 - 향후 과제: BGE-M3 등 긴 입력 모델 비교, child 벡터 결합 parent 검색. 이번에는 구현·평가하지 않는다.

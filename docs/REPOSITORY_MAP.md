@@ -98,6 +98,11 @@ frozen `eval_dataset_v1`의 질문 문장만 읽어 실행 graph에 넣는다(Go
 
 ## 새 코드를 추가할 때
 
+최종 V2 설정·held-out 평가: `src/evaluation/retrieval_final.py`, `scripts/run_retrieval_final.py`.
+설정 동결 → 생성 동결 → 번역 동결 → 네 조건의 모든 순위 동결 → Gold 평가를 별도 단계로 강제한다.
+`runtime_config.py` schema 4는 corpus 경로를 명시하며 H0 기본값과 기존 schema 1~3은 보존한다.
+실행 안내: `docs/RETRIEVAL_V2_FINAL.md`. 공개 합성 검증: `tests/test_retrieval_final.py`.
+
 Reranker 실험 추가: `src/retrieval/reranker.py`는 평가 자료를 참조하지 않는 pinned CPU 점수화 모듈이다.
 `src/evaluation/reranker.py`와 `scripts/run_retrieval_reranker.py`는 동결 후보를 재사용하는 평가 전용 경로다.
 `config/reranker_minilm_v1.json`은 모델·입력 길이·CPU 설정을 고정한다. 서비스 기본값에는 자동 연결하지 않는다.
