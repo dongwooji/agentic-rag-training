@@ -6,12 +6,19 @@ import unicodedata
 
 from src.graph.tool_input_resolver import ExerciseCanonicalizer
 from src.routing.runtime_language import InputLanguageError, RuntimeQuestionNormalizer
-from .contracts import InterpretationDraft, QuestionInterpretation, UnresolvedField, PersonalRecordNormalization
+from .contracts import InterpretationDraft, QuestionInterpretation, UnresolvedField, PersonalRecordNormalization, DateRangeNormalization, TimeCondition
 from .exercise_selection import ExerciseSelectionPolicy
+from .date_ranges import explicit_period, full_dates, DateExpressionError
 
 
 class GroundingError(ValueError):
     pass
+
+
+class DateGroundingError(GroundingError):
+    def __init__(self, message, check_id="date_grounding", field="time_condition"):
+        self.check_id, self.field = check_id, field
+        super().__init__(message)
 
 
 LITERATURE_REQUEST = re.compile(r"문헌|논문|메타분석|과학적 근거|학술 근거|연구 결과|literature|research evidence", re.I)
@@ -28,9 +35,8 @@ _ANALYSIS_SIGNALS = {
 
 
 def mentioned_dates(question: str) -> list[str]:
-    output = re.findall(r"(?<!\d)(\d{4}-\d{2}-\d{2})(?!\d)", question)
-    output += [f"{int(y):04d}-{int(m):02d}-{int(d):02d}" for y, m, d in re.findall(r"(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일", question)]
-    return list(dict.fromkeys(output))
+    period = explicit_period(question)
+    return list(dict.fromkeys((period.start_date, period.end_date))) if period else full_dates(question)
 
 
 def _personal_record_requirement(question: str, draft: InterpretationDraft) -> PersonalRecordNormalization:
@@ -164,14 +170,31 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
         unresolved("canonical_exercise_name", "조회할 운동을 명확히 지정해주세요.")
 
     time = draft.time_condition
-    found_dates = mentioned_dates(original_nfkc)
-    for value in (time.start_date, time.end_date):
+    date_normalization = None
+    try:
+        period = explicit_period(original_nfkc)
+        found_dates = mentioned_dates(original_nfkc)
+    except DateExpressionError as error:
+        raise DateGroundingError("question date range needs clarification", error.check_id) from error
+    if period:
+        date_normalization = DateRangeNormalization(
+            supplied_scope=time.scope, supplied_start_date=time.start_date, supplied_end_date=time.end_date,
+            derived_start_date=period.start_date, derived_end_date=period.end_date, source_text=period.source_text,
+            mismatch=(time.scope, time.start_date, time.end_date) != ("explicit", period.start_date, period.end_date))
+        time = TimeCondition(scope="explicit", start_date=period.start_date, end_date=period.end_date, source_text=period.source_text)
+        draft = draft.model_copy(update={"time_condition": time})
+        issues = [x for x in issues if x.field not in {"time_condition", "start_date", "end_date"}]
+        policies.append("explicit_calendar_bounds_v1")
+    for field, value in (("start_date", time.start_date), ("end_date", time.end_date)):
         if value is not None:
-            date.fromisoformat(value)
+            try:
+                date.fromisoformat(value)
+            except ValueError as error:
+                raise DateGroundingError("invalid date format", "invalid_calendar_date", "time_condition." + field) from error
             if value not in found_dates:
-                raise GroundingError("date is absent from the question")
+                raise DateGroundingError("date is absent from the question", field="time_condition." + field)
     if time.start_date and time.end_date and time.start_date > time.end_date:
-        raise GroundingError("date range is reversed")
+        raise DateGroundingError("date range is reversed", "reversed_date_range")
     if time.scope == "explicit" and not (time.start_date and time.end_date):
         unresolved("time_condition", "분석 기간의 시작일과 종료일을 확인해주세요.")
     if time.scope == "explicit" and set(found_dates) != {time.start_date, time.end_date}:
@@ -240,7 +263,7 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
             raise GroundingError("user assumption must be an original question span")
     if re.search(r"가정|전제", question) and not draft.user_assumptions:
         unresolved("user_assumptions", "사용자 가정을 기록 사실과 분리해주세요.")
-    if draft.clarification_required and not issues and not (candidates and canonical) and not normalized_issue_removed:
+    if draft.clarification_required and not issues and not (candidates and canonical) and not normalized_issue_removed and not date_normalization:
         unresolved("question", "실행에 필요한 조건을 추가로 확인해주세요.")
     if not draft.personal_record_requested and not draft.literature_requested:
         unresolved("question", "운동 기록 조회 또는 문헌 질문의 범위를 지정해주세요.")
@@ -252,5 +275,5 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
                    exercise_resolution_status="ambiguous" if restriction or len(candidates) > 1 else ("resolved" if canonical else (draft.exercise_resolution_status or "not_found")),
                    unresolved_fields=issues, clarification_required=bool(issues),
                    original_question=question, normalized_question=normalized, parsing_source=source, applied_policies=policies,
-                   personal_record_normalization=personal_normalization)
+                   personal_record_normalization=personal_normalization, date_range_normalization=date_normalization)
     return QuestionInterpretation.model_validate(payload)

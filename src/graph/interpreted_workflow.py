@@ -4,6 +4,7 @@ Per-request fixed routes avoid shared mutable interpretation state. The legacy
 ToolInputResolver is never installed in this path. No batch execution exists.
 """
 
+from datetime import date
 from src.agent.executor import DeterministicToolExecutor
 from src.answer.abstention import build_execution_failure_response
 from src.answer.contracts import ChannelMode, FinalAnswerInput, FinalResponse, FinalResponseProvenance, FinalResponseStatus
@@ -88,6 +89,20 @@ class InterpretedWorkflow:
         question = base["original_question"]
         plan = self.router.route(interpretation)
         base.update(route=plan.to_dict(), task_type=plan.task_type.value, selected_tools=list(plan.selected_tools), execution_order=list(plan.execution_order))
+        bounds_reader = getattr(self.interpreter.canonicalizer.repository, "record_date_bounds", None)
+        time = interpretation.time_condition
+        if interpretation.personal_record_requested and time.scope == "explicit" and time.start_date and time.end_date and callable(bounds_reader):
+            try:
+                bounds = bounds_reader()
+            except Exception:
+                return self._failure(base, "record_coverage_lookup_failure")
+            if bounds is None or date.fromisoformat(time.end_date) < bounds[0] or date.fromisoformat(time.start_date) > bounds[1]:
+                response = FinalResponse(final_status=FinalResponseStatus.ABSTAIN_READY,
+                    answer_text="해당 기간 기록이 없습니다. 다른 기간을 선택해주세요.",
+                    limitations=["요청한 기간에 저장된 운동 기록이 없습니다."],
+                    provenance=FinalResponseProvenance(graph_terminal_status=FinalResponseStatus.ABSTAIN_READY,
+                        channel_mode=ChannelMode.NO_EVIDENCE, response_metadata={"response_mode": "no_records"}))
+                return {**base, "record_coverage_status": "no_records", "final_status": "abstain_ready", "final_response": response.model_dump(mode="json")}
         if interpretation.clarification_required:
             reasons = list(dict.fromkeys(x.reason for x in interpretation.unresolved_fields))
             metadata = {"response_mode": "clarification_required", "clarification_required": True}

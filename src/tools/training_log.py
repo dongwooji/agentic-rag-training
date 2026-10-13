@@ -116,6 +116,16 @@ class PsycopgTrainingRepository:
         )
         return str(rows[0]["canonical_name"]) if len(rows) == 1 else None
 
+    def record_date_bounds(self) -> tuple[date, date] | None:
+        """Current stored coverage, never hard-coded dates or metric values."""
+        rows = self._fetch_all(
+            "SELECT min(s.started_at)::date AS first_date, max(s.started_at)::date AS last_date "
+            "FROM training.workout_sessions s JOIN training.workout_sets ws USING (session_id) "
+            "WHERE ws.preprocessing_version = %s", (PREPROCESSING_VERSION,))
+        if not rows or rows[0]["first_date"] is None:
+            return None
+        return rows[0]["first_date"], rows[0]["last_date"]
+
     @staticmethod
     def _set_select(include_lineage: bool) -> str:
         lineage = (
