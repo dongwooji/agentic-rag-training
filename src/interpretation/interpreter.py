@@ -9,7 +9,7 @@ from src.graph.tool_input_resolver import ExerciseCanonicalizer
 from .contracts import QuestionInterpretation
 from .provider import InterpreterProviderResult
 from .rule_parser import RuleQuestionParser
-from .validator import GroundingError, validate_interpretation
+from .validator import GroundingError, DateGroundingError, validate_interpretation
 from .exercise_catalog import RepositoryExerciseCatalog, catalog_sha256
 from .exercise_relations import RuntimeExerciseRelations
 
@@ -61,6 +61,17 @@ class QuestionInterpreter:
             return InterpretationResult(execution_status="clarification_required" if interpretation.clarification_required else "ready",
                                         interpretation=interpretation, provider=provider_result,
                                         latency_ms=(perf_counter() - started) * 1000)
+        except DateGroundingError as exc:
+            try:
+                interpretation = validate_interpretation(question, raw, source=source, canonicalizer=self.canonicalizer,
+                    normalizer=self.rule_parser.normalizer, canonical_exercises=candidates,
+                    exercise_relations=self.exercise_relations, date_issue=exc)
+                return InterpretationResult(execution_status="clarification_required", interpretation=interpretation,
+                    provider=provider_result, latency_ms=(perf_counter() - started) * 1000)
+            except Exception as secondary:
+                return InterpretationResult(execution_status="failure", provider=provider_result,
+                    error_code="ungrounded_interpretation" if isinstance(secondary, GroundingError) else "interpretation_validation_failure",
+                    latency_ms=(perf_counter() - started) * 1000)
         except Exception as exc:
             return InterpretationResult(execution_status="failure", provider=provider_result,
                                         error_code="ungrounded_interpretation" if isinstance(exc, GroundingError) else "interpretation_validation_failure",

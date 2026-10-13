@@ -6,7 +6,7 @@ import unicodedata
 
 from src.graph.tool_input_resolver import ExerciseCanonicalizer
 from src.routing.runtime_language import InputLanguageError, RuntimeQuestionNormalizer
-from .contracts import InterpretationDraft, QuestionInterpretation, UnresolvedField, PersonalRecordNormalization, DateRangeNormalization, TimeCondition
+from .contracts import InterpretationDraft, QuestionInterpretation, UnresolvedField, PersonalRecordNormalization, DateRangeNormalization, TimeCondition, DateValidationDiagnostic
 from .exercise_selection import ExerciseSelectionPolicy
 from .date_ranges import explicit_period, full_dates, DateExpressionError
 
@@ -55,7 +55,7 @@ def _personal_record_requirement(question: str, draft: InterpretationDraft) -> P
                                        signals=signals)
 
 
-def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCanonicalizer, normalizer=None, canonical_exercises=None, exercise_relations=None):
+def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCanonicalizer, normalizer=None, canonical_exercises=None, exercise_relations=None, date_issue: DateGroundingError | None = None):
     draft = InterpretationDraft.model_validate(raw)
     normalizer = normalizer or RuntimeQuestionNormalizer()
     original_nfkc = unicodedata.normalize("NFKC", question)
@@ -171,11 +171,22 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
 
     time = draft.time_condition
     date_normalization = None
-    try:
-        period = explicit_period(original_nfkc)
-        found_dates = mentioned_dates(original_nfkc)
-    except DateExpressionError as error:
-        raise DateGroundingError("question date range needs clarification", error.check_id) from error
+    date_validation = None
+    if date_issue:
+        # Repeat the other grounding checks against the same saved draft. Only
+        # rejected dates are removed; no period or metric value is invented.
+        period, found_dates = None, []
+        time = TimeCondition(scope="unresolved", start_date=None, end_date=None, source_text="")
+        draft = draft.model_copy(update={"time_condition": time})
+        issues = [x for x in issues if x.field not in {"time_condition", "start_date", "end_date"}]
+        unresolved("time_condition", "어느 기간을 볼까요? 예: 2018년 9월~12월")
+        date_validation = DateValidationDiagnostic(check_id=date_issue.check_id, field=date_issue.field)
+    else:
+        try:
+            period = explicit_period(original_nfkc)
+            found_dates = mentioned_dates(original_nfkc)
+        except DateExpressionError as error:
+            raise DateGroundingError("question date range needs clarification", error.check_id) from error
     if period:
         date_normalization = DateRangeNormalization(
             supplied_scope=time.scope, supplied_start_date=time.start_date, supplied_end_date=time.end_date,
@@ -275,5 +286,6 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
                    exercise_resolution_status="ambiguous" if restriction or len(candidates) > 1 else ("resolved" if canonical else (draft.exercise_resolution_status or "not_found")),
                    unresolved_fields=issues, clarification_required=bool(issues),
                    original_question=question, normalized_question=normalized, parsing_source=source, applied_policies=policies,
-                   personal_record_normalization=personal_normalization, date_range_normalization=date_normalization)
+                   personal_record_normalization=personal_normalization, date_range_normalization=date_normalization,
+                   date_validation=date_validation)
     return QuestionInterpretation.model_validate(payload)

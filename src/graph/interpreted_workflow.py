@@ -10,6 +10,7 @@ from src.answer.abstention import build_execution_failure_response
 from src.answer.contracts import ChannelMode, FinalAnswerInput, FinalResponse, FinalResponseProvenance, FinalResponseStatus
 from src.interpretation.interpreter import QuestionInterpreter
 from src.interpretation.clarification import ClarificationStore, ClarificationError, selected_interpretation
+from src.interpretation.messages import clarification_questions
 from src.routing.interpretation_router import InterpretationRouter
 from src.recovery.contracts import MAX_RETRY
 from src.tools.contracts import ToolError, ToolErrorCode, failure_response
@@ -104,14 +105,14 @@ class InterpretedWorkflow:
                         channel_mode=ChannelMode.NO_EVIDENCE, response_metadata={"response_mode": "no_records"}))
                 return {**base, "record_coverage_status": "no_records", "final_status": "abstain_ready", "final_response": response.model_dump(mode="json")}
         if interpretation.clarification_required:
-            reasons = list(dict.fromkeys(x.reason for x in interpretation.unresolved_fields))
+            reasons = clarification_questions(interpretation)
             metadata = {"response_mode": "clarification_required", "clarification_required": True}
             if len(interpretation.candidate_exercises) > 1 and interpretation.exercise_resolution_status == "ambiguous":
                 try:
                     metadata = self.clarification_store.create(base, interpretation, self.interpreter.exercise_relations)
                 except ClarificationError:
                     return self._failure(base, "clarification_capacity_reached")
-            text = "실행 전에 다음 조건을 확인해주세요:\n" + "\n".join(f"- {x}" for x in reasons)
+            text = "다음 내용을 확인해주세요:\n" + "\n".join(f"- {x}" for x in reasons)
             if metadata.get("options"):
                 text += "\n어떤 기록을 조회할까요?\n" + "\n".join(f"{x['id']}. {x['label']}" for x in metadata["options"])
             response = FinalResponse(

@@ -75,6 +75,12 @@ class DateRangeNormalization(StrictModel):
     mismatch: bool
 
 
+class DateValidationDiagnostic(StrictModel):
+    status: Literal["clarification_required"] = "clarification_required"
+    check_id: str
+    field: str
+
+
 class QuestionInterpretation(InterpretationDraft):
     schema_version: Literal["question_interpretation_phase_a_v1"] = "question_interpretation_phase_a_v1"
     parsing_source: Literal["rule", "llm"]
@@ -84,3 +90,4 @@ class QuestionInterpretation(InterpretationDraft):
     # Runtime output only: the LLM's InterpretationDraft schema stays unchanged.
     personal_record_normalization: PersonalRecordNormalization | None = None
     date_range_normalization: DateRangeNormalization | None = None
+    date_validation: DateValidationDiagnostic | None = None

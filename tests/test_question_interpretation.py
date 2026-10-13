@@ -95,6 +95,12 @@ def test_partial_rule_parse_is_not_complete(suffix):
 ])
 def test_invented_exercise_dates_or_n_rejected(updates):
     result = interpreter(FakeInterpreterProvider(draft(**updates))).interpret(PARAPHRASE)
+    if "time_condition" in updates:
+        assert result.execution_status == "clarification_required"
+        assert result.error_code is None
+        assert result.interpretation.date_validation.check_id == "date_grounding"
+        assert result.interpretation.time_condition.start_date is None
+        return
     assert result.execution_status == "failure"
     assert result.error_code == "ungrounded_interpretation"
 
