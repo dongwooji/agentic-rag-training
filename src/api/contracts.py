@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, StrictBool
 
 from src.answer.contracts import FinalResponseStatus
 
@@ -33,6 +33,7 @@ class VersionResponse(PublicModel):
 
 
 class QueryRequest(PublicModel):
+    debug: StrictBool = Field(default=False, description="검증·문헌 검색 처리 과정의 안전한 요약을 응답에 포함")
     question: str = Field(
         min_length=1,
         max_length=4000,
@@ -66,6 +67,23 @@ class ExerciseOption(PublicModel):
     canonical_exercises: list[str] = Field(min_length=1, max_length=12)
 
 
+class DebugTrace(PublicModel):
+    version: Literal["query_debug_trace_v1"]
+    request_id: str | None = None
+    interpreter: dict
+    initial_queries: dict
+    retrievals: list[dict] = Field(max_length=3)
+    graders: list[dict] = Field(max_length=3)
+    recovery: list[dict] = Field(max_length=2)
+    fusions: list[dict] = Field(max_length=2)
+    final_evidence: list[dict] = Field(max_length=10)
+
+
+class DebugResponseMetadata(PublicModel):
+    response_mode: Literal["debug"] = "debug"
+    trace: DebugTrace
+
+
 class ClarificationMetadata(PublicModel):
     response_mode: Literal["clarification", "clarification_required"]
     clarification_required: bool
@@ -73,6 +91,7 @@ class ClarificationMetadata(PublicModel):
     clarification_type: Literal["exercise_selection"] | None = None
     options: list[ExerciseOption] = Field(default_factory=list, max_length=13)
     expires_at: str | None = None
+    trace: DebugTrace | None = None
 
 
 class QueryResponse(PublicModel):
@@ -89,7 +108,7 @@ class QueryResponse(PublicModel):
     limitations: list[str] = Field(default_factory=list)
     latency_ms: float = Field(ge=0.0)
     error: PublicQueryError | None = None
-    response_metadata: ClarificationMetadata | None = None
+    response_metadata: ClarificationMetadata | DebugResponseMetadata | None = None
 
     model_config = ConfigDict(
         extra="forbid",

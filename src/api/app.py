@@ -17,6 +17,8 @@ from src.retrieval.rrf import DEFAULT_RRF_K
 from .contracts import (
     ClarifyRequest,
     ClarificationMetadata,
+    DebugResponseMetadata,
+    DebugTrace,
     HealthResponse,
     PublicQueryError,
     QueryRequest,
@@ -32,6 +34,7 @@ from .dependencies import (
     get_workflow,
 )
 from src.observability import request_context, log_failure, log_terminal_failure
+from .debug_trace import build_debug_trace
 
 
 APP_VERSION = "1.0.0"
@@ -91,6 +94,7 @@ def query_response_from_state(
     state: Mapping[str, Any],
     *,
     latency_ms: float,
+    debug: bool = False,
 ) -> QueryResponse:
     """Project an internal graph state into a bounded public response."""
 
@@ -102,6 +106,14 @@ def query_response_from_state(
         or state.get("recovery_result")
         or state.get("fusion_history")
     )
+    metadata = (ClarificationMetadata.model_validate({key: value for key, value in response.provenance.response_metadata.items() if key != "trace"})
+                if response.provenance.response_metadata.get("clarification_required") else None)
+    if debug:
+        trace = DebugTrace.model_validate(build_debug_trace(state))
+        if metadata:
+            metadata.trace = trace
+        else:
+            metadata = DebugResponseMetadata(trace=trace)
     return QueryResponse(
         final_status=response.final_status,
         answer_text=response.answer_text,
@@ -115,8 +127,7 @@ def query_response_from_state(
         limitations=list(response.limitations),
         latency_ms=latency_ms,
         error=_public_error(response),
-        response_metadata=(ClarificationMetadata.model_validate(response.provenance.response_metadata)
-                           if response.provenance.response_metadata.get("clarification_required") else None),
+        response_metadata=metadata,
     )
 
 
@@ -223,6 +234,7 @@ def create_app() -> FastAPI:
             return query_response_from_state(
                 state,
                 latency_ms=(perf_counter() - started) * 1000.0,
+                debug=request.debug,
             )
         except (WorkflowConfigurationError, WorkflowInitializationError) as exc:
             log_failure(stage="runtime_initialization", check_id="runtime_unavailable", exception=exc)
