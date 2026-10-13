@@ -31,6 +31,7 @@ from .dependencies import (
     close_workflow,
     get_workflow,
 )
+from src.observability import request_context, log_failure, log_terminal_failure
 
 
 APP_VERSION = "1.0.0"
@@ -141,9 +142,15 @@ def create_app() -> FastAPI:
         lifespan=_lifespan,
     )
 
+    @application.middleware("http")
+    async def correlate_request(request, call_next):
+        with request_context():
+            return await call_next(request)
+
     @application.exception_handler(WorkflowConfigurationError)
     @application.exception_handler(WorkflowInitializationError)
-    async def runtime_unavailable_handler(_, __) -> JSONResponse:
+    async def runtime_unavailable_handler(_, error) -> JSONResponse:
+        log_failure(stage="runtime_initialization", check_id="runtime_unavailable", exception=error)
         return JSONResponse(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             content={"detail": "Agentic RAG runtime is not available."},
@@ -212,16 +219,19 @@ def create_app() -> FastAPI:
             state = workflow.invoke(request.question)
             if not isinstance(state, Mapping):
                 raise TypeError("workflow returned a non-mapping state")
+            log_terminal_failure(state)
             return query_response_from_state(
                 state,
                 latency_ms=(perf_counter() - started) * 1000.0,
             )
         except (WorkflowConfigurationError, WorkflowInitializationError) as exc:
+            log_failure(stage="runtime_initialization", check_id="runtime_unavailable", exception=exc)
             raise HTTPException(
                 status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
                 detail="Agentic RAG runtime is not available.",
             ) from exc
         except Exception as exc:
+            log_failure(stage="api_query", check_id="api_execution_failure", exception=exc)
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="The request could not be processed safely.",
@@ -241,6 +251,7 @@ def create_app() -> FastAPI:
             raise HTTPException(status_code=409, detail="Exercise selection requires Phase A runtime.")
         try:
             state = workflow.clarify(request.clarification_id, request.selected_option)
+            log_terminal_failure(state)
             return query_response_from_state(state, latency_ms=(perf_counter() - started) * 1000)
         except WorkflowClarificationUnavailable as exc:
             raise HTTPException(status_code=409, detail="Exercise selection requires Phase A runtime.") from exc
@@ -249,6 +260,7 @@ def create_app() -> FastAPI:
             raise HTTPException(status_code=code, detail={"code": exc.code,
                 "message": "허용된 선택지를 확인해주세요. 요청이 만료되거나 없다면 새 질문을 보내주세요."}) from exc
         except Exception as exc:
+            log_failure(stage="api_clarification", check_id="api_execution_failure", exception=exc)
             raise HTTPException(status_code=500, detail="The request could not be processed safely.") from exc
 
     return application

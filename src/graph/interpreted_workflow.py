@@ -18,6 +18,7 @@ from .interpretation_binding import bind_interpretation
 from .workflow import AgenticRAGWorkflow
 from .runtime_group_training import RuntimeGroupTrainingTool
 from src.retrieval.runtime_config import DEFAULT_RETRIEVAL_CONFIG
+from src.observability import log_failure
 
 
 class _FixedRoute:
@@ -95,7 +96,8 @@ class InterpretedWorkflow:
         if interpretation.personal_record_requested and time.scope == "explicit" and time.start_date and time.end_date and callable(bounds_reader):
             try:
                 bounds = bounds_reader()
-            except Exception:
+            except Exception as exc:
+                log_failure(stage="record_coverage", check_id="record_coverage_lookup_failure", exception=exc)
                 return self._failure(base, "record_coverage_lookup_failure")
             if bounds is None or date.fromisoformat(time.end_date) < bounds[0] or date.fromisoformat(time.start_date) > bounds[1]:
                 response = FinalResponse(final_status=FinalResponseStatus.ABSTAIN_READY,
@@ -148,7 +150,8 @@ class InterpretedWorkflow:
             state["tool_input_resolution"] = {"execution_status": "ready", "tool_inputs": tool_inputs,
                                               "provenance": {"method": "interpretation_binding", "parsing_source": interpretation.parsing_source}}
             return state
-        except Exception:
+        except Exception as exc:
+            log_failure(stage="interpretation_binding", check_id="interpretation_binding_failure", exception=exc)
             return self._failure(base, "interpretation_binding_failure")
 
     @staticmethod

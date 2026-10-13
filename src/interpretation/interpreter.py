@@ -12,6 +12,7 @@ from .rule_parser import RuleQuestionParser
 from .validator import GroundingError, DateGroundingError, validate_interpretation
 from .exercise_catalog import RepositoryExerciseCatalog, catalog_sha256
 from .exercise_relations import RuntimeExerciseRelations
+from src.observability import log_failure, log_validation_error
 
 
 class InterpreterProvider(Protocol):
@@ -52,6 +53,7 @@ class QuestionInterpreter:
                 provider_result.response_metadata.update(canonical_catalog_count=len(candidates),
                                                          canonical_catalog_sha256=catalog_sha256(candidates))
                 if provider_result.error or provider_result.raw_interpretation is None:
+                    log_failure(stage="interpreter_provider", check_id="provider_output_failure", field="interpretation")
                     return InterpretationResult(execution_status="failure", provider=provider_result, error_code="interpreter_provider_failure",
                                                 latency_ms=(perf_counter() - started) * 1000)
                 raw = provider_result.raw_interpretation
@@ -62,6 +64,7 @@ class QuestionInterpreter:
                                         interpretation=interpretation, provider=provider_result,
                                         latency_ms=(perf_counter() - started) * 1000)
         except DateGroundingError as exc:
+            log_validation_error(exc)
             try:
                 interpretation = validate_interpretation(question, raw, source=source, canonicalizer=self.canonicalizer,
                     normalizer=self.rule_parser.normalizer, canonical_exercises=candidates,
@@ -69,10 +72,12 @@ class QuestionInterpreter:
                 return InterpretationResult(execution_status="clarification_required", interpretation=interpretation,
                     provider=provider_result, latency_ms=(perf_counter() - started) * 1000)
             except Exception as secondary:
+                log_validation_error(secondary)
                 return InterpretationResult(execution_status="failure", provider=provider_result,
                     error_code="ungrounded_interpretation" if isinstance(secondary, GroundingError) else "interpretation_validation_failure",
                     latency_ms=(perf_counter() - started) * 1000)
         except Exception as exc:
+            log_validation_error(exc)
             return InterpretationResult(execution_status="failure", provider=provider_result,
                                         error_code="ungrounded_interpretation" if isinstance(exc, GroundingError) else "interpretation_validation_failure",
                                         latency_ms=(perf_counter() - started) * 1000)
