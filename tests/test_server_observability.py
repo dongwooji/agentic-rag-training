@@ -1,6 +1,7 @@
 """Synthetic failure logs and correlation, no actual provider or DB."""
 import json
 import logging
+import pytest
 from unittest.mock import Mock
 from fastapi.testclient import TestClient
 from src.api.app import create_app
@@ -70,3 +71,42 @@ def test_request_context_restores_and_logging_failure_cannot_change_execution(mo
         monkeypatch.setattr("src.observability.LOGGER", logger)
         log_failure(stage="validator", check_id="date_grounding", exception=ValueError("secret"))
     assert REQUEST_ID.get() == before
+
+
+def test_schema_error_never_logs_unknown_field_names_or_values(caplog):
+    from src.interpretation.contracts import InterpretationDraft
+    from src.observability import log_validation_error
+    from pydantic import ValidationError
+    caplog.set_level(logging.WARNING, logger="agentic_rag.diagnostics")
+    raw = draft()
+    raw["privateCredentialCanary"] = "privateCredentialValue"
+    try:
+        InterpretationDraft.model_validate(raw)
+    except ValidationError as error:
+        log_validation_error(error)
+    assert "privateCredentialCanary" not in caplog.text and "privateCredentialValue" not in caplog.text
+    assert events(caplog)[0]["field"] == "interpretation"
+
+
+def test_final_response_validation_failure_keeps_safe_code_without_detail(caplog):
+    from src.observability import log_terminal_failure
+    caplog.set_level(logging.WARNING, logger="agentic_rag.diagnostics")
+    log_terminal_failure(dict(final_status="execution_failure", errors=[], final_response=dict(
+        error=dict(code="grounding_validation_failure", user_message="private-final-detail"),
+        provenance=dict(internal_error_detail="private-provider-validation"))))
+    assert events(caplog)[0]["stage"] == "final_response"
+    assert events(caplog)[0]["check_id"] == "grounding_validation_failure"
+    assert "private-final-detail" not in caplog.text and "private-provider-validation" not in caplog.text
+
+
+@pytest.mark.parametrize("error,expected", [("ValidationError", "ValidationError"), ("private-provider-detail", "ProviderFailure")])
+def test_provider_failure_logs_only_known_exception_type(caplog, error, expected):
+    from src.interpretation.provider import InterpreterProviderResult
+    caplog.set_level(logging.WARNING, logger="agentic_rag.diagnostics")
+    graph, provider, _ = workflow(draft())
+    provider.invoke.return_value = InterpreterProviderResult(error=error)
+    state = graph.invoke("내 Fixture Pull 기록을 확인해주세요.")
+    assert state["final_status"] == "execution_failure"
+    assert events(caplog)[0]["stage"] == "interpreter_provider"
+    assert events(caplog)[0]["exception_type"] == expected
+    assert "private-provider-detail" not in caplog.text

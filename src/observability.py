@@ -12,20 +12,24 @@ LOGGER = logging.getLogger("agentic_rag.diagnostics")
 _IDENTIFIER = re.compile(r"[A-Za-z][A-Za-z0-9_.]{0,79}\Z")
 _STAGES = {"input", "router", "tool_input_resolver", "initial_tools", "grader", "recovery_agent", "recovery_search",
     "evidence_fusion", "final_response", "question_interpretation", "record_coverage", "interpretation_binding",
-    "api_query", "api_clarification", "runtime_initialization", "interpreter_provider", "interpretation_validation"}
+    "api_query", "api_clarification", "runtime_initialization", "interpreter_provider", "interpretation_validation", "debug_trace"}
 _CHECKS = {"date_grounding", "invalid_calendar_date", "reversed_date_range", "ambiguous_date_range", "missing_date_year",
-    "exercise_span", "exercise_catalog", "numeric_grounding", "numeric_operation", "analysis_grounding", "interpretation_schema",
+    "exercise_span", "exercise_catalog", "exercise_selection", "numeric_grounding", "numeric_operation", "analysis_grounding", "assumption_grounding", "session_grounding", "interpretation_schema",
     "provider_output_failure", "record_coverage_lookup_failure", "interpretation_binding_failure", "runtime_unavailable",
     "api_execution_failure", "response_validation_failure", "router_failure", "invalid_question", "missing_required_argument",
     "resolver_failure", "invalid_resolver_result", "tool_execution_setup_failure", "tool_execution_failure",
     "literature_result_missing", "invalid_literature_result", "empty_initial_literature", "empty_literature_evidence",
     "grader_execution_failure", "grader_failure", "missing_component_contract_failure", "recovery_agent_failure",
     "literature_tool_failure", "fusion_failure", "ungrounded_interpretation", "interpretation_validation_failure",
-    "interpreter_provider_failure", "interpreter_provider_unavailable", "clarification_capacity_reached"}
+    "interpreter_provider_failure", "interpreter_provider_unavailable", "clarification_capacity_reached", "trace_projection_failure",
+    "invalid_route", "unsupported_operation", "unknown_exercise", "ungrounded_argument", "schema_failure", "provider_failure",
+    "validation_failure", "grounding_validation_failure", "invalid_graph_state", "graph_execution_failure"}
 _REASONS = {"date_grounding": "date_not_supported_by_question", "invalid_calendar_date": "invalid_calendar_date",
     "reversed_date_range": "period_start_after_end", "ambiguous_date_range": "multiple_periods_need_confirmation",
     "missing_date_year": "year_not_specified", "numeric_grounding": "session_count_not_supported_by_question",
-    "exercise_catalog": "exercise_not_in_catalog", "exercise_span": "exercise_mention_not_in_question"}
+    "exercise_catalog": "exercise_not_in_catalog", "exercise_span": "exercise_mention_not_in_question",
+    "exercise_selection": "exercise_selection_conflicts_with_question", "analysis_grounding": "analysis_source_not_supported_by_question",
+    "assumption_grounding": "assumption_not_in_question", "session_grounding": "session_id_not_in_question"}
 _GROUNDING_CHECKS = {
     "exercise mention is absent from the question": ("exercise_span", "exercise_mention"),
     "exercise candidate is not in the stored catalog": ("exercise_catalog", "candidate_exercises"),
@@ -33,6 +37,15 @@ _GROUNDING_CHECKS = {
     "N is absent from the question's session conditions": ("numeric_grounding", "n_sessions"),
     "N is not applicable to this operation": ("numeric_operation", "n_sessions"),
     "analysis source is absent from the question": ("analysis_grounding", "requested_analyses"),
+    "LLM analysis needs an original source span": ("analysis_grounding", "requested_analyses"),
+    "candidates need an original exercise mention": ("exercise_span", "exercise_mention"),
+    "candidates conflict with a known explicit exercise": ("exercise_selection", "candidate_exercises"),
+    "candidate conflicts with explicit exercise selection policy": ("exercise_selection", "candidate_exercises"),
+    "canonical selection conflicts with candidates": ("exercise_selection", "canonical_exercise_name"),
+    "candidate conflicts with the original exercise mention": ("exercise_selection", "canonical_exercise_name"),
+    "canonical exercise is not grounded in the question": ("exercise_span", "canonical_exercise_name"),
+    "session ID is absent from the question": ("session_grounding", "session_id"),
+    "user assumption must be an original question span": ("assumption_grounding", "user_assumptions"),
 }
 
 
@@ -67,9 +80,13 @@ def log_failure(*, stage, check_id, field="request", exception=None, exception_t
 def log_validation_error(error):
     from pydantic import ValidationError
     if isinstance(error, ValidationError):
+        from src.interpretation.contracts import InterpretationDraft, TimeCondition, AnalysisRequest, UserAssumption, UnresolvedField
+        allowed = set().union(*(model.model_fields for model in (InterpretationDraft, TimeCondition, AnalysisRequest, UserAssumption, UnresolvedField)))
         for item in error.errors(include_input=False, include_context=False, include_url=False):
+            parts = item["loc"]
+            field = ".".join(str(x) for x in parts) if all(isinstance(x, int) or x in allowed for x in parts) else "interpretation"
             log_failure(stage="interpretation_validation", check_id="interpretation_schema",
-                        field=".".join(str(x) for x in item["loc"]), exception=error)
+                        field=field, exception=error)
         return
     check, field = _GROUNDING_CHECKS.get(str(error), ("interpretation_schema", "interpretation"))
     log_failure(stage="interpretation_validation", check_id=getattr(error, "check_id", check),
@@ -79,7 +96,10 @@ def log_validation_error(error):
 def log_terminal_failure(state):
     if state.get("final_status") != "execution_failure":
         return
-    errors = state.get("errors") or [{"stage": "final_response", "code": "response_validation_failure"}]
+    final = state.get("final_response")
+    final_error = final.get("error") if isinstance(final, dict) else None
+    code = final_error.get("code") if isinstance(final_error, dict) else "response_validation_failure"
+    errors = state.get("errors") or [{"stage": "final_response", "code": code}]
     for error in errors:
         if not isinstance(error, dict):
             continue
