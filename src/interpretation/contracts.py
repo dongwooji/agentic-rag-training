@@ -65,6 +65,22 @@ class PersonalRecordNormalization(StrictModel):
     signals: list[Literal["record_operation", "requested_analyses", "explicit_personal_request", "exercise_session_context"]]
 
 
+class DateRangeNormalization(StrictModel):
+    supplied_scope: str
+    supplied_start_date: str | None
+    supplied_end_date: str | None
+    derived_start_date: str
+    derived_end_date: str
+    source_text: str
+    mismatch: bool
+
+
+class DateValidationDiagnostic(StrictModel):
+    status: Literal["clarification_required"] = "clarification_required"
+    check_id: str
+    field: str
+
+
 class QuestionInterpretation(InterpretationDraft):
     schema_version: Literal["question_interpretation_phase_a_v1"] = "question_interpretation_phase_a_v1"
     parsing_source: Literal["rule", "llm"]
@@ -73,3 +89,5 @@ class QuestionInterpretation(InterpretationDraft):
     applied_policies: list[str] = Field(default_factory=list)
     # Runtime output only: the LLM's InterpretationDraft schema stays unchanged.
     personal_record_normalization: PersonalRecordNormalization | None = None
+    date_range_normalization: DateRangeNormalization | None = None
+    date_validation: DateValidationDiagnostic | None = None

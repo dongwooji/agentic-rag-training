@@ -17,6 +17,8 @@ from src.retrieval.rrf import DEFAULT_RRF_K
 from .contracts import (
     ClarifyRequest,
     ClarificationMetadata,
+    DebugResponseMetadata,
+    DebugTrace,
     HealthResponse,
     PublicQueryError,
     QueryRequest,
@@ -31,6 +33,8 @@ from .dependencies import (
     close_workflow,
     get_workflow,
 )
+from src.observability import request_context, log_failure, log_terminal_failure
+from .debug_trace import build_debug_trace
 
 
 APP_VERSION = "1.0.0"
@@ -90,6 +94,7 @@ def query_response_from_state(
     state: Mapping[str, Any],
     *,
     latency_ms: float,
+    debug: bool = False,
 ) -> QueryResponse:
     """Project an internal graph state into a bounded public response."""
 
@@ -101,6 +106,14 @@ def query_response_from_state(
         or state.get("recovery_result")
         or state.get("fusion_history")
     )
+    metadata = (ClarificationMetadata.model_validate({key: value for key, value in response.provenance.response_metadata.items() if key != "trace"})
+                if response.provenance.response_metadata.get("clarification_required") else None)
+    if debug:
+        trace = DebugTrace.model_validate(build_debug_trace(state))
+        if metadata:
+            metadata.trace = trace
+        else:
+            metadata = DebugResponseMetadata(trace=trace)
     return QueryResponse(
         final_status=response.final_status,
         answer_text=response.answer_text,
@@ -114,8 +127,7 @@ def query_response_from_state(
         limitations=list(response.limitations),
         latency_ms=latency_ms,
         error=_public_error(response),
-        response_metadata=(ClarificationMetadata.model_validate(response.provenance.response_metadata)
-                           if response.provenance.response_metadata.get("clarification_required") else None),
+        response_metadata=metadata,
     )
 
 
@@ -141,9 +153,15 @@ def create_app() -> FastAPI:
         lifespan=_lifespan,
     )
 
+    @application.middleware("http")
+    async def correlate_request(request, call_next):
+        with request_context():
+            return await call_next(request)
+
     @application.exception_handler(WorkflowConfigurationError)
     @application.exception_handler(WorkflowInitializationError)
-    async def runtime_unavailable_handler(_, __) -> JSONResponse:
+    async def runtime_unavailable_handler(_, error) -> JSONResponse:
+        log_failure(stage="runtime_initialization", check_id="runtime_unavailable", exception=error)
         return JSONResponse(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             content={"detail": "Agentic RAG runtime is not available."},
@@ -212,16 +230,20 @@ def create_app() -> FastAPI:
             state = workflow.invoke(request.question)
             if not isinstance(state, Mapping):
                 raise TypeError("workflow returned a non-mapping state")
+            log_terminal_failure(state)
             return query_response_from_state(
                 state,
                 latency_ms=(perf_counter() - started) * 1000.0,
+                debug=request.debug,
             )
         except (WorkflowConfigurationError, WorkflowInitializationError) as exc:
+            log_failure(stage="runtime_initialization", check_id="runtime_unavailable", exception=exc)
             raise HTTPException(
                 status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
                 detail="Agentic RAG runtime is not available.",
             ) from exc
         except Exception as exc:
+            log_failure(stage="api_query", check_id="api_execution_failure", exception=exc)
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="The request could not be processed safely.",
@@ -241,6 +263,7 @@ def create_app() -> FastAPI:
             raise HTTPException(status_code=409, detail="Exercise selection requires Phase A runtime.")
         try:
             state = workflow.clarify(request.clarification_id, request.selected_option)
+            log_terminal_failure(state)
             return query_response_from_state(state, latency_ms=(perf_counter() - started) * 1000)
         except WorkflowClarificationUnavailable as exc:
             raise HTTPException(status_code=409, detail="Exercise selection requires Phase A runtime.") from exc
@@ -249,6 +272,7 @@ def create_app() -> FastAPI:
             raise HTTPException(status_code=code, detail={"code": exc.code,
                 "message": "허용된 선택지를 확인해주세요. 요청이 만료되거나 없다면 새 질문을 보내주세요."}) from exc
         except Exception as exc:
+            log_failure(stage="api_clarification", check_id="api_execution_failure", exception=exc)
             raise HTTPException(status_code=500, detail="The request could not be processed safely.") from exc
 
     return application

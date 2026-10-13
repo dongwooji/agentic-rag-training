@@ -4,11 +4,13 @@ Per-request fixed routes avoid shared mutable interpretation state. The legacy
 ToolInputResolver is never installed in this path. No batch execution exists.
 """
 
+from datetime import date
 from src.agent.executor import DeterministicToolExecutor
 from src.answer.abstention import build_execution_failure_response
 from src.answer.contracts import ChannelMode, FinalAnswerInput, FinalResponse, FinalResponseProvenance, FinalResponseStatus
 from src.interpretation.interpreter import QuestionInterpreter
 from src.interpretation.clarification import ClarificationStore, ClarificationError, selected_interpretation
+from src.interpretation.messages import clarification_questions
 from src.routing.interpretation_router import InterpretationRouter
 from src.recovery.contracts import MAX_RETRY
 from src.tools.contracts import ToolError, ToolErrorCode, failure_response
@@ -16,6 +18,7 @@ from .interpretation_binding import bind_interpretation
 from .workflow import AgenticRAGWorkflow
 from .runtime_group_training import RuntimeGroupTrainingTool
 from src.retrieval.runtime_config import DEFAULT_RETRIEVAL_CONFIG
+from src.observability import log_failure
 
 
 class _FixedRoute:
@@ -88,15 +91,30 @@ class InterpretedWorkflow:
         question = base["original_question"]
         plan = self.router.route(interpretation)
         base.update(route=plan.to_dict(), task_type=plan.task_type.value, selected_tools=list(plan.selected_tools), execution_order=list(plan.execution_order))
+        bounds_reader = getattr(self.interpreter.canonicalizer.repository, "record_date_bounds", None)
+        time = interpretation.time_condition
+        if interpretation.personal_record_requested and time.scope == "explicit" and time.start_date and time.end_date and callable(bounds_reader):
+            try:
+                bounds = bounds_reader()
+            except Exception as exc:
+                log_failure(stage="record_coverage", check_id="record_coverage_lookup_failure", exception=exc)
+                return self._failure(base, "record_coverage_lookup_failure")
+            if bounds is None or date.fromisoformat(time.end_date) < bounds[0] or date.fromisoformat(time.start_date) > bounds[1]:
+                response = FinalResponse(final_status=FinalResponseStatus.ABSTAIN_READY,
+                    answer_text="해당 기간 기록이 없습니다. 다른 기간을 선택해주세요.",
+                    limitations=["요청한 기간에 저장된 운동 기록이 없습니다."],
+                    provenance=FinalResponseProvenance(graph_terminal_status=FinalResponseStatus.ABSTAIN_READY,
+                        channel_mode=ChannelMode.NO_EVIDENCE, response_metadata={"response_mode": "no_records"}))
+                return {**base, "record_coverage_status": "no_records", "final_status": "abstain_ready", "final_response": response.model_dump(mode="json")}
         if interpretation.clarification_required:
-            reasons = list(dict.fromkeys(x.reason for x in interpretation.unresolved_fields))
+            reasons = clarification_questions(interpretation)
             metadata = {"response_mode": "clarification_required", "clarification_required": True}
             if len(interpretation.candidate_exercises) > 1 and interpretation.exercise_resolution_status == "ambiguous":
                 try:
                     metadata = self.clarification_store.create(base, interpretation, self.interpreter.exercise_relations)
                 except ClarificationError:
                     return self._failure(base, "clarification_capacity_reached")
-            text = "실행 전에 다음 조건을 확인해주세요:\n" + "\n".join(f"- {x}" for x in reasons)
+            text = "다음 내용을 확인해주세요:\n" + "\n".join(f"- {x}" for x in reasons)
             if metadata.get("options"):
                 text += "\n어떤 기록을 조회할까요?\n" + "\n".join(f"{x['id']}. {x['label']}" for x in metadata["options"])
             response = FinalResponse(
@@ -132,7 +150,8 @@ class InterpretedWorkflow:
             state["tool_input_resolution"] = {"execution_status": "ready", "tool_inputs": tool_inputs,
                                               "provenance": {"method": "interpretation_binding", "parsing_source": interpretation.parsing_source}}
             return state
-        except Exception:
+        except Exception as exc:
+            log_failure(stage="interpretation_binding", check_id="interpretation_binding_failure", exception=exc)
             return self._failure(base, "interpretation_binding_failure")
 
     @staticmethod

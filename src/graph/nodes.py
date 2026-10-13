@@ -533,6 +533,9 @@ class WorkflowNodes:
             payload = _json_safe(result)
         except Exception as exc:
             return {
+                "grader_history": [*state.get("grader_history", []), {"retry_count": state.get("retry_count", 0),
+                    "query": state.get("current_query"), "evidence": list(evidence),
+                    "result": {"execution_status": "failure", "evidence_sufficient": False, "components": []}}],
                 "errors": _append_error(
                     state,
                     "grader",
@@ -542,7 +545,9 @@ class WorkflowNodes:
                 "final_status": "execution_failure",
             }
 
-        update: AgenticRAGState = {"grader_result": payload}
+        update: AgenticRAGState = {"grader_result": payload, "grader_history": [
+            *state.get("grader_history", []), {"retry_count": state.get("retry_count", 0),
+                "query": state.get("current_query"), "evidence": list(evidence), "result": payload}]}
         if payload.get("execution_status") != "completed":
             update["errors"] = _append_error(
                 state,
@@ -595,6 +600,8 @@ class WorkflowNodes:
             payload = _json_safe(result)
         except Exception as exc:
             return {
+                "recovery_history": [*state.get("recovery_history", []), {"attempt": state.get("retry_count", 0) + 1,
+                    "result": {"execution_status": "failure"}}],
                 "errors": _append_error(
                     state,
                     "recovery_agent",
@@ -604,7 +611,8 @@ class WorkflowNodes:
                 "final_status": "execution_failure",
             }
 
-        update: AgenticRAGState = {"recovery_result": payload}
+        update: AgenticRAGState = {"recovery_result": payload, "recovery_history": [
+            *state.get("recovery_history", []), {"attempt": state.get("retry_count", 0) + 1, "result": payload}]}
         status = payload.get("execution_status")
         if status == "query_ready":
             update["current_query"] = str(payload["recovery_query"])

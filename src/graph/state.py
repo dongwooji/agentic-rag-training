@@ -38,7 +38,9 @@ class AgenticRAGState(TypedDict, total=False):
     fused_evidence: list[dict[str, Any]]
     fusion_history: list[dict[str, Any]]
     grader_result: dict[str, Any] | None
+    grader_history: list[dict[str, Any]]
     recovery_result: dict[str, Any] | None
+    recovery_history: list[dict[str, Any]]
     missing_components: list[dict[str, str]]
     retry_count: int
     max_retry: int

@@ -95,6 +95,12 @@ def test_partial_rule_parse_is_not_complete(suffix):
 ])
 def test_invented_exercise_dates_or_n_rejected(updates):
     result = interpreter(FakeInterpreterProvider(draft(**updates))).interpret(PARAPHRASE)
+    if "time_condition" in updates:
+        assert result.execution_status == "clarification_required"
+        assert result.error_code is None
+        assert result.interpretation.date_validation.check_id == "date_grounding"
+        assert result.interpretation.time_condition.start_date is None
+        return
     assert result.execution_status == "failure"
     assert result.error_code == "ungrounded_interpretation"
 
@@ -212,10 +218,13 @@ def test_explicit_range_is_grounded_and_bound():
     assert args["compute_metrics"]["end_date"] == "2018-03-31"
 
 
-def test_period_omission_in_model_output_requires_clarification():
+def test_period_omission_in_model_output_is_normalized_from_explicit_question():
     output = draft(time_condition={"scope": "all_records", "start_date": None, "end_date": None, "source_text": ""})
     result = interpreter(FakeInterpreterProvider(output)).interpret(PARAPHRASE + " 2018-01-01부터 2018-03-31까지")
-    assert result.execution_status == "clarification_required"
+    assert result.execution_status == "ready"
+    assert result.interpretation.time_condition.start_date == "2018-01-01"
+    assert result.interpretation.time_condition.end_date == "2018-03-31"
+    assert result.interpretation.date_range_normalization.mismatch is True
 
 
 def test_personal_calculation_cannot_leak_into_literature_scope():
