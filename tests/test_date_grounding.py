@@ -112,3 +112,18 @@ def test_repository_coverage_query_is_dynamic_and_read_only():
     assert sql.startswith("SELECT min(s.started_at)") and "JOIN training.workout_sets" in sql
     assert parameters == ("preprocessing_v1",)
     assert "2015" not in sql
+
+
+def test_partially_overlapping_period_is_not_clamped_to_record_coverage():
+    from graph_test_support import build_workflow
+    legacy, training, _, _, _, _ = build_workflow(literature_responses=[], grader_results=[], recovery_payloads=[])
+    class Provider:
+        def invoke(self, question, *, canonical_exercises):
+            return InterpreterProviderResult(raw_interpretation=draft())
+    workflow = InterpretedWorkflow(interpreter=QuestionInterpreter(exercise_repository=Repository(), provider=Provider()),
+        tool_executor=legacy.nodes.tool_executor, literature_tool=legacy.nodes.literature_tool,
+        runtime_grader=legacy.nodes.runtime_grader, recovery_agent=legacy.nodes.recovery_agent)
+    state = workflow.invoke("내 Fixture Pull의 2029년부터 2031년까지 기록을 보여주세요.")
+    assert state["final_status"] == "answer_ready" and len(training.calls) == 1
+    assert training.calls[0].start_date == "2029-01-01"
+    assert training.calls[0].end_date == "2031-12-31"
