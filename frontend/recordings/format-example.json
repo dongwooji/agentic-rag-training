@@ -1,0 +1,46 @@
+{
+  "schema_version": "agentic_rag_recording_v1",
+  "id": "format-example",
+  "title": "녹화 파일 구조 확인",
+  "kind": "format_example",
+  "recorded_at": null,
+  "steps": [
+    {
+      "request": {
+        "endpoint": "/query",
+        "body": {
+          "question": "녹화 응답 파일의 형식을 확인하고 싶어요.",
+          "debug": true
+        }
+      },
+      "response": {
+        "final_status": "abstain_ready",
+        "answer_text": "**형식 예시**입니다. 이 응답은 실제 서버 실행 결과가 아닙니다.\n\n실제 응답은 녹화 스크립트로 생성한 뒤 이 화면에서 재생할 수 있습니다.",
+        "route": "unsupported",
+        "tools_used": [],
+        "retry_count": 0,
+        "recovery_used": false,
+        "used_literature_chunk_ids": [],
+        "limitations": ["파일 형식 확인을 위한 예시이며 검색·계산·LLM 실행을 수행하지 않았습니다."],
+        "latency_ms": 0,
+        "response_metadata": {
+          "response_mode": "debug",
+          "trace": {
+            "version": "query_debug_trace_v1",
+            "interpreter": {
+              "validation": {
+                "status": "not_used"
+              }
+            },
+            "initial_queries": {},
+            "retrievals": [],
+            "graders": [],
+            "recovery": [],
+            "fusions": [],
+            "final_evidence": []
+          }
+        }
+      }
+    }
+  ]
+}

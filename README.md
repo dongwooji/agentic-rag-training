@@ -108,3 +108,13 @@ Phase A 실행 모드에서 여러 저장 운동 후보가 남으면 선택을 �
 `POST /query/clarify`에 반환된 확인 ID와 option ID를 보내면 해석을 반복하지 않고 실행을 재개합니다.
 명시적 공동 조회만 허용하며 로컬 메모리 state는 20분 후 만료됩니다.
 사용 방법과 제한은 [운동 후보 선택 문서](docs/EXERCISE_CLARIFICATION.md)를 참고하세요.
+
+## React 프론트엔드 데모
+
+질문·답변, 추가 확인 입력, 문헌과 실행 근거 패널을 제공하는 React·TypeScript 데모는 [frontend/README.md](frontend/README.md)를 참고하세요. 실제 API 연결과 서버 응답 녹화 재생을 지원합니다. 현재 저장소에는 실제 녹화 대신 명확히 표시된 형식 예시 한 개만 포함합니다.
+
+```powershell
+cd frontend
+npm ci
+npm run dev
+```
