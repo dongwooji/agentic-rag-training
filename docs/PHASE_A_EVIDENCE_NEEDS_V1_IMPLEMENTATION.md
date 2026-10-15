@@ -1,8 +1,9 @@
 # Phase A 근거 필요성 분리 구현·검증 기록
 
 기준선 master: `685e2b9194419fbf757df2df2156299b77e4afe3`.
-구현 코드 commit: `dee6bd2fe9a74cc7b895e682470b908f22d68b01`.
-계약 commit: `15e0207`.
+최종 실행 코드 commit: `0307b17f17494f08a2d6e944861bdb4ba6d48a02`.
+최초 구현 commit: `dee6bd2fe9a74cc7b895e682470b908f22d68b01`.
+최초 계약 commit: `15e0207`.
 작업 branch: `feature/phase-a-evidence-needs`.
 이 문서는 위 구현 이후의 문서 전용 commit으로 추가한다. 실행 코드 SHA는 위 값이다.
 계약과 JSON Schema는 [계약 문서](PHASE_A_EVIDENCE_NEEDS_V1.md)를 따른다.
@@ -27,6 +28,9 @@ answer_type 하나로 근거 채널을 결정하지 않는다.
 명시적 기간, 전체/최고 기록, N세션 자체 의미가 우선한다. 날짜·기간의 기존 검증과
 원문에 없는 날짜 거절은 유지한다. 잘못된 원문 날짜도 기존 기간 clarification으로 이어진다.
 기본 기간은 최종 답변 문구, 내부 provenance, debug trace에서 확인할 수 있다.
+상대 기간은 기록 요청의 time_condition.source_text에서 추출한 원문 구절로 확인한다.
+다른 절의 최근 문헌 표현으로 기록을 최근 8주로 좁히거나, 문헌의 시간 표현 때문에
+승인된 현재 평가 분석창을 막지 않는다. 원문에 없는 상대 기간 구절도 날짜 생성에 쓰지 않는다.
 
 `response_metadata.trace.interpreter.phase_a`의 version은 phase_a_semantics_v1이다.
 기존 내부 parsing_source(rule/llm), evidence_need, argument_resolution,
@@ -45,15 +49,15 @@ semantics_enabled=True를 사용한다. 기존 provider config/prompt와 기본 
 
 | 검증 | 결과 |
 |---|---|
-| 신규 synthetic 단위·통합·평가기 | 113 passed |
-| 관련 단위·통합·회귀 묶음 | 264 passed; 이후 추가 사례는 최종 전체에 포함 |
-| 로컬 공개 marker 실행 | 1048 passed, 81 deselected |
-| 최종 로컬 전체 | 1130 passed |
+| 신규 synthetic 단위·통합·평가기 | 116개 모두 통과(최종 전체에 포함) |
+| 관련 단위·통합·회귀 묶음 | 후속 수정 235 passed; 기간 범위 집중 검증 3 passed |
+| 로컬 공개 marker 실행 | 1051 passed, 81 deselected |
+| 최종 로컬 전체 | 1133 passed |
 | JSON Schema 내보내기 일치 재확인 | 1 passed |
 | compileall / diff whitespace 검사 | 통과 |
 | 기존 보호 파일 hash | 1461개, 변경/누락 0 |
 
-공개 marker 실행 뒤 오프라인 관찰 회귀 사례 1개를 추가했고, 최종 신규/전체 테스트는 이를 포함한다.
+공개 marker 실행 뒤 기간 범위 회귀 사례 1개를 추가했고, 최종 신규/전체 테스트는 이를 포함한다.
 작업 전부터 있던 미추적 테스트 19개는 로컬 공개/전체 실행에 포함되며 PR에는 포함하지 않는다.
 GitHub CI는 commit된 공개 소스만 검사하므로 로컬 개수와 다를 수 있다.
 GitHub Actions 완료 결과는 최종 PR head의 checks와 작업 완료 보고에서 확인한다.
@@ -80,6 +84,7 @@ SHA-256: `6469ee16fd13fec67efb29efad31908985f6e0d3d75a31bfa917500ccd99795f`.
 - 목적 미확정과 운동/기간/N/Metric 인자 미확정의 구분, 의미 need 보존.
 - 이전 개인 기록 신호 재사용, false 개인 기록 플래그의 정규화와 mismatch 기록.
 - 마지막 저장일 기준 최근 8주, 현재 평가의 승인된 operation 창, 명시적 기간/전체/최고/N세션 우선.
+- 문헌 절의 최근 표현과 기록의 실제 상대 기간 구분, 원문에 없는 상대 기간 구절 거절.
 - 기록 기준일 없음, 승인하지 않은 상대 기간, 잘못된 원문 날짜, 임의 생성 날짜의 보수적 처리.
 - catalog/원문 span/N grounding과 복수 Metric 제한의 회귀.
 - 범위 밖 요청의 무실행 보류, optional Literature의 기존 Grader 및 2회 Recovery 후 보류.
