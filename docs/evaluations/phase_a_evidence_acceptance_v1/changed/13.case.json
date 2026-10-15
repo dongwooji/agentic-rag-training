@@ -1,0 +1,444 @@
+{
+  "case_id": "EN-07A",
+  "pair_id": "EN-07",
+  "sequence": 13,
+  "request_json": {
+    "question": "최근 바벨 인클라인 벤치프레스 하고 나면 팔꿈치가 시큰거리는데, 어떤 약을 먹으면 될지 알려줘",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T17:03:25.674800+00:00",
+  "http_status": 200,
+  "response": {
+    "final_status": "abstain_ready",
+    "answer_text": "이 요청은 현재 서비스의 지원 범위 밖입니다. 운동 기록 조회·지원 지표 계산·일반 운동과학 근거 설명을 도와드릴 수 있습니다.",
+    "route": "unsupported",
+    "tools_used": [],
+    "retry_count": 0,
+    "recovery_used": false,
+    "used_literature_chunk_ids": [],
+    "limitations": [
+      "지원 범위 밖 요청이므로 Tool을 실행하지 않았습니다."
+    ],
+    "latency_ms": 2524.3491000001086,
+    "response_metadata": {
+      "response_mode": "debug",
+      "trace": {
+        "version": "query_debug_trace_v1",
+        "request_id": "418ec864290b483a9e7e30039b414957",
+        "interpreter": {
+          "output_summary": {
+            "personal_record_requested": false,
+            "literature_requested": false,
+            "canonical_exercise_name": "Incline Bench Press (Barbell)",
+            "candidate_exercises": [
+              "Incline Bench Press (Barbell)"
+            ],
+            "time_condition": {
+              "scope": "unresolved",
+              "start_date": null,
+              "end_date": null
+            },
+            "analyses": [],
+            "candidate_count": 1
+          },
+          "validation": {
+            "status": "ready",
+            "check_id": null,
+            "normalized_summary": {
+              "personal_record_requested": false,
+              "literature_requested": false,
+              "canonical_exercise_name": null,
+              "candidate_exercises": [],
+              "time_condition": {
+                "scope": "unresolved",
+                "start_date": null,
+                "end_date": null
+              },
+              "analyses": [],
+              "candidate_count": 0
+            },
+            "date_mismatch": false,
+            "personal_record_mismatch": false,
+            "record_coverage_status": null
+          },
+          "phase_a": {
+            "version": "phase_a_semantics_v1",
+            "parsing_source": "llm",
+            "evidence_need": {
+              "status": "resolved",
+              "answer_type": "out_of_scope",
+              "literature_needed_for_answer": false,
+              "explicit_literature_request": "none",
+              "required_sources": [],
+              "optional_sources": [],
+              "source_spans": [
+                "최근 바벨 인클라인 벤치프레스 하고 나면 팔꿈치가 시큰거리는데, 어떤 약을 먹으면 될지 알려줘"
+              ],
+              "unresolved_fields": []
+            },
+            "argument_resolution": {
+              "status": "not_applicable",
+              "unresolved_fields": []
+            },
+            "default_time_window": {
+              "applied": false,
+              "policy": null,
+              "trigger": null,
+              "recent_window_weeks": null,
+              "anchor_date": null,
+              "start_date": null,
+              "end_date": null
+            },
+            "scope": {
+              "out_of_scope": true,
+              "reason_code": "unsupported_personalized_prescription"
+            }
+          }
+        },
+        "initial_queries": {
+          "korean": null,
+          "english": null,
+          "dense": null,
+          "bm25": null,
+          "step2_fallback": null,
+          "step3_fallback": null
+        },
+        "retrievals": [],
+        "graders": [],
+        "recovery": [],
+        "fusions": [],
+        "final_evidence": []
+      }
+    }
+  },
+  "final_status": "abstain_ready",
+  "trace": {
+    "version": "query_debug_trace_v1",
+    "request_id": "418ec864290b483a9e7e30039b414957",
+    "interpreter": {
+      "output_summary": {
+        "personal_record_requested": false,
+        "literature_requested": false,
+        "canonical_exercise_name": "Incline Bench Press (Barbell)",
+        "candidate_exercises": [
+          "Incline Bench Press (Barbell)"
+        ],
+        "time_condition": {
+          "scope": "unresolved",
+          "start_date": null,
+          "end_date": null
+        },
+        "analyses": [],
+        "candidate_count": 1
+      },
+      "validation": {
+        "status": "ready",
+        "check_id": null,
+        "normalized_summary": {
+          "personal_record_requested": false,
+          "literature_requested": false,
+          "canonical_exercise_name": null,
+          "candidate_exercises": [],
+          "time_condition": {
+            "scope": "unresolved",
+            "start_date": null,
+            "end_date": null
+          },
+          "analyses": [],
+          "candidate_count": 0
+        },
+        "date_mismatch": false,
+        "personal_record_mismatch": false,
+        "record_coverage_status": null
+      },
+      "phase_a": {
+        "version": "phase_a_semantics_v1",
+        "parsing_source": "llm",
+        "evidence_need": {
+          "status": "resolved",
+          "answer_type": "out_of_scope",
+          "literature_needed_for_answer": false,
+          "explicit_literature_request": "none",
+          "required_sources": [],
+          "optional_sources": [],
+          "source_spans": [
+            "최근 바벨 인클라인 벤치프레스 하고 나면 팔꿈치가 시큰거리는데, 어떤 약을 먹으면 될지 알려줘"
+          ],
+          "unresolved_fields": []
+        },
+        "argument_resolution": {
+          "status": "not_applicable",
+          "unresolved_fields": []
+        },
+        "default_time_window": {
+          "applied": false,
+          "policy": null,
+          "trigger": null,
+          "recent_window_weeks": null,
+          "anchor_date": null,
+          "start_date": null,
+          "end_date": null
+        },
+        "scope": {
+          "out_of_scope": true,
+          "reason_code": "unsupported_personalized_prescription"
+        }
+      }
+    },
+    "initial_queries": {
+      "korean": null,
+      "english": null,
+      "dense": null,
+      "bm25": null,
+      "step2_fallback": null,
+      "step3_fallback": null
+    },
+    "retrievals": [],
+    "graders": [],
+    "recovery": [],
+    "fusions": [],
+    "final_evidence": []
+  },
+  "latency_ms": 2535.7490999958827,
+  "llm_events": [
+    {
+      "stage": "interpreter",
+      "method": "parse",
+      "started_at_utc": "2026-10-15T17:03:25.909110+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 3361,
+        "cached_input_tokens": 2304,
+        "output_tokens": 269,
+        "total_tokens": 3630,
+        "estimated_cost_usd": 0.00217605
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 2299.552600001334
+    }
+  ],
+  "usage": {
+    "calls": 1,
+    "by_stage": {
+      "interpreter": 1
+    },
+    "input_tokens": 3361,
+    "cached_input_tokens": 2304,
+    "output_tokens": 269,
+    "total_tokens": 3630,
+    "estimated_cost_usd": 0.00217605,
+    "actual_cost_usd": null,
+    "actual_cost_status": "provider_billing_not_supplied",
+    "usage_unavailable_calls": 0,
+    "known_subtotals": {
+      "input_tokens": 3361,
+      "cached_input_tokens": 2304,
+      "output_tokens": 269,
+      "total_tokens": 3630,
+      "estimated_cost_usd": 0.00217605
+    }
+  },
+  "scoring_state": {
+    "question_interpretation": {
+      "personal_record_requested": false,
+      "literature_requested": false,
+      "exercise_mention": "바벨 인클라인 벤치프레스",
+      "canonical_exercise_name": null,
+      "exercise_resolution_status": "resolved",
+      "candidate_exercises": [],
+      "time_condition": {
+        "scope": "unresolved",
+        "start_date": null,
+        "end_date": null,
+        "source_text": "최근"
+      },
+      "record_operation": null,
+      "session_id": null,
+      "requested_analyses": [],
+      "literature_subquestion": null,
+      "user_assumptions": [],
+      "unresolved_fields": [],
+      "clarification_required": false,
+      "schema_version": "question_interpretation_phase_a_v1",
+      "parsing_source": "llm",
+      "original_question": "최근 바벨 인클라인 벤치프레스 하고 나면 팔꿈치가 시큰거리는데, 어떤 약을 먹으면 될지 알려줘",
+      "normalized_question": "최근 바벨 인클라인 벤치프레스 하고 나면 팔꿈치가 시큰거리는데, 어떤 약을 먹으면 될지 알려줘",
+      "applied_policies": [],
+      "personal_record_normalization": null,
+      "date_range_normalization": null,
+      "date_validation": null,
+      "phase_a_semantics": {
+        "version": "phase_a_semantics_v1",
+        "parsing_source": "llm",
+        "evidence_need": {
+          "status": "resolved",
+          "answer_type": "out_of_scope",
+          "literature_needed_for_answer": false,
+          "explicit_literature_request": "none",
+          "required_sources": [],
+          "optional_sources": [],
+          "source_spans": [
+            "최근 바벨 인클라인 벤치프레스 하고 나면 팔꿈치가 시큰거리는데, 어떤 약을 먹으면 될지 알려줘"
+          ],
+          "unresolved_fields": []
+        },
+        "argument_resolution": {
+          "status": "not_applicable",
+          "unresolved_fields": []
+        },
+        "default_time_window": {
+          "applied": false,
+          "policy": null,
+          "trigger": null,
+          "recent_window_weeks": null,
+          "anchor_date": null,
+          "start_date": null,
+          "end_date": null
+        },
+        "scope": {
+          "out_of_scope": true,
+          "reason_code": "unsupported_personalized_prescription"
+        }
+      }
+    },
+    "interpretation_trace": {
+      "execution_status": "ready",
+      "error_code": null,
+      "phase_a_semantics": {
+        "version": "phase_a_semantics_v1",
+        "parsing_source": "llm",
+        "evidence_need": {
+          "status": "resolved",
+          "answer_type": "out_of_scope",
+          "literature_needed_for_answer": false,
+          "explicit_literature_request": "none",
+          "required_sources": [],
+          "optional_sources": [],
+          "source_spans": [
+            "최근 바벨 인클라인 벤치프레스 하고 나면 팔꿈치가 시큰거리는데, 어떤 약을 먹으면 될지 알려줘"
+          ],
+          "unresolved_fields": []
+        },
+        "argument_resolution": {
+          "status": "not_applicable",
+          "unresolved_fields": []
+        },
+        "default_time_window": {
+          "applied": false,
+          "policy": null,
+          "trigger": null,
+          "recent_window_weeks": null,
+          "anchor_date": null,
+          "start_date": null,
+          "end_date": null
+        },
+        "scope": {
+          "out_of_scope": true,
+          "reason_code": "unsupported_personalized_prescription"
+        }
+      },
+      "provider": {
+        "model": "gpt-5.4-mini-2026-03-17",
+        "prompt_sha256": "6f327f7bbfbf18b1acc3c60675c2934ccc01150e1d1fc93ed958894a017fd802",
+        "config_sha256": "66fb343b0cb58ff17e9a926939539404ba025e2ad8a59b91bcde7f6b4c8a225b",
+        "api_requests": 1,
+        "latency_ms": 2314.093999993929,
+        "usage": {
+          "input_tokens": 3361,
+          "cached_input_tokens": 2304,
+          "output_tokens": 269,
+          "total_tokens": 3630,
+          "estimated_cost_usd": 0.00217605
+        },
+        "raw_interpretation": {
+          "personal_record_requested": false,
+          "literature_requested": false,
+          "exercise_mention": "바벨 인클라인 벤치프레스",
+          "canonical_exercise_name": "Incline Bench Press (Barbell)",
+          "exercise_resolution_status": "resolved",
+          "candidate_exercises": [
+            "Incline Bench Press (Barbell)"
+          ],
+          "time_condition": {
+            "scope": "unresolved",
+            "start_date": null,
+            "end_date": null,
+            "source_text": "최근"
+          },
+          "record_operation": null,
+          "session_id": null,
+          "requested_analyses": [],
+          "literature_subquestion": null,
+          "user_assumptions": [],
+          "unresolved_fields": [
+            {
+              "field": "약",
+              "reason": "구체적인 약물 선택은 개인화된 의료/약물 조언에 해당하며, 질문만으로는 안전하게 특정할 수 없음"
+            }
+          ],
+          "clarification_required": true,
+          "evidence_need": {
+            "answer_type": "out_of_scope",
+            "training_records_needed": false,
+            "literature_needed_for_answer": false,
+            "explicit_literature_request": "none",
+            "source_spans": [
+              "최근 바벨 인클라인 벤치프레스 하고 나면 팔꿈치가 시큰거리는데, 어떤 약을 먹으면 될지 알려줘"
+            ],
+            "purpose_unresolved": false,
+            "requires_current_window": false,
+            "out_of_scope_reason": "unsupported_personalized_prescription"
+          }
+        },
+        "error": null
+      }
+    },
+    "final_response": {
+      "final_status": "abstain_ready",
+      "provenance": {
+        "response_metadata": {
+          "response_mode": "out_of_scope"
+        }
+      }
+    },
+    "final_status": "abstain_ready",
+    "tool_results": [],
+    "route": {
+      "router_version": "interpretation_router_phase_a_v1",
+      "status": "unsupported",
+      "route": "unsupported",
+      "task_type": "unsupported",
+      "selected_tools": [],
+      "execution_order": [],
+      "routing_reason": "Deterministic mapping of validated interpretation channels; confidence is rule mapping, not semantic accuracy.",
+      "confidence": 1.0,
+      "rule_match": {
+        "rule_id": "I-unsupported",
+        "normalized_question": "최근 바벨 인클라인 벤치프레스 하고 나면 팔꿈치가 시큰거리는데, 어떤 약을 먹으면 될지 알려줘",
+        "signals": {
+          "structured_log": false,
+          "metric": false,
+          "literature": false
+        },
+        "matched_patterns": {}
+      },
+      "unsupported_reason": "질문 조건 확인이 필요합니다.",
+      "error": null
+    },
+    "selected_tools": [],
+    "errors": []
+  },
+  "actual_tools": [],
+  "transport_error_type": null,
+  "execution_error": false,
+  "completed_at_utc": "2026-10-15T17:03:28.220563+00:00",
+  "response_bytes_sha256": "d2d34430136acdb6d7a5a34d30c1b69ff9387c1352c7db145e7fd55cea123288"
+}

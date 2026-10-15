@@ -1,0 +1,10 @@
+{
+  "case_id": "T18",
+  "pair_id": "historical-diagnostic-T18",
+  "sequence": 18,
+  "request_json": {
+    "question": "프레스 기록이 왜 안 늘지?",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T17:11:56.471840+00:00"
+}

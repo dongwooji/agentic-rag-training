@@ -1,0 +1,397 @@
+{
+  "case_id": "T13",
+  "pair_id": "historical-diagnostic-T13",
+  "sequence": 13,
+  "request_json": {
+    "question": "데드리프트 세트 수를 줄인 뒤로 기록이 오히려 좋아진 것 같은데, 기록으로 확인하고 볼륨을 줄이는 게 도움이 될 수 있는지 알려줘",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T17:11:30.605941+00:00",
+  "http_status": 200,
+  "response": {
+    "final_status": "execution_failure",
+    "answer_text": "요청을 처리하는 중 내부 실행 오류가 발생했습니다. 근거가 완전하게 준비되지 않아 답변을 생성하지 않았습니다.",
+    "route": "invalid",
+    "tools_used": [],
+    "retry_count": 0,
+    "recovery_used": false,
+    "used_literature_chunk_ids": [],
+    "limitations": [
+      "불완전한 실행 결과로 답변을 생성하지 않았습니다."
+    ],
+    "latency_ms": 3349.0089000042644,
+    "error": {
+      "code": "graph_execution_failure",
+      "message": "요청을 처리하는 중 내부 실행 오류가 발생했습니다. 근거가 완전하게 준비되지 않아 답변을 생성하지 않았습니다."
+    },
+    "response_metadata": {
+      "response_mode": "debug",
+      "trace": {
+        "version": "query_debug_trace_v1",
+        "request_id": "834a0354b53d4d46920324abb6a6da1f",
+        "interpreter": {
+          "output_summary": {
+            "personal_record_requested": true,
+            "literature_requested": true,
+            "canonical_exercise_name": "Deadlift (Barbell)",
+            "candidate_exercises": [
+              "Deadlift (Barbell)"
+            ],
+            "time_condition": {
+              "scope": "all_records",
+              "start_date": null,
+              "end_date": null
+            },
+            "analyses": [
+              "plateau_candidates"
+            ],
+            "candidate_count": 1
+          },
+          "validation": {
+            "status": "failure",
+            "check_id": null,
+            "normalized_summary": {
+              "personal_record_requested": null,
+              "literature_requested": null,
+              "canonical_exercise_name": null,
+              "candidate_exercises": [],
+              "time_condition": {
+                "scope": null,
+                "start_date": null,
+                "end_date": null
+              },
+              "analyses": [],
+              "candidate_count": 0
+            },
+            "date_mismatch": false,
+            "personal_record_mismatch": false,
+            "record_coverage_status": null
+          },
+          "phase_a": {
+            "version": "phase_a_semantics_v1",
+            "parsing_source": "llm",
+            "evidence_need": {
+              "status": "resolved",
+              "answer_type": "advisory",
+              "literature_needed_for_answer": true,
+              "explicit_literature_request": "none",
+              "required_sources": [
+                "training_records",
+                "literature"
+              ],
+              "optional_sources": [],
+              "source_spans": [
+                "데드리프트 세트 수를 줄인 뒤로 기록이 오히려 좋아진 것 같은데",
+                "기록으로 확인하고 볼륨을 줄이는 게 도움이 될 수 있는지 알려줘"
+              ],
+              "unresolved_fields": []
+            },
+            "argument_resolution": {
+              "status": "failure",
+              "unresolved_fields": []
+            },
+            "default_time_window": {
+              "applied": false,
+              "policy": null,
+              "trigger": null,
+              "recent_window_weeks": null,
+              "anchor_date": null,
+              "start_date": null,
+              "end_date": null
+            },
+            "scope": {
+              "out_of_scope": false,
+              "reason_code": null
+            }
+          }
+        },
+        "initial_queries": {
+          "korean": null,
+          "english": null,
+          "dense": null,
+          "bm25": null,
+          "step2_fallback": null,
+          "step3_fallback": null
+        },
+        "retrievals": [],
+        "graders": [],
+        "recovery": [],
+        "fusions": [],
+        "final_evidence": []
+      }
+    }
+  },
+  "final_status": "execution_failure",
+  "trace": {
+    "version": "query_debug_trace_v1",
+    "request_id": "834a0354b53d4d46920324abb6a6da1f",
+    "interpreter": {
+      "output_summary": {
+        "personal_record_requested": true,
+        "literature_requested": true,
+        "canonical_exercise_name": "Deadlift (Barbell)",
+        "candidate_exercises": [
+          "Deadlift (Barbell)"
+        ],
+        "time_condition": {
+          "scope": "all_records",
+          "start_date": null,
+          "end_date": null
+        },
+        "analyses": [
+          "plateau_candidates"
+        ],
+        "candidate_count": 1
+      },
+      "validation": {
+        "status": "failure",
+        "check_id": null,
+        "normalized_summary": {
+          "personal_record_requested": null,
+          "literature_requested": null,
+          "canonical_exercise_name": null,
+          "candidate_exercises": [],
+          "time_condition": {
+            "scope": null,
+            "start_date": null,
+            "end_date": null
+          },
+          "analyses": [],
+          "candidate_count": 0
+        },
+        "date_mismatch": false,
+        "personal_record_mismatch": false,
+        "record_coverage_status": null
+      },
+      "phase_a": {
+        "version": "phase_a_semantics_v1",
+        "parsing_source": "llm",
+        "evidence_need": {
+          "status": "resolved",
+          "answer_type": "advisory",
+          "literature_needed_for_answer": true,
+          "explicit_literature_request": "none",
+          "required_sources": [
+            "training_records",
+            "literature"
+          ],
+          "optional_sources": [],
+          "source_spans": [
+            "데드리프트 세트 수를 줄인 뒤로 기록이 오히려 좋아진 것 같은데",
+            "기록으로 확인하고 볼륨을 줄이는 게 도움이 될 수 있는지 알려줘"
+          ],
+          "unresolved_fields": []
+        },
+        "argument_resolution": {
+          "status": "failure",
+          "unresolved_fields": []
+        },
+        "default_time_window": {
+          "applied": false,
+          "policy": null,
+          "trigger": null,
+          "recent_window_weeks": null,
+          "anchor_date": null,
+          "start_date": null,
+          "end_date": null
+        },
+        "scope": {
+          "out_of_scope": false,
+          "reason_code": null
+        }
+      }
+    },
+    "initial_queries": {
+      "korean": null,
+      "english": null,
+      "dense": null,
+      "bm25": null,
+      "step2_fallback": null,
+      "step3_fallback": null
+    },
+    "retrievals": [],
+    "graders": [],
+    "recovery": [],
+    "fusions": [],
+    "final_evidence": []
+  },
+  "latency_ms": 3360.6627999979537,
+  "llm_events": [
+    {
+      "stage": "interpreter",
+      "method": "parse",
+      "started_at_utc": "2026-10-15T17:11:30.855898+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 3370,
+        "cached_input_tokens": 2304,
+        "output_tokens": 315,
+        "total_tokens": 3685,
+        "estimated_cost_usd": 0.0023898
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 2490.309900000284
+    }
+  ],
+  "usage": {
+    "calls": 1,
+    "by_stage": {
+      "interpreter": 1
+    },
+    "input_tokens": 3370,
+    "cached_input_tokens": 2304,
+    "output_tokens": 315,
+    "total_tokens": 3685,
+    "estimated_cost_usd": 0.0023898,
+    "actual_cost_usd": null,
+    "actual_cost_status": "provider_billing_not_supplied",
+    "usage_unavailable_calls": 0,
+    "known_subtotals": {
+      "input_tokens": 3370,
+      "cached_input_tokens": 2304,
+      "output_tokens": 315,
+      "total_tokens": 3685,
+      "estimated_cost_usd": 0.0023898
+    }
+  },
+  "scoring_state": {
+    "question_interpretation": null,
+    "interpretation_trace": {
+      "execution_status": "failure",
+      "error_code": "ungrounded_interpretation",
+      "phase_a_semantics": {
+        "version": "phase_a_semantics_v1",
+        "parsing_source": "llm",
+        "evidence_need": {
+          "status": "resolved",
+          "answer_type": "advisory",
+          "literature_needed_for_answer": true,
+          "explicit_literature_request": "none",
+          "required_sources": [
+            "training_records",
+            "literature"
+          ],
+          "optional_sources": [],
+          "source_spans": [
+            "데드리프트 세트 수를 줄인 뒤로 기록이 오히려 좋아진 것 같은데",
+            "기록으로 확인하고 볼륨을 줄이는 게 도움이 될 수 있는지 알려줘"
+          ],
+          "unresolved_fields": []
+        },
+        "argument_resolution": {
+          "status": "failure",
+          "unresolved_fields": []
+        },
+        "default_time_window": {
+          "applied": false,
+          "policy": null,
+          "trigger": null,
+          "recent_window_weeks": null,
+          "anchor_date": null,
+          "start_date": null,
+          "end_date": null
+        },
+        "scope": {
+          "out_of_scope": false,
+          "reason_code": null
+        }
+      },
+      "provider": {
+        "model": "gpt-5.4-mini-2026-03-17",
+        "prompt_sha256": "6f327f7bbfbf18b1acc3c60675c2934ccc01150e1d1fc93ed958894a017fd802",
+        "config_sha256": "66fb343b0cb58ff17e9a926939539404ba025e2ad8a59b91bcde7f6b4c8a225b",
+        "api_requests": 1,
+        "latency_ms": 2507.437599997502,
+        "usage": {
+          "input_tokens": 3370,
+          "cached_input_tokens": 2304,
+          "output_tokens": 315,
+          "total_tokens": 3685,
+          "estimated_cost_usd": 0.0023898
+        },
+        "raw_interpretation": {
+          "personal_record_requested": true,
+          "literature_requested": true,
+          "exercise_mention": "데드리프트",
+          "canonical_exercise_name": "Deadlift (Barbell)",
+          "exercise_resolution_status": "resolved",
+          "candidate_exercises": [
+            "Deadlift (Barbell)"
+          ],
+          "time_condition": {
+            "scope": "all_records",
+            "start_date": null,
+            "end_date": null,
+            "source_text": ""
+          },
+          "record_operation": "exercise_records",
+          "session_id": null,
+          "requested_analyses": [
+            {
+              "operation": "plateau_candidates",
+              "n_sessions": null,
+              "source_text": "기록으로 확인하고 볼륨을 줄이는 게 도움이 될 수 있는지"
+            }
+          ],
+          "literature_subquestion": "Whether reducing deadlift training volume can help performance improve",
+          "user_assumptions": [
+            {
+              "text": "세트 수를 줄인 뒤로 기록이 오히려 좋아진 것 같다",
+              "source_text": "데드리프트 세트 수를 줄인 뒤로 기록이 오히려 좋아진 것 같은데"
+            }
+          ],
+          "unresolved_fields": [],
+          "clarification_required": false,
+          "evidence_need": {
+            "answer_type": "advisory",
+            "training_records_needed": true,
+            "literature_needed_for_answer": true,
+            "explicit_literature_request": "none",
+            "source_spans": [
+              "데드리프트 세트 수를 줄인 뒤로 기록이 오히려 좋아진 것 같은데",
+              "기록으로 확인하고 볼륨을 줄이는 게 도움이 될 수 있는지 알려줘"
+            ],
+            "purpose_unresolved": false,
+            "requires_current_window": false,
+            "out_of_scope_reason": null
+          }
+        },
+        "error": null
+      }
+    },
+    "final_response": {
+      "final_status": "execution_failure",
+      "provenance": {
+        "response_metadata": {
+          "response_mode": "deterministic_failure"
+        }
+      }
+    },
+    "final_status": "execution_failure",
+    "tool_results": [],
+    "route": {
+      "route": "invalid",
+      "task_type": "invalid"
+    },
+    "selected_tools": [],
+    "errors": [
+      {
+        "stage": "question_interpretation",
+        "code": "ungrounded_interpretation"
+      }
+    ]
+  },
+  "actual_tools": [],
+  "transport_error_type": null,
+  "execution_error": true,
+  "completed_at_utc": "2026-10-15T17:11:33.976191+00:00",
+  "response_bytes_sha256": "54e353cc1bdaa975d613be868492c6b41ecc1aa235cb02250ae3a5a6e0ae9abc"
+}

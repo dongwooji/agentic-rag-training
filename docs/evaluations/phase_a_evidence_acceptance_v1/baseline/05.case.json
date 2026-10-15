@@ -1,0 +1,348 @@
+{
+  "case_id": "EN-03A",
+  "pair_id": "EN-03",
+  "sequence": 5,
+  "request_json": {
+    "question": "최근에 중량 딥스를 일주일에 몇 번씩 했어?",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T16:59:12.697400+00:00",
+  "http_status": 200,
+  "response": {
+    "final_status": "abstain_ready",
+    "answer_text": "다음 내용을 확인해주세요:\n- 분석 기간: 어느 기간을 볼까요? 예: 2018년 9월~12월",
+    "route": "ambiguous",
+    "tools_used": [],
+    "retry_count": 0,
+    "recovery_used": false,
+    "used_literature_chunk_ids": [],
+    "limitations": [
+      "필요한 조건을 추측하지 않았으며 Tool을 실행하지 않았습니다."
+    ],
+    "latency_ms": 2616.3411000015913,
+    "response_metadata": {
+      "response_mode": "clarification_required",
+      "clarification_required": true,
+      "options": [],
+      "trace": {
+        "version": "query_debug_trace_v1",
+        "request_id": "dbc84d2eba474468be737e42366fe30a",
+        "interpreter": {
+          "output_summary": {
+            "personal_record_requested": false,
+            "literature_requested": false,
+            "canonical_exercise_name": "Weighted dips",
+            "candidate_exercises": [
+              "Weighted dips"
+            ],
+            "time_condition": {
+              "scope": "unresolved",
+              "start_date": null,
+              "end_date": null
+            },
+            "analyses": [
+              "weekly_frequency"
+            ],
+            "candidate_count": 1
+          },
+          "validation": {
+            "status": "clarification_required",
+            "check_id": null,
+            "normalized_summary": {
+              "personal_record_requested": true,
+              "literature_requested": false,
+              "canonical_exercise_name": "Weighted dips",
+              "candidate_exercises": [
+                "Weighted dips"
+              ],
+              "time_condition": {
+                "scope": "unresolved",
+                "start_date": null,
+                "end_date": null
+              },
+              "analyses": [
+                "weekly_frequency"
+              ],
+              "candidate_count": 1
+            },
+            "date_mismatch": false,
+            "personal_record_mismatch": true,
+            "record_coverage_status": null
+          }
+        },
+        "initial_queries": {
+          "korean": null,
+          "english": null,
+          "dense": null,
+          "bm25": null,
+          "step2_fallback": null,
+          "step3_fallback": null
+        },
+        "retrievals": [],
+        "graders": [],
+        "recovery": [],
+        "fusions": [],
+        "final_evidence": []
+      }
+    }
+  },
+  "final_status": "abstain_ready",
+  "trace": {
+    "version": "query_debug_trace_v1",
+    "request_id": "dbc84d2eba474468be737e42366fe30a",
+    "interpreter": {
+      "output_summary": {
+        "personal_record_requested": false,
+        "literature_requested": false,
+        "canonical_exercise_name": "Weighted dips",
+        "candidate_exercises": [
+          "Weighted dips"
+        ],
+        "time_condition": {
+          "scope": "unresolved",
+          "start_date": null,
+          "end_date": null
+        },
+        "analyses": [
+          "weekly_frequency"
+        ],
+        "candidate_count": 1
+      },
+      "validation": {
+        "status": "clarification_required",
+        "check_id": null,
+        "normalized_summary": {
+          "personal_record_requested": true,
+          "literature_requested": false,
+          "canonical_exercise_name": "Weighted dips",
+          "candidate_exercises": [
+            "Weighted dips"
+          ],
+          "time_condition": {
+            "scope": "unresolved",
+            "start_date": null,
+            "end_date": null
+          },
+          "analyses": [
+            "weekly_frequency"
+          ],
+          "candidate_count": 1
+        },
+        "date_mismatch": false,
+        "personal_record_mismatch": true,
+        "record_coverage_status": null
+      }
+    },
+    "initial_queries": {
+      "korean": null,
+      "english": null,
+      "dense": null,
+      "bm25": null,
+      "step2_fallback": null,
+      "step3_fallback": null
+    },
+    "retrievals": [],
+    "graders": [],
+    "recovery": [],
+    "fusions": [],
+    "final_evidence": []
+  },
+  "latency_ms": 2627.8332000001683,
+  "llm_events": [
+    {
+      "stage": "interpreter",
+      "method": "parse",
+      "started_at_utc": "2026-10-15T16:59:12.929295+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 2684,
+        "cached_input_tokens": 1792,
+        "output_tokens": 163,
+        "total_tokens": 2847,
+        "estimated_cost_usd": 0.0015369
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 1723.179300002812
+    }
+  ],
+  "usage": {
+    "calls": 1,
+    "by_stage": {
+      "interpreter": 1
+    },
+    "input_tokens": 2684,
+    "cached_input_tokens": 1792,
+    "output_tokens": 163,
+    "total_tokens": 2847,
+    "estimated_cost_usd": 0.0015369,
+    "actual_cost_usd": null,
+    "actual_cost_status": "provider_billing_not_supplied",
+    "usage_unavailable_calls": 0,
+    "known_subtotals": {
+      "input_tokens": 2684,
+      "cached_input_tokens": 1792,
+      "output_tokens": 163,
+      "total_tokens": 2847,
+      "estimated_cost_usd": 0.0015369
+    }
+  },
+  "scoring_state": {
+    "question_interpretation": {
+      "personal_record_requested": true,
+      "literature_requested": false,
+      "exercise_mention": "중량 딥스",
+      "canonical_exercise_name": "Weighted dips",
+      "exercise_resolution_status": "resolved",
+      "candidate_exercises": [
+        "Weighted dips"
+      ],
+      "time_condition": {
+        "scope": "unresolved",
+        "start_date": null,
+        "end_date": null,
+        "source_text": "최근에"
+      },
+      "record_operation": "list_sessions",
+      "session_id": null,
+      "requested_analyses": [
+        {
+          "operation": "weekly_frequency",
+          "n_sessions": null,
+          "source_text": "일주일에 몇 번씩"
+        }
+      ],
+      "literature_subquestion": null,
+      "user_assumptions": [],
+      "unresolved_fields": [
+        {
+          "field": "time_condition",
+          "reason": "최근에 is vague; no explicit date range provided."
+        },
+        {
+          "field": "time_condition",
+          "reason": "분석 기간을 지정해주세요."
+        }
+      ],
+      "clarification_required": true,
+      "schema_version": "question_interpretation_phase_a_v1",
+      "parsing_source": "llm",
+      "original_question": "최근에 중량 딥스를 일주일에 몇 번씩 했어?",
+      "normalized_question": "최근에 중량 딥스를 일주일에 몇 번씩 했어?",
+      "applied_policies": [
+        "exercise_selection_v1"
+      ],
+      "personal_record_normalization": {
+        "supplied_value": false,
+        "derived_value": true,
+        "mismatch": true,
+        "signals": [
+          "record_operation",
+          "requested_analyses"
+        ]
+      },
+      "date_range_normalization": null,
+      "date_validation": null
+    },
+    "interpretation_trace": {
+      "execution_status": "clarification_required",
+      "error_code": null,
+      "provider": {
+        "model": "gpt-5.4-mini-2026-03-17",
+        "prompt_sha256": "d87e4a2373a8601af0cf30a3714a2a8f593ea921f551999f6ab5a15754475db0",
+        "config_sha256": "e45ea74e43c6ed8dd87e38705cf5a7949533bad9038f0978d2faf927d8ebb979",
+        "api_requests": 1,
+        "latency_ms": 1736.6952000011224,
+        "usage": {
+          "input_tokens": 2684,
+          "cached_input_tokens": 1792,
+          "output_tokens": 163,
+          "total_tokens": 2847,
+          "estimated_cost_usd": 0.0015369
+        },
+        "raw_interpretation": {
+          "personal_record_requested": false,
+          "literature_requested": false,
+          "exercise_mention": "중량 딥스",
+          "canonical_exercise_name": "Weighted dips",
+          "exercise_resolution_status": "resolved",
+          "candidate_exercises": [
+            "Weighted dips"
+          ],
+          "time_condition": {
+            "scope": "unresolved",
+            "start_date": null,
+            "end_date": null,
+            "source_text": "최근에"
+          },
+          "record_operation": "list_sessions",
+          "session_id": null,
+          "requested_analyses": [
+            {
+              "operation": "weekly_frequency",
+              "n_sessions": null,
+              "source_text": "일주일에 몇 번씩"
+            }
+          ],
+          "literature_subquestion": null,
+          "user_assumptions": [],
+          "unresolved_fields": [
+            {
+              "field": "time_condition",
+              "reason": "최근에 is vague; no explicit date range provided."
+            }
+          ],
+          "clarification_required": true
+        },
+        "error": null
+      }
+    },
+    "final_response": {
+      "final_status": "abstain_ready",
+      "provenance": {
+        "response_metadata": {
+          "response_mode": "clarification_required",
+          "clarification_required": true
+        }
+      }
+    },
+    "final_status": "abstain_ready",
+    "tool_results": [],
+    "route": {
+      "router_version": "interpretation_router_phase_a_v1",
+      "status": "ambiguous",
+      "route": "ambiguous",
+      "task_type": "ambiguous",
+      "selected_tools": [],
+      "execution_order": [],
+      "routing_reason": "Deterministic mapping of validated interpretation channels; confidence is rule mapping, not semantic accuracy.",
+      "confidence": 1.0,
+      "rule_match": {
+        "rule_id": "I-ambiguous",
+        "normalized_question": "최근에 중량 딥스를 일주일에 몇 번씩 했어?",
+        "signals": {
+          "structured_log": true,
+          "metric": true,
+          "literature": false
+        },
+        "matched_patterns": {}
+      },
+      "unsupported_reason": "질문 조건 확인이 필요합니다.",
+      "error": null
+    },
+    "selected_tools": [],
+    "errors": []
+  },
+  "actual_tools": [],
+  "transport_error_type": null,
+  "execution_error": false,
+  "completed_at_utc": "2026-10-15T16:59:15.331573+00:00",
+  "response_bytes_sha256": "fda74c787ca0f003717a8638cedbbf77b52c4cbffd57d61aa29c92d6f2fcbf02"
+}

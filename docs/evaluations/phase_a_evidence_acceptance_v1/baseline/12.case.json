@@ -1,0 +1,1096 @@
+{
+  "case_id": "EN-06B",
+  "pair_id": "EN-06",
+  "sequence": 12,
+  "request_json": {
+    "question": "바벨 인클라인 벤치프레스 처음 3세션과 마지막 3세션의 추정 1RM 중앙값을 비교해줘. 비슷한 주제의 논문이 있다면 참고로 덧붙여줘",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T16:59:36.234537+00:00",
+  "http_status": 200,
+  "response": {
+    "final_status": "answer_ready",
+    "answer_text": "당신의 기록에서는 바벨 인클라인 벤치프레스의 추정 1RM 중앙값은 처음 3세션에서 291.33, 마지막 3세션에서 320.83이었습니다. 절대 변화는 +29.50이고, 상대 변화는 +10.13%였습니다.\n\n문헌에서는 유사한 주제의 문헌에서는 벤치프레스 1RM을 최대근력 지표로 사용하며, 표준화된 워밍업과 점증식 시도로 측정하는 방식을 사용했습니다. 또한 저항훈련 연구의 메타분석에서는 1RM 기반 근력 변화가 훈련 조건에 따라 달라질 수 있음을 다뤘습니다.\n\n두 정보를 함께 보면 기록상 인클라인 벤치프레스의 추정 1RM 중앙값은 초기보다 마지막 3세션에서 더 높았습니다. 다만 문헌은 일반적으로 벤치프레스 1RM 측정과 훈련 조건별 근력 변화를 다루며, 이런 연구 결과를 개인 기록의 변화에 곧바로 동일하게 적용할 수는 없습니다.\n\n제한사항: 추정 1RM은 실제 측정 1RM이 아닙니다.; 문헌은 주로 플랫 바벨 벤치프레스와 일반 저항훈련 근력 변화를 다뤘고, 인클라인 바벨 벤치프레스 개인 기록과 직접 일치하지는 않습니다.; 기록의 중량 단위는 원자료의 미검증 단위 표기를 따릅니다.",
+    "route": "hybrid",
+    "tools_used": [
+      "query_training_log",
+      "compute_metrics",
+      "search_literature"
+    ],
+    "retry_count": 0,
+    "recovery_used": false,
+    "used_literature_chunk_ids": [
+      "paper_pmc6303131_methods_maximal_strength_assessments_muscle_stre_001_fbb1207f",
+      "paper_pmc8363540_methods_analysis_and_interpretation_of_results_001_2513c154"
+    ],
+    "limitations": [
+      "추정 1RM은 실제 측정 1RM이 아닙니다.",
+      "문헌은 주로 플랫 바벨 벤치프레스와 일반 저항훈련 근력 변화를 다뤘고, 인클라인 바벨 벤치프레스 개인 기록과 직접 일치하지는 않습니다.",
+      "기록의 중량 단위는 원자료의 미검증 단위 표기를 따릅니다.",
+      "개인 기록의 관찰된 변화만으로 인과관계를 확정할 수 없습니다.",
+      "일반 문헌 결과가 개인에게 동일하게 적용된다고 확정할 수 없습니다.",
+      "이 응답은 의료적 진단이나 개인 처방이 아닙니다."
+    ],
+    "latency_ms": 12990.447799995309,
+    "response_metadata": {
+      "response_mode": "debug",
+      "trace": {
+        "version": "query_debug_trace_v1",
+        "request_id": "fb6e73628dbe471796b8ff6f25ecb932",
+        "interpreter": {
+          "output_summary": {
+            "personal_record_requested": false,
+            "literature_requested": true,
+            "canonical_exercise_name": "Incline Bench Press (Barbell)",
+            "candidate_exercises": [
+              "Incline Bench Press (Barbell)"
+            ],
+            "time_condition": {
+              "scope": "all_records",
+              "start_date": null,
+              "end_date": null
+            },
+            "analyses": [
+              "first_last_n_session_median_e1rm"
+            ],
+            "candidate_count": 1
+          },
+          "validation": {
+            "status": "ready",
+            "check_id": null,
+            "normalized_summary": {
+              "personal_record_requested": true,
+              "literature_requested": true,
+              "canonical_exercise_name": "Incline Bench Press (Barbell)",
+              "candidate_exercises": [
+                "Incline Bench Press (Barbell)"
+              ],
+              "time_condition": {
+                "scope": "all_records",
+                "start_date": null,
+                "end_date": null
+              },
+              "analyses": [
+                "first_last_n_session_median_e1rm"
+              ],
+              "candidate_count": 1
+            },
+            "date_mismatch": false,
+            "personal_record_mismatch": true,
+            "record_coverage_status": null
+          }
+        },
+        "initial_queries": {
+          "korean": "바벨 인클라인 벤치프레스의 추정 1RM 중앙값을 비교한 연구가 있다면 참고로 알려줘",
+          "english": "If there are studies comparing the median estimated 1RM of the barbell incline bench press, please let me know for reference",
+          "dense": "If there are studies comparing the median estimated 1RM of the barbell incline bench press, please let me know for reference",
+          "bm25": "If there are studies comparing the median estimated 1RM of the barbell incline bench press, please let me know for reference",
+          "step2_fallback": false,
+          "step3_fallback": false
+        },
+        "retrievals": [
+          {
+            "phase": "initial",
+            "attempt": 0,
+            "query": "If there are studies comparing the median estimated 1RM of the barbell incline bench press, please let me know for reference",
+            "evidence": [
+              {
+                "chunk_id": "paper_pmc6303131_methods_maximal_strength_assessments_muscle_stre_001_fbb1207f",
+                "paper_id": "paper_pmc6303131",
+                "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+                "section": "METHODS > Maximal Strength Assessments > Muscle strength",
+                "rank": 1,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+                "paper_id": "paper_pmc8067909",
+                "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+                "section": "Methods > Muscular strength",
+                "rank": 2,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6303131_methods_maximal_strength_assessments_muscle_endu_001_d286f42e",
+                "paper_id": "paper_pmc6303131",
+                "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+                "section": "METHODS > Maximal Strength Assessments > Muscle endurance",
+                "rank": 3,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6950543_3_discussion_3_6_supersets_and_pre_exhaustion_te_001_2c7a0ae1",
+                "paper_id": "paper_pmc6950543",
+                "title": "Maximizing Muscle Hypertrophy: A Systematic Review of Advanced Resistance Training Techniques and Methods.",
+                "section": "3. Discussion > 3.6. Supersets and Pre-exhaustion Technique",
+                "rank": 4,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8067909_results_002_22b50389",
+                "paper_id": "paper_pmc8067909",
+                "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+                "section": "Results",
+                "rank": 5,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8962955_materials_and_methods_resistance_training_001_7fd0f416",
+                "paper_id": "paper_pmc8962955",
+                "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+                "section": "Materials and Methods > Resistance Training",
+                "rank": 6,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8363540_methods_analysis_and_interpretation_of_results_001_2513c154",
+                "paper_id": "paper_pmc8363540",
+                "title": "Effects of Variations in Resistance Training Frequency on Strength Development in Well-Trained Populations and Implications for In-Season Athlete Training: A Systematic Review and Meta-analysis.",
+                "section": "Methods > Analysis and Interpretation of Results",
+                "rank": 7,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8962955_materials_and_methods_testing_sessions_strength__001_39a898e3",
+                "paper_id": "paper_pmc8962955",
+                "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+                "section": "Materials and Methods > Testing Sessions > Strength Testing",
+                "rank": 8,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8126497_results_section_resistance_training_load_effects_001_12a1e7de",
+                "paper_id": "paper_pmc8126497",
+                "title": "Resistance Training Load Effects on Muscle Hypertrophy and Strength Gain: Systematic Review and Network Meta-analysis.",
+                "section": "RESULTS > section > Resistance training load effects on muscle strength",
+                "rank": 9,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8962955_results_training_volume_and_strength_metrics_001_834cd1a4",
+                "paper_id": "paper_pmc8962955",
+                "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+                "section": "Results > Training Volume and Strength Metrics",
+                "rank": 10,
+                "fusion_score": null,
+                "sources": []
+              }
+            ]
+          }
+        ],
+        "graders": [
+          {
+            "attempt": 0,
+            "query": "If there are studies comparing the median estimated 1RM of the barbell incline bench press, please let me know for reference",
+            "execution_status": "completed",
+            "evidence_sufficient": true,
+            "components": [
+              {
+                "component_id": "C1",
+                "requirement": "비슷한 주제의 논문이 있다면 참고로 덧붙여줘",
+                "status": "supported",
+                "supporting_chunk_ids": [
+                  "paper_pmc6303131_methods_maximal_strength_assessments_muscle_stre_001_fbb1207f",
+                  "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+                  "paper_pmc6950543_3_discussion_3_6_supersets_and_pre_exhaustion_te_001_2c7a0ae1",
+                  "paper_pmc8962955_materials_and_methods_resistance_training_001_7fd0f416",
+                  "paper_pmc8363540_methods_analysis_and_interpretation_of_results_001_2513c154",
+                  "paper_pmc8126497_results_section_resistance_training_load_effects_001_12a1e7de",
+                  "paper_pmc8962955_results_training_volume_and_strength_metrics_001_834cd1a4"
+                ]
+              }
+            ],
+            "missing_components": [],
+            "supplied_evidence": [
+              {
+                "chunk_id": "paper_pmc6303131_methods_maximal_strength_assessments_muscle_stre_001_fbb1207f",
+                "paper_id": "paper_pmc6303131",
+                "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+                "section": "METHODS > Maximal Strength Assessments > Muscle strength",
+                "rank": 1,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+                "paper_id": "paper_pmc8067909",
+                "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+                "section": "Methods > Muscular strength",
+                "rank": 2,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6303131_methods_maximal_strength_assessments_muscle_endu_001_d286f42e",
+                "paper_id": "paper_pmc6303131",
+                "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+                "section": "METHODS > Maximal Strength Assessments > Muscle endurance",
+                "rank": 3,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6950543_3_discussion_3_6_supersets_and_pre_exhaustion_te_001_2c7a0ae1",
+                "paper_id": "paper_pmc6950543",
+                "title": "Maximizing Muscle Hypertrophy: A Systematic Review of Advanced Resistance Training Techniques and Methods.",
+                "section": "3. Discussion > 3.6. Supersets and Pre-exhaustion Technique",
+                "rank": 4,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8067909_results_002_22b50389",
+                "paper_id": "paper_pmc8067909",
+                "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+                "section": "Results",
+                "rank": 5,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8962955_materials_and_methods_resistance_training_001_7fd0f416",
+                "paper_id": "paper_pmc8962955",
+                "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+                "section": "Materials and Methods > Resistance Training",
+                "rank": 6,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8363540_methods_analysis_and_interpretation_of_results_001_2513c154",
+                "paper_id": "paper_pmc8363540",
+                "title": "Effects of Variations in Resistance Training Frequency on Strength Development in Well-Trained Populations and Implications for In-Season Athlete Training: A Systematic Review and Meta-analysis.",
+                "section": "Methods > Analysis and Interpretation of Results",
+                "rank": 7,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8962955_materials_and_methods_testing_sessions_strength__001_39a898e3",
+                "paper_id": "paper_pmc8962955",
+                "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+                "section": "Materials and Methods > Testing Sessions > Strength Testing",
+                "rank": 8,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8126497_results_section_resistance_training_load_effects_001_12a1e7de",
+                "paper_id": "paper_pmc8126497",
+                "title": "Resistance Training Load Effects on Muscle Hypertrophy and Strength Gain: Systematic Review and Network Meta-analysis.",
+                "section": "RESULTS > section > Resistance training load effects on muscle strength",
+                "rank": 9,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8962955_results_training_volume_and_strength_metrics_001_834cd1a4",
+                "paper_id": "paper_pmc8962955",
+                "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+                "section": "Results > Training Volume and Strength Metrics",
+                "rank": 10,
+                "fusion_score": null,
+                "sources": []
+              }
+            ]
+          }
+        ],
+        "recovery": [],
+        "fusions": [],
+        "final_evidence": [
+          {
+            "chunk_id": "paper_pmc6303131_methods_maximal_strength_assessments_muscle_stre_001_fbb1207f",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "METHODS > Maximal Strength Assessments > Muscle strength",
+            "rank": 1,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+            "paper_id": "paper_pmc8067909",
+            "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+            "section": "Methods > Muscular strength",
+            "rank": 2,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6303131_methods_maximal_strength_assessments_muscle_endu_001_d286f42e",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "METHODS > Maximal Strength Assessments > Muscle endurance",
+            "rank": 3,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6950543_3_discussion_3_6_supersets_and_pre_exhaustion_te_001_2c7a0ae1",
+            "paper_id": "paper_pmc6950543",
+            "title": "Maximizing Muscle Hypertrophy: A Systematic Review of Advanced Resistance Training Techniques and Methods.",
+            "section": "3. Discussion > 3.6. Supersets and Pre-exhaustion Technique",
+            "rank": 4,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8067909_results_002_22b50389",
+            "paper_id": "paper_pmc8067909",
+            "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+            "section": "Results",
+            "rank": 5,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8962955_materials_and_methods_resistance_training_001_7fd0f416",
+            "paper_id": "paper_pmc8962955",
+            "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+            "section": "Materials and Methods > Resistance Training",
+            "rank": 6,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8363540_methods_analysis_and_interpretation_of_results_001_2513c154",
+            "paper_id": "paper_pmc8363540",
+            "title": "Effects of Variations in Resistance Training Frequency on Strength Development in Well-Trained Populations and Implications for In-Season Athlete Training: A Systematic Review and Meta-analysis.",
+            "section": "Methods > Analysis and Interpretation of Results",
+            "rank": 7,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8962955_materials_and_methods_testing_sessions_strength__001_39a898e3",
+            "paper_id": "paper_pmc8962955",
+            "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+            "section": "Materials and Methods > Testing Sessions > Strength Testing",
+            "rank": 8,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8126497_results_section_resistance_training_load_effects_001_12a1e7de",
+            "paper_id": "paper_pmc8126497",
+            "title": "Resistance Training Load Effects on Muscle Hypertrophy and Strength Gain: Systematic Review and Network Meta-analysis.",
+            "section": "RESULTS > section > Resistance training load effects on muscle strength",
+            "rank": 9,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8962955_results_training_volume_and_strength_metrics_001_834cd1a4",
+            "paper_id": "paper_pmc8962955",
+            "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+            "section": "Results > Training Volume and Strength Metrics",
+            "rank": 10,
+            "fusion_score": null,
+            "sources": []
+          }
+        ]
+      }
+    }
+  },
+  "final_status": "answer_ready",
+  "trace": {
+    "version": "query_debug_trace_v1",
+    "request_id": "fb6e73628dbe471796b8ff6f25ecb932",
+    "interpreter": {
+      "output_summary": {
+        "personal_record_requested": false,
+        "literature_requested": true,
+        "canonical_exercise_name": "Incline Bench Press (Barbell)",
+        "candidate_exercises": [
+          "Incline Bench Press (Barbell)"
+        ],
+        "time_condition": {
+          "scope": "all_records",
+          "start_date": null,
+          "end_date": null
+        },
+        "analyses": [
+          "first_last_n_session_median_e1rm"
+        ],
+        "candidate_count": 1
+      },
+      "validation": {
+        "status": "ready",
+        "check_id": null,
+        "normalized_summary": {
+          "personal_record_requested": true,
+          "literature_requested": true,
+          "canonical_exercise_name": "Incline Bench Press (Barbell)",
+          "candidate_exercises": [
+            "Incline Bench Press (Barbell)"
+          ],
+          "time_condition": {
+            "scope": "all_records",
+            "start_date": null,
+            "end_date": null
+          },
+          "analyses": [
+            "first_last_n_session_median_e1rm"
+          ],
+          "candidate_count": 1
+        },
+        "date_mismatch": false,
+        "personal_record_mismatch": true,
+        "record_coverage_status": null
+      }
+    },
+    "initial_queries": {
+      "korean": "바벨 인클라인 벤치프레스의 추정 1RM 중앙값을 비교한 연구가 있다면 참고로 알려줘",
+      "english": "If there are studies comparing the median estimated 1RM of the barbell incline bench press, please let me know for reference",
+      "dense": "If there are studies comparing the median estimated 1RM of the barbell incline bench press, please let me know for reference",
+      "bm25": "If there are studies comparing the median estimated 1RM of the barbell incline bench press, please let me know for reference",
+      "step2_fallback": false,
+      "step3_fallback": false
+    },
+    "retrievals": [
+      {
+        "phase": "initial",
+        "attempt": 0,
+        "query": "If there are studies comparing the median estimated 1RM of the barbell incline bench press, please let me know for reference",
+        "evidence": [
+          {
+            "chunk_id": "paper_pmc6303131_methods_maximal_strength_assessments_muscle_stre_001_fbb1207f",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "METHODS > Maximal Strength Assessments > Muscle strength",
+            "rank": 1,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+            "paper_id": "paper_pmc8067909",
+            "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+            "section": "Methods > Muscular strength",
+            "rank": 2,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6303131_methods_maximal_strength_assessments_muscle_endu_001_d286f42e",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "METHODS > Maximal Strength Assessments > Muscle endurance",
+            "rank": 3,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6950543_3_discussion_3_6_supersets_and_pre_exhaustion_te_001_2c7a0ae1",
+            "paper_id": "paper_pmc6950543",
+            "title": "Maximizing Muscle Hypertrophy: A Systematic Review of Advanced Resistance Training Techniques and Methods.",
+            "section": "3. Discussion > 3.6. Supersets and Pre-exhaustion Technique",
+            "rank": 4,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8067909_results_002_22b50389",
+            "paper_id": "paper_pmc8067909",
+            "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+            "section": "Results",
+            "rank": 5,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8962955_materials_and_methods_resistance_training_001_7fd0f416",
+            "paper_id": "paper_pmc8962955",
+            "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+            "section": "Materials and Methods > Resistance Training",
+            "rank": 6,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8363540_methods_analysis_and_interpretation_of_results_001_2513c154",
+            "paper_id": "paper_pmc8363540",
+            "title": "Effects of Variations in Resistance Training Frequency on Strength Development in Well-Trained Populations and Implications for In-Season Athlete Training: A Systematic Review and Meta-analysis.",
+            "section": "Methods > Analysis and Interpretation of Results",
+            "rank": 7,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8962955_materials_and_methods_testing_sessions_strength__001_39a898e3",
+            "paper_id": "paper_pmc8962955",
+            "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+            "section": "Materials and Methods > Testing Sessions > Strength Testing",
+            "rank": 8,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8126497_results_section_resistance_training_load_effects_001_12a1e7de",
+            "paper_id": "paper_pmc8126497",
+            "title": "Resistance Training Load Effects on Muscle Hypertrophy and Strength Gain: Systematic Review and Network Meta-analysis.",
+            "section": "RESULTS > section > Resistance training load effects on muscle strength",
+            "rank": 9,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8962955_results_training_volume_and_strength_metrics_001_834cd1a4",
+            "paper_id": "paper_pmc8962955",
+            "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+            "section": "Results > Training Volume and Strength Metrics",
+            "rank": 10,
+            "fusion_score": null,
+            "sources": []
+          }
+        ]
+      }
+    ],
+    "graders": [
+      {
+        "attempt": 0,
+        "query": "If there are studies comparing the median estimated 1RM of the barbell incline bench press, please let me know for reference",
+        "execution_status": "completed",
+        "evidence_sufficient": true,
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "비슷한 주제의 논문이 있다면 참고로 덧붙여줘",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc6303131_methods_maximal_strength_assessments_muscle_stre_001_fbb1207f",
+              "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+              "paper_pmc6950543_3_discussion_3_6_supersets_and_pre_exhaustion_te_001_2c7a0ae1",
+              "paper_pmc8962955_materials_and_methods_resistance_training_001_7fd0f416",
+              "paper_pmc8363540_methods_analysis_and_interpretation_of_results_001_2513c154",
+              "paper_pmc8126497_results_section_resistance_training_load_effects_001_12a1e7de",
+              "paper_pmc8962955_results_training_volume_and_strength_metrics_001_834cd1a4"
+            ]
+          }
+        ],
+        "missing_components": [],
+        "supplied_evidence": [
+          {
+            "chunk_id": "paper_pmc6303131_methods_maximal_strength_assessments_muscle_stre_001_fbb1207f",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "METHODS > Maximal Strength Assessments > Muscle strength",
+            "rank": 1,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+            "paper_id": "paper_pmc8067909",
+            "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+            "section": "Methods > Muscular strength",
+            "rank": 2,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6303131_methods_maximal_strength_assessments_muscle_endu_001_d286f42e",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "METHODS > Maximal Strength Assessments > Muscle endurance",
+            "rank": 3,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6950543_3_discussion_3_6_supersets_and_pre_exhaustion_te_001_2c7a0ae1",
+            "paper_id": "paper_pmc6950543",
+            "title": "Maximizing Muscle Hypertrophy: A Systematic Review of Advanced Resistance Training Techniques and Methods.",
+            "section": "3. Discussion > 3.6. Supersets and Pre-exhaustion Technique",
+            "rank": 4,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8067909_results_002_22b50389",
+            "paper_id": "paper_pmc8067909",
+            "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+            "section": "Results",
+            "rank": 5,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8962955_materials_and_methods_resistance_training_001_7fd0f416",
+            "paper_id": "paper_pmc8962955",
+            "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+            "section": "Materials and Methods > Resistance Training",
+            "rank": 6,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8363540_methods_analysis_and_interpretation_of_results_001_2513c154",
+            "paper_id": "paper_pmc8363540",
+            "title": "Effects of Variations in Resistance Training Frequency on Strength Development in Well-Trained Populations and Implications for In-Season Athlete Training: A Systematic Review and Meta-analysis.",
+            "section": "Methods > Analysis and Interpretation of Results",
+            "rank": 7,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8962955_materials_and_methods_testing_sessions_strength__001_39a898e3",
+            "paper_id": "paper_pmc8962955",
+            "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+            "section": "Materials and Methods > Testing Sessions > Strength Testing",
+            "rank": 8,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8126497_results_section_resistance_training_load_effects_001_12a1e7de",
+            "paper_id": "paper_pmc8126497",
+            "title": "Resistance Training Load Effects on Muscle Hypertrophy and Strength Gain: Systematic Review and Network Meta-analysis.",
+            "section": "RESULTS > section > Resistance training load effects on muscle strength",
+            "rank": 9,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8962955_results_training_volume_and_strength_metrics_001_834cd1a4",
+            "paper_id": "paper_pmc8962955",
+            "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+            "section": "Results > Training Volume and Strength Metrics",
+            "rank": 10,
+            "fusion_score": null,
+            "sources": []
+          }
+        ]
+      }
+    ],
+    "recovery": [],
+    "fusions": [],
+    "final_evidence": [
+      {
+        "chunk_id": "paper_pmc6303131_methods_maximal_strength_assessments_muscle_stre_001_fbb1207f",
+        "paper_id": "paper_pmc6303131",
+        "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+        "section": "METHODS > Maximal Strength Assessments > Muscle strength",
+        "rank": 1,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+        "paper_id": "paper_pmc8067909",
+        "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+        "section": "Methods > Muscular strength",
+        "rank": 2,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc6303131_methods_maximal_strength_assessments_muscle_endu_001_d286f42e",
+        "paper_id": "paper_pmc6303131",
+        "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+        "section": "METHODS > Maximal Strength Assessments > Muscle endurance",
+        "rank": 3,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc6950543_3_discussion_3_6_supersets_and_pre_exhaustion_te_001_2c7a0ae1",
+        "paper_id": "paper_pmc6950543",
+        "title": "Maximizing Muscle Hypertrophy: A Systematic Review of Advanced Resistance Training Techniques and Methods.",
+        "section": "3. Discussion > 3.6. Supersets and Pre-exhaustion Technique",
+        "rank": 4,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc8067909_results_002_22b50389",
+        "paper_id": "paper_pmc8067909",
+        "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+        "section": "Results",
+        "rank": 5,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc8962955_materials_and_methods_resistance_training_001_7fd0f416",
+        "paper_id": "paper_pmc8962955",
+        "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+        "section": "Materials and Methods > Resistance Training",
+        "rank": 6,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc8363540_methods_analysis_and_interpretation_of_results_001_2513c154",
+        "paper_id": "paper_pmc8363540",
+        "title": "Effects of Variations in Resistance Training Frequency on Strength Development in Well-Trained Populations and Implications for In-Season Athlete Training: A Systematic Review and Meta-analysis.",
+        "section": "Methods > Analysis and Interpretation of Results",
+        "rank": 7,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc8962955_materials_and_methods_testing_sessions_strength__001_39a898e3",
+        "paper_id": "paper_pmc8962955",
+        "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+        "section": "Materials and Methods > Testing Sessions > Strength Testing",
+        "rank": 8,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc8126497_results_section_resistance_training_load_effects_001_12a1e7de",
+        "paper_id": "paper_pmc8126497",
+        "title": "Resistance Training Load Effects on Muscle Hypertrophy and Strength Gain: Systematic Review and Network Meta-analysis.",
+        "section": "RESULTS > section > Resistance training load effects on muscle strength",
+        "rank": 9,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc8962955_results_training_volume_and_strength_metrics_001_834cd1a4",
+        "paper_id": "paper_pmc8962955",
+        "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+        "section": "Results > Training Volume and Strength Metrics",
+        "rank": 10,
+        "fusion_score": null,
+        "sources": []
+      }
+    ]
+  },
+  "latency_ms": 13006.12060000276,
+  "llm_events": [
+    {
+      "stage": "interpreter",
+      "method": "parse",
+      "started_at_utc": "2026-10-15T16:59:36.455430+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 2720,
+        "cached_input_tokens": 1792,
+        "output_tokens": 204,
+        "total_tokens": 2924,
+        "estimated_cost_usd": 0.0017484
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 1842.8536999999778
+    },
+    {
+      "stage": "step2",
+      "method": "parse",
+      "started_at_utc": "2026-10-15T16:59:39.977292+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 713,
+        "cached_input_tokens": 0,
+        "output_tokens": 50,
+        "total_tokens": 763,
+        "estimated_cost_usd": 0.00075975
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 1132.5788000031025
+    },
+    {
+      "stage": "step3",
+      "method": "parse",
+      "started_at_utc": "2026-10-15T16:59:41.115553+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 458,
+        "cached_input_tokens": 0,
+        "output_tokens": 39,
+        "total_tokens": 497,
+        "estimated_cost_usd": 0.000519
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 1984.1352000003099
+    },
+    {
+      "stage": "grader",
+      "method": "create",
+      "started_at_utc": "2026-10-15T16:59:43.503027+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 6615,
+        "cached_input_tokens": 0,
+        "output_tokens": 222,
+        "total_tokens": 6837,
+        "estimated_cost_usd": 0.00596025
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 2146.0287000008975
+    },
+    {
+      "stage": "answer",
+      "method": "create",
+      "started_at_utc": "2026-10-15T16:59:45.658927+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 14828,
+        "cached_input_tokens": 0,
+        "output_tokens": 415,
+        "total_tokens": 15243,
+        "estimated_cost_usd": 0.0129885
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 3571.8865000017104
+    }
+  ],
+  "usage": {
+    "calls": 5,
+    "by_stage": {
+      "interpreter": 1,
+      "step2": 1,
+      "step3": 1,
+      "grader": 1,
+      "answer": 1
+    },
+    "input_tokens": 25334,
+    "cached_input_tokens": 1792,
+    "output_tokens": 930,
+    "total_tokens": 26264,
+    "estimated_cost_usd": 0.0219759,
+    "actual_cost_usd": null,
+    "actual_cost_status": "provider_billing_not_supplied",
+    "usage_unavailable_calls": 0,
+    "known_subtotals": {
+      "input_tokens": 25334,
+      "cached_input_tokens": 1792,
+      "output_tokens": 930,
+      "total_tokens": 26264,
+      "estimated_cost_usd": 0.0219759
+    }
+  },
+  "scoring_state": {
+    "question_interpretation": {
+      "personal_record_requested": true,
+      "literature_requested": true,
+      "exercise_mention": "바벨 인클라인 벤치프레스",
+      "canonical_exercise_name": "Incline Bench Press (Barbell)",
+      "exercise_resolution_status": "resolved",
+      "candidate_exercises": [
+        "Incline Bench Press (Barbell)"
+      ],
+      "time_condition": {
+        "scope": "all_records",
+        "start_date": null,
+        "end_date": null,
+        "source_text": ""
+      },
+      "record_operation": null,
+      "session_id": null,
+      "requested_analyses": [
+        {
+          "operation": "first_last_n_session_median_e1rm",
+          "n_sessions": 3,
+          "source_text": "처음 3세션과 마지막 3세션의 추정 1RM 중앙값을 비교해줘"
+        }
+      ],
+      "literature_subquestion": "비슷한 주제의 논문이 있다면 참고로 덧붙여줘",
+      "user_assumptions": [],
+      "unresolved_fields": [],
+      "clarification_required": false,
+      "schema_version": "question_interpretation_phase_a_v1",
+      "parsing_source": "llm",
+      "original_question": "바벨 인클라인 벤치프레스 처음 3세션과 마지막 3세션의 추정 1RM 중앙값을 비교해줘. 비슷한 주제의 논문이 있다면 참고로 덧붙여줘",
+      "normalized_question": "Incline Bench Press (Barbell) 처음 3-session과 최근 3-session의 e1RM median을 비교해줘. 비슷한 주제의 논문이 있다면 참고로 덧붙여줘",
+      "applied_policies": [
+        "exercise_selection_v1",
+        "omitted_period_means_all_stored_records_v1"
+      ],
+      "personal_record_normalization": {
+        "supplied_value": false,
+        "derived_value": true,
+        "mismatch": true,
+        "signals": [
+          "requested_analyses"
+        ]
+      },
+      "date_range_normalization": null,
+      "date_validation": null
+    },
+    "interpretation_trace": {
+      "execution_status": "ready",
+      "error_code": null,
+      "provider": {
+        "model": "gpt-5.4-mini-2026-03-17",
+        "prompt_sha256": "d87e4a2373a8601af0cf30a3714a2a8f593ea921f551999f6ab5a15754475db0",
+        "config_sha256": "e45ea74e43c6ed8dd87e38705cf5a7949533bad9038f0978d2faf927d8ebb979",
+        "api_requests": 1,
+        "latency_ms": 1856.1088999995263,
+        "usage": {
+          "input_tokens": 2720,
+          "cached_input_tokens": 1792,
+          "output_tokens": 204,
+          "total_tokens": 2924,
+          "estimated_cost_usd": 0.0017484
+        },
+        "raw_interpretation": {
+          "personal_record_requested": false,
+          "literature_requested": true,
+          "exercise_mention": "바벨 인클라인 벤치프레스",
+          "canonical_exercise_name": "Incline Bench Press (Barbell)",
+          "exercise_resolution_status": "resolved",
+          "candidate_exercises": [
+            "Incline Bench Press (Barbell)"
+          ],
+          "time_condition": {
+            "scope": "all_records",
+            "start_date": null,
+            "end_date": null,
+            "source_text": ""
+          },
+          "record_operation": null,
+          "session_id": null,
+          "requested_analyses": [
+            {
+              "operation": "first_last_n_session_median_e1rm",
+              "n_sessions": 3,
+              "source_text": "처음 3세션과 마지막 3세션의 추정 1RM 중앙값을 비교해줘"
+            }
+          ],
+          "literature_subquestion": "비슷한 주제의 논문이 있다면 참고로 덧붙여줘",
+          "user_assumptions": [],
+          "unresolved_fields": [],
+          "clarification_required": false
+        },
+        "error": null
+      }
+    },
+    "final_response": {
+      "final_status": "answer_ready",
+      "provenance": {
+        "response_metadata": {
+          "response_received": true,
+          "id": "resp_078099ad7e93c207016ad10681620487d098181938fcc36e02",
+          "status": "completed",
+          "service_tier": "default"
+        }
+      }
+    },
+    "final_status": "answer_ready",
+    "tool_results": [
+      {
+        "tool": "query_training_log",
+        "status": "success",
+        "requested_operation": "exercise_records"
+      },
+      {
+        "tool": "compute_metrics",
+        "status": "success",
+        "requested_operation": "first_last_n_session_median_e1rm"
+      },
+      {
+        "tool": "search_literature",
+        "status": "success",
+        "requested_operation": "search"
+      }
+    ],
+    "route": {
+      "router_version": "interpretation_router_phase_a_v1",
+      "status": "planned",
+      "route": "hybrid",
+      "task_type": "hybrid",
+      "selected_tools": [
+        "query_training_log",
+        "compute_metrics",
+        "search_literature"
+      ],
+      "execution_order": [
+        "query_training_log",
+        "compute_metrics",
+        "search_literature"
+      ],
+      "routing_reason": "Deterministic mapping of validated interpretation channels; confidence is rule mapping, not semantic accuracy.",
+      "confidence": 1.0,
+      "rule_match": {
+        "rule_id": "I-hybrid",
+        "normalized_question": "Incline Bench Press (Barbell) 처음 3-session과 최근 3-session의 e1RM median을 비교해줘. 비슷한 주제의 논문이 있다면 참고로 덧붙여줘",
+        "signals": {
+          "structured_log": true,
+          "metric": true,
+          "literature": true
+        },
+        "matched_patterns": {}
+      },
+      "unsupported_reason": null,
+      "error": null
+    },
+    "selected_tools": [
+      "query_training_log",
+      "compute_metrics",
+      "search_literature"
+    ],
+    "errors": []
+  },
+  "actual_tools": [
+    {
+      "tool": "query_training_log",
+      "status": "success",
+      "requested_operation": "exercise_records"
+    },
+    {
+      "tool": "compute_metrics",
+      "status": "success",
+      "requested_operation": "first_last_n_session_median_e1rm"
+    },
+    {
+      "tool": "search_literature",
+      "status": "success",
+      "requested_operation": "search"
+    }
+  ],
+  "transport_error_type": null,
+  "execution_error": false,
+  "completed_at_utc": "2026-10-15T16:59:49.246882+00:00",
+  "response_bytes_sha256": "b4fadb4520903650e1abac36b65f2fa6c121ec260402888405792a2d31fd636d"
+}

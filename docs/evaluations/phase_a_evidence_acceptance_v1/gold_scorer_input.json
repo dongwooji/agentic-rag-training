@@ -1,0 +1,437 @@
+{
+  "version": "phase_a_evidence_gold_v1",
+  "cases": [
+    {
+      "case_id": "EN-01A",
+      "pair_id": "EN-01",
+      "expected_answer_type": "descriptive",
+      "required_evidence_sources": [
+        "training_records"
+      ],
+      "optional_evidence_sources": [],
+      "acceptable_record_operations": [
+        "exercise_records"
+      ],
+      "acceptable_metric_operation_sets": [
+        [
+          "weekly_volume"
+        ]
+      ],
+      "clarification_required": false,
+      "allowed_clarification_fields": [],
+      "expected_final_behavior": "answer",
+      "expected_default_recent_window": false
+    },
+    {
+      "case_id": "EN-01B",
+      "pair_id": "EN-01",
+      "expected_answer_type": "evaluative",
+      "required_evidence_sources": [
+        "training_records",
+        "literature"
+      ],
+      "optional_evidence_sources": [],
+      "acceptable_record_operations": [
+        "exercise_records"
+      ],
+      "acceptable_metric_operation_sets": [
+        [
+          "weekly_volume"
+        ]
+      ],
+      "clarification_required": false,
+      "allowed_clarification_fields": [],
+      "expected_final_behavior": "answer",
+      "expected_default_recent_window": false
+    },
+    {
+      "case_id": "EN-02A",
+      "pair_id": "EN-02",
+      "expected_answer_type": "descriptive",
+      "required_evidence_sources": [
+        "training_records"
+      ],
+      "optional_evidence_sources": [],
+      "acceptable_record_operations": [
+        "exercise_records"
+      ],
+      "acceptable_metric_operation_sets": [
+        [
+          "estimated_1rm"
+        ]
+      ],
+      "clarification_required": false,
+      "allowed_clarification_fields": [],
+      "expected_final_behavior": "answer",
+      "expected_default_recent_window": false
+    },
+    {
+      "case_id": "EN-02B",
+      "pair_id": "EN-02",
+      "expected_answer_type": "causal",
+      "required_evidence_sources": [
+        "training_records",
+        "literature"
+      ],
+      "optional_evidence_sources": [],
+      "acceptable_record_operations": [
+        "exercise_records"
+      ],
+      "acceptable_metric_operation_sets": [
+        [
+          "estimated_1rm"
+        ],
+        [
+          "plateau_candidates"
+        ]
+      ],
+      "clarification_required": false,
+      "allowed_clarification_fields": [],
+      "expected_final_behavior": "answer",
+      "expected_default_recent_window": false
+    },
+    {
+      "case_id": "EN-03A",
+      "pair_id": "EN-03",
+      "expected_answer_type": "descriptive",
+      "required_evidence_sources": [
+        "training_records"
+      ],
+      "optional_evidence_sources": [],
+      "acceptable_record_operations": [
+        "list_sessions"
+      ],
+      "acceptable_metric_operation_sets": [
+        [
+          "weekly_frequency"
+        ]
+      ],
+      "clarification_required": false,
+      "allowed_clarification_fields": [],
+      "expected_final_behavior": "answer",
+      "expected_default_recent_window": true
+    },
+    {
+      "case_id": "EN-03B",
+      "pair_id": "EN-03",
+      "expected_answer_type": "advisory",
+      "required_evidence_sources": [
+        "training_records",
+        "literature"
+      ],
+      "optional_evidence_sources": [],
+      "acceptable_record_operations": [
+        "list_sessions"
+      ],
+      "acceptable_metric_operation_sets": [
+        [
+          "weekly_frequency"
+        ]
+      ],
+      "clarification_required": false,
+      "allowed_clarification_fields": [],
+      "expected_final_behavior": "answer",
+      "expected_default_recent_window": true
+    },
+    {
+      "case_id": "EN-04A",
+      "pair_id": "EN-04",
+      "expected_answer_type": "general",
+      "required_evidence_sources": [
+        "literature"
+      ],
+      "optional_evidence_sources": [],
+      "acceptable_record_operations": [
+        null
+      ],
+      "acceptable_metric_operation_sets": [
+        []
+      ],
+      "clarification_required": false,
+      "allowed_clarification_fields": [],
+      "expected_final_behavior": "answer",
+      "expected_default_recent_window": false
+    },
+    {
+      "case_id": "EN-04B",
+      "pair_id": "EN-04",
+      "expected_answer_type": "evaluative",
+      "required_evidence_sources": [
+        "training_records",
+        "literature"
+      ],
+      "optional_evidence_sources": [],
+      "acceptable_record_operations": [
+        "exercise_records"
+      ],
+      "acceptable_metric_operation_sets": [
+        []
+      ],
+      "clarification_required": false,
+      "allowed_clarification_fields": [],
+      "expected_final_behavior": "answer",
+      "expected_default_recent_window": false
+    },
+    {
+      "case_id": "EN-05A",
+      "pair_id": "EN-05",
+      "expected_answer_type": "descriptive",
+      "required_evidence_sources": [
+        "training_records"
+      ],
+      "optional_evidence_sources": [],
+      "acceptable_record_operations": [
+        "list_sessions"
+      ],
+      "acceptable_metric_operation_sets": [
+        [
+          "training_gap"
+        ]
+      ],
+      "clarification_required": false,
+      "allowed_clarification_fields": [],
+      "expected_final_behavior": "answer",
+      "expected_default_recent_window": false
+    },
+    {
+      "case_id": "EN-05B",
+      "pair_id": "EN-05",
+      "expected_answer_type": "evaluative",
+      "required_evidence_sources": [
+        "training_records",
+        "literature"
+      ],
+      "optional_evidence_sources": [],
+      "acceptable_record_operations": [
+        "list_sessions"
+      ],
+      "acceptable_metric_operation_sets": [
+        [
+          "training_gap"
+        ]
+      ],
+      "clarification_required": false,
+      "allowed_clarification_fields": [],
+      "expected_final_behavior": "answer",
+      "expected_default_recent_window": false
+    },
+    {
+      "case_id": "EN-06A",
+      "pair_id": "EN-06",
+      "expected_answer_type": "descriptive",
+      "required_evidence_sources": [
+        "training_records"
+      ],
+      "optional_evidence_sources": [],
+      "acceptable_record_operations": [
+        "exercise_records"
+      ],
+      "acceptable_metric_operation_sets": [
+        [
+          "first_last_n_session_median_e1rm"
+        ]
+      ],
+      "clarification_required": false,
+      "allowed_clarification_fields": [],
+      "expected_final_behavior": "answer",
+      "expected_default_recent_window": false
+    },
+    {
+      "case_id": "EN-06B",
+      "pair_id": "EN-06",
+      "expected_answer_type": "descriptive",
+      "required_evidence_sources": [
+        "training_records"
+      ],
+      "optional_evidence_sources": [
+        "literature"
+      ],
+      "acceptable_record_operations": [
+        "exercise_records"
+      ],
+      "acceptable_metric_operation_sets": [
+        [
+          "first_last_n_session_median_e1rm"
+        ]
+      ],
+      "clarification_required": false,
+      "allowed_clarification_fields": [],
+      "expected_final_behavior": "answer",
+      "expected_default_recent_window": false
+    },
+    {
+      "case_id": "EN-07A",
+      "pair_id": "EN-07",
+      "expected_answer_type": "out_of_scope",
+      "required_evidence_sources": [],
+      "optional_evidence_sources": [],
+      "acceptable_record_operations": [
+        null
+      ],
+      "acceptable_metric_operation_sets": [
+        []
+      ],
+      "clarification_required": false,
+      "allowed_clarification_fields": [],
+      "expected_final_behavior": "abstain",
+      "expected_default_recent_window": false
+    },
+    {
+      "case_id": "EN-07B",
+      "pair_id": "EN-07",
+      "expected_answer_type": "descriptive",
+      "required_evidence_sources": [
+        "training_records"
+      ],
+      "optional_evidence_sources": [],
+      "acceptable_record_operations": [
+        "exercise_records"
+      ],
+      "acceptable_metric_operation_sets": [
+        [
+          "estimated_1rm"
+        ],
+        [
+          "plateau_candidates"
+        ]
+      ],
+      "clarification_required": false,
+      "allowed_clarification_fields": [],
+      "expected_final_behavior": "answer",
+      "expected_default_recent_window": true
+    },
+    {
+      "case_id": "EN-08A",
+      "pair_id": "EN-08",
+      "expected_answer_type": "causal",
+      "required_evidence_sources": [
+        "training_records",
+        "literature"
+      ],
+      "optional_evidence_sources": [],
+      "acceptable_record_operations": [
+        null
+      ],
+      "acceptable_metric_operation_sets": [
+        []
+      ],
+      "clarification_required": true,
+      "allowed_clarification_fields": [
+        "canonical_exercise_name",
+        "candidate_exercises",
+        "exercise_resolution_status"
+      ],
+      "expected_final_behavior": "clarification",
+      "expected_default_recent_window": false
+    },
+    {
+      "case_id": "EN-08B",
+      "pair_id": "EN-08",
+      "expected_answer_type": "causal",
+      "required_evidence_sources": [
+        "training_records",
+        "literature"
+      ],
+      "optional_evidence_sources": [],
+      "acceptable_record_operations": [
+        "exercise_records"
+      ],
+      "acceptable_metric_operation_sets": [
+        [
+          "estimated_1rm"
+        ],
+        [
+          "plateau_candidates"
+        ]
+      ],
+      "clarification_required": false,
+      "allowed_clarification_fields": [],
+      "expected_final_behavior": "answer",
+      "expected_default_recent_window": false
+    },
+    {
+      "case_id": "EN-09A",
+      "pair_id": "EN-09",
+      "expected_answer_type": "descriptive",
+      "required_evidence_sources": [
+        "training_records"
+      ],
+      "optional_evidence_sources": [],
+      "acceptable_record_operations": [
+        "exercise_records"
+      ],
+      "acceptable_metric_operation_sets": [
+        [
+          "weekly_volume"
+        ]
+      ],
+      "clarification_required": false,
+      "allowed_clarification_fields": [],
+      "expected_final_behavior": "answer",
+      "expected_default_recent_window": false
+    },
+    {
+      "case_id": "EN-09B",
+      "pair_id": "EN-09",
+      "expected_answer_type": "evaluative",
+      "required_evidence_sources": [
+        "training_records",
+        "literature"
+      ],
+      "optional_evidence_sources": [],
+      "acceptable_record_operations": [
+        "exercise_records"
+      ],
+      "acceptable_metric_operation_sets": [
+        [
+          "weekly_volume"
+        ]
+      ],
+      "clarification_required": false,
+      "allowed_clarification_fields": [],
+      "expected_final_behavior": "answer",
+      "expected_default_recent_window": false
+    },
+    {
+      "case_id": "EN-10A",
+      "pair_id": "EN-10",
+      "expected_answer_type": "advisory",
+      "required_evidence_sources": [
+        "literature"
+      ],
+      "optional_evidence_sources": [],
+      "acceptable_record_operations": [
+        null
+      ],
+      "acceptable_metric_operation_sets": [
+        []
+      ],
+      "clarification_required": false,
+      "allowed_clarification_fields": [],
+      "expected_final_behavior": "answer",
+      "expected_default_recent_window": false
+    },
+    {
+      "case_id": "EN-10B",
+      "pair_id": "EN-10",
+      "expected_answer_type": "advisory",
+      "required_evidence_sources": [
+        "training_records",
+        "literature"
+      ],
+      "optional_evidence_sources": [],
+      "acceptable_record_operations": [
+        "exercise_records"
+      ],
+      "acceptable_metric_operation_sets": [
+        [
+          "weekly_volume"
+        ]
+      ],
+      "clarification_required": false,
+      "allowed_clarification_fields": [],
+      "expected_final_behavior": "answer",
+      "expected_default_recent_window": true
+    }
+  ]
+}

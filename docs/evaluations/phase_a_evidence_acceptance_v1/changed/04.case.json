@@ -1,0 +1,1266 @@
+{
+  "case_id": "EN-02B",
+  "pair_id": "EN-02",
+  "sequence": 4,
+  "request_json": {
+    "question": "2018년 바벨 시티드 숄더프레스 추정 1RM이 오르다가 꺾였던데, 일반적으로 이런 꺾임은 어떤 요인들로 설명될 수 있어?",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T17:02:20.364862+00:00",
+  "http_status": 200,
+  "response": {
+    "final_status": "answer_ready",
+    "answer_text": "당신의 기록에서는 2018년 바벨 시티드 숄더프레스의 추정 1RM은 세션별로 오르내렸고, 예를 들어 1월 초 288.0에서 2월 초 297.7까지 올라간 뒤 3월 초 220.0으로 크게 낮아진 세션이 있었으며, 이후에도 285~300대 사이에서 변동했습니다. 연말까지의 세션 최고 추정 1RM은 297.7이었습니다. 이 값들은 epley_v1로 계산된 추정치이며, 실제 1RM 관측값은 아닙니다. [tool-result-02-compute_metrics]\n\n문헌에서는 문헌에서는 추정 1RM이나 근력 향상이 계속 오르다가 꺾이거나 정체되는 현상을 설명할 수 있는 요인으로, 개입 기간, 훈련량, 전체 훈련 강도, 부하 강도, 반복수, 세트 수, 훈련 빈도, 그리고 참가자 특성(훈련 수준 등)이 제시됩니다. 또한 기간이 길어질수록 평균 향상이 커질 수 있지만, 더 긴 기간에서는 변화가 평탄해질 가능성도 언급됩니다. [paper_pmc11239729_discussion_001_d5c81f28] [paper_pmc11239729_discussion_007_01077b25] [paper_pmc11239729_introduction_002_40ff2448] [paper_pmc9302196_discussion_intensity_001_4f3b030c]\n\n두 정보를 함께 보면 기록상으로는 2018년 시티드 숄더프레스 추정 1RM이 상승 후 중간중간 꺾이는 구간이 있었고, 문헌상으로는 이런 변화가 훈련 기간, 훈련량, 강도, 반복·세트 구성, 빈도, 훈련 수준 같은 요인과 관련될 수 있습니다. 다만 기록만으로 특정 요인이 실제 원인이라고 단정할 수는 없고, 문헌 결과도 일반적인 집단 수준의 설명입니다. [tool-result-02-compute_metrics] [paper_pmc11239729_discussion_001_d5c81f28] [paper_pmc11239729_discussion_007_01077b25] [paper_pmc11239729_introduction_002_40ff2448] [paper_pmc9302196_discussion_intensity_001_4f3b030c]\n\n제한사항: 추정 1RM은 실제 측정 1RM이 아니라 계산값입니다.; 기록만으로 꺾임의 원인을 인과적으로 판정할 수 없습니다.; 문헌은 일반 집단 수준의 요인 설명이며 개인 기록에 그대로 적용된다고 볼 수는 없습니다.; 가용 문헌은 일부 요인만 다루며, 회복 상태·수면·영양 같은 개인 요인은 이 evidence에 포함되어 있지 않습니다.",
+    "route": "hybrid",
+    "tools_used": [
+      "query_training_log",
+      "compute_metrics",
+      "search_literature"
+    ],
+    "retry_count": 0,
+    "recovery_used": false,
+    "used_literature_chunk_ids": [
+      "paper_pmc11239729_discussion_001_d5c81f28",
+      "paper_pmc11239729_discussion_007_01077b25",
+      "paper_pmc11239729_introduction_002_40ff2448",
+      "paper_pmc9302196_discussion_intensity_001_4f3b030c"
+    ],
+    "limitations": [
+      "추정 1RM은 실제 측정 1RM이 아니라 계산값입니다.",
+      "기록만으로 꺾임의 원인을 인과적으로 판정할 수 없습니다.",
+      "문헌은 일반 집단 수준의 요인 설명이며 개인 기록에 그대로 적용된다고 볼 수는 없습니다.",
+      "가용 문헌은 일부 요인만 다루며, 회복 상태·수면·영양 같은 개인 요인은 이 evidence에 포함되어 있지 않습니다.",
+      "개인 기록의 관찰된 변화만으로 인과관계를 확정할 수 없습니다.",
+      "일반 문헌 결과가 개인에게 동일하게 적용된다고 확정할 수 없습니다.",
+      "이 응답은 의료적 진단이나 개인 처방이 아닙니다."
+    ],
+    "latency_ms": 18710.13330000278,
+    "response_metadata": {
+      "response_mode": "debug",
+      "trace": {
+        "version": "query_debug_trace_v1",
+        "request_id": "5322891e943741429b40ccd1dec5a3e2",
+        "interpreter": {
+          "output_summary": {
+            "personal_record_requested": true,
+            "literature_requested": true,
+            "canonical_exercise_name": "Seated Shoulder Press (Barbell)",
+            "candidate_exercises": [
+              "Seated Shoulder Press (Barbell)"
+            ],
+            "time_condition": {
+              "scope": "explicit",
+              "start_date": "2018-01-01",
+              "end_date": "2018-12-31"
+            },
+            "analyses": [
+              "estimated_1rm"
+            ],
+            "candidate_count": 1
+          },
+          "validation": {
+            "status": "ready",
+            "check_id": null,
+            "normalized_summary": {
+              "personal_record_requested": true,
+              "literature_requested": true,
+              "canonical_exercise_name": "Seated Shoulder Press (Barbell)",
+              "candidate_exercises": [
+                "Seated Shoulder Press (Barbell)"
+              ],
+              "time_condition": {
+                "scope": "explicit",
+                "start_date": "2018-01-01",
+                "end_date": "2018-12-31"
+              },
+              "analyses": [
+                "estimated_1rm"
+              ],
+              "candidate_count": 1
+            },
+            "date_mismatch": false,
+            "personal_record_mismatch": false,
+            "record_coverage_status": null
+          },
+          "phase_a": {
+            "version": "phase_a_semantics_v1",
+            "parsing_source": "llm",
+            "evidence_need": {
+              "status": "resolved",
+              "answer_type": "general",
+              "literature_needed_for_answer": true,
+              "explicit_literature_request": "none",
+              "required_sources": [
+                "training_records",
+                "literature"
+              ],
+              "optional_sources": [],
+              "source_spans": [
+                "2018년 바벨 시티드 숄더프레스 추정 1RM이 오르다가 꺾였던데",
+                "일반적으로 이런 꺾임은 어떤 요인들로 설명될 수 있어?"
+              ],
+              "unresolved_fields": []
+            },
+            "argument_resolution": {
+              "status": "ready",
+              "unresolved_fields": []
+            },
+            "default_time_window": {
+              "applied": false,
+              "policy": null,
+              "trigger": null,
+              "recent_window_weeks": null,
+              "anchor_date": null,
+              "start_date": null,
+              "end_date": null
+            },
+            "scope": {
+              "out_of_scope": false,
+              "reason_code": null
+            }
+          }
+        },
+        "initial_queries": {
+          "korean": "일반적으로 추정 1RM이 오르다가 꺾이는 현상은 어떤 요인들로 설명될 수 있어?",
+          "english": "What factors can explain the phenomenon where estimated 1RM generally increases and then levels off or declines?",
+          "dense": "What factors can explain the phenomenon where estimated 1RM generally increases and then levels off or declines?",
+          "bm25": "What factors can explain the phenomenon where estimated 1RM generally increases and then levels off or declines?",
+          "step2_fallback": false,
+          "step3_fallback": false
+        },
+        "retrievals": [
+          {
+            "phase": "initial",
+            "attempt": 0,
+            "query": "What factors can explain the phenomenon where estimated 1RM generally increases and then levels off or declines?",
+            "evidence": [
+              {
+                "chunk_id": "paper_pmc11239729_discussion_001_d5c81f28",
+                "paper_id": "paper_pmc11239729",
+                "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+                "section": "Discussion",
+                "rank": 1,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc9302196_discussion_intensity_001_4f3b030c",
+                "paper_id": "paper_pmc9302196",
+                "title": "Resistance Training Variables for Optimization of Muscle Hypertrophy: An Umbrella Review.",
+                "section": "Discussion > Intensity",
+                "rank": 2,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc11239729_discussion_007_01077b25",
+                "paper_id": "paper_pmc11239729",
+                "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+                "section": "Discussion",
+                "rank": 3,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc11239729_introduction_002_40ff2448",
+                "paper_id": "paper_pmc11239729",
+                "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+                "section": "Introduction",
+                "rank": 4,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc11239729_discussion_006_ddc663f6",
+                "paper_id": "paper_pmc11239729",
+                "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+                "section": "Discussion",
+                "rank": 5,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6303131_results_section_squat_1rm_001_d71adbb2",
+                "paper_id": "paper_pmc6303131",
+                "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+                "section": "RESULTS > section > Squat 1RM",
+                "rank": 6,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc11239729_discussion_004_acc69656",
+                "paper_id": "paper_pmc11239729",
+                "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+                "section": "Discussion",
+                "rank": 7,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8962955_results_body_composition_001_db9dcf80",
+                "paper_id": "paper_pmc8962955",
+                "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+                "section": "Results > Body Composition",
+                "rank": 8,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc13236796_definitional_inconsistencies_source_of_resistanc_001_796b3596",
+                "paper_id": "paper_pmc13236796",
+                "title": "What is resistance exercise? A review of current uses and potential ways forward.",
+                "section": "Definitional inconsistencies > Source of resistance and phenomenology > Phenomenology of exercises",
+                "rank": 9,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8126497_methods_section_data_analysis_001_a35aa0ef",
+                "paper_id": "paper_pmc8126497",
+                "title": "Resistance Training Load Effects on Muscle Hypertrophy and Strength Gain: Systematic Review and Network Meta-analysis.",
+                "section": "METHODS > section > Data analysis",
+                "rank": 10,
+                "fusion_score": null,
+                "sources": []
+              }
+            ]
+          }
+        ],
+        "graders": [
+          {
+            "attempt": 0,
+            "query": "What factors can explain the phenomenon where estimated 1RM generally increases and then levels off or declines?",
+            "execution_status": "completed",
+            "evidence_sufficient": true,
+            "components": [
+              {
+                "component_id": "C1",
+                "requirement": "추정 1RM이 오르다가 꺾이는 현상을 설명할 수 있는 일반적 요인들",
+                "status": "supported",
+                "supporting_chunk_ids": [
+                  "paper_pmc11239729_discussion_001_d5c81f28",
+                  "paper_pmc9302196_discussion_intensity_001_4f3b030c",
+                  "paper_pmc11239729_discussion_007_01077b25",
+                  "paper_pmc11239729_introduction_002_40ff2448",
+                  "paper_pmc11239729_discussion_006_ddc663f6"
+                ]
+              }
+            ],
+            "missing_components": [],
+            "supplied_evidence": [
+              {
+                "chunk_id": "paper_pmc11239729_discussion_001_d5c81f28",
+                "paper_id": "paper_pmc11239729",
+                "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+                "section": "Discussion",
+                "rank": 1,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc9302196_discussion_intensity_001_4f3b030c",
+                "paper_id": "paper_pmc9302196",
+                "title": "Resistance Training Variables for Optimization of Muscle Hypertrophy: An Umbrella Review.",
+                "section": "Discussion > Intensity",
+                "rank": 2,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc11239729_discussion_007_01077b25",
+                "paper_id": "paper_pmc11239729",
+                "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+                "section": "Discussion",
+                "rank": 3,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc11239729_introduction_002_40ff2448",
+                "paper_id": "paper_pmc11239729",
+                "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+                "section": "Introduction",
+                "rank": 4,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc11239729_discussion_006_ddc663f6",
+                "paper_id": "paper_pmc11239729",
+                "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+                "section": "Discussion",
+                "rank": 5,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6303131_results_section_squat_1rm_001_d71adbb2",
+                "paper_id": "paper_pmc6303131",
+                "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+                "section": "RESULTS > section > Squat 1RM",
+                "rank": 6,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc11239729_discussion_004_acc69656",
+                "paper_id": "paper_pmc11239729",
+                "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+                "section": "Discussion",
+                "rank": 7,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8962955_results_body_composition_001_db9dcf80",
+                "paper_id": "paper_pmc8962955",
+                "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+                "section": "Results > Body Composition",
+                "rank": 8,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc13236796_definitional_inconsistencies_source_of_resistanc_001_796b3596",
+                "paper_id": "paper_pmc13236796",
+                "title": "What is resistance exercise? A review of current uses and potential ways forward.",
+                "section": "Definitional inconsistencies > Source of resistance and phenomenology > Phenomenology of exercises",
+                "rank": 9,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8126497_methods_section_data_analysis_001_a35aa0ef",
+                "paper_id": "paper_pmc8126497",
+                "title": "Resistance Training Load Effects on Muscle Hypertrophy and Strength Gain: Systematic Review and Network Meta-analysis.",
+                "section": "METHODS > section > Data analysis",
+                "rank": 10,
+                "fusion_score": null,
+                "sources": []
+              }
+            ]
+          }
+        ],
+        "recovery": [],
+        "fusions": [],
+        "final_evidence": [
+          {
+            "chunk_id": "paper_pmc11239729_discussion_001_d5c81f28",
+            "paper_id": "paper_pmc11239729",
+            "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+            "section": "Discussion",
+            "rank": 1,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc9302196_discussion_intensity_001_4f3b030c",
+            "paper_id": "paper_pmc9302196",
+            "title": "Resistance Training Variables for Optimization of Muscle Hypertrophy: An Umbrella Review.",
+            "section": "Discussion > Intensity",
+            "rank": 2,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc11239729_discussion_007_01077b25",
+            "paper_id": "paper_pmc11239729",
+            "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+            "section": "Discussion",
+            "rank": 3,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc11239729_introduction_002_40ff2448",
+            "paper_id": "paper_pmc11239729",
+            "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+            "section": "Introduction",
+            "rank": 4,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc11239729_discussion_006_ddc663f6",
+            "paper_id": "paper_pmc11239729",
+            "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+            "section": "Discussion",
+            "rank": 5,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6303131_results_section_squat_1rm_001_d71adbb2",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "RESULTS > section > Squat 1RM",
+            "rank": 6,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc11239729_discussion_004_acc69656",
+            "paper_id": "paper_pmc11239729",
+            "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+            "section": "Discussion",
+            "rank": 7,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8962955_results_body_composition_001_db9dcf80",
+            "paper_id": "paper_pmc8962955",
+            "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+            "section": "Results > Body Composition",
+            "rank": 8,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc13236796_definitional_inconsistencies_source_of_resistanc_001_796b3596",
+            "paper_id": "paper_pmc13236796",
+            "title": "What is resistance exercise? A review of current uses and potential ways forward.",
+            "section": "Definitional inconsistencies > Source of resistance and phenomenology > Phenomenology of exercises",
+            "rank": 9,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8126497_methods_section_data_analysis_001_a35aa0ef",
+            "paper_id": "paper_pmc8126497",
+            "title": "Resistance Training Load Effects on Muscle Hypertrophy and Strength Gain: Systematic Review and Network Meta-analysis.",
+            "section": "METHODS > section > Data analysis",
+            "rank": 10,
+            "fusion_score": null,
+            "sources": []
+          }
+        ]
+      }
+    }
+  },
+  "final_status": "answer_ready",
+  "trace": {
+    "version": "query_debug_trace_v1",
+    "request_id": "5322891e943741429b40ccd1dec5a3e2",
+    "interpreter": {
+      "output_summary": {
+        "personal_record_requested": true,
+        "literature_requested": true,
+        "canonical_exercise_name": "Seated Shoulder Press (Barbell)",
+        "candidate_exercises": [
+          "Seated Shoulder Press (Barbell)"
+        ],
+        "time_condition": {
+          "scope": "explicit",
+          "start_date": "2018-01-01",
+          "end_date": "2018-12-31"
+        },
+        "analyses": [
+          "estimated_1rm"
+        ],
+        "candidate_count": 1
+      },
+      "validation": {
+        "status": "ready",
+        "check_id": null,
+        "normalized_summary": {
+          "personal_record_requested": true,
+          "literature_requested": true,
+          "canonical_exercise_name": "Seated Shoulder Press (Barbell)",
+          "candidate_exercises": [
+            "Seated Shoulder Press (Barbell)"
+          ],
+          "time_condition": {
+            "scope": "explicit",
+            "start_date": "2018-01-01",
+            "end_date": "2018-12-31"
+          },
+          "analyses": [
+            "estimated_1rm"
+          ],
+          "candidate_count": 1
+        },
+        "date_mismatch": false,
+        "personal_record_mismatch": false,
+        "record_coverage_status": null
+      },
+      "phase_a": {
+        "version": "phase_a_semantics_v1",
+        "parsing_source": "llm",
+        "evidence_need": {
+          "status": "resolved",
+          "answer_type": "general",
+          "literature_needed_for_answer": true,
+          "explicit_literature_request": "none",
+          "required_sources": [
+            "training_records",
+            "literature"
+          ],
+          "optional_sources": [],
+          "source_spans": [
+            "2018년 바벨 시티드 숄더프레스 추정 1RM이 오르다가 꺾였던데",
+            "일반적으로 이런 꺾임은 어떤 요인들로 설명될 수 있어?"
+          ],
+          "unresolved_fields": []
+        },
+        "argument_resolution": {
+          "status": "ready",
+          "unresolved_fields": []
+        },
+        "default_time_window": {
+          "applied": false,
+          "policy": null,
+          "trigger": null,
+          "recent_window_weeks": null,
+          "anchor_date": null,
+          "start_date": null,
+          "end_date": null
+        },
+        "scope": {
+          "out_of_scope": false,
+          "reason_code": null
+        }
+      }
+    },
+    "initial_queries": {
+      "korean": "일반적으로 추정 1RM이 오르다가 꺾이는 현상은 어떤 요인들로 설명될 수 있어?",
+      "english": "What factors can explain the phenomenon where estimated 1RM generally increases and then levels off or declines?",
+      "dense": "What factors can explain the phenomenon where estimated 1RM generally increases and then levels off or declines?",
+      "bm25": "What factors can explain the phenomenon where estimated 1RM generally increases and then levels off or declines?",
+      "step2_fallback": false,
+      "step3_fallback": false
+    },
+    "retrievals": [
+      {
+        "phase": "initial",
+        "attempt": 0,
+        "query": "What factors can explain the phenomenon where estimated 1RM generally increases and then levels off or declines?",
+        "evidence": [
+          {
+            "chunk_id": "paper_pmc11239729_discussion_001_d5c81f28",
+            "paper_id": "paper_pmc11239729",
+            "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+            "section": "Discussion",
+            "rank": 1,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc9302196_discussion_intensity_001_4f3b030c",
+            "paper_id": "paper_pmc9302196",
+            "title": "Resistance Training Variables for Optimization of Muscle Hypertrophy: An Umbrella Review.",
+            "section": "Discussion > Intensity",
+            "rank": 2,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc11239729_discussion_007_01077b25",
+            "paper_id": "paper_pmc11239729",
+            "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+            "section": "Discussion",
+            "rank": 3,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc11239729_introduction_002_40ff2448",
+            "paper_id": "paper_pmc11239729",
+            "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+            "section": "Introduction",
+            "rank": 4,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc11239729_discussion_006_ddc663f6",
+            "paper_id": "paper_pmc11239729",
+            "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+            "section": "Discussion",
+            "rank": 5,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6303131_results_section_squat_1rm_001_d71adbb2",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "RESULTS > section > Squat 1RM",
+            "rank": 6,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc11239729_discussion_004_acc69656",
+            "paper_id": "paper_pmc11239729",
+            "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+            "section": "Discussion",
+            "rank": 7,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8962955_results_body_composition_001_db9dcf80",
+            "paper_id": "paper_pmc8962955",
+            "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+            "section": "Results > Body Composition",
+            "rank": 8,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc13236796_definitional_inconsistencies_source_of_resistanc_001_796b3596",
+            "paper_id": "paper_pmc13236796",
+            "title": "What is resistance exercise? A review of current uses and potential ways forward.",
+            "section": "Definitional inconsistencies > Source of resistance and phenomenology > Phenomenology of exercises",
+            "rank": 9,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8126497_methods_section_data_analysis_001_a35aa0ef",
+            "paper_id": "paper_pmc8126497",
+            "title": "Resistance Training Load Effects on Muscle Hypertrophy and Strength Gain: Systematic Review and Network Meta-analysis.",
+            "section": "METHODS > section > Data analysis",
+            "rank": 10,
+            "fusion_score": null,
+            "sources": []
+          }
+        ]
+      }
+    ],
+    "graders": [
+      {
+        "attempt": 0,
+        "query": "What factors can explain the phenomenon where estimated 1RM generally increases and then levels off or declines?",
+        "execution_status": "completed",
+        "evidence_sufficient": true,
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "추정 1RM이 오르다가 꺾이는 현상을 설명할 수 있는 일반적 요인들",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc11239729_discussion_001_d5c81f28",
+              "paper_pmc9302196_discussion_intensity_001_4f3b030c",
+              "paper_pmc11239729_discussion_007_01077b25",
+              "paper_pmc11239729_introduction_002_40ff2448",
+              "paper_pmc11239729_discussion_006_ddc663f6"
+            ]
+          }
+        ],
+        "missing_components": [],
+        "supplied_evidence": [
+          {
+            "chunk_id": "paper_pmc11239729_discussion_001_d5c81f28",
+            "paper_id": "paper_pmc11239729",
+            "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+            "section": "Discussion",
+            "rank": 1,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc9302196_discussion_intensity_001_4f3b030c",
+            "paper_id": "paper_pmc9302196",
+            "title": "Resistance Training Variables for Optimization of Muscle Hypertrophy: An Umbrella Review.",
+            "section": "Discussion > Intensity",
+            "rank": 2,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc11239729_discussion_007_01077b25",
+            "paper_id": "paper_pmc11239729",
+            "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+            "section": "Discussion",
+            "rank": 3,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc11239729_introduction_002_40ff2448",
+            "paper_id": "paper_pmc11239729",
+            "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+            "section": "Introduction",
+            "rank": 4,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc11239729_discussion_006_ddc663f6",
+            "paper_id": "paper_pmc11239729",
+            "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+            "section": "Discussion",
+            "rank": 5,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6303131_results_section_squat_1rm_001_d71adbb2",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "RESULTS > section > Squat 1RM",
+            "rank": 6,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc11239729_discussion_004_acc69656",
+            "paper_id": "paper_pmc11239729",
+            "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+            "section": "Discussion",
+            "rank": 7,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8962955_results_body_composition_001_db9dcf80",
+            "paper_id": "paper_pmc8962955",
+            "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+            "section": "Results > Body Composition",
+            "rank": 8,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc13236796_definitional_inconsistencies_source_of_resistanc_001_796b3596",
+            "paper_id": "paper_pmc13236796",
+            "title": "What is resistance exercise? A review of current uses and potential ways forward.",
+            "section": "Definitional inconsistencies > Source of resistance and phenomenology > Phenomenology of exercises",
+            "rank": 9,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8126497_methods_section_data_analysis_001_a35aa0ef",
+            "paper_id": "paper_pmc8126497",
+            "title": "Resistance Training Load Effects on Muscle Hypertrophy and Strength Gain: Systematic Review and Network Meta-analysis.",
+            "section": "METHODS > section > Data analysis",
+            "rank": 10,
+            "fusion_score": null,
+            "sources": []
+          }
+        ]
+      }
+    ],
+    "recovery": [],
+    "fusions": [],
+    "final_evidence": [
+      {
+        "chunk_id": "paper_pmc11239729_discussion_001_d5c81f28",
+        "paper_id": "paper_pmc11239729",
+        "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+        "section": "Discussion",
+        "rank": 1,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc9302196_discussion_intensity_001_4f3b030c",
+        "paper_id": "paper_pmc9302196",
+        "title": "Resistance Training Variables for Optimization of Muscle Hypertrophy: An Umbrella Review.",
+        "section": "Discussion > Intensity",
+        "rank": 2,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc11239729_discussion_007_01077b25",
+        "paper_id": "paper_pmc11239729",
+        "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+        "section": "Discussion",
+        "rank": 3,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc11239729_introduction_002_40ff2448",
+        "paper_id": "paper_pmc11239729",
+        "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+        "section": "Introduction",
+        "rank": 4,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc11239729_discussion_006_ddc663f6",
+        "paper_id": "paper_pmc11239729",
+        "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+        "section": "Discussion",
+        "rank": 5,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc6303131_results_section_squat_1rm_001_d71adbb2",
+        "paper_id": "paper_pmc6303131",
+        "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+        "section": "RESULTS > section > Squat 1RM",
+        "rank": 6,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc11239729_discussion_004_acc69656",
+        "paper_id": "paper_pmc11239729",
+        "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+        "section": "Discussion",
+        "rank": 7,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc8962955_results_body_composition_001_db9dcf80",
+        "paper_id": "paper_pmc8962955",
+        "title": "Effects of High-Volume Versus High-Load Resistance Training on Skeletal Muscle Growth and Molecular Adaptations.",
+        "section": "Results > Body Composition",
+        "rank": 8,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc13236796_definitional_inconsistencies_source_of_resistanc_001_796b3596",
+        "paper_id": "paper_pmc13236796",
+        "title": "What is resistance exercise? A review of current uses and potential ways forward.",
+        "section": "Definitional inconsistencies > Source of resistance and phenomenology > Phenomenology of exercises",
+        "rank": 9,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc8126497_methods_section_data_analysis_001_a35aa0ef",
+        "paper_id": "paper_pmc8126497",
+        "title": "Resistance Training Load Effects on Muscle Hypertrophy and Strength Gain: Systematic Review and Network Meta-analysis.",
+        "section": "METHODS > section > Data analysis",
+        "rank": 10,
+        "fusion_score": null,
+        "sources": []
+      }
+    ]
+  },
+  "latency_ms": 18739.098099998955,
+  "llm_events": [
+    {
+      "stage": "interpreter",
+      "method": "parse",
+      "started_at_utc": "2026-10-15T17:02:20.591257+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 3375,
+        "cached_input_tokens": 2304,
+        "output_tokens": 303,
+        "total_tokens": 3678,
+        "estimated_cost_usd": 0.00233955
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 2736.330400002771
+    },
+    {
+      "stage": "step2",
+      "method": "parse",
+      "started_at_utc": "2026-10-15T17:02:24.539952+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 708,
+        "cached_input_tokens": 0,
+        "output_tokens": 50,
+        "total_tokens": 758,
+        "estimated_cost_usd": 0.000756
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 1509.192500001518
+    },
+    {
+      "stage": "step3",
+      "method": "parse",
+      "started_at_utc": "2026-10-15T17:02:26.049344+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 458,
+        "cached_input_tokens": 0,
+        "output_tokens": 34,
+        "total_tokens": 492,
+        "estimated_cost_usd": 0.0004965
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 1131.3885999988997
+    },
+    {
+      "stage": "grader",
+      "method": "create",
+      "started_at_utc": "2026-10-15T17:02:27.301922+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 6493,
+        "cached_input_tokens": 0,
+        "output_tokens": 144,
+        "total_tokens": 6637,
+        "estimated_cost_usd": 0.00551775
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 1807.8334999954677
+    },
+    {
+      "stage": "answer",
+      "method": "create",
+      "started_at_utc": "2026-10-15T17:02:29.119666+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 30436,
+        "cached_input_tokens": 0,
+        "output_tokens": 745,
+        "total_tokens": 31181,
+        "estimated_cost_usd": 0.0261795
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 9974.104100001568
+    }
+  ],
+  "usage": {
+    "calls": 5,
+    "by_stage": {
+      "interpreter": 1,
+      "step2": 1,
+      "step3": 1,
+      "grader": 1,
+      "answer": 1
+    },
+    "input_tokens": 41470,
+    "cached_input_tokens": 2304,
+    "output_tokens": 1276,
+    "total_tokens": 42746,
+    "estimated_cost_usd": 0.0352893,
+    "actual_cost_usd": null,
+    "actual_cost_status": "provider_billing_not_supplied",
+    "usage_unavailable_calls": 0,
+    "known_subtotals": {
+      "input_tokens": 41470,
+      "cached_input_tokens": 2304,
+      "output_tokens": 1276,
+      "total_tokens": 42746,
+      "estimated_cost_usd": 0.0352893
+    }
+  },
+  "scoring_state": {
+    "question_interpretation": {
+      "personal_record_requested": true,
+      "literature_requested": true,
+      "exercise_mention": "바벨 시티드 숄더프레스",
+      "canonical_exercise_name": "Seated Shoulder Press (Barbell)",
+      "exercise_resolution_status": "resolved",
+      "candidate_exercises": [
+        "Seated Shoulder Press (Barbell)"
+      ],
+      "time_condition": {
+        "scope": "explicit",
+        "start_date": "2018-01-01",
+        "end_date": "2018-12-31",
+        "source_text": "2018년"
+      },
+      "record_operation": "exercise_records",
+      "session_id": null,
+      "requested_analyses": [
+        {
+          "operation": "estimated_1rm",
+          "n_sessions": null,
+          "source_text": "추정 1RM"
+        }
+      ],
+      "literature_subquestion": "일반적으로 추정 1RM이 오르다가 꺾이는 현상을 설명할 수 있는 요인들",
+      "user_assumptions": [],
+      "unresolved_fields": [],
+      "clarification_required": false,
+      "schema_version": "question_interpretation_phase_a_v1",
+      "parsing_source": "llm",
+      "original_question": "2018년 바벨 시티드 숄더프레스 추정 1RM이 오르다가 꺾였던데, 일반적으로 이런 꺾임은 어떤 요인들로 설명될 수 있어?",
+      "normalized_question": "2018년 바벨 시티드 숄더프레스 e1RM이 오르다가 꺾였던데, 일반적으로 이런 꺾임은 어떤 요인들로 설명될 수 있어?",
+      "applied_policies": [
+        "exercise_selection_v1",
+        "explicit_calendar_bounds_v1"
+      ],
+      "personal_record_normalization": {
+        "supplied_value": true,
+        "derived_value": true,
+        "mismatch": false,
+        "signals": [
+          "record_operation",
+          "requested_analyses",
+          "evidence_need"
+        ]
+      },
+      "date_range_normalization": {
+        "supplied_scope": "explicit",
+        "supplied_start_date": "2018-01-01",
+        "supplied_end_date": "2018-12-31",
+        "derived_start_date": "2018-01-01",
+        "derived_end_date": "2018-12-31",
+        "source_text": "2018년",
+        "mismatch": false
+      },
+      "date_validation": null,
+      "phase_a_semantics": {
+        "version": "phase_a_semantics_v1",
+        "parsing_source": "llm",
+        "evidence_need": {
+          "status": "resolved",
+          "answer_type": "general",
+          "literature_needed_for_answer": true,
+          "explicit_literature_request": "none",
+          "required_sources": [
+            "training_records",
+            "literature"
+          ],
+          "optional_sources": [],
+          "source_spans": [
+            "2018년 바벨 시티드 숄더프레스 추정 1RM이 오르다가 꺾였던데",
+            "일반적으로 이런 꺾임은 어떤 요인들로 설명될 수 있어?"
+          ],
+          "unresolved_fields": []
+        },
+        "argument_resolution": {
+          "status": "ready",
+          "unresolved_fields": []
+        },
+        "default_time_window": {
+          "applied": false,
+          "policy": null,
+          "trigger": null,
+          "recent_window_weeks": null,
+          "anchor_date": null,
+          "start_date": null,
+          "end_date": null
+        },
+        "scope": {
+          "out_of_scope": false,
+          "reason_code": null
+        }
+      }
+    },
+    "interpretation_trace": {
+      "execution_status": "ready",
+      "error_code": null,
+      "phase_a_semantics": {
+        "version": "phase_a_semantics_v1",
+        "parsing_source": "llm",
+        "evidence_need": {
+          "status": "resolved",
+          "answer_type": "general",
+          "literature_needed_for_answer": true,
+          "explicit_literature_request": "none",
+          "required_sources": [
+            "training_records",
+            "literature"
+          ],
+          "optional_sources": [],
+          "source_spans": [
+            "2018년 바벨 시티드 숄더프레스 추정 1RM이 오르다가 꺾였던데",
+            "일반적으로 이런 꺾임은 어떤 요인들로 설명될 수 있어?"
+          ],
+          "unresolved_fields": []
+        },
+        "argument_resolution": {
+          "status": "ready",
+          "unresolved_fields": []
+        },
+        "default_time_window": {
+          "applied": false,
+          "policy": null,
+          "trigger": null,
+          "recent_window_weeks": null,
+          "anchor_date": null,
+          "start_date": null,
+          "end_date": null
+        },
+        "scope": {
+          "out_of_scope": false,
+          "reason_code": null
+        }
+      },
+      "provider": {
+        "model": "gpt-5.4-mini-2026-03-17",
+        "prompt_sha256": "6f327f7bbfbf18b1acc3c60675c2934ccc01150e1d1fc93ed958894a017fd802",
+        "config_sha256": "66fb343b0cb58ff17e9a926939539404ba025e2ad8a59b91bcde7f6b4c8a225b",
+        "api_requests": 1,
+        "latency_ms": 2752.77250000363,
+        "usage": {
+          "input_tokens": 3375,
+          "cached_input_tokens": 2304,
+          "output_tokens": 303,
+          "total_tokens": 3678,
+          "estimated_cost_usd": 0.00233955
+        },
+        "raw_interpretation": {
+          "personal_record_requested": true,
+          "literature_requested": true,
+          "exercise_mention": "바벨 시티드 숄더프레스",
+          "canonical_exercise_name": "Seated Shoulder Press (Barbell)",
+          "exercise_resolution_status": "resolved",
+          "candidate_exercises": [
+            "Seated Shoulder Press (Barbell)"
+          ],
+          "time_condition": {
+            "scope": "explicit",
+            "start_date": "2018-01-01",
+            "end_date": "2018-12-31",
+            "source_text": "2018년"
+          },
+          "record_operation": "exercise_records",
+          "session_id": null,
+          "requested_analyses": [
+            {
+              "operation": "estimated_1rm",
+              "n_sessions": null,
+              "source_text": "추정 1RM"
+            }
+          ],
+          "literature_subquestion": "일반적으로 추정 1RM이 오르다가 꺾이는 현상을 설명할 수 있는 요인들",
+          "user_assumptions": [],
+          "unresolved_fields": [],
+          "clarification_required": false,
+          "evidence_need": {
+            "answer_type": "general",
+            "training_records_needed": true,
+            "literature_needed_for_answer": true,
+            "explicit_literature_request": "none",
+            "source_spans": [
+              "2018년 바벨 시티드 숄더프레스 추정 1RM이 오르다가 꺾였던데",
+              "일반적으로 이런 꺾임은 어떤 요인들로 설명될 수 있어?"
+            ],
+            "purpose_unresolved": false,
+            "requires_current_window": false,
+            "out_of_scope_reason": null
+          }
+        },
+        "error": null
+      }
+    },
+    "final_response": {
+      "final_status": "answer_ready",
+      "provenance": {
+        "response_metadata": {
+          "response_received": true,
+          "id": "resp_0e89714fa4117c24016ad10724e07c87d0a73a875873d15a46",
+          "status": "completed",
+          "service_tier": "default"
+        }
+      }
+    },
+    "final_status": "answer_ready",
+    "tool_results": [
+      {
+        "tool": "query_training_log",
+        "status": "success",
+        "requested_operation": "exercise_records"
+      },
+      {
+        "tool": "compute_metrics",
+        "status": "success",
+        "requested_operation": "estimated_1rm"
+      },
+      {
+        "tool": "search_literature",
+        "status": "success",
+        "requested_operation": "search"
+      }
+    ],
+    "route": {
+      "router_version": "interpretation_router_phase_a_v1",
+      "status": "planned",
+      "route": "hybrid",
+      "task_type": "hybrid",
+      "selected_tools": [
+        "query_training_log",
+        "compute_metrics",
+        "search_literature"
+      ],
+      "execution_order": [
+        "query_training_log",
+        "compute_metrics",
+        "search_literature"
+      ],
+      "routing_reason": "Deterministic mapping of validated interpretation channels; confidence is rule mapping, not semantic accuracy.",
+      "confidence": 1.0,
+      "rule_match": {
+        "rule_id": "I-hybrid",
+        "normalized_question": "2018년 바벨 시티드 숄더프레스 e1RM이 오르다가 꺾였던데, 일반적으로 이런 꺾임은 어떤 요인들로 설명될 수 있어?",
+        "signals": {
+          "structured_log": true,
+          "metric": true,
+          "literature": true
+        },
+        "matched_patterns": {}
+      },
+      "unsupported_reason": null,
+      "error": null
+    },
+    "selected_tools": [
+      "query_training_log",
+      "compute_metrics",
+      "search_literature"
+    ],
+    "errors": []
+  },
+  "actual_tools": [
+    {
+      "tool": "query_training_log",
+      "status": "success",
+      "requested_operation": "exercise_records"
+    },
+    {
+      "tool": "compute_metrics",
+      "status": "success",
+      "requested_operation": "estimated_1rm"
+    },
+    {
+      "tool": "search_literature",
+      "status": "success",
+      "requested_operation": "search"
+    }
+  ],
+  "transport_error_type": null,
+  "execution_error": false,
+  "completed_at_utc": "2026-10-15T17:02:39.109123+00:00",
+  "response_bytes_sha256": "b43e37b763e0602be7677f3de5e72e69b56f389869cc840cf68441ce89dd5b5b"
+}

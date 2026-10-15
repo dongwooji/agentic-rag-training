@@ -1,0 +1,29 @@
+{
+  "opened_at_utc": "2026-10-15T17:09:12.955439+00:00",
+  "source_path": "data/evaluation/interpretation_eval_v1/questions.md",
+  "source_sha256": "100ad7d1cab3f2043767b7d8ad933579c522ad390fd8fc991b8b27fc549ed6cd",
+  "acceptance_analysis_freeze_sha256": "ddbe07a784ed58dbad229046cc6a859f612643f82182460930cd51e40b127f69",
+  "kind": "regression diagnostic only; not acceptance",
+  "case_ids": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05",
+    "T06",
+    "T07",
+    "T08",
+    "T09",
+    "T10",
+    "T11",
+    "T12",
+    "T13",
+    "T14",
+    "T15",
+    "T16",
+    "T17",
+    "T18",
+    "T19",
+    "T20"
+  ]
+}

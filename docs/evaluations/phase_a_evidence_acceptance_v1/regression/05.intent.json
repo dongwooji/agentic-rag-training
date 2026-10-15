@@ -1,0 +1,10 @@
+{
+  "case_id": "T05",
+  "pair_id": "historical-diagnostic-T05",
+  "sequence": 5,
+  "request_json": {
+    "question": "오래 쉬었다가 다시 시작했는데 벤치 기록이 많이 떨어졌어. 쉬기 전후 기록 비교해주고 쉬면 근력이 얼마나 빠지는지 연구도 알려줘",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T17:10:39.933453+00:00"
+}

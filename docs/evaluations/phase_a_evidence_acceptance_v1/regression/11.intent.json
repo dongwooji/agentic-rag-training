@@ -1,0 +1,10 @@
+{
+  "case_id": "T11",
+  "pair_id": "historical-diagnostic-T11",
+  "sequence": 11,
+  "request_json": {
+    "question": "내 벤치 기록이 들쭉날쭉한데, 이게 정상인지 연구에서 말하는 일반적인 변동이랑 비교해줘",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T17:11:11.372673+00:00"
+}

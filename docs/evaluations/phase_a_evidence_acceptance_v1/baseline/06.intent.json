@@ -1,0 +1,10 @@
+{
+  "case_id": "EN-03B",
+  "pair_id": "EN-03",
+  "sequence": 6,
+  "request_json": {
+    "question": "최근 중량 딥스 빈도를 보고, 앞으로 주에 몇 번 하는 게 좋을지 조언해줘",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T16:59:15.341676+00:00"
+}

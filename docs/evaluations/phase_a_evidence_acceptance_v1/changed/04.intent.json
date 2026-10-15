@@ -1,0 +1,10 @@
+{
+  "case_id": "EN-02B",
+  "pair_id": "EN-02",
+  "sequence": 4,
+  "request_json": {
+    "question": "2018년 바벨 시티드 숄더프레스 추정 1RM이 오르다가 꺾였던데, 일반적으로 이런 꺾임은 어떤 요인들로 설명될 수 있어?",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T17:02:20.364862+00:00"
+}
