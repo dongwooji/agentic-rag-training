@@ -106,8 +106,16 @@ def query_response_from_state(
         or state.get("recovery_result")
         or state.get("fusion_history")
     )
-    metadata = (ClarificationMetadata.model_validate({key: value for key, value in response.provenance.response_metadata.items() if key != "trace"})
-                if response.provenance.response_metadata.get("clarification_required") else None)
+    metadata = None
+    if response.provenance.response_metadata.get("clarification_required"):
+        # Project only the existing public contract. Internal provenance (such
+        # as default_time_window) stays private; debug trace is rebuilt below.
+        public_fields = {"response_mode", "clarification_required", "clarification_id",
+                         "clarification_type", "options", "expires_at"}
+        metadata = ClarificationMetadata.model_validate({
+            key: value for key, value in response.provenance.response_metadata.items()
+            if key in public_fields
+        })
     if debug:
         trace = DebugTrace.model_validate(build_debug_trace(state))
         if metadata:

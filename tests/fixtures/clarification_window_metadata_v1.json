@@ -1,0 +1,17 @@
+{
+  "source_evaluated_sha": "6c68ea996f967bcdda47bfed2671aae1ae583969",
+  "identical_saved_failures": 3,
+  "response_metadata": {
+    "response_mode": "clarification_required",
+    "clarification_required": true,
+    "default_time_window": {
+      "applied": true,
+      "policy": "recent_record_anchored",
+      "trigger": "relative_recent",
+      "recent_window_weeks": 8,
+      "anchor_date": "2018-09-29",
+      "start_date": "2018-08-05",
+      "end_date": "2018-09-29"
+    }
+  }
+}
