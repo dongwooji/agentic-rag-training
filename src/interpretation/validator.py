@@ -81,9 +81,11 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
         if not any(x.field == field and x.reason == reason for x in issues):
             issues.append(UnresolvedField(field=field, reason=reason))
 
+    normalization_failed = False
     try:
         normalized = normalizer.normalize(question).question
     except InputLanguageError:
+        normalization_failed = True
         normalized = original_nfkc
         if draft.personal_record_requested:
             unresolved("canonical_exercise_name", "운동의 변형 또는 복수 운동을 명확히 지정해주세요.")
@@ -99,6 +101,23 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
     if restriction:
         unresolved("canonical_exercise_name", restriction["message"])
         policies.append("runtime_restriction:" + restriction["id"])
+    # A single training_gap consumes sessions and can span all exercises.
+    # Any extracted exercise or independent catalog/alias/restriction signal
+    # keeps the existing resolution path; a missed LLM field must not widen it.
+    global_gap = (
+        len(draft.requested_analyses) == 1
+        and draft.requested_analyses[0].operation.value == "training_gap"
+        and not (draft.exercise_mention or draft.canonical_exercise_name or draft.candidate_exercises)
+        and not normalization_failed and not restriction
+        and canonicalizer.mentioned_candidate(normalized) is None
+        and not any(canonicalizer.is_grounded(normalized, name) for name in (canonical_exercises or ()))
+    )
+    exercise_required = draft.personal_record_requested and not global_gap
+    if global_gap:
+        exercise_fields = {"canonical_exercise_name", "candidate_exercises", "exercise_resolution_status",
+                           "exercise_mention", "exercise", "exercise_variant"}
+        issues = [issue for issue in issues if issue.field not in exercise_fields]
+        policies.append("global_training_gap_v1")
     supplied_candidates = list(dict.fromkeys(draft.candidate_exercises))
     if supplied_candidates and not draft.exercise_mention:
         raise GroundingError("candidates need an original exercise mention")
@@ -110,7 +129,7 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
         if ((canonical_exercises is not None and name not in canonical_exercises) or
                 canonicalizer.repository.resolve_canonical_exercise(name) != name):
             raise GroundingError("canonical exercise candidate is not in the stored catalog")
-    trusted = ExerciseSelectionPolicy().candidates(draft.exercise_mention, question) if draft.personal_record_requested else []
+    trusted = ExerciseSelectionPolicy().candidates(draft.exercise_mention, question) if exercise_required else []
     if supplied_candidates and not trusted and draft.exercise_mention:
         try:
             original_candidate = canonicalizer.canonicalize(normalizer.normalize(draft.exercise_mention).question)
@@ -128,7 +147,7 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
         else:
             if draft.canonical_exercise_name not in {None, *candidates}:
                 raise GroundingError("canonical selection conflicts with candidates")
-            if draft.personal_record_requested:
+            if exercise_required:
                 # Only a personal lookup requires selecting one stored exercise.
                 issues = [x for x in issues if x.field not in {"canonical_exercise_name", "exercise_resolution_status", "candidate_exercises"}]
                 if len(candidates) > 1:
@@ -141,7 +160,7 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
     elif source == "llm" and canonical_exercises is not None:
         candidate = draft.canonical_exercise_name
         status = draft.exercise_resolution_status
-        if draft.personal_record_requested:
+        if exercise_required:
             if status in {"ambiguous", "not_found"}:
                 unresolved("canonical_exercise_name", "조회할 운동의 종류 또는 변형을 명확히 지정해주세요.")
             elif not draft.exercise_mention:
@@ -169,11 +188,11 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
     elif draft.canonical_exercise_name:
         if not canonicalizer.is_grounded(normalized, draft.canonical_exercise_name):
             raise GroundingError("canonical exercise is not grounded in the question")
-        if draft.personal_record_requested:
+        if exercise_required:
             canonical = canonicalizer.canonicalize(draft.canonical_exercise_name)
             if canonical is None:
                 unresolved("canonical_exercise_name", "해당 운동을 저장된 canonical 운동명으로 확인할 수 없습니다.")
-    elif draft.personal_record_requested:
+    elif exercise_required:
         unresolved("canonical_exercise_name", "조회할 운동을 명확히 지정해주세요.")
 
     time = draft.time_condition
