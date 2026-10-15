@@ -1,0 +1,1238 @@
+{
+  "case_id": "T11",
+  "pair_id": "historical-diagnostic-T11",
+  "sequence": 11,
+  "request_json": {
+    "question": "내 벤치 기록이 들쭉날쭉한데, 이게 정상인지 연구에서 말하는 일반적인 변동이랑 비교해줘",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T17:11:11.372673+00:00",
+  "http_status": 200,
+  "response": {
+    "final_status": "answer_ready",
+    "answer_text": "당신의 기록에서는 벤치프레스 기록은 309개가 있고, 같은 운동명이 여러 세션에 걸쳐 반복 기록되어 있습니다. 예를 들면 2016-08-26에는 135×8, 155×5, 185×5, 185×5가 있고, 2017-02-10에는 135×6, 185×6, 225×6, 245×5, 260×6, 270×5가 있으며, 2018-09-16에는 280×5, 285×5, 285×5, 295×5가, 2018-09-25에는 225×5, 275×5, 295×5, 295×5, 295×5, 305×3가 보입니다. 제공된 기록에서는 outlier로 표시된 벤치 세트는 없습니다.\n\n문헌에서는 문헌에서는 저항운동 연구에서 벤치프레스가 상체 근력 평가에 사용되며, 1RM 테스트는 여러 번의 시도와 휴식을 두고 수행된다고 설명합니다. 또 한 연구에서는 50% 벤치프레스 반복수 테스트의 재현성이 ICC 0.93, SEM 0.99회로 보고되었습니다. 다른 문헌들에서는 저항훈련 연구에서 측정값의 평균과 표준편차, 신뢰구간, 효과크기 등을 사용해 변화를 해석하며, 훈련 빈도나 프로그램 차이를 비교할 때도 ‘높다/낮다’를 절대적으로 고정하지 않고 맥락에 따라 비교합니다.\n\n두 정보를 함께 보면 당신의 벤치 기록이 세션마다 오르내리는 모습은 기록상으로는 보이지만, 제공된 기록만으로는 그 변동이 비정상인지 판단할 수는 없습니다. 문헌 쪽은 벤치프레스 성과가 반복 측정에서 어느 정도 흔들릴 수 있고, 연구에서는 이런 변화를 평균·표준편차·SEM·신뢰구간 같은 틀로 해석한다는 점을 보여줍니다. 따라서 현재 자료로는 ‘들쭉날쭉함’이 곧 이상 신호라고 말하기보다, 기록 변동 자체는 측정·훈련 맥락에서 해석해야 한다고 보는 편이 맞습니다.\n\n제한사항: 기록의 weight 단위가 원자료의 미검증 라벨이라 절대 중량 해석에 제한이 있습니다.; 문헌은 일반적인 저항훈련/벤치프레스 측정 재현성과 해석 틀을 제공하지만, 개인 기록의 정상 범위를 직접 제시하지는 않습니다.; 제공된 문헌에는 벤치프레스 1RM의 직접적인 개인별 정상 변동폭 수치가 없습니다.",
+    "route": "hybrid",
+    "tools_used": [
+      "query_training_log",
+      "search_literature"
+    ],
+    "retry_count": 0,
+    "recovery_used": false,
+    "used_literature_chunk_ids": [
+      "paper_pmc6303131_methods_maximal_strength_assessments_muscle_endu_001_d286f42e",
+      "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+      "paper_pmc8363540_methods_analysis_and_interpretation_of_results_001_2513c154"
+    ],
+    "limitations": [
+      "기록의 weight 단위가 원자료의 미검증 라벨이라 절대 중량 해석에 제한이 있습니다.",
+      "문헌은 일반적인 저항훈련/벤치프레스 측정 재현성과 해석 틀을 제공하지만, 개인 기록의 정상 범위를 직접 제시하지는 않습니다.",
+      "제공된 문헌에는 벤치프레스 1RM의 직접적인 개인별 정상 변동폭 수치가 없습니다.",
+      "개인 기록의 관찰된 변화만으로 인과관계를 확정할 수 없습니다.",
+      "일반 문헌 결과가 개인에게 동일하게 적용된다고 확정할 수 없습니다.",
+      "이 응답은 의료적 진단이나 개인 처방이 아닙니다."
+    ],
+    "latency_ms": 14091.227299999446,
+    "response_metadata": {
+      "response_mode": "debug",
+      "trace": {
+        "version": "query_debug_trace_v1",
+        "request_id": "a158b549c7c34403b5d5c12a4f3e953f",
+        "interpreter": {
+          "output_summary": {
+            "personal_record_requested": true,
+            "literature_requested": true,
+            "canonical_exercise_name": "Bench Press (Barbell)",
+            "candidate_exercises": [
+              "Bench Press (Barbell)"
+            ],
+            "time_condition": {
+              "scope": "all_records",
+              "start_date": null,
+              "end_date": null
+            },
+            "analyses": [],
+            "candidate_count": 1
+          },
+          "validation": {
+            "status": "ready",
+            "check_id": null,
+            "normalized_summary": {
+              "personal_record_requested": true,
+              "literature_requested": true,
+              "canonical_exercise_name": "Bench Press (Barbell)",
+              "candidate_exercises": [
+                "Bench Press (Barbell)"
+              ],
+              "time_condition": {
+                "scope": "all_records",
+                "start_date": null,
+                "end_date": null
+              },
+              "analyses": [],
+              "candidate_count": 1
+            },
+            "date_mismatch": false,
+            "personal_record_mismatch": false,
+            "record_coverage_status": null
+          },
+          "phase_a": {
+            "version": "phase_a_semantics_v1",
+            "parsing_source": "llm",
+            "evidence_need": {
+              "status": "resolved",
+              "answer_type": "evaluative",
+              "literature_needed_for_answer": true,
+              "explicit_literature_request": "required",
+              "required_sources": [
+                "training_records",
+                "literature"
+              ],
+              "optional_sources": [],
+              "source_spans": [
+                "내 벤치 기록이 들쭉날쭉한데",
+                "연구에서 말하는 일반적인 변동이랑 비교해줘"
+              ],
+              "unresolved_fields": []
+            },
+            "argument_resolution": {
+              "status": "ready",
+              "unresolved_fields": []
+            },
+            "default_time_window": {
+              "applied": false,
+              "policy": null,
+              "trigger": null,
+              "recent_window_weeks": null,
+              "anchor_date": null,
+              "start_date": null,
+              "end_date": null
+            },
+            "scope": {
+              "out_of_scope": false,
+              "reason_code": null
+            }
+          }
+        },
+        "initial_queries": {
+          "korean": "벤치 기록의 일반적인 변동은 어느 정도이며, 들쭉날쭉한 기록은 정상적인 범위인가?",
+          "english": "What is the typical variation in bench press records, and is an inconsistent record within the normal range?",
+          "dense": "What is the typical variation in bench press records, and is an inconsistent record within the normal range?",
+          "bm25": "What is the typical variation in bench press records, and is an inconsistent record within the normal range?",
+          "step2_fallback": false,
+          "step3_fallback": false
+        },
+        "retrievals": [
+          {
+            "phase": "initial",
+            "attempt": 0,
+            "query": "What is the typical variation in bench press records, and is an inconsistent record within the normal range?",
+            "evidence": [
+              {
+                "chunk_id": "paper_pmc10818109_results_included_reviews_001_b4f5045d",
+                "paper_id": "paper_pmc10818109",
+                "title": "The influence of resistance exercise training prescription variables on skeletal muscle mass, strength, and physical function in healthy adults: An umbrella review.",
+                "section": "Results > Included reviews",
+                "rank": 1,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc12965823_methods_record_selection_and_data_collection_001_88da6e68",
+                "paper_id": "paper_pmc12965823",
+                "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+                "section": "METHODS > Record Selection and Data Collection",
+                "rank": 2,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6303131_methods_rt_procedures_001_869b3a5a",
+                "paper_id": "paper_pmc6303131",
+                "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+                "section": "METHODS > RT Procedures",
+                "rank": 3,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8067909_results_002_22b50389",
+                "paper_id": "paper_pmc8067909",
+                "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+                "section": "Results",
+                "rank": 4,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6950543_3_discussion_3_6_supersets_and_pre_exhaustion_te_001_2c7a0ae1",
+                "paper_id": "paper_pmc6950543",
+                "title": "Maximizing Muscle Hypertrophy: A Systematic Review of Advanced Resistance Training Techniques and Methods.",
+                "section": "3. Discussion > 3.6. Supersets and Pre-exhaustion Technique",
+                "rank": 5,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc9935748_methods_data_extraction_001_586f9925",
+                "paper_id": "paper_pmc9935748",
+                "title": "Influence of Resistance Training Proximity-to-Failure on Skeletal Muscle Hypertrophy: A Systematic Review with Meta-analysis.",
+                "section": "Methods > Data Extraction",
+                "rank": 6,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6303131_methods_maximal_strength_assessments_muscle_endu_001_d286f42e",
+                "paper_id": "paper_pmc6303131",
+                "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+                "section": "METHODS > Maximal Strength Assessments > Muscle endurance",
+                "rank": 7,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+                "paper_id": "paper_pmc8067909",
+                "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+                "section": "Methods > Muscular strength",
+                "rank": 8,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc10809978_material_and_methods_participants_001_3d67fc1a",
+                "paper_id": "paper_pmc10809978",
+                "title": "Gaining more from doing less? The effects of a one-week deload period during supervised resistance training on muscular adaptations.",
+                "section": "Material and Methods > Participants",
+                "rank": 9,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8363540_methods_analysis_and_interpretation_of_results_001_2513c154",
+                "paper_id": "paper_pmc8363540",
+                "title": "Effects of Variations in Resistance Training Frequency on Strength Development in Well-Trained Populations and Implications for In-Season Athlete Training: A Systematic Review and Meta-analysis.",
+                "section": "Methods > Analysis and Interpretation of Results",
+                "rank": 10,
+                "fusion_score": null,
+                "sources": []
+              }
+            ]
+          }
+        ],
+        "graders": [
+          {
+            "attempt": 0,
+            "query": "What is the typical variation in bench press records, and is an inconsistent record within the normal range?",
+            "execution_status": "completed",
+            "evidence_sufficient": true,
+            "components": [
+              {
+                "component_id": "C1",
+                "requirement": "bench press performance variability",
+                "status": "supported",
+                "supporting_chunk_ids": [
+                  "paper_pmc6303131_methods_maximal_strength_assessments_muscle_endu_001_d286f42e",
+                  "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+                  "paper_pmc6950543_3_discussion_3_6_supersets_and_pre_exhaustion_te_001_2c7a0ae1"
+                ]
+              },
+              {
+                "component_id": "C2",
+                "requirement": "what is considered normal variation in training records",
+                "status": "supported",
+                "supporting_chunk_ids": [
+                  "paper_pmc10809978_material_and_methods_participants_001_3d67fc1a",
+                  "paper_pmc6303131_methods_maximal_strength_assessments_muscle_endu_001_d286f42e",
+                  "paper_pmc8363540_methods_analysis_and_interpretation_of_results_001_2513c154"
+                ]
+              }
+            ],
+            "missing_components": [],
+            "supplied_evidence": [
+              {
+                "chunk_id": "paper_pmc10818109_results_included_reviews_001_b4f5045d",
+                "paper_id": "paper_pmc10818109",
+                "title": "The influence of resistance exercise training prescription variables on skeletal muscle mass, strength, and physical function in healthy adults: An umbrella review.",
+                "section": "Results > Included reviews",
+                "rank": 1,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc12965823_methods_record_selection_and_data_collection_001_88da6e68",
+                "paper_id": "paper_pmc12965823",
+                "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+                "section": "METHODS > Record Selection and Data Collection",
+                "rank": 2,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6303131_methods_rt_procedures_001_869b3a5a",
+                "paper_id": "paper_pmc6303131",
+                "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+                "section": "METHODS > RT Procedures",
+                "rank": 3,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8067909_results_002_22b50389",
+                "paper_id": "paper_pmc8067909",
+                "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+                "section": "Results",
+                "rank": 4,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6950543_3_discussion_3_6_supersets_and_pre_exhaustion_te_001_2c7a0ae1",
+                "paper_id": "paper_pmc6950543",
+                "title": "Maximizing Muscle Hypertrophy: A Systematic Review of Advanced Resistance Training Techniques and Methods.",
+                "section": "3. Discussion > 3.6. Supersets and Pre-exhaustion Technique",
+                "rank": 5,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc9935748_methods_data_extraction_001_586f9925",
+                "paper_id": "paper_pmc9935748",
+                "title": "Influence of Resistance Training Proximity-to-Failure on Skeletal Muscle Hypertrophy: A Systematic Review with Meta-analysis.",
+                "section": "Methods > Data Extraction",
+                "rank": 6,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6303131_methods_maximal_strength_assessments_muscle_endu_001_d286f42e",
+                "paper_id": "paper_pmc6303131",
+                "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+                "section": "METHODS > Maximal Strength Assessments > Muscle endurance",
+                "rank": 7,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+                "paper_id": "paper_pmc8067909",
+                "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+                "section": "Methods > Muscular strength",
+                "rank": 8,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc10809978_material_and_methods_participants_001_3d67fc1a",
+                "paper_id": "paper_pmc10809978",
+                "title": "Gaining more from doing less? The effects of a one-week deload period during supervised resistance training on muscular adaptations.",
+                "section": "Material and Methods > Participants",
+                "rank": 9,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8363540_methods_analysis_and_interpretation_of_results_001_2513c154",
+                "paper_id": "paper_pmc8363540",
+                "title": "Effects of Variations in Resistance Training Frequency on Strength Development in Well-Trained Populations and Implications for In-Season Athlete Training: A Systematic Review and Meta-analysis.",
+                "section": "Methods > Analysis and Interpretation of Results",
+                "rank": 10,
+                "fusion_score": null,
+                "sources": []
+              }
+            ]
+          }
+        ],
+        "recovery": [],
+        "fusions": [],
+        "final_evidence": [
+          {
+            "chunk_id": "paper_pmc10818109_results_included_reviews_001_b4f5045d",
+            "paper_id": "paper_pmc10818109",
+            "title": "The influence of resistance exercise training prescription variables on skeletal muscle mass, strength, and physical function in healthy adults: An umbrella review.",
+            "section": "Results > Included reviews",
+            "rank": 1,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc12965823_methods_record_selection_and_data_collection_001_88da6e68",
+            "paper_id": "paper_pmc12965823",
+            "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+            "section": "METHODS > Record Selection and Data Collection",
+            "rank": 2,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6303131_methods_rt_procedures_001_869b3a5a",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "METHODS > RT Procedures",
+            "rank": 3,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8067909_results_002_22b50389",
+            "paper_id": "paper_pmc8067909",
+            "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+            "section": "Results",
+            "rank": 4,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6950543_3_discussion_3_6_supersets_and_pre_exhaustion_te_001_2c7a0ae1",
+            "paper_id": "paper_pmc6950543",
+            "title": "Maximizing Muscle Hypertrophy: A Systematic Review of Advanced Resistance Training Techniques and Methods.",
+            "section": "3. Discussion > 3.6. Supersets and Pre-exhaustion Technique",
+            "rank": 5,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc9935748_methods_data_extraction_001_586f9925",
+            "paper_id": "paper_pmc9935748",
+            "title": "Influence of Resistance Training Proximity-to-Failure on Skeletal Muscle Hypertrophy: A Systematic Review with Meta-analysis.",
+            "section": "Methods > Data Extraction",
+            "rank": 6,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6303131_methods_maximal_strength_assessments_muscle_endu_001_d286f42e",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "METHODS > Maximal Strength Assessments > Muscle endurance",
+            "rank": 7,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+            "paper_id": "paper_pmc8067909",
+            "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+            "section": "Methods > Muscular strength",
+            "rank": 8,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc10809978_material_and_methods_participants_001_3d67fc1a",
+            "paper_id": "paper_pmc10809978",
+            "title": "Gaining more from doing less? The effects of a one-week deload period during supervised resistance training on muscular adaptations.",
+            "section": "Material and Methods > Participants",
+            "rank": 9,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8363540_methods_analysis_and_interpretation_of_results_001_2513c154",
+            "paper_id": "paper_pmc8363540",
+            "title": "Effects of Variations in Resistance Training Frequency on Strength Development in Well-Trained Populations and Implications for In-Season Athlete Training: A Systematic Review and Meta-analysis.",
+            "section": "Methods > Analysis and Interpretation of Results",
+            "rank": 10,
+            "fusion_score": null,
+            "sources": []
+          }
+        ]
+      }
+    }
+  },
+  "final_status": "answer_ready",
+  "trace": {
+    "version": "query_debug_trace_v1",
+    "request_id": "a158b549c7c34403b5d5c12a4f3e953f",
+    "interpreter": {
+      "output_summary": {
+        "personal_record_requested": true,
+        "literature_requested": true,
+        "canonical_exercise_name": "Bench Press (Barbell)",
+        "candidate_exercises": [
+          "Bench Press (Barbell)"
+        ],
+        "time_condition": {
+          "scope": "all_records",
+          "start_date": null,
+          "end_date": null
+        },
+        "analyses": [],
+        "candidate_count": 1
+      },
+      "validation": {
+        "status": "ready",
+        "check_id": null,
+        "normalized_summary": {
+          "personal_record_requested": true,
+          "literature_requested": true,
+          "canonical_exercise_name": "Bench Press (Barbell)",
+          "candidate_exercises": [
+            "Bench Press (Barbell)"
+          ],
+          "time_condition": {
+            "scope": "all_records",
+            "start_date": null,
+            "end_date": null
+          },
+          "analyses": [],
+          "candidate_count": 1
+        },
+        "date_mismatch": false,
+        "personal_record_mismatch": false,
+        "record_coverage_status": null
+      },
+      "phase_a": {
+        "version": "phase_a_semantics_v1",
+        "parsing_source": "llm",
+        "evidence_need": {
+          "status": "resolved",
+          "answer_type": "evaluative",
+          "literature_needed_for_answer": true,
+          "explicit_literature_request": "required",
+          "required_sources": [
+            "training_records",
+            "literature"
+          ],
+          "optional_sources": [],
+          "source_spans": [
+            "내 벤치 기록이 들쭉날쭉한데",
+            "연구에서 말하는 일반적인 변동이랑 비교해줘"
+          ],
+          "unresolved_fields": []
+        },
+        "argument_resolution": {
+          "status": "ready",
+          "unresolved_fields": []
+        },
+        "default_time_window": {
+          "applied": false,
+          "policy": null,
+          "trigger": null,
+          "recent_window_weeks": null,
+          "anchor_date": null,
+          "start_date": null,
+          "end_date": null
+        },
+        "scope": {
+          "out_of_scope": false,
+          "reason_code": null
+        }
+      }
+    },
+    "initial_queries": {
+      "korean": "벤치 기록의 일반적인 변동은 어느 정도이며, 들쭉날쭉한 기록은 정상적인 범위인가?",
+      "english": "What is the typical variation in bench press records, and is an inconsistent record within the normal range?",
+      "dense": "What is the typical variation in bench press records, and is an inconsistent record within the normal range?",
+      "bm25": "What is the typical variation in bench press records, and is an inconsistent record within the normal range?",
+      "step2_fallback": false,
+      "step3_fallback": false
+    },
+    "retrievals": [
+      {
+        "phase": "initial",
+        "attempt": 0,
+        "query": "What is the typical variation in bench press records, and is an inconsistent record within the normal range?",
+        "evidence": [
+          {
+            "chunk_id": "paper_pmc10818109_results_included_reviews_001_b4f5045d",
+            "paper_id": "paper_pmc10818109",
+            "title": "The influence of resistance exercise training prescription variables on skeletal muscle mass, strength, and physical function in healthy adults: An umbrella review.",
+            "section": "Results > Included reviews",
+            "rank": 1,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc12965823_methods_record_selection_and_data_collection_001_88da6e68",
+            "paper_id": "paper_pmc12965823",
+            "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+            "section": "METHODS > Record Selection and Data Collection",
+            "rank": 2,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6303131_methods_rt_procedures_001_869b3a5a",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "METHODS > RT Procedures",
+            "rank": 3,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8067909_results_002_22b50389",
+            "paper_id": "paper_pmc8067909",
+            "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+            "section": "Results",
+            "rank": 4,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6950543_3_discussion_3_6_supersets_and_pre_exhaustion_te_001_2c7a0ae1",
+            "paper_id": "paper_pmc6950543",
+            "title": "Maximizing Muscle Hypertrophy: A Systematic Review of Advanced Resistance Training Techniques and Methods.",
+            "section": "3. Discussion > 3.6. Supersets and Pre-exhaustion Technique",
+            "rank": 5,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc9935748_methods_data_extraction_001_586f9925",
+            "paper_id": "paper_pmc9935748",
+            "title": "Influence of Resistance Training Proximity-to-Failure on Skeletal Muscle Hypertrophy: A Systematic Review with Meta-analysis.",
+            "section": "Methods > Data Extraction",
+            "rank": 6,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6303131_methods_maximal_strength_assessments_muscle_endu_001_d286f42e",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "METHODS > Maximal Strength Assessments > Muscle endurance",
+            "rank": 7,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+            "paper_id": "paper_pmc8067909",
+            "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+            "section": "Methods > Muscular strength",
+            "rank": 8,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc10809978_material_and_methods_participants_001_3d67fc1a",
+            "paper_id": "paper_pmc10809978",
+            "title": "Gaining more from doing less? The effects of a one-week deload period during supervised resistance training on muscular adaptations.",
+            "section": "Material and Methods > Participants",
+            "rank": 9,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8363540_methods_analysis_and_interpretation_of_results_001_2513c154",
+            "paper_id": "paper_pmc8363540",
+            "title": "Effects of Variations in Resistance Training Frequency on Strength Development in Well-Trained Populations and Implications for In-Season Athlete Training: A Systematic Review and Meta-analysis.",
+            "section": "Methods > Analysis and Interpretation of Results",
+            "rank": 10,
+            "fusion_score": null,
+            "sources": []
+          }
+        ]
+      }
+    ],
+    "graders": [
+      {
+        "attempt": 0,
+        "query": "What is the typical variation in bench press records, and is an inconsistent record within the normal range?",
+        "execution_status": "completed",
+        "evidence_sufficient": true,
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "bench press performance variability",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc6303131_methods_maximal_strength_assessments_muscle_endu_001_d286f42e",
+              "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+              "paper_pmc6950543_3_discussion_3_6_supersets_and_pre_exhaustion_te_001_2c7a0ae1"
+            ]
+          },
+          {
+            "component_id": "C2",
+            "requirement": "what is considered normal variation in training records",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc10809978_material_and_methods_participants_001_3d67fc1a",
+              "paper_pmc6303131_methods_maximal_strength_assessments_muscle_endu_001_d286f42e",
+              "paper_pmc8363540_methods_analysis_and_interpretation_of_results_001_2513c154"
+            ]
+          }
+        ],
+        "missing_components": [],
+        "supplied_evidence": [
+          {
+            "chunk_id": "paper_pmc10818109_results_included_reviews_001_b4f5045d",
+            "paper_id": "paper_pmc10818109",
+            "title": "The influence of resistance exercise training prescription variables on skeletal muscle mass, strength, and physical function in healthy adults: An umbrella review.",
+            "section": "Results > Included reviews",
+            "rank": 1,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc12965823_methods_record_selection_and_data_collection_001_88da6e68",
+            "paper_id": "paper_pmc12965823",
+            "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+            "section": "METHODS > Record Selection and Data Collection",
+            "rank": 2,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6303131_methods_rt_procedures_001_869b3a5a",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "METHODS > RT Procedures",
+            "rank": 3,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8067909_results_002_22b50389",
+            "paper_id": "paper_pmc8067909",
+            "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+            "section": "Results",
+            "rank": 4,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6950543_3_discussion_3_6_supersets_and_pre_exhaustion_te_001_2c7a0ae1",
+            "paper_id": "paper_pmc6950543",
+            "title": "Maximizing Muscle Hypertrophy: A Systematic Review of Advanced Resistance Training Techniques and Methods.",
+            "section": "3. Discussion > 3.6. Supersets and Pre-exhaustion Technique",
+            "rank": 5,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc9935748_methods_data_extraction_001_586f9925",
+            "paper_id": "paper_pmc9935748",
+            "title": "Influence of Resistance Training Proximity-to-Failure on Skeletal Muscle Hypertrophy: A Systematic Review with Meta-analysis.",
+            "section": "Methods > Data Extraction",
+            "rank": 6,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6303131_methods_maximal_strength_assessments_muscle_endu_001_d286f42e",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "METHODS > Maximal Strength Assessments > Muscle endurance",
+            "rank": 7,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+            "paper_id": "paper_pmc8067909",
+            "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+            "section": "Methods > Muscular strength",
+            "rank": 8,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc10809978_material_and_methods_participants_001_3d67fc1a",
+            "paper_id": "paper_pmc10809978",
+            "title": "Gaining more from doing less? The effects of a one-week deload period during supervised resistance training on muscular adaptations.",
+            "section": "Material and Methods > Participants",
+            "rank": 9,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8363540_methods_analysis_and_interpretation_of_results_001_2513c154",
+            "paper_id": "paper_pmc8363540",
+            "title": "Effects of Variations in Resistance Training Frequency on Strength Development in Well-Trained Populations and Implications for In-Season Athlete Training: A Systematic Review and Meta-analysis.",
+            "section": "Methods > Analysis and Interpretation of Results",
+            "rank": 10,
+            "fusion_score": null,
+            "sources": []
+          }
+        ]
+      }
+    ],
+    "recovery": [],
+    "fusions": [],
+    "final_evidence": [
+      {
+        "chunk_id": "paper_pmc10818109_results_included_reviews_001_b4f5045d",
+        "paper_id": "paper_pmc10818109",
+        "title": "The influence of resistance exercise training prescription variables on skeletal muscle mass, strength, and physical function in healthy adults: An umbrella review.",
+        "section": "Results > Included reviews",
+        "rank": 1,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc12965823_methods_record_selection_and_data_collection_001_88da6e68",
+        "paper_id": "paper_pmc12965823",
+        "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+        "section": "METHODS > Record Selection and Data Collection",
+        "rank": 2,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc6303131_methods_rt_procedures_001_869b3a5a",
+        "paper_id": "paper_pmc6303131",
+        "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+        "section": "METHODS > RT Procedures",
+        "rank": 3,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc8067909_results_002_22b50389",
+        "paper_id": "paper_pmc8067909",
+        "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+        "section": "Results",
+        "rank": 4,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc6950543_3_discussion_3_6_supersets_and_pre_exhaustion_te_001_2c7a0ae1",
+        "paper_id": "paper_pmc6950543",
+        "title": "Maximizing Muscle Hypertrophy: A Systematic Review of Advanced Resistance Training Techniques and Methods.",
+        "section": "3. Discussion > 3.6. Supersets and Pre-exhaustion Technique",
+        "rank": 5,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc9935748_methods_data_extraction_001_586f9925",
+        "paper_id": "paper_pmc9935748",
+        "title": "Influence of Resistance Training Proximity-to-Failure on Skeletal Muscle Hypertrophy: A Systematic Review with Meta-analysis.",
+        "section": "Methods > Data Extraction",
+        "rank": 6,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc6303131_methods_maximal_strength_assessments_muscle_endu_001_d286f42e",
+        "paper_id": "paper_pmc6303131",
+        "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+        "section": "METHODS > Maximal Strength Assessments > Muscle endurance",
+        "rank": 7,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+        "paper_id": "paper_pmc8067909",
+        "title": "Effects of different resistance training frequencies on body composition and muscular performance adaptations in men.",
+        "section": "Methods > Muscular strength",
+        "rank": 8,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc10809978_material_and_methods_participants_001_3d67fc1a",
+        "paper_id": "paper_pmc10809978",
+        "title": "Gaining more from doing less? The effects of a one-week deload period during supervised resistance training on muscular adaptations.",
+        "section": "Material and Methods > Participants",
+        "rank": 9,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc8363540_methods_analysis_and_interpretation_of_results_001_2513c154",
+        "paper_id": "paper_pmc8363540",
+        "title": "Effects of Variations in Resistance Training Frequency on Strength Development in Well-Trained Populations and Implications for In-Season Athlete Training: A Systematic Review and Meta-analysis.",
+        "section": "Methods > Analysis and Interpretation of Results",
+        "rank": 10,
+        "fusion_score": null,
+        "sources": []
+      }
+    ]
+  },
+  "latency_ms": 14106.71920000459,
+  "llm_events": [
+    {
+      "stage": "interpreter",
+      "method": "parse",
+      "started_at_utc": "2026-10-15T17:11:11.642171+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 3363,
+        "cached_input_tokens": 2304,
+        "output_tokens": 230,
+        "total_tokens": 3593,
+        "estimated_cost_usd": 0.00200205
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 2028.315699993982
+    },
+    {
+      "stage": "step2",
+      "method": "parse",
+      "started_at_utc": "2026-10-15T17:11:15.021016+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 695,
+        "cached_input_tokens": 0,
+        "output_tokens": 51,
+        "total_tokens": 746,
+        "estimated_cost_usd": 0.00075075
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 1697.6945999995223
+    },
+    {
+      "stage": "step3",
+      "method": "parse",
+      "started_at_utc": "2026-10-15T17:11:16.719235+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 459,
+        "cached_input_tokens": 0,
+        "output_tokens": 34,
+        "total_tokens": 493,
+        "estimated_cost_usd": 0.00049725
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 1388.8353000002098
+    },
+    {
+      "stage": "grader",
+      "method": "create",
+      "started_at_utc": "2026-10-15T17:11:18.232880+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 5775,
+        "cached_input_tokens": 0,
+        "output_tokens": 216,
+        "total_tokens": 5991,
+        "estimated_cost_usd": 0.00530325
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 1744.8208999994677
+    },
+    {
+      "stage": "answer",
+      "method": "create",
+      "started_at_utc": "2026-10-15T17:11:19.986470+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 13089,
+        "cached_input_tokens": 0,
+        "output_tokens": 707,
+        "total_tokens": 13796,
+        "estimated_cost_usd": 0.01299825
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 5486.218900005042
+    }
+  ],
+  "usage": {
+    "calls": 5,
+    "by_stage": {
+      "interpreter": 1,
+      "step2": 1,
+      "step3": 1,
+      "grader": 1,
+      "answer": 1
+    },
+    "input_tokens": 23381,
+    "cached_input_tokens": 2304,
+    "output_tokens": 1238,
+    "total_tokens": 24619,
+    "estimated_cost_usd": 0.02155155,
+    "actual_cost_usd": null,
+    "actual_cost_status": "provider_billing_not_supplied",
+    "usage_unavailable_calls": 0,
+    "known_subtotals": {
+      "input_tokens": 23381,
+      "cached_input_tokens": 2304,
+      "output_tokens": 1238,
+      "total_tokens": 24619,
+      "estimated_cost_usd": 0.02155155
+    }
+  },
+  "scoring_state": {
+    "question_interpretation": {
+      "personal_record_requested": true,
+      "literature_requested": true,
+      "exercise_mention": "벤치",
+      "canonical_exercise_name": "Bench Press (Barbell)",
+      "exercise_resolution_status": "resolved",
+      "candidate_exercises": [
+        "Bench Press (Barbell)"
+      ],
+      "time_condition": {
+        "scope": "all_records",
+        "start_date": null,
+        "end_date": null,
+        "source_text": ""
+      },
+      "record_operation": "exercise_records",
+      "session_id": null,
+      "requested_analyses": [],
+      "literature_subquestion": "bench press performance variability and what is considered normal variation in training records",
+      "user_assumptions": [],
+      "unresolved_fields": [],
+      "clarification_required": false,
+      "schema_version": "question_interpretation_phase_a_v1",
+      "parsing_source": "llm",
+      "original_question": "내 벤치 기록이 들쭉날쭉한데, 이게 정상인지 연구에서 말하는 일반적인 변동이랑 비교해줘",
+      "normalized_question": "내 벤치 기록이 들쭉날쭉한데, 이게 정상인지 연구에서 말하는 일반적인 변동이랑 비교해줘",
+      "applied_policies": [
+        "exercise_selection_v1",
+        "omitted_period_means_all_stored_records_v1"
+      ],
+      "personal_record_normalization": {
+        "supplied_value": true,
+        "derived_value": true,
+        "mismatch": false,
+        "signals": [
+          "record_operation",
+          "explicit_personal_request",
+          "evidence_need"
+        ]
+      },
+      "date_range_normalization": null,
+      "date_validation": null,
+      "phase_a_semantics": {
+        "version": "phase_a_semantics_v1",
+        "parsing_source": "llm",
+        "evidence_need": {
+          "status": "resolved",
+          "answer_type": "evaluative",
+          "literature_needed_for_answer": true,
+          "explicit_literature_request": "required",
+          "required_sources": [
+            "training_records",
+            "literature"
+          ],
+          "optional_sources": [],
+          "source_spans": [
+            "내 벤치 기록이 들쭉날쭉한데",
+            "연구에서 말하는 일반적인 변동이랑 비교해줘"
+          ],
+          "unresolved_fields": []
+        },
+        "argument_resolution": {
+          "status": "ready",
+          "unresolved_fields": []
+        },
+        "default_time_window": {
+          "applied": false,
+          "policy": null,
+          "trigger": null,
+          "recent_window_weeks": null,
+          "anchor_date": null,
+          "start_date": null,
+          "end_date": null
+        },
+        "scope": {
+          "out_of_scope": false,
+          "reason_code": null
+        }
+      }
+    },
+    "interpretation_trace": {
+      "execution_status": "ready",
+      "error_code": null,
+      "phase_a_semantics": {
+        "version": "phase_a_semantics_v1",
+        "parsing_source": "llm",
+        "evidence_need": {
+          "status": "resolved",
+          "answer_type": "evaluative",
+          "literature_needed_for_answer": true,
+          "explicit_literature_request": "required",
+          "required_sources": [
+            "training_records",
+            "literature"
+          ],
+          "optional_sources": [],
+          "source_spans": [
+            "내 벤치 기록이 들쭉날쭉한데",
+            "연구에서 말하는 일반적인 변동이랑 비교해줘"
+          ],
+          "unresolved_fields": []
+        },
+        "argument_resolution": {
+          "status": "ready",
+          "unresolved_fields": []
+        },
+        "default_time_window": {
+          "applied": false,
+          "policy": null,
+          "trigger": null,
+          "recent_window_weeks": null,
+          "anchor_date": null,
+          "start_date": null,
+          "end_date": null
+        },
+        "scope": {
+          "out_of_scope": false,
+          "reason_code": null
+        }
+      },
+      "provider": {
+        "model": "gpt-5.4-mini-2026-03-17",
+        "prompt_sha256": "6f327f7bbfbf18b1acc3c60675c2934ccc01150e1d1fc93ed958894a017fd802",
+        "config_sha256": "66fb343b0cb58ff17e9a926939539404ba025e2ad8a59b91bcde7f6b4c8a225b",
+        "api_requests": 1,
+        "latency_ms": 2047.4075000020093,
+        "usage": {
+          "input_tokens": 3363,
+          "cached_input_tokens": 2304,
+          "output_tokens": 230,
+          "total_tokens": 3593,
+          "estimated_cost_usd": 0.00200205
+        },
+        "raw_interpretation": {
+          "personal_record_requested": true,
+          "literature_requested": true,
+          "exercise_mention": "벤치",
+          "canonical_exercise_name": "Bench Press (Barbell)",
+          "exercise_resolution_status": "resolved",
+          "candidate_exercises": [
+            "Bench Press (Barbell)"
+          ],
+          "time_condition": {
+            "scope": "all_records",
+            "start_date": null,
+            "end_date": null,
+            "source_text": ""
+          },
+          "record_operation": "exercise_records",
+          "session_id": null,
+          "requested_analyses": [],
+          "literature_subquestion": "bench press performance variability and what is considered normal variation in training records",
+          "user_assumptions": [],
+          "unresolved_fields": [],
+          "clarification_required": false,
+          "evidence_need": {
+            "answer_type": "evaluative",
+            "training_records_needed": true,
+            "literature_needed_for_answer": true,
+            "explicit_literature_request": "required",
+            "source_spans": [
+              "내 벤치 기록이 들쭉날쭉한데",
+              "연구에서 말하는 일반적인 변동이랑 비교해줘"
+            ],
+            "purpose_unresolved": false,
+            "requires_current_window": false,
+            "out_of_scope_reason": null
+          }
+        },
+        "error": null
+      }
+    },
+    "final_response": {
+      "final_status": "answer_ready",
+      "provenance": {
+        "response_metadata": {
+          "response_received": true,
+          "id": "resp_0c1cbc41db538f41016ad10937d6f087d09161071831144566",
+          "status": "completed",
+          "service_tier": "default"
+        }
+      }
+    },
+    "final_status": "answer_ready",
+    "tool_results": [
+      {
+        "tool": "query_training_log",
+        "status": "success",
+        "requested_operation": "exercise_records"
+      },
+      {
+        "tool": "search_literature",
+        "status": "success",
+        "requested_operation": "search"
+      }
+    ],
+    "route": {
+      "router_version": "interpretation_router_phase_a_v1",
+      "status": "planned",
+      "route": "hybrid",
+      "task_type": "hybrid",
+      "selected_tools": [
+        "query_training_log",
+        "search_literature"
+      ],
+      "execution_order": [
+        "query_training_log",
+        "search_literature"
+      ],
+      "routing_reason": "Deterministic mapping of validated interpretation channels; confidence is rule mapping, not semantic accuracy.",
+      "confidence": 1.0,
+      "rule_match": {
+        "rule_id": "I-hybrid",
+        "normalized_question": "내 벤치 기록이 들쭉날쭉한데, 이게 정상인지 연구에서 말하는 일반적인 변동이랑 비교해줘",
+        "signals": {
+          "structured_log": true,
+          "metric": false,
+          "literature": true
+        },
+        "matched_patterns": {}
+      },
+      "unsupported_reason": null,
+      "error": null
+    },
+    "selected_tools": [
+      "query_training_log",
+      "search_literature"
+    ],
+    "errors": []
+  },
+  "actual_tools": [
+    {
+      "tool": "query_training_log",
+      "status": "success",
+      "requested_operation": "exercise_records"
+    },
+    {
+      "tool": "search_literature",
+      "status": "success",
+      "requested_operation": "search"
+    }
+  ],
+  "transport_error_type": null,
+  "execution_error": false,
+  "completed_at_utc": "2026-10-15T17:11:25.488241+00:00",
+  "response_bytes_sha256": "1e83cfe1820669d9ace6eb3827b13579ff7da8870e810ac3999632d70bb5c1f6"
+}

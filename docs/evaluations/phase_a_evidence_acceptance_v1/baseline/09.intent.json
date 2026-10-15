@@ -1,0 +1,10 @@
+{
+  "case_id": "EN-05A",
+  "pair_id": "EN-05",
+  "sequence": 9,
+  "request_json": {
+    "question": "2017년에 2주 넘게 운동을 안 한 적이 있었어?",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T16:59:23.180099+00:00"
+}

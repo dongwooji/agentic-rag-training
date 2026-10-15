@@ -1,0 +1,27 @@
+{
+  "status": "frozen",
+  "frozen_at_utc": "2026-10-15T17:04:56.073807+00:00",
+  "runs": {
+    "baseline": {
+      "raw_sha256": "a4615b292ef0fc1a6c038c1784ce7a14532237e9f107202d178f1acdae2aa379",
+      "run_manifest_sha256": "f7c19f8042179d4f69331f754ed676ab3f9e6f6c0c026ef3418df6a53e3a2be3",
+      "freeze_receipt_sha256": "e228126e2b03d906a809d65e8d093554f88e5c7a019fa1a044003cc3687f82d8",
+      "requests_sent": 20
+    },
+    "changed": {
+      "raw_sha256": "80c042c05799550de64f585c1a2ede2fe247ca08d34759e666cdd3a612068720",
+      "run_manifest_sha256": "c63bf6acb51fee55c1c1ec39a45dafaf6c2f4474d3f218e22f35e9989f310c75",
+      "freeze_receipt_sha256": "ee35920eb91c57de230c59eab9732c9b00b3d978b5aff323d8c940ea49d471a3",
+      "requests_sent": 20
+    }
+  },
+  "answer_files_decoded": false,
+  "frozen_input_sha256": {
+    "questions.jsonl": "e8f7609df2ec70e92c413914bca0ccf179436026859b692b5cda3c452f3fc5fc",
+    "gold.json": "ba4ae2af655bb401344d3058af7243d94ef0f3bc082ec43a8a14f40fda25b7ae",
+    "REVIEW.md": "03bcaebe0d1f7489473b5664dc15db0274a8a58644d25cad19f3a5bd7ed109de",
+    "build.py": "3268c4e718f7a5cd1ac271e55e5c9646c1351c8d593f56ef489c17f05d8c57e1",
+    "manifest.json": "0b0a038c67de03d75b5733e6059bbf8c2d115eeca6b49cf48cdb123894cb81d7"
+  },
+  "scorer_sha256": "181480d8730fc74ab36d90f76c1e3319eb20eb85f8b2a8fca975ae8b6577cabd"
+}
