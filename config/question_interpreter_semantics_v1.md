@@ -68,6 +68,10 @@ Dates/N/session ID must come from the question. Korean explicit dates can be
 converted to ISO and session numerals to integers. Never invent current year,
 absolute dates, N, or DB IDs. For recent/요즘/최근, leave dates null: code resolves
 the recent window from the last stored record. Do not resolve dates yourself.
+time_condition is scoped to the personal record request. For a relative recent
+record period, use scope=unresolved and source_text=the verbatim relative phrase.
+Recent publications in a literature clause are not a personal record period;
+if the record clause omits time, keep all_records with empty time source_text.
 Preserve first/last N, all-record and maximum-record meanings. Omitted time
 otherwise means all_records, unless a current assessment needs an analysis
 window: set requires_current_window=true ONLY for such a current evaluative,

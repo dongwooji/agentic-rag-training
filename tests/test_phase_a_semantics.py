@@ -164,6 +164,7 @@ def test_existing_personal_signal_also_preserves_need_before_recent_resolution()
     q = "내 최근 Synthetic Arc (Cable) 항목을 확인해주세요."
     raw = payload(q, personal_record_requested=False, record_operation=None)
     raw["evidence_need"]["training_records_needed"] = False
+    raw["time_condition"].update(scope="unresolved", source_text="최근")
     c, _ = component(raw)
     r = c.interpret(q)
     assert r.execution_status == "clarification_required"
@@ -325,7 +326,9 @@ def test_out_of_scope_abstains_without_exercise_or_period_clarification():
 
 def test_default_window_notice_trace_and_tool_arguments_match():
     q = f"요즘 {LIFT}의 weekly volume 수치를 정리해주세요."
-    graph, _, training, metric, *_ = graph_for(payload(q, operation="weekly_volume"))
+    raw = payload(q, operation="weekly_volume")
+    raw["time_condition"].update(scope="unresolved", source_text="요즘")
+    graph, _, training, metric, *_ = graph_for(raw)
     state = graph.invoke(q)
     assert state["final_status"] == "answer_ready"
     window = state["question_interpretation"]["phase_a_semantics"]["default_time_window"]
@@ -333,6 +336,38 @@ def test_default_window_notice_trace_and_tool_arguments_match():
     assert "마지막 저장 기록일(2032-10-30) 기준 최근 8주" in state["final_response"]["answer_text"]
     assert training.calls[0].start_date == metric.calls[0].start_date == window["start_date"]
     assert state["final_response"]["provenance"]["response_metadata"]["default_time_window"] == window
+
+
+def test_recent_literature_does_not_narrow_timeless_personal_records():
+    q = f"보관한 {LIFT} 항목을 모두 나열하고 최근 운동학 문헌의 측정 원리를 설명해주세요."
+    raw = payload(q, needed=True)
+    c, _ = component(raw)
+    r = c.interpret(q)
+    assert r.execution_status == "ready"
+    assert r.phase_a_semantics.evidence_need.required_sources == ["training_records", "literature"]
+    assert not r.phase_a_semantics.default_time_window.applied
+    assert r.interpretation.time_condition.scope == "all_records"
+
+
+def test_literature_time_word_does_not_block_approved_current_assessment_window():
+    q = f"{LIFT}의 weekly volume을 현재 수준 관점에서 평가하고 이번 학술지의 측정 원리를 설명해주세요."
+    raw = payload(q, operation="weekly_volume", kind="evaluative", needed=True)
+    raw["evidence_need"]["requires_current_window"] = True
+    c, _ = component(raw)
+    r = c.interpret(q)
+    assert r.execution_status == "ready"
+    assert r.phase_a_semantics.default_time_window.applied
+    assert r.phase_a_semantics.default_time_window.trigger == "operation_default"
+
+
+def test_ungrounded_recent_time_span_never_creates_dates():
+    q = f"{LIFT} 항목의 분석 기간을 확인해주세요."
+    raw = payload(q)
+    raw["time_condition"].update(scope="unresolved", source_text="최근")
+    c, _ = component(raw)
+    r = c.interpret(q)
+    assert r.execution_status == "clarification_required"
+    assert not r.phase_a_semantics.default_time_window.applied
 
 
 def test_optional_literature_reuses_existing_blocking_grader_and_recovery():

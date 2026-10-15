@@ -71,6 +71,8 @@ end=anchor, start=anchor - (weeks*7 - 1)일. wall-clock 오늘 날짜를 사용�
 승인된 분석창 operation: estimated_1rm, weekly_volume, weekly_frequency, plateau_candidates.
 training_gap 및 first_last_n_session_median_e1rm에는 생략 시 최근 창을 적용하지 않는다.
 새 상대 날짜 문법은 추가하지 않는다. 해석되지 않은 다른 상대 기간은 clarification을 유지한다.
+상대 기간은 기록 요청의 time_condition.source_text에 추출된 원문 구절에서만 확인한다.
+다른 절의 최근 문헌/발표 시점은 개인 기록 기간으로 바꾸지 않는다.
 LLM이 원문에 없는 절대 날짜를 만들면 기존대로 거절/기간 clarification한다.
 기본값 적용은 인자 clarification 중에도 trace/provenance와 사용자 응답에 명시한다.
 기록이 없거나 기준일을 얻지 못하면 날짜를 만들어내지 않는다.

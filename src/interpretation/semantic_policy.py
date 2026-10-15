@@ -74,12 +74,15 @@ def resolve_window(question, draft, need, repository, observation):
     if "first_last_n_session_median_e1rm" in operations or _SESSION_NUMBER.search(question) or re.search(
         r"전체\s*기록|모든\s*기록|최고\s*기록|all\s+(?:records|time)|처음|최초|first|maximum|최댓값", question, re.I):
         return
-    relative = bool(re.search(r"최근|요즘|\brecent\b", question, re.I))
+    # The existing time_condition is scoped to the record request. A recent
+    # publication mentioned in another clause must not narrow record coverage.
+    time_span = draft.time_condition.source_text.strip()
+    relative = bool(time_span and time_span in question and re.search(r"최근|요즘|\brecent\b", time_span, re.I))
     config = json.loads(CONFIG.read_text(encoding="utf-8"))
     operation_default = (need["requires_current_window"] and need["answer_type"] in {"evaluative", "causal", "advisory"}
         and bool(operations.intersection(config["default_window_operations"])))
     # Do not treat an unsupported relative-date expression as omitted time.
-    if not relative and (draft.time_condition.source_text.strip() or re.search(r"지난|이번|전보다", question)):
+    if not relative and time_span:
         return
     if not (relative or operation_default):
         return

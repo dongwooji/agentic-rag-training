@@ -229,7 +229,8 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
     if draft.personal_record_requested and time.scope == "unresolved":
         unresolved("time_condition", "분석 기간을 지정해주세요.")
     if draft.personal_record_requested and time.scope == "all_records":
-        if re.search(r"최근|요즘|지난|이번|정체|전보다", question) and not re.search(r"처음|첫|초반|first", question, re.I):
+        time_context = time.source_text if semantics else question
+        if re.search(r"최근|요즘|지난|이번|정체|전보다", time_context) and not re.search(r"처음|첫|초반|first", question, re.I):
             unresolved("time_condition", "최근 또는 비교 분석의 기간을 지정해주세요.")
         else:
             policies.append("omitted_period_means_all_stored_records_v1")
