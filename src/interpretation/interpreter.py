@@ -13,6 +13,8 @@ from .validator import GroundingError, DateGroundingError, validate_interpretati
 from .exercise_catalog import RepositoryExerciseCatalog, catalog_sha256
 from .exercise_relations import RuntimeExerciseRelations
 from src.observability import log_failure, log_validation_error
+from .semantic_contracts import PhaseASemantics, ArgumentResolution
+from .semantic_policy import interpret_need, resolve_window, finish_arguments
 
 
 class InterpreterProvider(Protocol):
@@ -25,19 +27,23 @@ class InterpretationResult(StrictModel):
     provider: InterpreterProviderResult | None = None
     error_code: str | None = None
     latency_ms: float = Field(default=0, ge=0)
+    phase_a_semantics: PhaseASemantics | None = None
 
 
 class QuestionInterpreter:
-    def __init__(self, *, exercise_repository, provider: InterpreterProvider | None = None):
+    def __init__(self, *, exercise_repository, provider: InterpreterProvider | None = None, semantics_enabled=False):
         self.canonicalizer = ExerciseCanonicalizer(exercise_repository)
         self.provider = provider
         self.rule_parser = RuleQuestionParser()
         self.exercise_catalog = RepositoryExerciseCatalog(exercise_repository)
         self.exercise_relations = RuntimeExerciseRelations()
+        self.semantics_enabled = semantics_enabled
 
     def interpret(self, question: str) -> InterpretationResult:
         started = perf_counter()
         provider_result = None
+        semantics = PhaseASemantics() if self.semantics_enabled else None
+        source, raw, candidates = "rule", None, None
         try:
             if not isinstance(question, str) or not question.strip():
                 raise ValueError("invalid_question")
@@ -46,8 +52,12 @@ class QuestionInterpreter:
             source = "rule"
             if raw is None:
                 source = "llm"
+                if semantics:
+                    semantics.parsing_source = source
                 if self.provider is None:
-                    return InterpretationResult(execution_status="failure", error_code="interpreter_provider_unavailable")
+                    if semantics:
+                        semantics.argument_resolution = ArgumentResolution(status="failure")
+                    return InterpretationResult(execution_status="failure", error_code="interpreter_provider_unavailable", phase_a_semantics=semantics)
                 candidates = self.exercise_catalog.names()
                 provider_result = self.provider.invoke(question, canonical_exercises=candidates)
                 provider_result.response_metadata.update(canonical_catalog_count=len(candidates),
@@ -57,30 +67,54 @@ class QuestionInterpreter:
                                    "RateLimitError", "APIConnectionError", "APITimeoutError", "APIStatusError", "LengthFinishReasonError"}
                     log_failure(stage="interpreter_provider", check_id="provider_output_failure", field="interpretation",
                                 exception_type=provider_result.error if provider_result.error in known_types else "ProviderFailure")
-                    return InterpretationResult(execution_status="failure", provider=provider_result, error_code="interpreter_provider_failure",
+                    if semantics:
+                        semantics.argument_resolution = ArgumentResolution(status="failure")
+                    return InterpretationResult(execution_status="failure", provider=provider_result, error_code="interpreter_provider_failure", phase_a_semantics=semantics,
                                                 latency_ms=(perf_counter() - started) * 1000)
                 raw = provider_result.raw_interpretation
+            if semantics:
+                semantics.parsing_source = source
+                draft, need = interpret_need(question, raw, source=source, observation=semantics)
+                raw = draft.model_dump(mode="json")
+                if semantics.scope.out_of_scope:
+                    # No executable arguments are required for a scope refusal.
+                    raw.update(personal_record_requested=False, literature_requested=False, record_operation=None,
+                        requested_analyses=[], candidate_exercises=[], canonical_exercise_name=None,
+                        unresolved_fields=[], clarification_required=False)
+                    interpretation = QuestionInterpretation.model_validate(dict(**raw, original_question=question,
+                        normalized_question=question, parsing_source=source, phase_a_semantics=semantics))
+                    return InterpretationResult(execution_status="ready", interpretation=interpretation, provider=provider_result,
+                        phase_a_semantics=semantics, latency_ms=(perf_counter() - started) * 1000)
+                resolve_window(question, draft, need, self.canonicalizer.repository, semantics)
             interpretation = validate_interpretation(question, raw, source=source, canonicalizer=self.canonicalizer,
                                                        normalizer=self.rule_parser.normalizer,
-                                                       canonical_exercises=candidates, exercise_relations=self.exercise_relations)
+                                                       canonical_exercises=candidates, exercise_relations=self.exercise_relations, semantics=semantics)
+            if semantics:
+                finish_arguments(semantics, interpretation)
             return InterpretationResult(execution_status="clarification_required" if interpretation.clarification_required else "ready",
-                                        interpretation=interpretation, provider=provider_result,
+                                        interpretation=interpretation, provider=provider_result, phase_a_semantics=semantics,
                                         latency_ms=(perf_counter() - started) * 1000)
         except DateGroundingError as exc:
             log_validation_error(exc)
             try:
                 interpretation = validate_interpretation(question, raw, source=source, canonicalizer=self.canonicalizer,
                     normalizer=self.rule_parser.normalizer, canonical_exercises=candidates,
-                    exercise_relations=self.exercise_relations, date_issue=exc)
-                return InterpretationResult(execution_status="clarification_required", interpretation=interpretation,
+                    exercise_relations=self.exercise_relations, date_issue=exc, semantics=semantics)
+                if semantics:
+                    finish_arguments(semantics, interpretation)
+                return InterpretationResult(execution_status="clarification_required", interpretation=interpretation, phase_a_semantics=semantics,
                     provider=provider_result, latency_ms=(perf_counter() - started) * 1000)
             except Exception as secondary:
                 log_validation_error(secondary)
-                return InterpretationResult(execution_status="failure", provider=provider_result,
+                if semantics:
+                    semantics.argument_resolution = ArgumentResolution(status="failure")
+                return InterpretationResult(execution_status="failure", provider=provider_result, phase_a_semantics=semantics,
                     error_code="ungrounded_interpretation" if isinstance(secondary, GroundingError) else "interpretation_validation_failure",
                     latency_ms=(perf_counter() - started) * 1000)
         except Exception as exc:
             log_validation_error(exc)
-            return InterpretationResult(execution_status="failure", provider=provider_result,
+            if semantics:
+                semantics.argument_resolution = ArgumentResolution(status="failure")
+            return InterpretationResult(execution_status="failure", provider=provider_result, phase_a_semantics=semantics,
                                         error_code="ungrounded_interpretation" if isinstance(exc, GroundingError) else "interpretation_validation_failure",
                                         latency_ms=(perf_counter() - started) * 1000)

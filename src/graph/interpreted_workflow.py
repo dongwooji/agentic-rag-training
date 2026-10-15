@@ -71,7 +71,7 @@ class InterpretedWorkflow:
             base.update(route={"route": "invalid", "task_type": "invalid"}, task_type="invalid", selected_tools=[], execution_order=[])
             return self._failure(base, result.error_code or "interpretation_failure")
         interpretation = result.interpretation
-        return self._execute_interpretation(base, interpretation)
+        return self._with_window_notice(self._execute_interpretation(base, interpretation), interpretation)
 
     def clarify(self, clarification_id, selected_option):
         entry, option = self.clarification_store.consume(clarification_id, selected_option)
@@ -85,12 +85,33 @@ class InterpretedWorkflow:
                     interpretation_status="clarification_required" if interpretation.clarification_required else "ready",
                     exercise_selection_provenance={"clarification_id": clarification_id, "selected_option": selected_option,
                                                    "selected_canonical_exercises": names, "interpreter_recalled": False})
-        return self._execute_interpretation(base, interpretation)
+        return self._with_window_notice(self._execute_interpretation(base, interpretation), interpretation)
+
+    @staticmethod
+    def _with_window_notice(state, interpretation):
+        semantics = interpretation.phase_a_semantics
+        if not semantics or not semantics.default_time_window.applied:
+            return state
+        window = semantics.default_time_window
+        response = state.get("final_response")
+        if response:
+            notice = (f"마지막 저장 기록일({window.anchor_date}) 기준 최근 {window.recent_window_weeks}주"
+                      f"({window.start_date}~{window.end_date})를 분석 범위로 사용했습니다.")
+            response["answer_text"] = notice + "\n\n" + response["answer_text"]
+            response["provenance"]["response_metadata"]["default_time_window"] = window.model_dump(mode="json")
+        return state
 
     def _execute_interpretation(self, base, interpretation):
         question = base["original_question"]
         plan = self.router.route(interpretation)
         base.update(route=plan.to_dict(), task_type=plan.task_type.value, selected_tools=list(plan.selected_tools), execution_order=list(plan.execution_order))
+        if interpretation.phase_a_semantics and interpretation.phase_a_semantics.scope.out_of_scope:
+            response = FinalResponse(final_status=FinalResponseStatus.ABSTAIN_READY,
+                answer_text="이 요청은 현재 서비스의 지원 범위 밖입니다. 운동 기록 조회·지원 지표 계산·일반 운동과학 근거 설명을 도와드릴 수 있습니다.",
+                limitations=["지원 범위 밖 요청이므로 Tool을 실행하지 않았습니다."],
+                provenance=FinalResponseProvenance(graph_terminal_status=FinalResponseStatus.ABSTAIN_READY,
+                    channel_mode=ChannelMode.NO_EVIDENCE, response_metadata={"response_mode": "out_of_scope"}))
+            return {**base, "final_status": "abstain_ready", "final_response": response.model_dump(mode="json")}
         bounds_reader = getattr(self.interpreter.canonicalizer.repository, "record_date_bounds", None)
         time = interpretation.time_condition
         if interpretation.personal_record_requested and time.scope == "explicit" and time.start_date and time.end_date and callable(bounds_reader):

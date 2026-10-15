@@ -1,0 +1,5 @@
+{
+  "version": "phase_a_semantics_v1",
+  "recent_window_weeks": 8,
+  "default_window_operations": ["estimated_1rm", "weekly_volume", "weekly_frequency", "plateau_candidates"]
+}

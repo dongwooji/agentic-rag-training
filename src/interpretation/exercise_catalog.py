@@ -35,13 +35,13 @@ def catalog_sha256(names: tuple[str, ...]) -> str:
     return hashlib.sha256(json.dumps(names, ensure_ascii=False).encode("utf-8")).hexdigest()
 
 
-def candidate_schema(names: tuple[str, ...]):
+def candidate_schema(names: tuple[str, ...], *, base=InterpretationDraft):
     """Constrain the existing Interpreter output, not a second LLM request."""
     if not names:
         raise ValueError("empty_canonical_catalog")
     allowed = Literal.__getitem__(names)
     return create_model(
-        "CatalogInterpretationDraft", __base__=InterpretationDraft,
+        "CatalogInterpretationDraft", __base__=base,
         canonical_exercise_name=(allowed | None, ...),
         candidate_exercises=(list[allowed], ...),
         exercise_resolution_status=(Literal["resolved", "ambiguous", "not_found"] | None, ...),

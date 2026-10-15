@@ -264,7 +264,7 @@ def create_app() -> FastAPI:
         try:
             state = workflow.clarify(request.clarification_id, request.selected_option)
             log_terminal_failure(state)
-            return query_response_from_state(state, latency_ms=(perf_counter() - started) * 1000)
+            return query_response_from_state(state, latency_ms=(perf_counter() - started) * 1000, debug=request.debug)
         except WorkflowClarificationUnavailable as exc:
             raise HTTPException(status_code=409, detail="Exercise selection requires Phase A runtime.") from exc
         except ClarificationError as exc:

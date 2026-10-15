@@ -63,6 +63,10 @@ def selected_interpretation(payload, names):
         raise ClarificationError("invalid_selection")
     issues = [x for x in interpretation.unresolved_fields
               if x.field not in {"canonical_exercise_name", "exercise_resolution_status", "candidate_exercises"}]
-    return interpretation.model_copy(update=dict(canonical_exercise_name=names[-1],
+    selected = interpretation.model_copy(update=dict(canonical_exercise_name=names[-1],
         candidate_exercises=list(names), exercise_resolution_status="resolved", unresolved_fields=issues,
         clarification_required=bool(issues), applied_policies=[*interpretation.applied_policies, "user_exercise_selection_v1"]))
+    if selected.phase_a_semantics:
+        from .semantic_policy import finish_arguments
+        finish_arguments(selected.phase_a_semantics, selected)
+    return selected

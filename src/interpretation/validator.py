@@ -39,7 +39,7 @@ def mentioned_dates(question: str) -> list[str]:
     return list(dict.fromkeys((period.start_date, period.end_date))) if period else full_dates(question)
 
 
-def _personal_record_requirement(question: str, draft: InterpretationDraft) -> PersonalRecordNormalization:
+def _personal_record_requirement(question: str, draft: InterpretationDraft, semantics=None) -> PersonalRecordNormalization:
     signals = []
     if draft.record_operation is not None:
         signals.append("record_operation")
@@ -49,20 +49,27 @@ def _personal_record_requirement(question: str, draft: InterpretationDraft) -> P
         signals.append("explicit_personal_request")
     if (draft.candidate_exercises or draft.canonical_exercise_name) and draft.session_id:
         signals.append("exercise_session_context")
+    if semantics and "training_records" in semantics.evidence_need.required_sources:
+        signals.append("evidence_need")
     derived = bool(signals)
     return PersonalRecordNormalization(supplied_value=draft.personal_record_requested,
                                        derived_value=derived, mismatch=derived != draft.personal_record_requested,
                                        signals=signals)
 
 
-def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCanonicalizer, normalizer=None, canonical_exercises=None, exercise_relations=None, date_issue: DateGroundingError | None = None):
+def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCanonicalizer, normalizer=None, canonical_exercises=None, exercise_relations=None, date_issue: DateGroundingError | None = None, semantics=None):
     draft = InterpretationDraft.model_validate(raw)
     normalizer = normalizer or RuntimeQuestionNormalizer()
     original_nfkc = unicodedata.normalize("NFKC", question)
     issues = list(draft.unresolved_fields)
     policies = []
-    personal_normalization = _personal_record_requirement(original_nfkc, draft)
+    personal_normalization = _personal_record_requirement(original_nfkc, draft, semantics)
     draft = draft.model_copy(update={"personal_record_requested": personal_normalization.derived_value})
+    if semantics and draft.personal_record_requested and "training_records" not in semantics.evidence_need.required_sources:
+        semantics.evidence_need.required_sources.insert(0, "training_records")
+    if semantics and semantics.evidence_need.status == "resolved":
+        # Purpose is already known. Preserve only actual argument questions.
+        issues = [x for x in issues if x.field not in {"question", "evidence_need"}]
     # The normalized boolean is settled by code. Preserve every other missing
     # input, including periods, exercise ambiguity, and numeric conditions.
     normalized_issue_removed = personal_normalization.mismatch and any(
@@ -196,6 +203,13 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
         draft = draft.model_copy(update={"time_condition": time})
         issues = [x for x in issues if x.field not in {"time_condition", "start_date", "end_date"}]
         policies.append("explicit_calendar_bounds_v1")
+    if semantics and semantics.default_time_window.applied and not date_issue:
+        window = semantics.default_time_window
+        time = TimeCondition(scope="explicit", start_date=window.start_date, end_date=window.end_date, source_text="")
+        found_dates = [window.start_date, window.end_date]
+        draft = draft.model_copy(update={"time_condition": time})
+        issues = [x for x in issues if x.field not in {"time_condition", "start_date", "end_date"}]
+        policies.append("recent_record_anchored_v1")
     for field, value in (("start_date", time.start_date), ("end_date", time.end_date)):
         if value is not None:
             try:
@@ -274,10 +288,12 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
             raise GroundingError("user assumption must be an original question span")
     if re.search(r"가정|전제", question) and not draft.user_assumptions:
         unresolved("user_assumptions", "사용자 가정을 기록 사실과 분리해주세요.")
-    if draft.clarification_required and not issues and not (candidates and canonical) and not normalized_issue_removed and not date_normalization:
+    if draft.clarification_required and not issues and not (candidates and canonical) and not normalized_issue_removed and not date_normalization and not semantics:
         unresolved("question", "실행에 필요한 조건을 추가로 확인해주세요.")
     if not draft.personal_record_requested and not draft.literature_requested:
         unresolved("question", "운동 기록 조회 또는 문헌 질문의 범위를 지정해주세요.")
+    if semantics and semantics.evidence_need.status == "clarification_required":
+        unresolved("evidence_need", "질문의 목적을 확인해주세요.")
     payload = draft.model_dump()
     if restriction:
         canonical = None
