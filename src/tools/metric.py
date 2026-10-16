@@ -142,7 +142,17 @@ class MetricTool:
                 continue
             record_exercise = str(record.get("exercise_name", "")).strip()
             if exercise and record_exercise != exercise:
-                continue
+                # training_gap consumes list_sessions rows, whose membership
+                # is an exercise_names array rather than a set's exercise_name.
+                # Keep scalar set filtering and every other Metric unchanged.
+                session_names = record.get("exercise_names")
+                if not (
+                    request.operation == MetricOperation.TRAINING_GAP
+                    and "exercise_name" not in record
+                    and isinstance(session_names, (list, tuple))
+                    and exercise in session_names
+                ):
+                    continue
             record["started_at"] = started_at
             prepared.append(record)
         return sorted(
