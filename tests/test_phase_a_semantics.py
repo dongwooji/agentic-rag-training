@@ -101,7 +101,10 @@ def test_code_derives_required_optional_and_compatibility_boolean(explicit, need
 @pytest.mark.parametrize("field", ["canonical_exercise_name", "n_sessions", "time_condition", "requested_analyses"])
 def test_known_purpose_preserved_for_argument_clarification(field):
     q = f"{LIFT} 수행량을 평가해주세요."
-    raw = payload(q, kind="evaluative", needed=True, unresolved_fields=[dict(field=field, reason="합성 미확정 인자"),
+    if field == "n_sessions":
+        q = f"{LIFT}의 첫 세션과 마지막 세션 median e1RM을 평가해주세요."
+    raw = payload(q, operation="first_last_n_session_median_e1rm" if field == "n_sessions" else None,
+        kind="evaluative", needed=True, unresolved_fields=[dict(field=field, reason="합성 미확정 인자"),
         dict(field="question", reason="부당한 목적 확인")], clarification_required=True)
     if field == "canonical_exercise_name":
         raw.update(exercise_mention="Synthetic Arc", candidate_exercises=[LIFT, OTHER], canonical_exercise_name=None, exercise_resolution_status="ambiguous")

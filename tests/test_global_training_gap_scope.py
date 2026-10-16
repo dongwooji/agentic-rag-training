@@ -170,7 +170,7 @@ def test_omitted_llm_exercise_field_does_not_broaden_specific_question(mentioned
 
 
 def test_global_gap_preserves_missing_period_and_other_arguments():
-    question = "보관 세션의 training gap을 살펴봐주세요."
+    question = "보관 세션의 training gap을 기간별로 비교해주세요."
     raw = draft(question, unresolved_fields=[dict(field="canonical_exercise_name", reason="불필요 운동"),
         dict(field="comparison", reason="별도 미확정 조건")])
     raw["time_condition"].update(scope="unresolved")
@@ -197,9 +197,9 @@ def test_global_gap_does_not_bypass_grounding(invalid):
 
 
 def test_other_and_multiple_metrics_keep_existing_exercise_requirement():
-    question = "세션 목록의 weekly frequency와 training gap을 확인해주세요."
+    question = "세션 목록의 weekly volume과 training gap을 확인해주세요."
     raw = draft(question)
-    raw["requested_analyses"].append(dict(operation="weekly_frequency", n_sessions=None, source_text="weekly frequency"))
+    raw["requested_analyses"].append(dict(operation="weekly_volume", n_sessions=None, source_text="weekly volume"))
     component, _, _ = interpreter(raw)
     result = component.interpret(question)
     assert result.execution_status == "clarification_required"

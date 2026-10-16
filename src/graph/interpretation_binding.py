@@ -2,6 +2,7 @@
 
 from src.agent.contracts import MetricArguments, TrainingLogArguments
 from src.interpretation.contracts import QuestionInterpretation
+from src.interpretation.operation_arguments import record_operation_for_metric
 from src.routing.contracts import RoutingPlan
 
 
@@ -16,7 +17,7 @@ def bind_interpretation(interpretation: QuestionInterpretation, route: RoutingPl
         operation = interpretation.record_operation
         if interpretation.requested_analyses:
             # Session-only operations can consume the existing sessions adapter.
-            operation = "list_sessions" if interpretation.requested_analyses[0].operation.value in {"training_gap", "weekly_frequency"} else "exercise_records"
+            operation = record_operation_for_metric(interpretation.requested_analyses[0].operation.value)
         training = TrainingLogArguments(operation=operation, canonical_exercise_name=interpretation.canonical_exercise_name,
                                         start_date=time.start_date, end_date=time.end_date,
                                         limit=5000, include_lineage=False)

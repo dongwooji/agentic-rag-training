@@ -1,0 +1,37 @@
+{
+  "version": "phase_a_operation_arguments_v1",
+  "automatically_supplied_arguments": ["records_source"],
+  "record_operations": {
+    "exercise_records": {"required_arguments": ["canonical_exercise_name"]},
+    "exercise_first_last": {"required_arguments": ["canonical_exercise_name"]},
+    "get_session": {"required_arguments": ["session_id"]},
+    "list_sessions": {"required_arguments": []}
+  },
+  "metric_operations": {
+    "estimated_1rm": {
+      "required_arguments": ["records_source"],
+      "record_operation": "exercise_records"
+    },
+    "first_last_n_session_median_e1rm": {
+      "required_arguments": ["records_source", "n_sessions"],
+      "record_operation": "exercise_records"
+    },
+    "weekly_volume": {
+      "required_arguments": ["records_source"],
+      "record_operation": "exercise_records"
+    },
+    "weekly_frequency": {
+      "required_arguments": ["records_source"],
+      "record_operation": "list_sessions"
+    },
+    "training_gap": {
+      "required_arguments": ["records_source"],
+      "record_operation": "list_sessions",
+      "unscoped_policy_provenance": "global_training_gap_v1"
+    },
+    "plateau_candidates": {
+      "required_arguments": ["records_source"],
+      "record_operation": "exercise_records"
+    }
+  }
+}

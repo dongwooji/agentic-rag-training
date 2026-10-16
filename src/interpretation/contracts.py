@@ -82,6 +82,13 @@ class DateValidationDiagnostic(StrictModel):
     field: str
 
 
+class ArgumentContractNormalization(StrictModel):
+    version: Literal["phase_a_operation_arguments_v1"] = "phase_a_operation_arguments_v1"
+    required_user_arguments: list[str]
+    explicit_constraint_fields: list[str]
+    ignored_llm_fields: list[str]
+
+
 class QuestionInterpretation(InterpretationDraft):
     schema_version: Literal["question_interpretation_phase_a_v1"] = "question_interpretation_phase_a_v1"
     parsing_source: Literal["rule", "llm"]
@@ -92,6 +99,7 @@ class QuestionInterpretation(InterpretationDraft):
     personal_record_normalization: PersonalRecordNormalization | None = None
     date_range_normalization: DateRangeNormalization | None = None
     date_validation: DateValidationDiagnostic | None = None
+    argument_contract_normalization: ArgumentContractNormalization | None = None
     phase_a_semantics: PhaseASemantics | None = None
 
 

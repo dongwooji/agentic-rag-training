@@ -139,7 +139,7 @@ def test_exercise_candidates_in_literature_do_not_establish_personal_request(sup
 
 def test_normalized_flag_issue_does_not_block_but_other_issues_are_preserved():
     output = personal(unresolved_fields=[dict(field='personal_record_requested', reason='기록 채널 확인')], clarification_required=True)
-    question = f'보관된 {LIFT} 세트 항목을 조회해주세요.'
+    question = f'보관된 {LIFT} 세트 항목을 조회하고 두 구간을 비교해주세요.'
     result = validate(question, output)
     assert not result.clarification_required
     assert result.personal_record_normalization.mismatch
