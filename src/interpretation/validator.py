@@ -6,9 +6,10 @@ import unicodedata
 
 from src.graph.tool_input_resolver import ExerciseCanonicalizer
 from src.routing.runtime_language import InputLanguageError, RuntimeQuestionNormalizer
-from .contracts import InterpretationDraft, QuestionInterpretation, UnresolvedField, PersonalRecordNormalization, DateRangeNormalization, TimeCondition, DateValidationDiagnostic
+from .contracts import InterpretationDraft, QuestionInterpretation, UnresolvedField, PersonalRecordNormalization, DateRangeNormalization, TimeCondition, DateValidationDiagnostic, ArgumentContractNormalization
 from .exercise_selection import ExerciseSelectionPolicy
 from .date_ranges import explicit_period, full_dates, DateExpressionError
+from .operation_arguments import EXERCISE_FIELDS, load_contract, required_user_arguments, normalize_llm_issues
 
 
 class GroundingError(ValueError):
@@ -30,7 +31,7 @@ _ANALYSIS_SIGNALS = {
     "weekly_volume": r"weekly\s+volume|주간\s*(?:훈련량|운동량|볼륨)",
     "weekly_frequency": r"weekly\s+frequency|주간\s*빈도|주당\s*운동\s*횟수",
     "training_gap": r"training\s+gap|운동\s*공백|훈련\s*공백",
-    "plateau_candidates": r"plateau\s+candidate|정체",
+    "plateau_candidates": r"plateau\s+candidate",
 }
 
 
@@ -101,23 +102,26 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
     if restriction:
         unresolved("canonical_exercise_name", restriction["message"])
         policies.append("runtime_restriction:" + restriction["id"])
-    # A single training_gap consumes sessions and can span all exercises.
-    # Any extracted exercise or independent catalog/alias/restriction signal
-    # keeps the existing resolution path; a missed LLM field must not widen it.
-    global_gap = (
-        len(draft.requested_analyses) == 1
-        and draft.requested_analyses[0].operation.value == "training_gap"
-        and not (draft.exercise_mention or draft.canonical_exercise_name or draft.candidate_exercises)
-        and not normalization_failed and not restriction
-        and canonicalizer.mentioned_candidate(normalized) is None
-        and not any(canonicalizer.is_grounded(normalized, name) for name in (canonical_exercises or ()))
-    )
-    exercise_required = draft.personal_record_requested and not global_gap
-    if global_gap:
-        exercise_fields = {"canonical_exercise_name", "candidate_exercises", "exercise_resolution_status",
-                           "exercise_mention", "exercise", "exercise_variant"}
-        issues = [issue for issue in issues if issue.field not in exercise_fields]
-        policies.append("global_training_gap_v1")
+    config = load_contract()
+    required = required_user_arguments(draft, config)
+    # Explicit exercise constraints remain mandatory even for session operations
+    # whose minimal execution contract can otherwise span all exercises.
+    explicit_exercise = bool(draft.exercise_mention or draft.canonical_exercise_name or
+        draft.candidate_exercises or normalization_failed or restriction or
+        canonicalizer.mentioned_candidate(normalized) or
+        any(canonicalizer.is_grounded(normalized, name) for name in (canonical_exercises or ())))
+    exercise_required = draft.personal_record_requested and (
+        "canonical_exercise_name" in required or explicit_exercise)
+    n_values = {int(x) if x.isdigit() else _NUMBERS[x] for x in _SESSION_NUMBER.findall(original_nfkc)}
+    issues, ignored_fields, constraint_fields = normalize_llm_issues(original_nfkc, draft, issues,
+        required=required, exercise_required=exercise_required, explicit_exercise=explicit_exercise, n_values=n_values)
+    argument_normalization = ArgumentContractNormalization(required_user_arguments=sorted(required),
+        explicit_constraint_fields=constraint_fields, ignored_llm_fields=ignored_fields)
+    policies.append(config["version"])
+    if len(draft.requested_analyses) == 1 and not exercise_required:
+        alias = config["metric_operations"][draft.requested_analyses[0].operation.value].get("unscoped_policy_provenance")
+        if alias:
+            policies.append(alias)  # Historical provenance alias, not a separate exception.
     supplied_candidates = list(dict.fromkeys(draft.candidate_exercises))
     if supplied_candidates and not draft.exercise_mention:
         raise GroundingError("candidates need an original exercise mention")
@@ -194,6 +198,8 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
                 unresolved("canonical_exercise_name", "해당 운동을 저장된 canonical 운동명으로 확인할 수 없습니다.")
     elif exercise_required:
         unresolved("canonical_exercise_name", "조회할 운동을 명확히 지정해주세요.")
+    if canonical and not restriction:
+        issues = [x for x in issues if x.field not in EXERCISE_FIELDS]
 
     time = draft.time_condition
     date_normalization = None
@@ -254,7 +260,6 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
         else:
             policies.append("omitted_period_means_all_stored_records_v1")
 
-    n_values = {int(x) if x.isdigit() else _NUMBERS[x] for x in _SESSION_NUMBER.findall(original_nfkc)}
     operations = {x.operation.value for x in draft.requested_analyses}
     for analysis in draft.requested_analyses:
         if analysis.source_text and analysis.source_text.casefold() not in original_nfkc.casefold():
@@ -308,7 +313,7 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
             raise GroundingError("user assumption must be an original question span")
     if re.search(r"가정|전제", question) and not draft.user_assumptions:
         unresolved("user_assumptions", "사용자 가정을 기록 사실과 분리해주세요.")
-    if draft.clarification_required and not issues and not (candidates and canonical) and not normalized_issue_removed and not date_normalization and not semantics:
+    if draft.clarification_required and not issues and not (candidates and canonical) and not normalized_issue_removed and not date_normalization and not semantics and not ignored_fields:
         unresolved("question", "실행에 필요한 조건을 추가로 확인해주세요.")
     if not draft.personal_record_requested and not draft.literature_requested:
         unresolved("question", "운동 기록 조회 또는 문헌 질문의 범위를 지정해주세요.")
@@ -323,5 +328,5 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
                    unresolved_fields=issues, clarification_required=bool(issues),
                    original_question=question, normalized_question=normalized, parsing_source=source, applied_policies=policies,
                    personal_record_normalization=personal_normalization, date_range_normalization=date_normalization,
-                   date_validation=date_validation)
+                   date_validation=date_validation, argument_contract_normalization=argument_normalization)
     return QuestionInterpretation.model_validate(payload)
