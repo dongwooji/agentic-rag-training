@@ -155,7 +155,9 @@ def _build_runtime_workflow() -> RuntimeWorkflow:
             # Do not even construct the legacy LLM argument provider here.
             workflow = InterpretedWorkflow(
                 interpreter=QuestionInterpreter(exercise_repository=training_repository,
-                                                provider=OpenAIQuestionInterpreterProvider(api_key=openai_api_key)),
+                                                provider=OpenAIQuestionInterpreterProvider(api_key=openai_api_key,
+                                                    config_path=PROJECT_ROOT / "config/question_interpreter_semantics_v1.json"),
+                                                semantics_enabled=True),
                 **shared,
             )
         elif mode == "legacy":

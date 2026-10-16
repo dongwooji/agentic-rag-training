@@ -1,0 +1,15 @@
+{
+  "purpose": "Synthetic contract checks only; not acceptance questions or Gold",
+  "pairs": [
+    {"id":"S01","operation":"weekly_volume","type":"evaluative","descriptive":"보관한 Synthetic Arc (Cable)의 weekly volume 수치만 나열해주세요.","judgment":"보관한 Synthetic Arc (Cable)의 weekly volume을 나열하고 훈련량이 충분한지 평가해주세요."},
+    {"id":"S02","operation":"weekly_frequency","type":"advisory","descriptive":"Synthetic Arc (Cable)의 weekly frequency 기록값만 정리해주세요.","judgment":"Synthetic Arc (Cable)의 weekly frequency 기록값과 다음 훈련 빈도에 대한 조언을 주세요."},
+    {"id":"S03","operation":"estimated_1rm","type":"causal","descriptive":"Synthetic Arc (Cable)의 e1RM 변화 수치를 표로 정리해주세요.","judgment":"Synthetic Arc (Cable)의 e1RM 변화 수치와 변화가 생길 수 있는 원인을 설명해주세요."},
+    {"id":"S04","operation":"training_gap","type":"evaluative","descriptive":"Synthetic Arc (Cable)의 training gap 날짜 간격만 계산해주세요.","judgment":"Synthetic Arc (Cable)의 training gap을 계산하고 그 휴식이 적절했는지 평가해주세요."},
+    {"id":"S05","operation":"weekly_volume","type":"advisory","descriptive":"Synthetic Arc (Cable)의 weekly volume 관측값만 보여주세요.","judgment":"Synthetic Arc (Cable)의 weekly volume을 보여주고 다음 주 훈련량 선택을 조언해주세요."},
+    {"id":"S06","operation":"weekly_frequency","type":"causal","descriptive":"Synthetic Arc (Cable)의 weekly frequency 분포만 알려주세요.","judgment":"Synthetic Arc (Cable)의 weekly frequency 분포와 빈도가 수행 적응에 영향을 주는 원리를 설명해주세요."},
+    {"id":"S07","operation":"estimated_1rm","type":"evaluative","descriptive":"Synthetic Arc (Cable)의 e1RM 계산 결과만 확인해주세요.","judgment":"Synthetic Arc (Cable)의 e1RM 계산 결과가 훈련 성과를 평가하기에 충분한지 설명해주세요."},
+    {"id":"S08","operation":"weekly_volume","type":"causal","descriptive":"Synthetic Arc (Cable)의 weekly volume 증가량만 계산해주세요.","judgment":"Synthetic Arc (Cable)의 weekly volume 증가량과 훈련 적응의 가능한 기전을 설명해주세요."},
+    {"id":"S09","operation":"weekly_frequency","type":"evaluative","descriptive":"Synthetic Arc (Cable)의 weekly frequency를 주별로 출력해주세요.","judgment":"Synthetic Arc (Cable)의 weekly frequency를 주별로 출력하고 회복 측면에서 평가해주세요."},
+    {"id":"S10","operation":"training_gap","type":"advisory","descriptive":"Synthetic Arc (Cable)의 training gap 길이만 정리해주세요.","judgment":"Synthetic Arc (Cable)의 training gap 길이를 정리하고 훈련 복귀 방안을 조언해주세요."}
+  ]
+}

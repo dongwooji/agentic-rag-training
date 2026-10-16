@@ -2,6 +2,7 @@
 import os
 import re
 from src.observability import REQUEST_ID, log_failure
+from src.interpretation.semantic_contracts import PhaseASemantics, ARGUMENT_FIELDS
 
 
 def _map(value):
@@ -50,6 +51,23 @@ def _summary(raw):
         candidate_count=len(_array(raw.get("candidate_exercises"))))
 
 
+def _phase_a(value):
+    """Typed allowlist projection; free text is restricted to original spans."""
+    from pydantic import ValidationError
+    try:
+        observation = PhaseASemantics.model_validate(value)
+    except (ValidationError, TypeError, ValueError):
+        observation = PhaseASemantics()
+    result = observation.model_dump(mode="json")
+    result["evidence_need"]["source_spans"] = [
+        _text(x, 600) for x in observation.evidence_need.source_spans[:8]]
+    result["argument_resolution"]["unresolved_fields"] = [
+        x for x in observation.argument_resolution.unresolved_fields if x in ARGUMENT_FIELDS]
+    for field in ("anchor_date", "start_date", "end_date"):
+        result["default_time_window"][field] = _date(result["default_time_window"][field])
+    return result
+
+
 def _build_debug_trace(state):
     interpretation = _map(state.get("question_interpretation"))
     interpreted = _map(state.get("interpretation_trace"))
@@ -64,6 +82,9 @@ def _build_debug_trace(state):
         date_mismatch=normalization.get("mismatch") is True,
         personal_record_mismatch=_map(interpretation.get("personal_record_normalization")).get("mismatch") is True,
         record_coverage_status="no_records" if state.get("record_coverage_status") == "no_records" else None))
+    semantics = interpretation.get("phase_a_semantics") or interpreted.get("phase_a_semantics")
+    if semantics is not None:
+        interpreter["phase_a"] = _phase_a(semantics)
     selection = _map(state.get("first_query_selection"))
     step2, step3 = _map(selection.get("step2")), _map(selection.get("step3"))
     initial_search = any(isinstance(record, dict) and record.get("tool") == "search_literature" and record.get("phase") != "recovery"
@@ -126,6 +147,11 @@ def build_debug_trace(state):
         return _build_debug_trace(state)
     except (TypeError, ValueError, AttributeError, KeyError) as error:
         log_failure(stage="debug_trace", check_id="trace_projection_failure", exception=error)
+        interpreter = {"validation": {"status": "unavailable"}}
+        semantics = (_map(state.get("question_interpretation")).get("phase_a_semantics") or
+                     _map(state.get("interpretation_trace")).get("phase_a_semantics"))
+        if semantics is not None:
+            interpreter["phase_a"] = _phase_a(semantics)
         return dict(version="query_debug_trace_v1", request_id=REQUEST_ID.get(),
-            interpreter={"validation": {"status": "unavailable"}}, initial_queries={},
+            interpreter=interpreter, initial_queries={},
             retrievals=[], graders=[], recovery=[], fusions=[], final_evidence=[])

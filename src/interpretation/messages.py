@@ -5,7 +5,9 @@ def clarification_questions(interpretation):
     messages = []
     for issue in interpretation.unresolved_fields:
         field = issue.field
-        if field in {"time_condition", "start_date", "end_date", "period", "analysis_window"}:
+        if field in {"question", "evidence_need"} and interpretation.phase_a_semantics is not None:
+            text = "기록 확인, 일반적인 설명, 평가나 조언 중 어떤 답변을 원하시나요?"
+        elif field in {"time_condition", "start_date", "end_date", "period", "analysis_window"}:
             text = "분석 기간: 어느 기간을 볼까요? 예: 2018년 9월~12월"
         elif field in {"canonical_exercise_name", "candidate_exercises", "exercise_resolution_status", "exercise"}:
             text = "어떤 운동 기록을 볼까요? 운동명과 장비·그립을 알려주세요."

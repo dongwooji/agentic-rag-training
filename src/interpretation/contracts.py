@@ -5,6 +5,7 @@ from typing import Literal
 
 from pydantic import Field
 from src.agent.contracts import StrictModel
+from .semantic_contracts import EvidenceNeedDraft, PhaseASemantics
 
 
 class AnalysisOperation(str, Enum):
@@ -62,7 +63,7 @@ class PersonalRecordNormalization(StrictModel):
     supplied_value: bool
     derived_value: bool
     mismatch: bool
-    signals: list[Literal["record_operation", "requested_analyses", "explicit_personal_request", "exercise_session_context"]]
+    signals: list[Literal["record_operation", "requested_analyses", "explicit_personal_request", "exercise_session_context", "evidence_need"]]
 
 
 class DateRangeNormalization(StrictModel):
@@ -91,3 +92,8 @@ class QuestionInterpretation(InterpretationDraft):
     personal_record_normalization: PersonalRecordNormalization | None = None
     date_range_normalization: DateRangeNormalization | None = None
     date_validation: DateValidationDiagnostic | None = None
+    phase_a_semantics: PhaseASemantics | None = None
+
+
+class SemanticInterpretationDraft(InterpretationDraft):
+    evidence_need: EvidenceNeedDraft

@@ -10,7 +10,7 @@ from typing import Any
 from pydantic import Field
 from src.agent.contracts import PlannerUsage, StrictModel
 from src.llm_support import estimate_cost_usd
-from .contracts import InterpretationDraft
+from .contracts import InterpretationDraft, SemanticInterpretationDraft
 from .exercise_catalog import candidate_schema
 
 
@@ -38,7 +38,7 @@ class OpenAIQuestionInterpreterProvider:
     def __init__(self, *, api_key=None, client=None, config_path=None):
         path = Path(config_path) if config_path else ROOT / "config/question_interpreter.json"
         self.config = json.loads(path.read_text(encoding="utf-8"))
-        if self.config["max_retries"] != 0 or self.config["version"] != "question_interpretation_phase_a_v1":
+        if self.config["max_retries"] != 0 or self.config["version"] not in {"question_interpretation_phase_a_v1", "phase_a_semantics_v1"}:
             raise ValueError("Unexpected interpreter configuration")
         prompt_path = ROOT / self.config["prompt_path"]
         self.prompt = prompt_path.read_text(encoding="utf-8")
@@ -58,7 +58,8 @@ class OpenAIQuestionInterpreterProvider:
             return InterpreterProviderResult(**metadata, error="provider_not_configured")
         response = None
         try:
-            schema = candidate_schema(canonical_exercises)
+            schema = candidate_schema(canonical_exercises, base=SemanticInterpretationDraft
+                if self.config["version"] == "phase_a_semantics_v1" else InterpretationDraft)
             response = self.client.responses.parse(
                 model=self.config["model"], instructions=self.prompt,
                 input=json.dumps({"question": question, "allowed_canonical_exercises": canonical_exercises}, ensure_ascii=False),

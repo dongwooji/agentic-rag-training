@@ -57,6 +57,7 @@ class PublicQueryError(PublicModel):
 
 
 class ClarifyRequest(PublicModel):
+    debug: StrictBool = Field(default=False, description="선택 반영 후 /query와 동일한 안전한 trace 포함")
     clarification_id: str = Field(min_length=1, max_length=64)
     selected_option: str = Field(min_length=1, max_length=16, examples=["2"])
 
