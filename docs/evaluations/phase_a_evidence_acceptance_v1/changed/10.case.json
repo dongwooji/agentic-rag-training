@@ -1,0 +1,518 @@
+{
+  "case_id": "EN-05B",
+  "pair_id": "EN-05",
+  "sequence": 10,
+  "request_json": {
+    "question": "2017년에 2주 넘게 운동을 쉰 적이 있었어? 있었다면 그 정도 공백이면 근력이 많이 빠지는 수준이야?",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T17:03:02.636265+00:00",
+  "http_status": 200,
+  "response": {
+    "final_status": "abstain_ready",
+    "answer_text": "다음 내용을 확인해주세요:\n- 어떤 운동 기록을 볼까요? 운동명과 장비·그립을 알려주세요.",
+    "route": "ambiguous",
+    "tools_used": [],
+    "retry_count": 0,
+    "recovery_used": false,
+    "used_literature_chunk_ids": [],
+    "limitations": [
+      "필요한 조건을 추측하지 않았으며 Tool을 실행하지 않았습니다."
+    ],
+    "latency_ms": 3251.589300001797,
+    "response_metadata": {
+      "response_mode": "clarification_required",
+      "clarification_required": true,
+      "options": [],
+      "trace": {
+        "version": "query_debug_trace_v1",
+        "request_id": "9fa5817029ce44de9a3b233420b34699",
+        "interpreter": {
+          "output_summary": {
+            "personal_record_requested": true,
+            "literature_requested": true,
+            "canonical_exercise_name": null,
+            "candidate_exercises": [],
+            "time_condition": {
+              "scope": "explicit",
+              "start_date": null,
+              "end_date": null
+            },
+            "analyses": [
+              "training_gap"
+            ],
+            "candidate_count": 0
+          },
+          "validation": {
+            "status": "clarification_required",
+            "check_id": null,
+            "normalized_summary": {
+              "personal_record_requested": true,
+              "literature_requested": true,
+              "canonical_exercise_name": null,
+              "candidate_exercises": [],
+              "time_condition": {
+                "scope": "explicit",
+                "start_date": "2017-01-01",
+                "end_date": "2017-12-31"
+              },
+              "analyses": [
+                "training_gap"
+              ],
+              "candidate_count": 0
+            },
+            "date_mismatch": true,
+            "personal_record_mismatch": false,
+            "record_coverage_status": null
+          },
+          "phase_a": {
+            "version": "phase_a_semantics_v1",
+            "parsing_source": "llm",
+            "evidence_need": {
+              "status": "resolved",
+              "answer_type": "causal",
+              "literature_needed_for_answer": true,
+              "explicit_literature_request": "none",
+              "required_sources": [
+                "training_records",
+                "literature"
+              ],
+              "optional_sources": [],
+              "source_spans": [
+                "2017년에 2주 넘게 운동을 쉰 적이 있었어?",
+                "그 정도 공백이면 근력이 많이 빠지는 수준이야?"
+              ],
+              "unresolved_fields": []
+            },
+            "argument_resolution": {
+              "status": "clarification_required",
+              "unresolved_fields": [
+                "requested_analyses",
+                "canonical_exercise_name"
+              ]
+            },
+            "default_time_window": {
+              "applied": false,
+              "policy": null,
+              "trigger": null,
+              "recent_window_weeks": null,
+              "anchor_date": null,
+              "start_date": null,
+              "end_date": null
+            },
+            "scope": {
+              "out_of_scope": false,
+              "reason_code": null
+            }
+          }
+        },
+        "initial_queries": {
+          "korean": null,
+          "english": null,
+          "dense": null,
+          "bm25": null,
+          "step2_fallback": null,
+          "step3_fallback": null
+        },
+        "retrievals": [],
+        "graders": [],
+        "recovery": [],
+        "fusions": [],
+        "final_evidence": []
+      }
+    }
+  },
+  "final_status": "abstain_ready",
+  "trace": {
+    "version": "query_debug_trace_v1",
+    "request_id": "9fa5817029ce44de9a3b233420b34699",
+    "interpreter": {
+      "output_summary": {
+        "personal_record_requested": true,
+        "literature_requested": true,
+        "canonical_exercise_name": null,
+        "candidate_exercises": [],
+        "time_condition": {
+          "scope": "explicit",
+          "start_date": null,
+          "end_date": null
+        },
+        "analyses": [
+          "training_gap"
+        ],
+        "candidate_count": 0
+      },
+      "validation": {
+        "status": "clarification_required",
+        "check_id": null,
+        "normalized_summary": {
+          "personal_record_requested": true,
+          "literature_requested": true,
+          "canonical_exercise_name": null,
+          "candidate_exercises": [],
+          "time_condition": {
+            "scope": "explicit",
+            "start_date": "2017-01-01",
+            "end_date": "2017-12-31"
+          },
+          "analyses": [
+            "training_gap"
+          ],
+          "candidate_count": 0
+        },
+        "date_mismatch": true,
+        "personal_record_mismatch": false,
+        "record_coverage_status": null
+      },
+      "phase_a": {
+        "version": "phase_a_semantics_v1",
+        "parsing_source": "llm",
+        "evidence_need": {
+          "status": "resolved",
+          "answer_type": "causal",
+          "literature_needed_for_answer": true,
+          "explicit_literature_request": "none",
+          "required_sources": [
+            "training_records",
+            "literature"
+          ],
+          "optional_sources": [],
+          "source_spans": [
+            "2017년에 2주 넘게 운동을 쉰 적이 있었어?",
+            "그 정도 공백이면 근력이 많이 빠지는 수준이야?"
+          ],
+          "unresolved_fields": []
+        },
+        "argument_resolution": {
+          "status": "clarification_required",
+          "unresolved_fields": [
+            "requested_analyses",
+            "canonical_exercise_name"
+          ]
+        },
+        "default_time_window": {
+          "applied": false,
+          "policy": null,
+          "trigger": null,
+          "recent_window_weeks": null,
+          "anchor_date": null,
+          "start_date": null,
+          "end_date": null
+        },
+        "scope": {
+          "out_of_scope": false,
+          "reason_code": null
+        }
+      }
+    },
+    "initial_queries": {
+      "korean": null,
+      "english": null,
+      "dense": null,
+      "bm25": null,
+      "step2_fallback": null,
+      "step3_fallback": null
+    },
+    "retrievals": [],
+    "graders": [],
+    "recovery": [],
+    "fusions": [],
+    "final_evidence": []
+  },
+  "latency_ms": 3264.0287000031094,
+  "llm_events": [
+    {
+      "stage": "interpreter",
+      "method": "parse",
+      "started_at_utc": "2026-10-15T17:03:02.894909+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 3361,
+        "cached_input_tokens": 2304,
+        "output_tokens": 280,
+        "total_tokens": 3641,
+        "estimated_cost_usd": 0.00222555
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 2774.4858999940334
+    }
+  ],
+  "usage": {
+    "calls": 1,
+    "by_stage": {
+      "interpreter": 1
+    },
+    "input_tokens": 3361,
+    "cached_input_tokens": 2304,
+    "output_tokens": 280,
+    "total_tokens": 3641,
+    "estimated_cost_usd": 0.00222555,
+    "actual_cost_usd": null,
+    "actual_cost_status": "provider_billing_not_supplied",
+    "usage_unavailable_calls": 0,
+    "known_subtotals": {
+      "input_tokens": 3361,
+      "cached_input_tokens": 2304,
+      "output_tokens": 280,
+      "total_tokens": 3641,
+      "estimated_cost_usd": 0.00222555
+    }
+  },
+  "scoring_state": {
+    "question_interpretation": {
+      "personal_record_requested": true,
+      "literature_requested": true,
+      "exercise_mention": null,
+      "canonical_exercise_name": null,
+      "exercise_resolution_status": "not_found",
+      "candidate_exercises": [],
+      "time_condition": {
+        "scope": "explicit",
+        "start_date": "2017-01-01",
+        "end_date": "2017-12-31",
+        "source_text": "2017년"
+      },
+      "record_operation": "list_sessions",
+      "session_id": null,
+      "requested_analyses": [
+        {
+          "operation": "training_gap",
+          "n_sessions": null,
+          "source_text": "2주 넘게 운동을 쉰 적이 있었어?"
+        }
+      ],
+      "literature_subquestion": "If there was a training gap of more than 2 weeks, does that amount of time typically cause a large loss of strength?",
+      "user_assumptions": [],
+      "unresolved_fields": [
+        {
+          "field": "exercise",
+          "reason": "No exercise is mentioned; the question is about training gap and strength loss generally."
+        },
+        {
+          "field": "canonical_exercise_name",
+          "reason": "원문의 운동 표현을 확인해주세요."
+        }
+      ],
+      "clarification_required": true,
+      "schema_version": "question_interpretation_phase_a_v1",
+      "parsing_source": "llm",
+      "original_question": "2017년에 2주 넘게 운동을 쉰 적이 있었어? 있었다면 그 정도 공백이면 근력이 많이 빠지는 수준이야?",
+      "normalized_question": "2017년에 2주 넘게 운동을 쉰 적이 있었어? 있었다면 그 정도 공백이면 근력이 많이 빠지는 수준이야?",
+      "applied_policies": [
+        "explicit_calendar_bounds_v1"
+      ],
+      "personal_record_normalization": {
+        "supplied_value": true,
+        "derived_value": true,
+        "mismatch": false,
+        "signals": [
+          "record_operation",
+          "requested_analyses",
+          "evidence_need"
+        ]
+      },
+      "date_range_normalization": {
+        "supplied_scope": "explicit",
+        "supplied_start_date": "2017",
+        "supplied_end_date": "2017",
+        "derived_start_date": "2017-01-01",
+        "derived_end_date": "2017-12-31",
+        "source_text": "2017년",
+        "mismatch": true
+      },
+      "date_validation": null,
+      "phase_a_semantics": {
+        "version": "phase_a_semantics_v1",
+        "parsing_source": "llm",
+        "evidence_need": {
+          "status": "resolved",
+          "answer_type": "causal",
+          "literature_needed_for_answer": true,
+          "explicit_literature_request": "none",
+          "required_sources": [
+            "training_records",
+            "literature"
+          ],
+          "optional_sources": [],
+          "source_spans": [
+            "2017년에 2주 넘게 운동을 쉰 적이 있었어?",
+            "그 정도 공백이면 근력이 많이 빠지는 수준이야?"
+          ],
+          "unresolved_fields": []
+        },
+        "argument_resolution": {
+          "status": "clarification_required",
+          "unresolved_fields": [
+            "requested_analyses",
+            "canonical_exercise_name"
+          ]
+        },
+        "default_time_window": {
+          "applied": false,
+          "policy": null,
+          "trigger": null,
+          "recent_window_weeks": null,
+          "anchor_date": null,
+          "start_date": null,
+          "end_date": null
+        },
+        "scope": {
+          "out_of_scope": false,
+          "reason_code": null
+        }
+      }
+    },
+    "interpretation_trace": {
+      "execution_status": "clarification_required",
+      "error_code": null,
+      "phase_a_semantics": {
+        "version": "phase_a_semantics_v1",
+        "parsing_source": "llm",
+        "evidence_need": {
+          "status": "resolved",
+          "answer_type": "causal",
+          "literature_needed_for_answer": true,
+          "explicit_literature_request": "none",
+          "required_sources": [
+            "training_records",
+            "literature"
+          ],
+          "optional_sources": [],
+          "source_spans": [
+            "2017년에 2주 넘게 운동을 쉰 적이 있었어?",
+            "그 정도 공백이면 근력이 많이 빠지는 수준이야?"
+          ],
+          "unresolved_fields": []
+        },
+        "argument_resolution": {
+          "status": "clarification_required",
+          "unresolved_fields": [
+            "requested_analyses",
+            "canonical_exercise_name"
+          ]
+        },
+        "default_time_window": {
+          "applied": false,
+          "policy": null,
+          "trigger": null,
+          "recent_window_weeks": null,
+          "anchor_date": null,
+          "start_date": null,
+          "end_date": null
+        },
+        "scope": {
+          "out_of_scope": false,
+          "reason_code": null
+        }
+      },
+      "provider": {
+        "model": "gpt-5.4-mini-2026-03-17",
+        "prompt_sha256": "6f327f7bbfbf18b1acc3c60675c2934ccc01150e1d1fc93ed958894a017fd802",
+        "config_sha256": "66fb343b0cb58ff17e9a926939539404ba025e2ad8a59b91bcde7f6b4c8a225b",
+        "api_requests": 1,
+        "latency_ms": 2789.5255999974324,
+        "usage": {
+          "input_tokens": 3361,
+          "cached_input_tokens": 2304,
+          "output_tokens": 280,
+          "total_tokens": 3641,
+          "estimated_cost_usd": 0.00222555
+        },
+        "raw_interpretation": {
+          "personal_record_requested": true,
+          "literature_requested": true,
+          "exercise_mention": null,
+          "canonical_exercise_name": null,
+          "exercise_resolution_status": null,
+          "candidate_exercises": [],
+          "time_condition": {
+            "scope": "explicit",
+            "start_date": "2017",
+            "end_date": "2017",
+            "source_text": "2017년에"
+          },
+          "record_operation": "list_sessions",
+          "session_id": null,
+          "requested_analyses": [
+            {
+              "operation": "training_gap",
+              "n_sessions": null,
+              "source_text": "2주 넘게 운동을 쉰 적이 있었어?"
+            }
+          ],
+          "literature_subquestion": "If there was a training gap of more than 2 weeks, does that amount of time typically cause a large loss of strength?",
+          "user_assumptions": [],
+          "unresolved_fields": [
+            {
+              "field": "exercise",
+              "reason": "No exercise is mentioned; the question is about training gap and strength loss generally."
+            }
+          ],
+          "clarification_required": false,
+          "evidence_need": {
+            "answer_type": "causal",
+            "training_records_needed": true,
+            "literature_needed_for_answer": true,
+            "explicit_literature_request": "none",
+            "source_spans": [
+              "2017년에 2주 넘게 운동을 쉰 적이 있었어?",
+              "그 정도 공백이면 근력이 많이 빠지는 수준이야?"
+            ],
+            "purpose_unresolved": false,
+            "requires_current_window": false,
+            "out_of_scope_reason": null
+          }
+        },
+        "error": null
+      }
+    },
+    "final_response": {
+      "final_status": "abstain_ready",
+      "provenance": {
+        "response_metadata": {
+          "response_mode": "clarification_required",
+          "clarification_required": true
+        }
+      }
+    },
+    "final_status": "abstain_ready",
+    "tool_results": [],
+    "route": {
+      "router_version": "interpretation_router_phase_a_v1",
+      "status": "ambiguous",
+      "route": "ambiguous",
+      "task_type": "ambiguous",
+      "selected_tools": [],
+      "execution_order": [],
+      "routing_reason": "Deterministic mapping of validated interpretation channels; confidence is rule mapping, not semantic accuracy.",
+      "confidence": 1.0,
+      "rule_match": {
+        "rule_id": "I-ambiguous",
+        "normalized_question": "2017년에 2주 넘게 운동을 쉰 적이 있었어? 있었다면 그 정도 공백이면 근력이 많이 빠지는 수준이야?",
+        "signals": {
+          "structured_log": true,
+          "metric": true,
+          "literature": true
+        },
+        "matched_patterns": {}
+      },
+      "unsupported_reason": "질문 조건 확인이 필요합니다.",
+      "error": null
+    },
+    "selected_tools": [],
+    "errors": []
+  },
+  "actual_tools": [],
+  "transport_error_type": null,
+  "execution_error": false,
+  "completed_at_utc": "2026-10-15T17:03:05.908078+00:00",
+  "response_bytes_sha256": "d88580b247a20e1f79daaf3db796c97f6849b713a35456ea65c97a0912c72920"
+}

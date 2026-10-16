@@ -1,0 +1,10 @@
+{
+  "case_id": "T15",
+  "pair_id": "historical-diagnostic-T15",
+  "sequence": 15,
+  "request_json": {
+    "question": "지난 기록 중에 운동 제일 오래 쉬었던 기간이 얼마야?",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T17:11:36.758195+00:00"
+}

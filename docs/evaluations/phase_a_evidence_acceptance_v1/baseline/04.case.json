@@ -1,0 +1,362 @@
+{
+  "case_id": "EN-02B",
+  "pair_id": "EN-02",
+  "sequence": 4,
+  "request_json": {
+    "question": "2018년 바벨 시티드 숄더프레스 추정 1RM이 오르다가 꺾였던데, 일반적으로 이런 꺾임은 어떤 요인들로 설명될 수 있어?",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T16:59:09.760121+00:00",
+  "http_status": 200,
+  "response": {
+    "final_status": "abstain_ready",
+    "answer_text": "다음 내용을 확인해주세요:\n- 어떤 지표를 확인할까요? 한 번에 하나의 지표를 선택해주세요.",
+    "route": "ambiguous",
+    "tools_used": [],
+    "retry_count": 0,
+    "recovery_used": false,
+    "used_literature_chunk_ids": [],
+    "limitations": [
+      "필요한 조건을 추측하지 않았으며 Tool을 실행하지 않았습니다."
+    ],
+    "latency_ms": 2911.6265999982716,
+    "response_metadata": {
+      "response_mode": "clarification_required",
+      "clarification_required": true,
+      "options": [],
+      "trace": {
+        "version": "query_debug_trace_v1",
+        "request_id": "f7b2b24e703646bfbe2eabbeb31d4a78",
+        "interpreter": {
+          "output_summary": {
+            "personal_record_requested": true,
+            "literature_requested": true,
+            "canonical_exercise_name": "Seated Shoulder Press (Barbell)",
+            "candidate_exercises": [
+              "Seated Shoulder Press (Barbell)"
+            ],
+            "time_condition": {
+              "scope": "explicit",
+              "start_date": "2018-01-01",
+              "end_date": "2018-12-31"
+            },
+            "analyses": [
+              "estimated_1rm",
+              "plateau_candidates"
+            ],
+            "candidate_count": 1
+          },
+          "validation": {
+            "status": "clarification_required",
+            "check_id": null,
+            "normalized_summary": {
+              "personal_record_requested": true,
+              "literature_requested": true,
+              "canonical_exercise_name": "Seated Shoulder Press (Barbell)",
+              "candidate_exercises": [
+                "Seated Shoulder Press (Barbell)"
+              ],
+              "time_condition": {
+                "scope": "explicit",
+                "start_date": "2018-01-01",
+                "end_date": "2018-12-31"
+              },
+              "analyses": [
+                "estimated_1rm",
+                "plateau_candidates"
+              ],
+              "candidate_count": 1
+            },
+            "date_mismatch": false,
+            "personal_record_mismatch": false,
+            "record_coverage_status": null
+          }
+        },
+        "initial_queries": {
+          "korean": null,
+          "english": null,
+          "dense": null,
+          "bm25": null,
+          "step2_fallback": null,
+          "step3_fallback": null
+        },
+        "retrievals": [],
+        "graders": [],
+        "recovery": [],
+        "fusions": [],
+        "final_evidence": []
+      }
+    }
+  },
+  "final_status": "abstain_ready",
+  "trace": {
+    "version": "query_debug_trace_v1",
+    "request_id": "f7b2b24e703646bfbe2eabbeb31d4a78",
+    "interpreter": {
+      "output_summary": {
+        "personal_record_requested": true,
+        "literature_requested": true,
+        "canonical_exercise_name": "Seated Shoulder Press (Barbell)",
+        "candidate_exercises": [
+          "Seated Shoulder Press (Barbell)"
+        ],
+        "time_condition": {
+          "scope": "explicit",
+          "start_date": "2018-01-01",
+          "end_date": "2018-12-31"
+        },
+        "analyses": [
+          "estimated_1rm",
+          "plateau_candidates"
+        ],
+        "candidate_count": 1
+      },
+      "validation": {
+        "status": "clarification_required",
+        "check_id": null,
+        "normalized_summary": {
+          "personal_record_requested": true,
+          "literature_requested": true,
+          "canonical_exercise_name": "Seated Shoulder Press (Barbell)",
+          "candidate_exercises": [
+            "Seated Shoulder Press (Barbell)"
+          ],
+          "time_condition": {
+            "scope": "explicit",
+            "start_date": "2018-01-01",
+            "end_date": "2018-12-31"
+          },
+          "analyses": [
+            "estimated_1rm",
+            "plateau_candidates"
+          ],
+          "candidate_count": 1
+        },
+        "date_mismatch": false,
+        "personal_record_mismatch": false,
+        "record_coverage_status": null
+      }
+    },
+    "initial_queries": {
+      "korean": null,
+      "english": null,
+      "dense": null,
+      "bm25": null,
+      "step2_fallback": null,
+      "step3_fallback": null
+    },
+    "retrievals": [],
+    "graders": [],
+    "recovery": [],
+    "fusions": [],
+    "final_evidence": []
+  },
+  "latency_ms": 2922.0487999991747,
+  "llm_events": [
+    {
+      "stage": "interpreter",
+      "method": "parse",
+      "started_at_utc": "2026-10-15T16:59:10.004746+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 2714,
+        "cached_input_tokens": 1792,
+        "output_tokens": 212,
+        "total_tokens": 2926,
+        "estimated_cost_usd": 0.0017799
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 2012.9114000010304
+    }
+  ],
+  "usage": {
+    "calls": 1,
+    "by_stage": {
+      "interpreter": 1
+    },
+    "input_tokens": 2714,
+    "cached_input_tokens": 1792,
+    "output_tokens": 212,
+    "total_tokens": 2926,
+    "estimated_cost_usd": 0.0017799,
+    "actual_cost_usd": null,
+    "actual_cost_status": "provider_billing_not_supplied",
+    "usage_unavailable_calls": 0,
+    "known_subtotals": {
+      "input_tokens": 2714,
+      "cached_input_tokens": 1792,
+      "output_tokens": 212,
+      "total_tokens": 2926,
+      "estimated_cost_usd": 0.0017799
+    }
+  },
+  "scoring_state": {
+    "question_interpretation": {
+      "personal_record_requested": true,
+      "literature_requested": true,
+      "exercise_mention": "바벨 시티드 숄더프레스",
+      "canonical_exercise_name": "Seated Shoulder Press (Barbell)",
+      "exercise_resolution_status": "resolved",
+      "candidate_exercises": [
+        "Seated Shoulder Press (Barbell)"
+      ],
+      "time_condition": {
+        "scope": "explicit",
+        "start_date": "2018-01-01",
+        "end_date": "2018-12-31",
+        "source_text": "2018년"
+      },
+      "record_operation": "exercise_records",
+      "session_id": null,
+      "requested_analyses": [
+        {
+          "operation": "estimated_1rm",
+          "n_sessions": null,
+          "source_text": "추정 1RM"
+        },
+        {
+          "operation": "plateau_candidates",
+          "n_sessions": null,
+          "source_text": "오르다가 꺾였던데"
+        }
+      ],
+      "literature_subquestion": "일반적으로 이런 꺾임은 어떤 요인들로 설명될 수 있어?",
+      "user_assumptions": [],
+      "unresolved_fields": [
+        {
+          "field": "requested_analyses",
+          "reason": "Phase A는 한 요청에서 하나의 Metric만 지원합니다. 지표별로 질문해주세요."
+        }
+      ],
+      "clarification_required": true,
+      "schema_version": "question_interpretation_phase_a_v1",
+      "parsing_source": "llm",
+      "original_question": "2018년 바벨 시티드 숄더프레스 추정 1RM이 오르다가 꺾였던데, 일반적으로 이런 꺾임은 어떤 요인들로 설명될 수 있어?",
+      "normalized_question": "2018년 바벨 시티드 숄더프레스 e1RM이 오르다가 꺾였던데, 일반적으로 이런 꺾임은 어떤 요인들로 설명될 수 있어?",
+      "applied_policies": [
+        "exercise_selection_v1",
+        "explicit_calendar_bounds_v1"
+      ],
+      "personal_record_normalization": {
+        "supplied_value": true,
+        "derived_value": true,
+        "mismatch": false,
+        "signals": [
+          "record_operation",
+          "requested_analyses"
+        ]
+      },
+      "date_range_normalization": {
+        "supplied_scope": "explicit",
+        "supplied_start_date": "2018-01-01",
+        "supplied_end_date": "2018-12-31",
+        "derived_start_date": "2018-01-01",
+        "derived_end_date": "2018-12-31",
+        "source_text": "2018년",
+        "mismatch": false
+      },
+      "date_validation": null
+    },
+    "interpretation_trace": {
+      "execution_status": "clarification_required",
+      "error_code": null,
+      "provider": {
+        "model": "gpt-5.4-mini-2026-03-17",
+        "prompt_sha256": "d87e4a2373a8601af0cf30a3714a2a8f593ea921f551999f6ab5a15754475db0",
+        "config_sha256": "e45ea74e43c6ed8dd87e38705cf5a7949533bad9038f0978d2faf927d8ebb979",
+        "api_requests": 1,
+        "latency_ms": 2027.025199997297,
+        "usage": {
+          "input_tokens": 2714,
+          "cached_input_tokens": 1792,
+          "output_tokens": 212,
+          "total_tokens": 2926,
+          "estimated_cost_usd": 0.0017799
+        },
+        "raw_interpretation": {
+          "personal_record_requested": true,
+          "literature_requested": true,
+          "exercise_mention": "바벨 시티드 숄더프레스",
+          "canonical_exercise_name": "Seated Shoulder Press (Barbell)",
+          "exercise_resolution_status": "resolved",
+          "candidate_exercises": [
+            "Seated Shoulder Press (Barbell)"
+          ],
+          "time_condition": {
+            "scope": "explicit",
+            "start_date": "2018-01-01",
+            "end_date": "2018-12-31",
+            "source_text": "2018년"
+          },
+          "record_operation": "exercise_records",
+          "session_id": null,
+          "requested_analyses": [
+            {
+              "operation": "estimated_1rm",
+              "n_sessions": null,
+              "source_text": "추정 1RM"
+            },
+            {
+              "operation": "plateau_candidates",
+              "n_sessions": null,
+              "source_text": "오르다가 꺾였던데"
+            }
+          ],
+          "literature_subquestion": "일반적으로 이런 꺾임은 어떤 요인들로 설명될 수 있어?",
+          "user_assumptions": [],
+          "unresolved_fields": [],
+          "clarification_required": false
+        },
+        "error": null
+      }
+    },
+    "final_response": {
+      "final_status": "abstain_ready",
+      "provenance": {
+        "response_metadata": {
+          "response_mode": "clarification_required",
+          "clarification_required": true
+        }
+      }
+    },
+    "final_status": "abstain_ready",
+    "tool_results": [],
+    "route": {
+      "router_version": "interpretation_router_phase_a_v1",
+      "status": "ambiguous",
+      "route": "ambiguous",
+      "task_type": "ambiguous",
+      "selected_tools": [],
+      "execution_order": [],
+      "routing_reason": "Deterministic mapping of validated interpretation channels; confidence is rule mapping, not semantic accuracy.",
+      "confidence": 1.0,
+      "rule_match": {
+        "rule_id": "I-ambiguous",
+        "normalized_question": "2018년 바벨 시티드 숄더프레스 e1RM이 오르다가 꺾였던데, 일반적으로 이런 꺾임은 어떤 요인들로 설명될 수 있어?",
+        "signals": {
+          "structured_log": true,
+          "metric": true,
+          "literature": true
+        },
+        "matched_patterns": {}
+      },
+      "unsupported_reason": "질문 조건 확인이 필요합니다.",
+      "error": null
+    },
+    "selected_tools": [],
+    "errors": []
+  },
+  "actual_tools": [],
+  "transport_error_type": null,
+  "execution_error": false,
+  "completed_at_utc": "2026-10-15T16:59:12.688401+00:00",
+  "response_bytes_sha256": "0b6cce53ae750c4d09f2342a6deb602878534a29a8eed204921255c61776fbc6"
+}

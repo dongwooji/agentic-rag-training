@@ -1,0 +1,10 @@
+{
+  "case_id": "T17",
+  "pair_id": "historical-diagnostic-T17",
+  "sequence": 17,
+  "request_json": {
+    "question": "근비대가 목적이면 세트당 반복수는 몇 개 정도가 적당해?",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T17:11:45.720206+00:00"
+}
