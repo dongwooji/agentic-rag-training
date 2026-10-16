@@ -1,0 +1,9 @@
+{
+  "frozen_at_utc": "2026-10-15T17:17:45.525565+00:00",
+  "files": {
+    "REPORT.md": "114cee0635d11adeeaa54bb2d1ec864e85b1d078fde5a56910eed4082693e8af",
+    "validation.json": "4d38b6e63108ffbe26c0dcfe266b5a0d69d2e99aeba5502b3fc07cdf51d1ef97",
+    "integrity.json": "9620fc58a5dd7e17241cfb6058769f868c19bdfbf4328489ec6d00e652064931"
+  },
+  "acceptance_decision_sha256": "80b5602d77a51f63837cd63b3d51368d1411df010b85b9f6885fae9e968eb1f0"
+}

@@ -1,0 +1,405 @@
+{
+  "case_id": "EN-01A",
+  "pair_id": "EN-01",
+  "sequence": 1,
+  "request_json": {
+    "question": "2017년 바벨 인클라인 벤치프레스 주별 볼륨 추이를 정리해줘",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T16:58:34.881703+00:00",
+  "http_status": 200,
+  "response": {
+    "final_status": "answer_ready",
+    "answer_text": "당신의 기록에서는 2017년 바벨 인클라인 벤치프레스의 주별 볼륨은 1월 초 11,245로 시작해 1월 중순 11,120, 1월 말 10,355 수준이었고, 2월 중순 21,725로 크게 증가했습니다. 이후 3~5월에는 대체로 8,170~18,640 범위에서 변동했고, 7~11월에는 주로 8,670~12,880 사이였습니다. 12월에는 12월 11일 21,240으로 다시 크게 올라갔다가 12월 18일 9,450, 12월 25일 8,400으로 마무리됐습니다. 전체적으로는 중간중간 큰 피크가 있으나, 다수 주차는 9천~1.3만대에 분포합니다.\n\n제한사항: 주별 기록이 없는 기간이 있어 연속적인 주간 추세로 해석하기 어렵습니다.; 볼륨은 저장된 포함 기준과 원본 단위 표기를 그대로 사용한 값입니다.; 주별 볼륨은 기록된 세트만 반영한 계산값이며, 누락된 세션은 보정되지 않았습니다.",
+    "route": "log_metric",
+    "tools_used": [
+      "query_training_log",
+      "compute_metrics"
+    ],
+    "retry_count": 0,
+    "recovery_used": false,
+    "used_literature_chunk_ids": [],
+    "limitations": [
+      "주별 기록이 없는 기간이 있어 연속적인 주간 추세로 해석하기 어렵습니다.",
+      "볼륨은 저장된 포함 기준과 원본 단위 표기를 그대로 사용한 값입니다.",
+      "주별 볼륨은 기록된 세트만 반영한 계산값이며, 누락된 세션은 보정되지 않았습니다.",
+      "개인 기록의 관찰된 변화만으로 인과관계를 확정할 수 없습니다.",
+      "이 응답은 의료적 진단이나 개인 처방이 아닙니다."
+    ],
+    "latency_ms": 13745.431099996495,
+    "response_metadata": {
+      "response_mode": "debug",
+      "trace": {
+        "version": "query_debug_trace_v1",
+        "request_id": "c408fb05c9c24c1d8887fd05be23af81",
+        "interpreter": {
+          "output_summary": {
+            "personal_record_requested": false,
+            "literature_requested": false,
+            "canonical_exercise_name": "Incline Bench Press (Barbell)",
+            "candidate_exercises": [
+              "Incline Bench Press (Barbell)"
+            ],
+            "time_condition": {
+              "scope": "explicit",
+              "start_date": "2017-01-01",
+              "end_date": "2017-12-31"
+            },
+            "analyses": [
+              "weekly_volume"
+            ],
+            "candidate_count": 1
+          },
+          "validation": {
+            "status": "ready",
+            "check_id": null,
+            "normalized_summary": {
+              "personal_record_requested": true,
+              "literature_requested": false,
+              "canonical_exercise_name": "Incline Bench Press (Barbell)",
+              "candidate_exercises": [
+                "Incline Bench Press (Barbell)"
+              ],
+              "time_condition": {
+                "scope": "explicit",
+                "start_date": "2017-01-01",
+                "end_date": "2017-12-31"
+              },
+              "analyses": [
+                "weekly_volume"
+              ],
+              "candidate_count": 1
+            },
+            "date_mismatch": false,
+            "personal_record_mismatch": true,
+            "record_coverage_status": null
+          }
+        },
+        "initial_queries": {
+          "korean": null,
+          "english": null,
+          "dense": null,
+          "bm25": null,
+          "step2_fallback": null,
+          "step3_fallback": null
+        },
+        "retrievals": [],
+        "graders": [],
+        "recovery": [],
+        "fusions": [],
+        "final_evidence": []
+      }
+    }
+  },
+  "final_status": "answer_ready",
+  "trace": {
+    "version": "query_debug_trace_v1",
+    "request_id": "c408fb05c9c24c1d8887fd05be23af81",
+    "interpreter": {
+      "output_summary": {
+        "personal_record_requested": false,
+        "literature_requested": false,
+        "canonical_exercise_name": "Incline Bench Press (Barbell)",
+        "candidate_exercises": [
+          "Incline Bench Press (Barbell)"
+        ],
+        "time_condition": {
+          "scope": "explicit",
+          "start_date": "2017-01-01",
+          "end_date": "2017-12-31"
+        },
+        "analyses": [
+          "weekly_volume"
+        ],
+        "candidate_count": 1
+      },
+      "validation": {
+        "status": "ready",
+        "check_id": null,
+        "normalized_summary": {
+          "personal_record_requested": true,
+          "literature_requested": false,
+          "canonical_exercise_name": "Incline Bench Press (Barbell)",
+          "candidate_exercises": [
+            "Incline Bench Press (Barbell)"
+          ],
+          "time_condition": {
+            "scope": "explicit",
+            "start_date": "2017-01-01",
+            "end_date": "2017-12-31"
+          },
+          "analyses": [
+            "weekly_volume"
+          ],
+          "candidate_count": 1
+        },
+        "date_mismatch": false,
+        "personal_record_mismatch": true,
+        "record_coverage_status": null
+      }
+    },
+    "initial_queries": {
+      "korean": null,
+      "english": null,
+      "dense": null,
+      "bm25": null,
+      "step2_fallback": null,
+      "step3_fallback": null
+    },
+    "retrievals": [],
+    "graders": [],
+    "recovery": [],
+    "fusions": [],
+    "final_evidence": []
+  },
+  "latency_ms": 13977.098499999556,
+  "llm_events": [
+    {
+      "stage": "interpreter",
+      "method": "parse",
+      "started_at_utc": "2026-10-15T16:58:36.324331+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 2692,
+        "cached_input_tokens": 0,
+        "output_tokens": 170,
+        "total_tokens": 2862,
+        "estimated_cost_usd": 0.002784
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 7374.552000001131
+    },
+    {
+      "stage": "answer",
+      "method": "create",
+      "started_at_utc": "2026-10-15T16:58:45.517111+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 7533,
+        "cached_input_tokens": 0,
+        "output_tokens": 314,
+        "total_tokens": 7847,
+        "estimated_cost_usd": 0.00706275
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 3330.9455000053276
+    }
+  ],
+  "usage": {
+    "calls": 2,
+    "by_stage": {
+      "interpreter": 1,
+      "answer": 1
+    },
+    "input_tokens": 10225,
+    "cached_input_tokens": 0,
+    "output_tokens": 484,
+    "total_tokens": 10709,
+    "estimated_cost_usd": 0.00984675,
+    "actual_cost_usd": null,
+    "actual_cost_status": "provider_billing_not_supplied",
+    "usage_unavailable_calls": 0,
+    "known_subtotals": {
+      "input_tokens": 10225,
+      "cached_input_tokens": 0,
+      "output_tokens": 484,
+      "total_tokens": 10709,
+      "estimated_cost_usd": 0.00984675
+    }
+  },
+  "scoring_state": {
+    "question_interpretation": {
+      "personal_record_requested": true,
+      "literature_requested": false,
+      "exercise_mention": "바벨 인클라인 벤치프레스",
+      "canonical_exercise_name": "Incline Bench Press (Barbell)",
+      "exercise_resolution_status": "resolved",
+      "candidate_exercises": [
+        "Incline Bench Press (Barbell)"
+      ],
+      "time_condition": {
+        "scope": "explicit",
+        "start_date": "2017-01-01",
+        "end_date": "2017-12-31",
+        "source_text": "2017년"
+      },
+      "record_operation": "exercise_records",
+      "session_id": null,
+      "requested_analyses": [
+        {
+          "operation": "weekly_volume",
+          "n_sessions": null,
+          "source_text": "주별 볼륨 추이"
+        }
+      ],
+      "literature_subquestion": null,
+      "user_assumptions": [],
+      "unresolved_fields": [],
+      "clarification_required": false,
+      "schema_version": "question_interpretation_phase_a_v1",
+      "parsing_source": "llm",
+      "original_question": "2017년 바벨 인클라인 벤치프레스 주별 볼륨 추이를 정리해줘",
+      "normalized_question": "2017년 Incline Bench Press (Barbell) weekly volume 추이를 정리해줘",
+      "applied_policies": [
+        "exercise_selection_v1",
+        "explicit_calendar_bounds_v1"
+      ],
+      "personal_record_normalization": {
+        "supplied_value": false,
+        "derived_value": true,
+        "mismatch": true,
+        "signals": [
+          "record_operation",
+          "requested_analyses"
+        ]
+      },
+      "date_range_normalization": {
+        "supplied_scope": "explicit",
+        "supplied_start_date": "2017-01-01",
+        "supplied_end_date": "2017-12-31",
+        "derived_start_date": "2017-01-01",
+        "derived_end_date": "2017-12-31",
+        "source_text": "2017년",
+        "mismatch": false
+      },
+      "date_validation": null
+    },
+    "interpretation_trace": {
+      "execution_status": "ready",
+      "error_code": null,
+      "provider": {
+        "model": "gpt-5.4-mini-2026-03-17",
+        "prompt_sha256": "d87e4a2373a8601af0cf30a3714a2a8f593ea921f551999f6ab5a15754475db0",
+        "config_sha256": "e45ea74e43c6ed8dd87e38705cf5a7949533bad9038f0978d2faf927d8ebb979",
+        "api_requests": 1,
+        "latency_ms": 7391.531200002646,
+        "usage": {
+          "input_tokens": 2692,
+          "cached_input_tokens": 0,
+          "output_tokens": 170,
+          "total_tokens": 2862,
+          "estimated_cost_usd": 0.002784
+        },
+        "raw_interpretation": {
+          "personal_record_requested": false,
+          "literature_requested": false,
+          "exercise_mention": "바벨 인클라인 벤치프레스",
+          "canonical_exercise_name": "Incline Bench Press (Barbell)",
+          "exercise_resolution_status": "resolved",
+          "candidate_exercises": [
+            "Incline Bench Press (Barbell)"
+          ],
+          "time_condition": {
+            "scope": "explicit",
+            "start_date": "2017-01-01",
+            "end_date": "2017-12-31",
+            "source_text": "2017년"
+          },
+          "record_operation": "exercise_records",
+          "session_id": null,
+          "requested_analyses": [
+            {
+              "operation": "weekly_volume",
+              "n_sessions": null,
+              "source_text": "주별 볼륨 추이"
+            }
+          ],
+          "literature_subquestion": null,
+          "user_assumptions": [],
+          "unresolved_fields": [],
+          "clarification_required": false
+        },
+        "error": null
+      }
+    },
+    "final_response": {
+      "final_status": "answer_ready",
+      "provenance": {
+        "response_metadata": {
+          "response_received": true,
+          "id": "resp_0da8134988b2bd24016ad106454a2c87d097b553f4e50709d0",
+          "status": "completed",
+          "service_tier": "default"
+        }
+      }
+    },
+    "final_status": "answer_ready",
+    "tool_results": [
+      {
+        "tool": "query_training_log",
+        "status": "success",
+        "requested_operation": "exercise_records"
+      },
+      {
+        "tool": "compute_metrics",
+        "status": "success",
+        "requested_operation": "weekly_volume"
+      }
+    ],
+    "route": {
+      "router_version": "interpretation_router_phase_a_v1",
+      "status": "planned",
+      "route": "log_metric",
+      "task_type": "log_metric",
+      "selected_tools": [
+        "query_training_log",
+        "compute_metrics"
+      ],
+      "execution_order": [
+        "query_training_log",
+        "compute_metrics"
+      ],
+      "routing_reason": "Deterministic mapping of validated interpretation channels; confidence is rule mapping, not semantic accuracy.",
+      "confidence": 1.0,
+      "rule_match": {
+        "rule_id": "I-log_metric",
+        "normalized_question": "2017년 Incline Bench Press (Barbell) weekly volume 추이를 정리해줘",
+        "signals": {
+          "structured_log": true,
+          "metric": true,
+          "literature": false
+        },
+        "matched_patterns": {}
+      },
+      "unsupported_reason": null,
+      "error": null
+    },
+    "selected_tools": [
+      "query_training_log",
+      "compute_metrics"
+    ],
+    "errors": []
+  },
+  "actual_tools": [
+    {
+      "tool": "query_training_log",
+      "status": "success",
+      "requested_operation": "exercise_records"
+    },
+    {
+      "tool": "compute_metrics",
+      "status": "success",
+      "requested_operation": "weekly_volume"
+    }
+  ],
+  "transport_error_type": null,
+  "execution_error": false,
+  "completed_at_utc": "2026-10-15T16:58:48.865067+00:00",
+  "response_bytes_sha256": "e21e662d1b1310e1a7ec54876c3da95407f550aac1748766249eeb76305c1ce0"
+}

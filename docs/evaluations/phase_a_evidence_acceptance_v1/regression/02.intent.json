@@ -1,0 +1,10 @@
+{
+  "case_id": "T02",
+  "pair_id": "historical-diagnostic-T02",
+  "sequence": 2,
+  "request_json": {
+    "question": "벤치프레스 기록이 한동안 제자리인데, 진짜 정체기인지 보고 연구에서는 정체기에 뭘 바꾸라고 하는지 알려줘",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T17:10:29.365589+00:00"
+}

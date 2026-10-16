@@ -1,0 +1,10 @@
+{
+  "case_id": "EN-08B",
+  "pair_id": "EN-08",
+  "sequence": 16,
+  "request_json": {
+    "question": "2018년 바벨 인클라인 벤치프레스 추정 1RM이 몇 달째 제자리인데, 이런 정체는 보통 뭐 때문에 생겨?",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T16:59:59.672464+00:00"
+}

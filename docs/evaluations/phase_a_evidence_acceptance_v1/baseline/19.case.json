@@ -1,0 +1,1027 @@
+{
+  "case_id": "EN-10A",
+  "pair_id": "EN-10",
+  "sequence": 19,
+  "request_json": {
+    "question": "근력 운동 초보가 주당 세트 수를 늘릴 때 어떤 원칙을 따르면 좋아?",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T17:00:09.851683+00:00",
+  "http_status": 200,
+  "response": {
+    "final_status": "answer_ready",
+    "answer_text": "문헌에서는 초보자에게는 주당 빈도보다 총 주간 세트 수와 점진적 증가가 더 핵심으로 보입니다. 문헌에서는 초보자가 전신을 주 2~3회 수행하는 권고가 제시되며, 주당 빈도는 총 볼륨을 늘리는 수단으로 활용될 수 있다고 합니다 [paper_pmc6081873_discussion_recommendations_on_weekly_training_fr_001_b980fa26]. 또한 세트 수를 늘리면 근비대에는 대체로 유리하지만, 근력에서는 볼륨을 맞추면 빈도 차이가 줄어들 수 있고, 세트 수 증가의 이득은 점차 줄어드는 경향이 언급됩니다 [paper_pmc12965823_discussion_005_476a6d9d, paper_pmc12965823_discussion_006_731e2d06].\n\n제한사항: 제공된 문헌은 초보자 일반에 대한 직접 비교보다, 훈련 빈도·볼륨·세트 수에 대한 집단 수준 결과를 주로 담고 있습니다.; 문헌마다 대상자(초보자, 훈련자, 젊은 성인 등)와 목표(근력, 근비대)가 달라 한 가지 원칙을 모든 경우에 그대로 적용하기는 어렵습니다.; 주당 세트 수를 늘릴 때의 구체적 증가 폭이나 개인별 조정 기준은 이 자료만으로 확정할 수 없습니다.",
+    "route": "literature_only",
+    "tools_used": [
+      "search_literature"
+    ],
+    "retry_count": 0,
+    "recovery_used": false,
+    "used_literature_chunk_ids": [
+      "paper_pmc6081873_discussion_recommendations_on_weekly_training_fr_001_b980fa26",
+      "paper_pmc12965823_discussion_005_476a6d9d",
+      "paper_pmc12965823_discussion_006_731e2d06"
+    ],
+    "limitations": [
+      "제공된 문헌은 초보자 일반에 대한 직접 비교보다, 훈련 빈도·볼륨·세트 수에 대한 집단 수준 결과를 주로 담고 있습니다.",
+      "문헌마다 대상자(초보자, 훈련자, 젊은 성인 등)와 목표(근력, 근비대)가 달라 한 가지 원칙을 모든 경우에 그대로 적용하기는 어렵습니다.",
+      "주당 세트 수를 늘릴 때의 구체적 증가 폭이나 개인별 조정 기준은 이 자료만으로 확정할 수 없습니다.",
+      "일반 문헌 결과가 개인에게 동일하게 적용된다고 확정할 수 없습니다.",
+      "이 응답은 의료적 진단이나 개인 처방이 아닙니다."
+    ],
+    "latency_ms": 9236.06099999597,
+    "response_metadata": {
+      "response_mode": "debug",
+      "trace": {
+        "version": "query_debug_trace_v1",
+        "request_id": "7b91590fdf6343c183fd5bad07059dba",
+        "interpreter": {
+          "output_summary": {
+            "personal_record_requested": false,
+            "literature_requested": true,
+            "canonical_exercise_name": null,
+            "candidate_exercises": [],
+            "time_condition": {
+              "scope": "unresolved",
+              "start_date": null,
+              "end_date": null
+            },
+            "analyses": [],
+            "candidate_count": 0
+          },
+          "validation": {
+            "status": "ready",
+            "check_id": null,
+            "normalized_summary": {
+              "personal_record_requested": false,
+              "literature_requested": true,
+              "canonical_exercise_name": null,
+              "candidate_exercises": [],
+              "time_condition": {
+                "scope": "unresolved",
+                "start_date": null,
+                "end_date": null
+              },
+              "analyses": [],
+              "candidate_count": 0
+            },
+            "date_mismatch": false,
+            "personal_record_mismatch": false,
+            "record_coverage_status": null
+          }
+        },
+        "initial_queries": {
+          "korean": "근력 운동 초보가 주당 세트 수를 늘릴 때 어떤 원칙을 따르면 좋아?",
+          "english": "What principles should a strength training beginner follow when increasing weekly set volume?",
+          "dense": "What principles should a strength training beginner follow when increasing weekly set volume?",
+          "bm25": "What principles should a strength training beginner follow when increasing weekly set volume?",
+          "step2_fallback": false,
+          "step3_fallback": false
+        },
+        "retrievals": [
+          {
+            "phase": "initial",
+            "attempt": 0,
+            "query": "What principles should a strength training beginner follow when increasing weekly set volume?",
+            "evidence": [
+              {
+                "chunk_id": "paper_pmc6081873_background_003_03a059b3",
+                "paper_id": "paper_pmc6081873",
+                "title": "Weekly Training Frequency Effects on Strength Gain: A Meta-Analysis.",
+                "section": "Background",
+                "rank": 1,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8884877_conclusions_001_1c117287",
+                "paper_id": "paper_pmc8884877",
+                "title": "A Systematic Review of The Effects of Different Resistance Training Volumes on Muscle Hypertrophy.",
+                "section": "Conclusions",
+                "rank": 2,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6303131_conclusions_001_1016bba2",
+                "paper_id": "paper_pmc6303131",
+                "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+                "section": "CONCLUSIONS",
+                "rank": 3,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc11239729_discussion_007_01077b25",
+                "paper_id": "paper_pmc11239729",
+                "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+                "section": "Discussion",
+                "rank": 4,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc11239729_discussion_008_28d984c7",
+                "paper_id": "paper_pmc11239729",
+                "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+                "section": "Discussion",
+                "rank": 5,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6303131_body_001_1422b029",
+                "paper_id": "paper_pmc6303131",
+                "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+                "section": "Body",
+                "rank": 6,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc12965823_discussion_005_476a6d9d",
+                "paper_id": "paper_pmc12965823",
+                "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+                "section": "DISCUSSION",
+                "rank": 7,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc12965823_discussion_006_731e2d06",
+                "paper_id": "paper_pmc12965823",
+                "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+                "section": "DISCUSSION",
+                "rank": 8,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6081873_discussion_recommendations_on_weekly_training_fr_001_b980fa26",
+                "paper_id": "paper_pmc6081873",
+                "title": "Weekly Training Frequency Effects on Strength Gain: A Meta-Analysis.",
+                "section": "Discussion > Recommendations on Weekly Training Frequency",
+                "rank": 9,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6303131_discussion_section_muscle_strength_001_3c752a7a",
+                "paper_id": "paper_pmc6303131",
+                "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+                "section": "DISCUSSION > section > Muscle strength",
+                "rank": 10,
+                "fusion_score": null,
+                "sources": []
+              }
+            ]
+          }
+        ],
+        "graders": [
+          {
+            "attempt": 0,
+            "query": "What principles should a strength training beginner follow when increasing weekly set volume?",
+            "execution_status": "completed",
+            "evidence_sufficient": true,
+            "components": [
+              {
+                "component_id": "C1",
+                "requirement": "근력 운동 초보가 주당 세트 수를 늘릴 때 따라야 할 원칙",
+                "status": "supported",
+                "supporting_chunk_ids": [
+                  "paper_pmc6081873_discussion_recommendations_on_weekly_training_fr_001_b980fa26",
+                  "paper_pmc12965823_discussion_005_476a6d9d",
+                  "paper_pmc12965823_discussion_006_731e2d06",
+                  "paper_pmc8884877_conclusions_001_1c117287",
+                  "paper_pmc11239729_discussion_007_01077b25"
+                ]
+              }
+            ],
+            "missing_components": [],
+            "supplied_evidence": [
+              {
+                "chunk_id": "paper_pmc6081873_background_003_03a059b3",
+                "paper_id": "paper_pmc6081873",
+                "title": "Weekly Training Frequency Effects on Strength Gain: A Meta-Analysis.",
+                "section": "Background",
+                "rank": 1,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc8884877_conclusions_001_1c117287",
+                "paper_id": "paper_pmc8884877",
+                "title": "A Systematic Review of The Effects of Different Resistance Training Volumes on Muscle Hypertrophy.",
+                "section": "Conclusions",
+                "rank": 2,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6303131_conclusions_001_1016bba2",
+                "paper_id": "paper_pmc6303131",
+                "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+                "section": "CONCLUSIONS",
+                "rank": 3,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc11239729_discussion_007_01077b25",
+                "paper_id": "paper_pmc11239729",
+                "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+                "section": "Discussion",
+                "rank": 4,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc11239729_discussion_008_28d984c7",
+                "paper_id": "paper_pmc11239729",
+                "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+                "section": "Discussion",
+                "rank": 5,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6303131_body_001_1422b029",
+                "paper_id": "paper_pmc6303131",
+                "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+                "section": "Body",
+                "rank": 6,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc12965823_discussion_005_476a6d9d",
+                "paper_id": "paper_pmc12965823",
+                "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+                "section": "DISCUSSION",
+                "rank": 7,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc12965823_discussion_006_731e2d06",
+                "paper_id": "paper_pmc12965823",
+                "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+                "section": "DISCUSSION",
+                "rank": 8,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6081873_discussion_recommendations_on_weekly_training_fr_001_b980fa26",
+                "paper_id": "paper_pmc6081873",
+                "title": "Weekly Training Frequency Effects on Strength Gain: A Meta-Analysis.",
+                "section": "Discussion > Recommendations on Weekly Training Frequency",
+                "rank": 9,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6303131_discussion_section_muscle_strength_001_3c752a7a",
+                "paper_id": "paper_pmc6303131",
+                "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+                "section": "DISCUSSION > section > Muscle strength",
+                "rank": 10,
+                "fusion_score": null,
+                "sources": []
+              }
+            ]
+          }
+        ],
+        "recovery": [],
+        "fusions": [],
+        "final_evidence": [
+          {
+            "chunk_id": "paper_pmc6081873_background_003_03a059b3",
+            "paper_id": "paper_pmc6081873",
+            "title": "Weekly Training Frequency Effects on Strength Gain: A Meta-Analysis.",
+            "section": "Background",
+            "rank": 1,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8884877_conclusions_001_1c117287",
+            "paper_id": "paper_pmc8884877",
+            "title": "A Systematic Review of The Effects of Different Resistance Training Volumes on Muscle Hypertrophy.",
+            "section": "Conclusions",
+            "rank": 2,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6303131_conclusions_001_1016bba2",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "CONCLUSIONS",
+            "rank": 3,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc11239729_discussion_007_01077b25",
+            "paper_id": "paper_pmc11239729",
+            "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+            "section": "Discussion",
+            "rank": 4,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc11239729_discussion_008_28d984c7",
+            "paper_id": "paper_pmc11239729",
+            "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+            "section": "Discussion",
+            "rank": 5,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6303131_body_001_1422b029",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "Body",
+            "rank": 6,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc12965823_discussion_005_476a6d9d",
+            "paper_id": "paper_pmc12965823",
+            "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+            "section": "DISCUSSION",
+            "rank": 7,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc12965823_discussion_006_731e2d06",
+            "paper_id": "paper_pmc12965823",
+            "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+            "section": "DISCUSSION",
+            "rank": 8,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6081873_discussion_recommendations_on_weekly_training_fr_001_b980fa26",
+            "paper_id": "paper_pmc6081873",
+            "title": "Weekly Training Frequency Effects on Strength Gain: A Meta-Analysis.",
+            "section": "Discussion > Recommendations on Weekly Training Frequency",
+            "rank": 9,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6303131_discussion_section_muscle_strength_001_3c752a7a",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "DISCUSSION > section > Muscle strength",
+            "rank": 10,
+            "fusion_score": null,
+            "sources": []
+          }
+        ]
+      }
+    }
+  },
+  "final_status": "answer_ready",
+  "trace": {
+    "version": "query_debug_trace_v1",
+    "request_id": "7b91590fdf6343c183fd5bad07059dba",
+    "interpreter": {
+      "output_summary": {
+        "personal_record_requested": false,
+        "literature_requested": true,
+        "canonical_exercise_name": null,
+        "candidate_exercises": [],
+        "time_condition": {
+          "scope": "unresolved",
+          "start_date": null,
+          "end_date": null
+        },
+        "analyses": [],
+        "candidate_count": 0
+      },
+      "validation": {
+        "status": "ready",
+        "check_id": null,
+        "normalized_summary": {
+          "personal_record_requested": false,
+          "literature_requested": true,
+          "canonical_exercise_name": null,
+          "candidate_exercises": [],
+          "time_condition": {
+            "scope": "unresolved",
+            "start_date": null,
+            "end_date": null
+          },
+          "analyses": [],
+          "candidate_count": 0
+        },
+        "date_mismatch": false,
+        "personal_record_mismatch": false,
+        "record_coverage_status": null
+      }
+    },
+    "initial_queries": {
+      "korean": "근력 운동 초보가 주당 세트 수를 늘릴 때 어떤 원칙을 따르면 좋아?",
+      "english": "What principles should a strength training beginner follow when increasing weekly set volume?",
+      "dense": "What principles should a strength training beginner follow when increasing weekly set volume?",
+      "bm25": "What principles should a strength training beginner follow when increasing weekly set volume?",
+      "step2_fallback": false,
+      "step3_fallback": false
+    },
+    "retrievals": [
+      {
+        "phase": "initial",
+        "attempt": 0,
+        "query": "What principles should a strength training beginner follow when increasing weekly set volume?",
+        "evidence": [
+          {
+            "chunk_id": "paper_pmc6081873_background_003_03a059b3",
+            "paper_id": "paper_pmc6081873",
+            "title": "Weekly Training Frequency Effects on Strength Gain: A Meta-Analysis.",
+            "section": "Background",
+            "rank": 1,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8884877_conclusions_001_1c117287",
+            "paper_id": "paper_pmc8884877",
+            "title": "A Systematic Review of The Effects of Different Resistance Training Volumes on Muscle Hypertrophy.",
+            "section": "Conclusions",
+            "rank": 2,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6303131_conclusions_001_1016bba2",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "CONCLUSIONS",
+            "rank": 3,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc11239729_discussion_007_01077b25",
+            "paper_id": "paper_pmc11239729",
+            "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+            "section": "Discussion",
+            "rank": 4,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc11239729_discussion_008_28d984c7",
+            "paper_id": "paper_pmc11239729",
+            "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+            "section": "Discussion",
+            "rank": 5,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6303131_body_001_1422b029",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "Body",
+            "rank": 6,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc12965823_discussion_005_476a6d9d",
+            "paper_id": "paper_pmc12965823",
+            "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+            "section": "DISCUSSION",
+            "rank": 7,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc12965823_discussion_006_731e2d06",
+            "paper_id": "paper_pmc12965823",
+            "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+            "section": "DISCUSSION",
+            "rank": 8,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6081873_discussion_recommendations_on_weekly_training_fr_001_b980fa26",
+            "paper_id": "paper_pmc6081873",
+            "title": "Weekly Training Frequency Effects on Strength Gain: A Meta-Analysis.",
+            "section": "Discussion > Recommendations on Weekly Training Frequency",
+            "rank": 9,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6303131_discussion_section_muscle_strength_001_3c752a7a",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "DISCUSSION > section > Muscle strength",
+            "rank": 10,
+            "fusion_score": null,
+            "sources": []
+          }
+        ]
+      }
+    ],
+    "graders": [
+      {
+        "attempt": 0,
+        "query": "What principles should a strength training beginner follow when increasing weekly set volume?",
+        "execution_status": "completed",
+        "evidence_sufficient": true,
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "근력 운동 초보가 주당 세트 수를 늘릴 때 따라야 할 원칙",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc6081873_discussion_recommendations_on_weekly_training_fr_001_b980fa26",
+              "paper_pmc12965823_discussion_005_476a6d9d",
+              "paper_pmc12965823_discussion_006_731e2d06",
+              "paper_pmc8884877_conclusions_001_1c117287",
+              "paper_pmc11239729_discussion_007_01077b25"
+            ]
+          }
+        ],
+        "missing_components": [],
+        "supplied_evidence": [
+          {
+            "chunk_id": "paper_pmc6081873_background_003_03a059b3",
+            "paper_id": "paper_pmc6081873",
+            "title": "Weekly Training Frequency Effects on Strength Gain: A Meta-Analysis.",
+            "section": "Background",
+            "rank": 1,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc8884877_conclusions_001_1c117287",
+            "paper_id": "paper_pmc8884877",
+            "title": "A Systematic Review of The Effects of Different Resistance Training Volumes on Muscle Hypertrophy.",
+            "section": "Conclusions",
+            "rank": 2,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6303131_conclusions_001_1016bba2",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "CONCLUSIONS",
+            "rank": 3,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc11239729_discussion_007_01077b25",
+            "paper_id": "paper_pmc11239729",
+            "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+            "section": "Discussion",
+            "rank": 4,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc11239729_discussion_008_28d984c7",
+            "paper_id": "paper_pmc11239729",
+            "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+            "section": "Discussion",
+            "rank": 5,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6303131_body_001_1422b029",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "Body",
+            "rank": 6,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc12965823_discussion_005_476a6d9d",
+            "paper_id": "paper_pmc12965823",
+            "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+            "section": "DISCUSSION",
+            "rank": 7,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc12965823_discussion_006_731e2d06",
+            "paper_id": "paper_pmc12965823",
+            "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+            "section": "DISCUSSION",
+            "rank": 8,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6081873_discussion_recommendations_on_weekly_training_fr_001_b980fa26",
+            "paper_id": "paper_pmc6081873",
+            "title": "Weekly Training Frequency Effects on Strength Gain: A Meta-Analysis.",
+            "section": "Discussion > Recommendations on Weekly Training Frequency",
+            "rank": 9,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6303131_discussion_section_muscle_strength_001_3c752a7a",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "DISCUSSION > section > Muscle strength",
+            "rank": 10,
+            "fusion_score": null,
+            "sources": []
+          }
+        ]
+      }
+    ],
+    "recovery": [],
+    "fusions": [],
+    "final_evidence": [
+      {
+        "chunk_id": "paper_pmc6081873_background_003_03a059b3",
+        "paper_id": "paper_pmc6081873",
+        "title": "Weekly Training Frequency Effects on Strength Gain: A Meta-Analysis.",
+        "section": "Background",
+        "rank": 1,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc8884877_conclusions_001_1c117287",
+        "paper_id": "paper_pmc8884877",
+        "title": "A Systematic Review of The Effects of Different Resistance Training Volumes on Muscle Hypertrophy.",
+        "section": "Conclusions",
+        "rank": 2,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc6303131_conclusions_001_1016bba2",
+        "paper_id": "paper_pmc6303131",
+        "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+        "section": "CONCLUSIONS",
+        "rank": 3,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc11239729_discussion_007_01077b25",
+        "paper_id": "paper_pmc11239729",
+        "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+        "section": "Discussion",
+        "rank": 4,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc11239729_discussion_008_28d984c7",
+        "paper_id": "paper_pmc11239729",
+        "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+        "section": "Discussion",
+        "rank": 5,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc6303131_body_001_1422b029",
+        "paper_id": "paper_pmc6303131",
+        "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+        "section": "Body",
+        "rank": 6,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc12965823_discussion_005_476a6d9d",
+        "paper_id": "paper_pmc12965823",
+        "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+        "section": "DISCUSSION",
+        "rank": 7,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc12965823_discussion_006_731e2d06",
+        "paper_id": "paper_pmc12965823",
+        "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+        "section": "DISCUSSION",
+        "rank": 8,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc6081873_discussion_recommendations_on_weekly_training_fr_001_b980fa26",
+        "paper_id": "paper_pmc6081873",
+        "title": "Weekly Training Frequency Effects on Strength Gain: A Meta-Analysis.",
+        "section": "Discussion > Recommendations on Weekly Training Frequency",
+        "rank": 9,
+        "fusion_score": null,
+        "sources": []
+      },
+      {
+        "chunk_id": "paper_pmc6303131_discussion_section_muscle_strength_001_3c752a7a",
+        "paper_id": "paper_pmc6303131",
+        "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+        "section": "DISCUSSION > section > Muscle strength",
+        "rank": 10,
+        "fusion_score": null,
+        "sources": []
+      }
+    ]
+  },
+  "latency_ms": 9250.607100002526,
+  "llm_events": [
+    {
+      "stage": "interpreter",
+      "method": "parse",
+      "started_at_utc": "2026-10-15T17:00:10.103408+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 2689,
+        "cached_input_tokens": 1792,
+        "output_tokens": 131,
+        "total_tokens": 2820,
+        "estimated_cost_usd": 0.00139665
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 1545.1752000008128
+    },
+    {
+      "stage": "step2",
+      "method": "parse",
+      "started_at_utc": "2026-10-15T17:00:11.745436+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 683,
+        "cached_input_tokens": 0,
+        "output_tokens": 43,
+        "total_tokens": 726,
+        "estimated_cost_usd": 0.00070575
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 1091.0524999999325
+    },
+    {
+      "stage": "step3",
+      "method": "parse",
+      "started_at_utc": "2026-10-15T17:00:12.835922+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 451,
+        "cached_input_tokens": 0,
+        "output_tokens": 28,
+        "total_tokens": 479,
+        "estimated_cost_usd": 0.00046425
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 966.5913999997429
+    },
+    {
+      "stage": "grader",
+      "method": "create",
+      "started_at_utc": "2026-10-15T17:00:13.908274+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 6149,
+        "cached_input_tokens": 0,
+        "output_tokens": 145,
+        "total_tokens": 6294,
+        "estimated_cost_usd": 0.00526425
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 1485.9805000014603
+    },
+    {
+      "stage": "answer",
+      "method": "create",
+      "started_at_utc": "2026-10-15T17:00:15.399877+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 7754,
+        "cached_input_tokens": 0,
+        "output_tokens": 412,
+        "total_tokens": 8166,
+        "estimated_cost_usd": 0.0076695
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 3693.6082000029273
+    }
+  ],
+  "usage": {
+    "calls": 5,
+    "by_stage": {
+      "interpreter": 1,
+      "step2": 1,
+      "step3": 1,
+      "grader": 1,
+      "answer": 1
+    },
+    "input_tokens": 17726,
+    "cached_input_tokens": 1792,
+    "output_tokens": 759,
+    "total_tokens": 18485,
+    "estimated_cost_usd": 0.0155004,
+    "actual_cost_usd": null,
+    "actual_cost_status": "provider_billing_not_supplied",
+    "usage_unavailable_calls": 0,
+    "known_subtotals": {
+      "input_tokens": 17726,
+      "cached_input_tokens": 1792,
+      "output_tokens": 759,
+      "total_tokens": 18485,
+      "estimated_cost_usd": 0.0155004
+    }
+  },
+  "scoring_state": {
+    "question_interpretation": {
+      "personal_record_requested": false,
+      "literature_requested": true,
+      "exercise_mention": null,
+      "canonical_exercise_name": null,
+      "exercise_resolution_status": "not_found",
+      "candidate_exercises": [],
+      "time_condition": {
+        "scope": "unresolved",
+        "start_date": null,
+        "end_date": null,
+        "source_text": ""
+      },
+      "record_operation": null,
+      "session_id": null,
+      "requested_analyses": [],
+      "literature_subquestion": "근력 운동 초보가 주당 세트 수를 늘릴 때 어떤 원칙을 따르면 좋아?",
+      "user_assumptions": [],
+      "unresolved_fields": [],
+      "clarification_required": false,
+      "schema_version": "question_interpretation_phase_a_v1",
+      "parsing_source": "llm",
+      "original_question": "근력 운동 초보가 주당 세트 수를 늘릴 때 어떤 원칙을 따르면 좋아?",
+      "normalized_question": "근력 운동 초보가 주당 세트 수를 늘릴 때 어떤 원칙을 따르면 좋아?",
+      "applied_policies": [],
+      "personal_record_normalization": {
+        "supplied_value": false,
+        "derived_value": false,
+        "mismatch": false,
+        "signals": []
+      },
+      "date_range_normalization": null,
+      "date_validation": null
+    },
+    "interpretation_trace": {
+      "execution_status": "ready",
+      "error_code": null,
+      "provider": {
+        "model": "gpt-5.4-mini-2026-03-17",
+        "prompt_sha256": "d87e4a2373a8601af0cf30a3714a2a8f593ea921f551999f6ab5a15754475db0",
+        "config_sha256": "e45ea74e43c6ed8dd87e38705cf5a7949533bad9038f0978d2faf927d8ebb979",
+        "api_requests": 1,
+        "latency_ms": 1559.3231999955606,
+        "usage": {
+          "input_tokens": 2689,
+          "cached_input_tokens": 1792,
+          "output_tokens": 131,
+          "total_tokens": 2820,
+          "estimated_cost_usd": 0.00139665
+        },
+        "raw_interpretation": {
+          "personal_record_requested": false,
+          "literature_requested": true,
+          "exercise_mention": null,
+          "canonical_exercise_name": null,
+          "exercise_resolution_status": null,
+          "candidate_exercises": [],
+          "time_condition": {
+            "scope": "unresolved",
+            "start_date": null,
+            "end_date": null,
+            "source_text": ""
+          },
+          "record_operation": null,
+          "session_id": null,
+          "requested_analyses": [],
+          "literature_subquestion": "근력 운동 초보가 주당 세트 수를 늘릴 때 어떤 원칙을 따르면 좋아?",
+          "user_assumptions": [],
+          "unresolved_fields": [],
+          "clarification_required": false
+        },
+        "error": null
+      }
+    },
+    "final_response": {
+      "final_status": "answer_ready",
+      "provenance": {
+        "response_metadata": {
+          "response_received": true,
+          "id": "resp_0821bcc6276da365016ad1069f20ac87d087fbbb49c880e820",
+          "status": "completed",
+          "service_tier": "default"
+        }
+      }
+    },
+    "final_status": "answer_ready",
+    "tool_results": [
+      {
+        "tool": "search_literature",
+        "status": "success",
+        "requested_operation": "search"
+      }
+    ],
+    "route": {
+      "router_version": "interpretation_router_phase_a_v1",
+      "status": "planned",
+      "route": "literature_only",
+      "task_type": "literature_only",
+      "selected_tools": [
+        "search_literature"
+      ],
+      "execution_order": [
+        "search_literature"
+      ],
+      "routing_reason": "Deterministic mapping of validated interpretation channels; confidence is rule mapping, not semantic accuracy.",
+      "confidence": 1.0,
+      "rule_match": {
+        "rule_id": "I-literature_only",
+        "normalized_question": "근력 운동 초보가 주당 세트 수를 늘릴 때 어떤 원칙을 따르면 좋아?",
+        "signals": {
+          "structured_log": false,
+          "metric": false,
+          "literature": true
+        },
+        "matched_patterns": {}
+      },
+      "unsupported_reason": null,
+      "error": null
+    },
+    "selected_tools": [
+      "search_literature"
+    ],
+    "errors": []
+  },
+  "actual_tools": [
+    {
+      "tool": "search_literature",
+      "status": "success",
+      "requested_operation": "search"
+    }
+  ],
+  "transport_error_type": null,
+  "execution_error": false,
+  "completed_at_utc": "2026-10-15T17:00:19.107632+00:00",
+  "response_bytes_sha256": "a775dc89e1f7a74a07d01bf420318ad467abc73f6ae7672c9552b3f0e2373441"
+}

@@ -1,0 +1,15 @@
+{
+  "verified_at_utc": "2026-10-15T17:14:15.236123+00:00",
+  "protected_files": 1461,
+  "protected_changed": [],
+  "frozen_input_files_unchanged": 5,
+  "raw_requests": 60,
+  "raw_response_bytes_unchanged": true,
+  "acceptance_and_regression_analysis_unchanged": true,
+  "runner_scorer_unchanged": true,
+  "secret_scan": {
+    "files_checked": 228,
+    "secret_matches": 0,
+    "values_or_hashes_saved": false
+  }
+}

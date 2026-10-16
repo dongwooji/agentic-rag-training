@@ -1,0 +1,493 @@
+{
+  "case_id": "T15",
+  "pair_id": "historical-diagnostic-T15",
+  "sequence": 15,
+  "request_json": {
+    "question": "지난 기록 중에 운동 제일 오래 쉬었던 기간이 얼마야?",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T17:11:36.758195+00:00",
+  "http_status": 200,
+  "response": {
+    "final_status": "abstain_ready",
+    "answer_text": "다음 내용을 확인해주세요:\n- 어떤 운동 기록을 볼까요? 운동명과 장비·그립을 알려주세요.",
+    "route": "ambiguous",
+    "tools_used": [],
+    "retry_count": 0,
+    "recovery_used": false,
+    "used_literature_chunk_ids": [],
+    "limitations": [
+      "필요한 조건을 추측하지 않았으며 Tool을 실행하지 않았습니다."
+    ],
+    "latency_ms": 2372.4319000029936,
+    "response_metadata": {
+      "response_mode": "clarification_required",
+      "clarification_required": true,
+      "options": [],
+      "trace": {
+        "version": "query_debug_trace_v1",
+        "request_id": "883d9e827bea4df8812c190006cd5cb7",
+        "interpreter": {
+          "output_summary": {
+            "personal_record_requested": true,
+            "literature_requested": false,
+            "canonical_exercise_name": null,
+            "candidate_exercises": [],
+            "time_condition": {
+              "scope": "all_records",
+              "start_date": null,
+              "end_date": null
+            },
+            "analyses": [
+              "training_gap"
+            ],
+            "candidate_count": 0
+          },
+          "validation": {
+            "status": "clarification_required",
+            "check_id": null,
+            "normalized_summary": {
+              "personal_record_requested": true,
+              "literature_requested": false,
+              "canonical_exercise_name": null,
+              "candidate_exercises": [],
+              "time_condition": {
+                "scope": "all_records",
+                "start_date": null,
+                "end_date": null
+              },
+              "analyses": [
+                "training_gap"
+              ],
+              "candidate_count": 0
+            },
+            "date_mismatch": false,
+            "personal_record_mismatch": false,
+            "record_coverage_status": null
+          },
+          "phase_a": {
+            "version": "phase_a_semantics_v1",
+            "parsing_source": "llm",
+            "evidence_need": {
+              "status": "resolved",
+              "answer_type": "descriptive",
+              "literature_needed_for_answer": false,
+              "explicit_literature_request": "none",
+              "required_sources": [
+                "training_records"
+              ],
+              "optional_sources": [],
+              "source_spans": [
+                "지난 기록 중에",
+                "운동 제일 오래 쉬었던 기간이 얼마야?"
+              ],
+              "unresolved_fields": []
+            },
+            "argument_resolution": {
+              "status": "clarification_required",
+              "unresolved_fields": [
+                "canonical_exercise_name"
+              ]
+            },
+            "default_time_window": {
+              "applied": false,
+              "policy": null,
+              "trigger": null,
+              "recent_window_weeks": null,
+              "anchor_date": null,
+              "start_date": null,
+              "end_date": null
+            },
+            "scope": {
+              "out_of_scope": false,
+              "reason_code": null
+            }
+          }
+        },
+        "initial_queries": {
+          "korean": null,
+          "english": null,
+          "dense": null,
+          "bm25": null,
+          "step2_fallback": null,
+          "step3_fallback": null
+        },
+        "retrievals": [],
+        "graders": [],
+        "recovery": [],
+        "fusions": [],
+        "final_evidence": []
+      }
+    }
+  },
+  "final_status": "abstain_ready",
+  "trace": {
+    "version": "query_debug_trace_v1",
+    "request_id": "883d9e827bea4df8812c190006cd5cb7",
+    "interpreter": {
+      "output_summary": {
+        "personal_record_requested": true,
+        "literature_requested": false,
+        "canonical_exercise_name": null,
+        "candidate_exercises": [],
+        "time_condition": {
+          "scope": "all_records",
+          "start_date": null,
+          "end_date": null
+        },
+        "analyses": [
+          "training_gap"
+        ],
+        "candidate_count": 0
+      },
+      "validation": {
+        "status": "clarification_required",
+        "check_id": null,
+        "normalized_summary": {
+          "personal_record_requested": true,
+          "literature_requested": false,
+          "canonical_exercise_name": null,
+          "candidate_exercises": [],
+          "time_condition": {
+            "scope": "all_records",
+            "start_date": null,
+            "end_date": null
+          },
+          "analyses": [
+            "training_gap"
+          ],
+          "candidate_count": 0
+        },
+        "date_mismatch": false,
+        "personal_record_mismatch": false,
+        "record_coverage_status": null
+      },
+      "phase_a": {
+        "version": "phase_a_semantics_v1",
+        "parsing_source": "llm",
+        "evidence_need": {
+          "status": "resolved",
+          "answer_type": "descriptive",
+          "literature_needed_for_answer": false,
+          "explicit_literature_request": "none",
+          "required_sources": [
+            "training_records"
+          ],
+          "optional_sources": [],
+          "source_spans": [
+            "지난 기록 중에",
+            "운동 제일 오래 쉬었던 기간이 얼마야?"
+          ],
+          "unresolved_fields": []
+        },
+        "argument_resolution": {
+          "status": "clarification_required",
+          "unresolved_fields": [
+            "canonical_exercise_name"
+          ]
+        },
+        "default_time_window": {
+          "applied": false,
+          "policy": null,
+          "trigger": null,
+          "recent_window_weeks": null,
+          "anchor_date": null,
+          "start_date": null,
+          "end_date": null
+        },
+        "scope": {
+          "out_of_scope": false,
+          "reason_code": null
+        }
+      }
+    },
+    "initial_queries": {
+      "korean": null,
+      "english": null,
+      "dense": null,
+      "bm25": null,
+      "step2_fallback": null,
+      "step3_fallback": null
+    },
+    "retrievals": [],
+    "graders": [],
+    "recovery": [],
+    "fusions": [],
+    "final_evidence": []
+  },
+  "latency_ms": 2385.5806999999913,
+  "llm_events": [
+    {
+      "stage": "interpreter",
+      "method": "parse",
+      "started_at_utc": "2026-10-15T17:11:36.974898+00:00",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "usage_available": true,
+      "usage": {
+        "input_tokens": 3343,
+        "cached_input_tokens": 2304,
+        "output_tokens": 209,
+        "total_tokens": 3552,
+        "estimated_cost_usd": 0.00189255
+      },
+      "exception_type": null,
+      "pricing_snapshot": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "output": 4.5
+      },
+      "response_received": true,
+      "response_status": "completed",
+      "latency_ms": 2156.301799994253
+    }
+  ],
+  "usage": {
+    "calls": 1,
+    "by_stage": {
+      "interpreter": 1
+    },
+    "input_tokens": 3343,
+    "cached_input_tokens": 2304,
+    "output_tokens": 209,
+    "total_tokens": 3552,
+    "estimated_cost_usd": 0.00189255,
+    "actual_cost_usd": null,
+    "actual_cost_status": "provider_billing_not_supplied",
+    "usage_unavailable_calls": 0,
+    "known_subtotals": {
+      "input_tokens": 3343,
+      "cached_input_tokens": 2304,
+      "output_tokens": 209,
+      "total_tokens": 3552,
+      "estimated_cost_usd": 0.00189255
+    }
+  },
+  "scoring_state": {
+    "question_interpretation": {
+      "personal_record_requested": true,
+      "literature_requested": false,
+      "exercise_mention": "운동",
+      "canonical_exercise_name": null,
+      "exercise_resolution_status": "not_found",
+      "candidate_exercises": [],
+      "time_condition": {
+        "scope": "all_records",
+        "start_date": null,
+        "end_date": null,
+        "source_text": ""
+      },
+      "record_operation": "list_sessions",
+      "session_id": null,
+      "requested_analyses": [
+        {
+          "operation": "training_gap",
+          "n_sessions": null,
+          "source_text": "운동 제일 오래 쉬었던 기간"
+        }
+      ],
+      "literature_subquestion": null,
+      "user_assumptions": [],
+      "unresolved_fields": [
+        {
+          "field": "canonical_exercise_name",
+          "reason": "조회할 운동의 종류 또는 변형을 명확히 지정해주세요."
+        }
+      ],
+      "clarification_required": true,
+      "schema_version": "question_interpretation_phase_a_v1",
+      "parsing_source": "llm",
+      "original_question": "지난 기록 중에 운동 제일 오래 쉬었던 기간이 얼마야?",
+      "normalized_question": "지난 기록 중에 운동 제일 오래 쉬었던 기간이 얼마야?",
+      "applied_policies": [
+        "omitted_period_means_all_stored_records_v1"
+      ],
+      "personal_record_normalization": {
+        "supplied_value": true,
+        "derived_value": true,
+        "mismatch": false,
+        "signals": [
+          "record_operation",
+          "requested_analyses",
+          "evidence_need"
+        ]
+      },
+      "date_range_normalization": null,
+      "date_validation": null,
+      "phase_a_semantics": {
+        "version": "phase_a_semantics_v1",
+        "parsing_source": "llm",
+        "evidence_need": {
+          "status": "resolved",
+          "answer_type": "descriptive",
+          "literature_needed_for_answer": false,
+          "explicit_literature_request": "none",
+          "required_sources": [
+            "training_records"
+          ],
+          "optional_sources": [],
+          "source_spans": [
+            "지난 기록 중에",
+            "운동 제일 오래 쉬었던 기간이 얼마야?"
+          ],
+          "unresolved_fields": []
+        },
+        "argument_resolution": {
+          "status": "clarification_required",
+          "unresolved_fields": [
+            "canonical_exercise_name"
+          ]
+        },
+        "default_time_window": {
+          "applied": false,
+          "policy": null,
+          "trigger": null,
+          "recent_window_weeks": null,
+          "anchor_date": null,
+          "start_date": null,
+          "end_date": null
+        },
+        "scope": {
+          "out_of_scope": false,
+          "reason_code": null
+        }
+      }
+    },
+    "interpretation_trace": {
+      "execution_status": "clarification_required",
+      "error_code": null,
+      "phase_a_semantics": {
+        "version": "phase_a_semantics_v1",
+        "parsing_source": "llm",
+        "evidence_need": {
+          "status": "resolved",
+          "answer_type": "descriptive",
+          "literature_needed_for_answer": false,
+          "explicit_literature_request": "none",
+          "required_sources": [
+            "training_records"
+          ],
+          "optional_sources": [],
+          "source_spans": [
+            "지난 기록 중에",
+            "운동 제일 오래 쉬었던 기간이 얼마야?"
+          ],
+          "unresolved_fields": []
+        },
+        "argument_resolution": {
+          "status": "clarification_required",
+          "unresolved_fields": [
+            "canonical_exercise_name"
+          ]
+        },
+        "default_time_window": {
+          "applied": false,
+          "policy": null,
+          "trigger": null,
+          "recent_window_weeks": null,
+          "anchor_date": null,
+          "start_date": null,
+          "end_date": null
+        },
+        "scope": {
+          "out_of_scope": false,
+          "reason_code": null
+        }
+      },
+      "provider": {
+        "model": "gpt-5.4-mini-2026-03-17",
+        "prompt_sha256": "6f327f7bbfbf18b1acc3c60675c2934ccc01150e1d1fc93ed958894a017fd802",
+        "config_sha256": "66fb343b0cb58ff17e9a926939539404ba025e2ad8a59b91bcde7f6b4c8a225b",
+        "api_requests": 1,
+        "latency_ms": 2172.0314000049257,
+        "usage": {
+          "input_tokens": 3343,
+          "cached_input_tokens": 2304,
+          "output_tokens": 209,
+          "total_tokens": 3552,
+          "estimated_cost_usd": 0.00189255
+        },
+        "raw_interpretation": {
+          "personal_record_requested": true,
+          "literature_requested": false,
+          "exercise_mention": "운동",
+          "canonical_exercise_name": null,
+          "exercise_resolution_status": "not_found",
+          "candidate_exercises": [],
+          "time_condition": {
+            "scope": "all_records",
+            "start_date": null,
+            "end_date": null,
+            "source_text": ""
+          },
+          "record_operation": "list_sessions",
+          "session_id": null,
+          "requested_analyses": [
+            {
+              "operation": "training_gap",
+              "n_sessions": null,
+              "source_text": "운동 제일 오래 쉬었던 기간"
+            }
+          ],
+          "literature_subquestion": null,
+          "user_assumptions": [],
+          "unresolved_fields": [],
+          "clarification_required": false,
+          "evidence_need": {
+            "answer_type": "descriptive",
+            "training_records_needed": true,
+            "literature_needed_for_answer": false,
+            "explicit_literature_request": "none",
+            "source_spans": [
+              "지난 기록 중에",
+              "운동 제일 오래 쉬었던 기간이 얼마야?"
+            ],
+            "purpose_unresolved": false,
+            "requires_current_window": false,
+            "out_of_scope_reason": null
+          }
+        },
+        "error": null
+      }
+    },
+    "final_response": {
+      "final_status": "abstain_ready",
+      "provenance": {
+        "response_metadata": {
+          "response_mode": "clarification_required",
+          "clarification_required": true
+        }
+      }
+    },
+    "final_status": "abstain_ready",
+    "tool_results": [],
+    "route": {
+      "router_version": "interpretation_router_phase_a_v1",
+      "status": "ambiguous",
+      "route": "ambiguous",
+      "task_type": "ambiguous",
+      "selected_tools": [],
+      "execution_order": [],
+      "routing_reason": "Deterministic mapping of validated interpretation channels; confidence is rule mapping, not semantic accuracy.",
+      "confidence": 1.0,
+      "rule_match": {
+        "rule_id": "I-ambiguous",
+        "normalized_question": "지난 기록 중에 운동 제일 오래 쉬었던 기간이 얼마야?",
+        "signals": {
+          "structured_log": true,
+          "metric": true,
+          "literature": false
+        },
+        "matched_patterns": {}
+      },
+      "unsupported_reason": "질문 조건 확인이 필요합니다.",
+      "error": null
+    },
+    "selected_tools": [],
+    "errors": []
+  },
+  "actual_tools": [],
+  "transport_error_type": null,
+  "execution_error": false,
+  "completed_at_utc": "2026-10-15T17:11:39.151401+00:00",
+  "response_bytes_sha256": "41d31d8eba3b5c05c435e314ce0a358f0fb29a11bffbc4a9b2803debf59844cf"
+}

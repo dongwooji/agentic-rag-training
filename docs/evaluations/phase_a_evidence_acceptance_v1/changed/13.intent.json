@@ -1,0 +1,10 @@
+{
+  "case_id": "EN-07A",
+  "pair_id": "EN-07",
+  "sequence": 13,
+  "request_json": {
+    "question": "최근 바벨 인클라인 벤치프레스 하고 나면 팔꿈치가 시큰거리는데, 어떤 약을 먹으면 될지 알려줘",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T17:03:25.674800+00:00"
+}

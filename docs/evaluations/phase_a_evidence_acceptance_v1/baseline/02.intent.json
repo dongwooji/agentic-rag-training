@@ -1,0 +1,10 @@
+{
+  "case_id": "EN-01B",
+  "pair_id": "EN-01",
+  "sequence": 2,
+  "request_json": {
+    "question": "2017년 바벨 인클라인 벤치프레스 주별 볼륨, 근비대가 목표였다면 모자라진 않았어?",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T16:58:48.879088+00:00"
+}

@@ -1,0 +1,10 @@
+{
+  "case_id": "EN-09B",
+  "pair_id": "EN-09",
+  "sequence": 18,
+  "request_json": {
+    "question": "2018년 9월에 중량 딥스 볼륨을 줄였는데, 그게 근육 유지에 문제가 될 수 있을까?",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T17:00:06.566704+00:00"
+}

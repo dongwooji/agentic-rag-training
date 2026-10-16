@@ -1,0 +1,10 @@
+{
+  "case_id": "T07",
+  "pair_id": "historical-diagnostic-T07",
+  "sequence": 7,
+  "request_json": {
+    "question": "인클라인 벤치 무게가 플랫 벤치보다 훨씬 덜 오르는데, 내 기록으로 두 운동 비교해주고 원인이 될 만한 게 뭔지 알려줘",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T17:10:45.461796+00:00"
+}

@@ -1,0 +1,10 @@
+{
+  "case_id": "T04",
+  "pair_id": "historical-diagnostic-T04",
+  "sequence": 4,
+  "request_json": {
+    "question": "스쿼트 볼륨을 계속 늘렸는데 무게는 그대로야. 볼륨이랑 e1RM 변화를 같이 보고 볼륨을 더 늘리는 게 의미 있는지 연구 근거로 알려줘",
+    "debug": true
+  },
+  "started_at_utc": "2026-10-15T17:10:36.750626+00:00"
+}
