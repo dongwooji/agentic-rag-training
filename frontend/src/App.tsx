@@ -630,6 +630,7 @@ export default function App() {
                                     body: {
                                       clarification_id: metadata.clarification_id,
                                       selected_option: option.id,
+                                      debug: true,
                                     },
                                   },
                                   option.label,

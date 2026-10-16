@@ -25,10 +25,10 @@ API_PROXY_TARGET=http://127.0.0.1:8000
 ## 사용자 흐름
 
 - 새로 작성한 예시 질문은 클릭하면 입력칸에 채워지고, 사용자가 전송합니다. 기존 평가셋은 읽거나 가져오지 않습니다.
-- 모든 `POST /query`는 `debug: true`를 전송합니다.
+- 모든 신규 `POST /query`와 `POST /query/clarify`는 `debug: true`를 전송합니다.
 - 후보가 있는 확인 요청은 반환된 option ID를 `/query/clarify`로 보냅니다.
 - 후보 없는 확인 요청은 추가 입력칸을 표시합니다. 원 질문에 `추가 확인 답변:`과 답변을 누적해 `/query`로 다시 제출합니다. 합계 4,000자를 검사합니다.
-- `/query/clarify`의 현재 strict schema에는 debug 필드가 없습니다. 허용된 두 필드만 보내며, 후속 응답에 없는 trace는 추측하거나 이전 응답에서 복사하지 않습니다.
+- 운동 후보 선택 요청에는 `clarification_id`, `selected_option`, `debug: true`를 보냅니다. 선택 후 반환된 답변의 trace로 실행 근거를 표시하며, 없는 trace를 추측하거나 이전 응답에서 복사하지 않습니다.
 - HTTP 성공과 실행 결과를 구분합니다. `execution_failure`, 근거 부족, 확인 필요, 네트워크 오류, 후보 만료를 각각 처리합니다.
 - 자동 POST 재시도는 없습니다. 전송 중 중복 요청을 막으며, 대기 중지는 브라우저 요청만 중단합니다. 서버 실행 취소를 보장하지 않습니다.
 - 각 질문은 독립 실행입니다. 화면 이력은 메모리에만 남고 새 시작·모드 변경·새로고침 때 초기화됩니다.
@@ -63,7 +63,7 @@ npm run record -- --question-file C:/temp/question.txt --output recordings/my-ru
 | steps[].request  | endpoint와 그대로 전송한 body                     |
 | steps[].response | 실제 서버의 HTTP 200 QueryResponse JSON           |
 
-첫 단계는 `/query`입니다. 추가 확인을 포함한 `/query`에는 debug=true가 필수입니다. `/query/clarify`에는 clarification_id와 selected_option만 저장합니다. recorded는 실행일이 필수이며 format_example에는 실행일을 넣을 수 없습니다.
+첫 단계는 `/query`입니다. 추가 확인을 포함한 `/query`에는 debug=true가 필수입니다. 신규 `/query/clarify` 녹화에는 clarification_id, selected_option, debug=true를 그대로 저장합니다. 이전 v1 녹화의 debug 없는 후보 선택 요청도 계속 읽고 재생하며, 기존 요청·응답에 debug나 trace를 추가하지 않습니다. recorded는 실행일이 필수이며 format_example에는 실행일을 넣을 수 없습니다.
 
 ### 재생
 
@@ -75,8 +75,8 @@ npm run record -- --question-file C:/temp/question.txt --output recordings/my-ru
 
 - `used_literature_chunk_ids`를 기준으로, trace의 final_evidence/retrievals에서 제목과 섹션을 찾아 우선 표시합니다. 청크 ID는 펼쳐서 확인합니다. 없는 제목·섹션은 미제공으로 표시합니다.
 - Tool, Grader 실행 성공/실패와 요구사항별 충족 여부, Recovery 횟수와 검색어 전/후를 표시합니다.
-- 현재 API의 trace에는 `question_interpretation.parsing_source`에 대응하는 공개 필드가 없습니다. 규칙 parser/LLM Interpreter를 추측하지 않고 **응답에 제공되지 않음**으로 표시합니다.
-- 현재 `/query/clarify`는 debug를 받지 않고 trace도 반환하지 않습니다. 선택 후 상세 정보는 미제공으로 표시합니다.
+- 프론트엔드가 읽는 `trace.interpreter.parsing_source`가 없으면 규칙 parser/LLM Interpreter를 추측하지 않고 **응답에 제공되지 않음**으로 표시합니다. Phase A의 중첩된 `phase_a.parsing_source` 표시는 현재 지원하지 않습니다.
+- `/query/clarify`도 debug를 지원합니다. 후보 선택 후 답변의 실행 근거 패널에서 반환된 문헌·Tool·Grader·Recovery 정보를 확인할 수 있습니다. trace가 없는 응답이나 과거 녹화는 해당 정보를 미제공으로 표시합니다.
 - 문헌 원문·excerpt·DOI/URL은 공개 응답에 없습니다. 논문 링크나 발췌문은 만들지 않습니다.
 - 제목·섹션 필드는 nullable이며 사용한 청크의 metadata가 항상 보장되지는 않습니다.
 - 실시간 단계 이벤트가 없어 완료 후 근거를 표시합니다.

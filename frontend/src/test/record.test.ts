@@ -35,7 +35,7 @@ describe('real response capture workflow', () => {
     expect(result.recorded_at).toMatch(/^\d{4}-\d{2}-\d{2}T/)
     expect(result.steps[1].response).toEqual(second)
   })
-  it('captures candidate selection with only the supported clarify fields and no invented debug trace', async () => {
+  it('captures candidate selection with debug requested and no invented debug trace', async () => {
     const first = clarification(true)
     const second = response({ response_metadata: undefined })
     const requests: ApiRequest[] = []
@@ -49,7 +49,7 @@ describe('real response capture workflow', () => {
     })
     expect(requests[1]).toEqual({
       endpoint: '/query/clarify',
-      body: { clarification_id: 'test-id', selected_option: '2' },
+      body: { clarification_id: 'test-id', selected_option: '2', debug: true },
     })
     expect(result.steps[1].response.response_metadata).toBeUndefined()
   })

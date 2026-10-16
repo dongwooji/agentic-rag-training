@@ -52,7 +52,7 @@ export async function recordSession(question: string, title: string, ports: Reco
         throw new Error('반환된 후보 ID를 선택해 주세요.')
       request = {
         endpoint: '/query/clarify',
-        body: { clarification_id: metadata.clarification_id, selected_option: answer },
+        body: { clarification_id: metadata.clarification_id, selected_option: answer, debug: true },
       }
     } else {
       effectiveQuestion = appendClarification(effectiveQuestion, answer)

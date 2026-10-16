@@ -26,14 +26,26 @@ it('reports invalid response contracts and unavailable runtime distinctly', asyn
   )
   await expect(executeRequest(request)).rejects.toThrow('질문 실행 환경')
 })
-it('rejects disabled debug and unsupported clarify fields before transport', () => {
+it('rejects disabled debug and unknown clarify fields before transport', () => {
   expect(
     requestSchema.safeParse({ ...request, body: { ...request.body, debug: false } }).success,
   ).toBe(false)
   expect(
     requestSchema.safeParse({
       endpoint: '/query/clarify',
-      body: { clarification_id: 'id', selected_option: '1', debug: true },
+      body: { clarification_id: 'id', selected_option: '1', unsupported_field: true },
     }).success,
   ).toBe(false)
+})
+
+it('accepts clarify debug while preserving older recordings without the field', () => {
+  for (const body of [
+    { clarification_id: 'id', selected_option: '1', debug: true },
+    { clarification_id: 'id', selected_option: '1' },
+  ]) {
+    expect(requestSchema.safeParse({ endpoint: '/query/clarify', body }).success).toBe(true)
+  }
+  expect(requestSchema.safeParse({ endpoint: '/query/clarify', body: {
+    clarification_id: 'id', selected_option: '1', debug: false,
+  } }).success).toBe(false)
 })

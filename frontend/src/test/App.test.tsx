@@ -100,11 +100,54 @@ describe('question and evidence experience', () => {
     expect(await screen.findByRole('alert')).toHaveTextContent('만료')
     expect(posts[1]).toEqual({
       url: '/api/query/clarify',
-      body: { clarification_id: 'test-id', selected_option: '2' },
+      body: { clarification_id: 'test-id', selected_option: '2', debug: true },
     })
     await userEvent.click(screen.getByRole('button', { name: '원 질문 다시 보내기' }))
     expect(await screen.findByText('TEST: answer')).toBeInTheDocument()
     expect(posts[2].body).toEqual({ question: 'TEST: original question', debug: true })
+  })
+
+  it.each([true, false])('sends clarify debug and displays only the selected answer evidence (trace=%s)', async (hasTrace) => {
+    const selected = response({
+      answer_text: 'TEST: selected answer',
+      route: 'hybrid',
+      tools_used: ['query_training_log', 'compute_metrics', 'search_literature'],
+      used_literature_chunk_ids: ['SELECTED::001'],
+    })
+    const trace = selected.response_metadata!.trace!
+    trace.final_evidence = [{ chunk_id: 'SELECTED::001', title: 'TEST: selected paper', section: 'TEST: selected section' }]
+    trace.initial_queries.dense = 'TEST: selected query'
+    trace.retrievals[0].query = 'TEST: selected query'
+    trace.recovery[0].query = 'TEST: selected rewrite'
+    trace.graders[0].components[0].requirement = 'TEST: selected requirement'
+    if (!hasTrace) selected.response_metadata = undefined
+    mockServer([response(), clarification(true), selected])
+    render(<App />)
+    await ask('TEST: previous independent question')
+    await screen.findByText('TEST: answer')
+    await ask('TEST: ambiguous exercise question')
+    await userEvent.click(await screen.findByRole('button', { name: 'TEST: dumbbell' }))
+    await screen.findByText('TEST: selected answer')
+    expect(posts).toHaveLength(3)
+    expect(posts[2]).toEqual({
+      url: '/api/query/clarify',
+      body: { clarification_id: 'test-id', selected_option: '2', debug: true },
+    })
+    const panel = within(screen.getByRole('complementary', { name: '실행 근거' }))
+    expect(panel.getByText('hybrid')).toBeInTheDocument()
+    expect(panel.getByText('compute_metrics')).toBeInTheDocument()
+    expect(panel.queryByText('TEST: paper title')).not.toBeInTheDocument()
+    expect(panel.queryByText('initial test query')).not.toBeInTheDocument()
+    if (hasTrace) {
+      expect(panel.getByText('TEST: selected paper')).toBeInTheDocument()
+      expect(panel.getByText('TEST: selected section')).toBeInTheDocument()
+      expect(panel.getByText('TEST: selected query')).toBeInTheDocument()
+      expect(panel.getByText('TEST: selected requirement')).toBeInTheDocument()
+      expect(panel.getByText('TEST: selected rewrite')).toBeInTheDocument()
+    } else {
+      expect(panel.getByText('논문 제목 미제공')).toBeInTheDocument()
+      expect(panel.getByText('Grader 정보가 응답에 제공되지 않았습니다.')).toBeInTheDocument()
+    }
   })
 
   it('treats a structured HTTP 200 execution failure as a failure, not a successful answer', async () => {
