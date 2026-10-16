@@ -66,11 +66,15 @@ def test_existing_set_rows_keep_scalar_exercise_filter():
 
 @pytest.mark.parametrize("operation", ["estimated_1rm", "first_last_n_session_median_e1rm",
     "weekly_volume", "weekly_frequency", "plateau_candidates"])
-def test_other_metrics_do_not_gain_new_session_input_semantics(operation):
+def test_set_metrics_keep_their_filter_and_frequency_accepts_sessions(operation):
     response = MetricTool().execute(MetricInput(operation=operation, records=sessions(),
         canonical_exercise_name=LIFT))
-    assert response.success and response.status.value == "empty"
-    assert response.result["record_count"] == 0
+    if operation == "weekly_frequency":
+        assert response.success and response.status.value == "success"
+        assert [week["frequency"] for week in response.result["weeks"]] == [1, 1, 1]
+    else:
+        assert response.success and response.status.value == "empty"
+        assert response.result["record_count"] == 0
 
 
 def test_repository_tool_executor_metric_boundary_uses_actual_session_shape(monkeypatch):
