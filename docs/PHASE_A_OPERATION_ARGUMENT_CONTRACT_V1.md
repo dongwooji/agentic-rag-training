@@ -78,7 +78,7 @@ legacy workflow와 서비스 기본값을 변경하지 않는다. 공유 nodes.p
 ## 검증과 한계
 
 신규 synthetic/config/unit 및 mock Tool/API 통합 테스트만 사용한다. 기존 인라인 synthetic
-입력 4곳은 실제 필수 N·명시적 비교·운동 필수 operation으로 바꾸고 assertion과 expected 값은
+입력 5곳은 실제 필수 N·명시적 비교·운동 필수 operation으로 바꾸고 assertion과 expected 값은
 유지했다. frozen synthetic pair 파일 및 acceptance 입력/Gold/raw/decision은 변경하지 않았다.
 실제 LLM/OpenAI·서비스 REST·DB 호출, acceptance/기존 interpretation 평가 재실행은 하지 않는다.
 

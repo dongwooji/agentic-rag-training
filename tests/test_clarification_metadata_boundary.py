@@ -99,9 +99,9 @@ def test_projection_still_validates_allowed_public_fields():
 
 @pytest.mark.parametrize("debug", [False, True])
 def test_synthetic_phase_a_recent_argument_clarification_returns_http_200(debug):
-    question = f"요즘 {LIFT}의 weekly frequency 관측값을 정리해주세요."
+    question = f"요즘 {LIFT}의 weekly frequency 관측값을 다른 구간과 비교해주세요."
     raw = payload(question, operation="weekly_frequency", unresolved_fields=[
-        dict(field="n_sessions", reason="합성 미확정 인자")], clarification_required=True)
+        dict(field="comparison", reason="합성 비교 대상 미확정")], clarification_required=True)
     raw["time_condition"].update(scope="unresolved", source_text="요즘")
     graph, provider, *ports = graph_for(raw)
     with api_for(graph) as api:
