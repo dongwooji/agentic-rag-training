@@ -1,0 +1,1809 @@
+{
+  "version": "recovery_saved_trace_analysis_v1",
+  "analysis_base_sha": "e7a61b58526b0e2cc048091d7eed2b13f5a38aee",
+  "groups": [
+    {
+      "group": "acceptance_baseline",
+      "requests": 20,
+      "literature_requests": 2,
+      "recovery_requests": 0,
+      "initial_search_success_requests": 2,
+      "initial_grader_insufficient_requests": 0,
+      "initial_grader_sufficient_requests": 2,
+      "recovery_attempts": 0,
+      "query_ready": 0,
+      "recovery_searches": 0,
+      "recovery_failures": 0,
+      "insufficient_to_sufficient": 0,
+      "recovery_terminal_counts": {},
+      "recovery_llm_calls": 0,
+      "regrade_llm_calls": 0,
+      "added_llm_calls": 0,
+      "added_llm_latency_ms": 0,
+      "added_pacing_ms": 0,
+      "added_input_tokens": 0,
+      "added_output_tokens": 0,
+      "added_estimated_cost_usd": 0,
+      "added_usage_missing_calls": 0,
+      "added_retrieval_latency_known_ms": 0,
+      "recovery_requests_missing_retrieval_timing": 0,
+      "added_llm_mean_ms_per_recovery_request": null
+    },
+    {
+      "group": "acceptance_changed",
+      "requests": 20,
+      "literature_requests": 6,
+      "recovery_requests": 2,
+      "initial_search_success_requests": 6,
+      "initial_grader_insufficient_requests": 2,
+      "initial_grader_sufficient_requests": 4,
+      "recovery_attempts": 3,
+      "query_ready": 2,
+      "recovery_searches": 2,
+      "recovery_failures": 1,
+      "insufficient_to_sufficient": 1,
+      "recovery_terminal_counts": {
+        "answer_ready": 1,
+        "abstain_ready": 1
+      },
+      "recovery_llm_calls": 3,
+      "regrade_llm_calls": 2,
+      "added_llm_calls": 5,
+      "added_llm_latency_ms": 6338.957699997991,
+      "added_pacing_ms": 0,
+      "added_input_tokens": 14571,
+      "added_output_tokens": 339,
+      "added_estimated_cost_usd": 0.01245375,
+      "added_usage_missing_calls": 0,
+      "added_retrieval_latency_known_ms": 0,
+      "recovery_requests_missing_retrieval_timing": 2,
+      "added_llm_mean_ms_per_recovery_request": 3169.4788499989954
+    },
+    {
+      "group": "acceptance_regression",
+      "requests": 20,
+      "literature_requests": 3,
+      "recovery_requests": 0,
+      "initial_search_success_requests": 3,
+      "initial_grader_insufficient_requests": 0,
+      "initial_grader_sufficient_requests": 3,
+      "recovery_attempts": 0,
+      "query_ready": 0,
+      "recovery_searches": 0,
+      "recovery_failures": 0,
+      "insufficient_to_sufficient": 0,
+      "recovery_terminal_counts": {},
+      "recovery_llm_calls": 0,
+      "regrade_llm_calls": 0,
+      "added_llm_calls": 0,
+      "added_llm_latency_ms": 0,
+      "added_pacing_ms": 0,
+      "added_input_tokens": 0,
+      "added_output_tokens": 0,
+      "added_estimated_cost_usd": 0,
+      "added_usage_missing_calls": 0,
+      "added_retrieval_latency_known_ms": 0,
+      "recovery_requests_missing_retrieval_timing": 0,
+      "added_llm_mean_ms_per_recovery_request": null
+    },
+    {
+      "group": "e2e_v1",
+      "requests": 30,
+      "literature_requests": 18,
+      "recovery_requests": 7,
+      "initial_search_success_requests": 18,
+      "initial_grader_insufficient_requests": 7,
+      "initial_grader_sufficient_requests": 10,
+      "recovery_attempts": 14,
+      "query_ready": 14,
+      "recovery_searches": 14,
+      "recovery_failures": 0,
+      "insufficient_to_sufficient": 0,
+      "recovery_terminal_counts": {
+        "abstain_ready": 7
+      },
+      "recovery_llm_calls": 14,
+      "regrade_llm_calls": 14,
+      "added_llm_calls": 28,
+      "added_llm_latency_ms": 47127.756,
+      "added_pacing_ms": 124819.879,
+      "added_input_tokens": 95463,
+      "added_output_tokens": 3469,
+      "added_estimated_cost_usd": 0.08720775,
+      "added_usage_missing_calls": 0,
+      "added_retrieval_latency_known_ms": 3098.121,
+      "recovery_requests_missing_retrieval_timing": 0,
+      "added_llm_mean_ms_per_recovery_request": 6732.536571428572
+    },
+    {
+      "group": "e2e_v2",
+      "requests": 30,
+      "literature_requests": 18,
+      "recovery_requests": 4,
+      "initial_search_success_requests": 18,
+      "initial_grader_insufficient_requests": 4,
+      "initial_grader_sufficient_requests": 14,
+      "recovery_attempts": 8,
+      "query_ready": 6,
+      "recovery_searches": 6,
+      "recovery_failures": 2,
+      "insufficient_to_sufficient": 0,
+      "recovery_terminal_counts": {
+        "abstain_ready": 4
+      },
+      "recovery_llm_calls": 8,
+      "regrade_llm_calls": 6,
+      "added_llm_calls": 14,
+      "added_llm_latency_ms": 22663.31,
+      "added_pacing_ms": 63341.441999999995,
+      "added_input_tokens": 41193,
+      "added_output_tokens": 1135,
+      "added_estimated_cost_usd": 0.03600225,
+      "added_usage_missing_calls": 0,
+      "added_retrieval_latency_known_ms": 1136.275,
+      "recovery_requests_missing_retrieval_timing": 0,
+      "added_llm_mean_ms_per_recovery_request": 5665.8275
+    },
+    {
+      "group": "service_legacy",
+      "requests": 10,
+      "literature_requests": 1,
+      "recovery_requests": 0,
+      "initial_search_success_requests": 1,
+      "initial_grader_insufficient_requests": 0,
+      "initial_grader_sufficient_requests": 1,
+      "recovery_attempts": 0,
+      "query_ready": 0,
+      "recovery_searches": 0,
+      "recovery_failures": 0,
+      "insufficient_to_sufficient": 0,
+      "recovery_terminal_counts": {},
+      "recovery_llm_calls": 0,
+      "regrade_llm_calls": 0,
+      "added_llm_calls": 0,
+      "added_llm_latency_ms": 0,
+      "added_pacing_ms": 0,
+      "added_input_tokens": 0,
+      "added_output_tokens": 0,
+      "added_estimated_cost_usd": 0,
+      "added_usage_missing_calls": 0,
+      "added_retrieval_latency_known_ms": 0,
+      "recovery_requests_missing_retrieval_timing": 0,
+      "added_llm_mean_ms_per_recovery_request": null
+    },
+    {
+      "group": "service_phase_a",
+      "requests": 10,
+      "literature_requests": 0,
+      "recovery_requests": 0,
+      "initial_search_success_requests": 0,
+      "initial_grader_insufficient_requests": 0,
+      "initial_grader_sufficient_requests": 0,
+      "recovery_attempts": 0,
+      "query_ready": 0,
+      "recovery_searches": 0,
+      "recovery_failures": 0,
+      "insufficient_to_sufficient": 0,
+      "recovery_terminal_counts": {},
+      "recovery_llm_calls": 0,
+      "regrade_llm_calls": 0,
+      "added_llm_calls": 0,
+      "added_llm_latency_ms": 0,
+      "added_pacing_ms": 0,
+      "added_input_tokens": 0,
+      "added_output_tokens": 0,
+      "added_estimated_cost_usd": 0,
+      "added_usage_missing_calls": 0,
+      "added_retrieval_latency_known_ms": 0,
+      "recovery_requests_missing_retrieval_timing": 0,
+      "added_llm_mean_ms_per_recovery_request": null
+    },
+    {
+      "group": "interpretation_dev_legacy",
+      "requests": 10,
+      "literature_requests": 2,
+      "recovery_requests": 1,
+      "initial_search_success_requests": 2,
+      "initial_grader_insufficient_requests": 1,
+      "initial_grader_sufficient_requests": 1,
+      "recovery_attempts": 2,
+      "query_ready": 1,
+      "recovery_searches": 1,
+      "recovery_failures": 1,
+      "insufficient_to_sufficient": 0,
+      "recovery_terminal_counts": {
+        "abstain_ready": 1
+      },
+      "recovery_llm_calls": 2,
+      "regrade_llm_calls": 1,
+      "added_llm_calls": 3,
+      "added_llm_latency_ms": 4174.452600069344,
+      "added_pacing_ms": 0,
+      "added_input_tokens": 7824,
+      "added_output_tokens": 269,
+      "added_estimated_cost_usd": 0.007078500000000001,
+      "added_usage_missing_calls": 0,
+      "added_retrieval_latency_known_ms": 131.79060025140643,
+      "recovery_requests_missing_retrieval_timing": 0,
+      "added_llm_mean_ms_per_recovery_request": 4174.452600069344
+    },
+    {
+      "group": "interpretation_dev_phase_a_before",
+      "requests": 10,
+      "literature_requests": 0,
+      "recovery_requests": 0,
+      "initial_search_success_requests": 0,
+      "initial_grader_insufficient_requests": 0,
+      "initial_grader_sufficient_requests": 0,
+      "recovery_attempts": 0,
+      "query_ready": 0,
+      "recovery_searches": 0,
+      "recovery_failures": 0,
+      "insufficient_to_sufficient": 0,
+      "recovery_terminal_counts": {},
+      "recovery_llm_calls": 0,
+      "regrade_llm_calls": 0,
+      "added_llm_calls": 0,
+      "added_llm_latency_ms": 0,
+      "added_pacing_ms": 0,
+      "added_input_tokens": 0,
+      "added_output_tokens": 0,
+      "added_estimated_cost_usd": 0,
+      "added_usage_missing_calls": 0,
+      "added_retrieval_latency_known_ms": 0,
+      "recovery_requests_missing_retrieval_timing": 0,
+      "added_llm_mean_ms_per_recovery_request": null
+    },
+    {
+      "group": "interpretation_dev_phase_a_fixed",
+      "requests": 10,
+      "literature_requests": 1,
+      "recovery_requests": 1,
+      "initial_search_success_requests": 1,
+      "initial_grader_insufficient_requests": 1,
+      "initial_grader_sufficient_requests": 0,
+      "recovery_attempts": 1,
+      "query_ready": 1,
+      "recovery_searches": 1,
+      "recovery_failures": 0,
+      "insufficient_to_sufficient": 1,
+      "recovery_terminal_counts": {
+        "execution_failure": 1
+      },
+      "recovery_llm_calls": 1,
+      "regrade_llm_calls": 1,
+      "added_llm_calls": 2,
+      "added_llm_latency_ms": 3326.103300321847,
+      "added_pacing_ms": 0,
+      "added_input_tokens": 6171,
+      "added_output_tokens": 270,
+      "added_estimated_cost_usd": 0.00584325,
+      "added_usage_missing_calls": 0,
+      "added_retrieval_latency_known_ms": 123.26049990952015,
+      "recovery_requests_missing_retrieval_timing": 0,
+      "added_llm_mean_ms_per_recovery_request": 3326.103300321847
+    },
+    {
+      "group": "interpretation_test_legacy",
+      "requests": 20,
+      "literature_requests": 3,
+      "recovery_requests": 2,
+      "initial_search_success_requests": 3,
+      "initial_grader_insufficient_requests": 2,
+      "initial_grader_sufficient_requests": 1,
+      "recovery_attempts": 4,
+      "query_ready": 2,
+      "recovery_searches": 2,
+      "recovery_failures": 2,
+      "insufficient_to_sufficient": 0,
+      "recovery_terminal_counts": {
+        "abstain_ready": 2
+      },
+      "recovery_llm_calls": 4,
+      "regrade_llm_calls": 2,
+      "added_llm_calls": 6,
+      "added_llm_latency_ms": 11755.94700081274,
+      "added_pacing_ms": 0,
+      "added_input_tokens": 15277,
+      "added_output_tokens": 581,
+      "added_estimated_cost_usd": 0.01407225,
+      "added_usage_missing_calls": 0,
+      "added_retrieval_latency_known_ms": 382.7992002479732,
+      "recovery_requests_missing_retrieval_timing": 0,
+      "added_llm_mean_ms_per_recovery_request": 5877.97350040637
+    },
+    {
+      "group": "interpretation_test_phase_a_before",
+      "requests": 20,
+      "literature_requests": 0,
+      "recovery_requests": 0,
+      "initial_search_success_requests": 0,
+      "initial_grader_insufficient_requests": 0,
+      "initial_grader_sufficient_requests": 0,
+      "recovery_attempts": 0,
+      "query_ready": 0,
+      "recovery_searches": 0,
+      "recovery_failures": 0,
+      "insufficient_to_sufficient": 0,
+      "recovery_terminal_counts": {},
+      "recovery_llm_calls": 0,
+      "regrade_llm_calls": 0,
+      "added_llm_calls": 0,
+      "added_llm_latency_ms": 0,
+      "added_pacing_ms": 0,
+      "added_input_tokens": 0,
+      "added_output_tokens": 0,
+      "added_estimated_cost_usd": 0,
+      "added_usage_missing_calls": 0,
+      "added_retrieval_latency_known_ms": 0,
+      "recovery_requests_missing_retrieval_timing": 0,
+      "added_llm_mean_ms_per_recovery_request": null
+    },
+    {
+      "group": "interpretation_test_phase_a_fixed",
+      "requests": 20,
+      "literature_requests": 1,
+      "recovery_requests": 0,
+      "initial_search_success_requests": 1,
+      "initial_grader_insufficient_requests": 0,
+      "initial_grader_sufficient_requests": 1,
+      "recovery_attempts": 0,
+      "query_ready": 0,
+      "recovery_searches": 0,
+      "recovery_failures": 0,
+      "insufficient_to_sufficient": 0,
+      "recovery_terminal_counts": {},
+      "recovery_llm_calls": 0,
+      "regrade_llm_calls": 0,
+      "added_llm_calls": 0,
+      "added_llm_latency_ms": 0,
+      "added_pacing_ms": 0,
+      "added_input_tokens": 0,
+      "added_output_tokens": 0,
+      "added_estimated_cost_usd": 0,
+      "added_usage_missing_calls": 0,
+      "added_retrieval_latency_known_ms": 0,
+      "recovery_requests_missing_retrieval_timing": 0,
+      "added_llm_mean_ms_per_recovery_request": null
+    }
+  ],
+  "gold_cases": [
+    {
+      "group": "e2e_v1",
+      "case_id": "LIT-001",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 0.3333333333333333,
+        "ce10": 0
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 0.3333333333333333,
+        "ce10": 0
+      },
+      "initial_top10": [
+        "paper_pmc8884877_discussion_002_3b5d0869",
+        "paper_pmc6081873_background_003_03a059b3",
+        "paper_pmc8884877_discussion_001_48d4b5b2",
+        "paper_pmc8884877_conclusions_001_1c117287",
+        "paper_pmc11239729_discussion_008_28d984c7",
+        "paper_pmc9302196_discussion_frequency_001_6a7a4717",
+        "paper_pmc6081873_discussion_considerations_towards_weekly_trainin_001_c448e257",
+        "paper_pmc6303131_conclusions_001_1016bba2",
+        "paper_pmc10818109_discussion_002_f42b3d17",
+        "paper_pmc10818109_results_strength_weekly_frequency_001_a2d047c7"
+      ],
+      "final_top10": [
+        "paper_pmc8884877_discussion_002_3b5d0869",
+        "paper_pmc6081873_background_003_03a059b3",
+        "paper_pmc8884877_discussion_001_48d4b5b2",
+        "paper_pmc8884877_conclusions_001_1c117287",
+        "paper_pmc11239729_discussion_008_28d984c7",
+        "paper_pmc9302196_discussion_frequency_001_6a7a4717",
+        "paper_pmc6081873_discussion_considerations_towards_weekly_trainin_001_c448e257",
+        "paper_pmc6303131_conclusions_001_1016bba2",
+        "paper_pmc10818109_discussion_002_f42b3d17",
+        "paper_pmc10818109_results_strength_weekly_frequency_001_a2d047c7"
+      ]
+    },
+    {
+      "group": "e2e_v1",
+      "case_id": "LIT-002",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "initial_top10": [
+        "paper_pmc8126497_discussion_001_4d630baf",
+        "paper_pmc8126497_body_002_b8fff929",
+        "paper_pmc8126497_discussion_002_fc1015d2",
+        "paper_pmc9068575_abstract_001_f8ce2da6",
+        "paper_pmc8126497_abstract_001_f200864c",
+        "paper_pmc8126497_body_003_68e7bb31",
+        "paper_pmc9935748_abstract_001_47d8e9e3",
+        "paper_pmc8126497_discussion_005_0105c19b",
+        "paper_pmc8126497_results_section_resistance_training_load_effects_001_741bb3eb",
+        "paper_pmc6950543_3_discussion_3_1_training_considerations_001_012adaac"
+      ],
+      "final_top10": [
+        "paper_pmc8126497_discussion_001_4d630baf",
+        "paper_pmc8126497_body_002_b8fff929",
+        "paper_pmc8126497_discussion_002_fc1015d2",
+        "paper_pmc9068575_abstract_001_f8ce2da6",
+        "paper_pmc8126497_abstract_001_f200864c",
+        "paper_pmc8126497_body_003_68e7bb31",
+        "paper_pmc9935748_abstract_001_47d8e9e3",
+        "paper_pmc8126497_discussion_005_0105c19b",
+        "paper_pmc8126497_results_section_resistance_training_load_effects_001_741bb3eb",
+        "paper_pmc6950543_3_discussion_3_1_training_considerations_001_012adaac"
+      ]
+    },
+    {
+      "group": "e2e_v1",
+      "case_id": "LIT-003",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 0.75,
+        "ce10": 0
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 0.75,
+        "ce10": 0
+      },
+      "initial_top10": [
+        "paper_pmc9068575_discussion_001_3e59b24c",
+        "paper_pmc9068575_discussion_muscular_strength_001_6a147b47",
+        "paper_pmc9068575_discussion_areas_for_future_research_001_66124f46",
+        "paper_pmc9935748_conclusions_001_d77d57c2",
+        "paper_pmc9068575_conclusion_001_d4947343",
+        "paper_pmc9935748_discussion_influence_of_resistance_training_perf_002_8001f61d",
+        "paper_pmc10809978_introduction_002_8b66bdcc",
+        "paper_pmc9935748_introduction_001_bc43e570",
+        "paper_pmc6303131_discussion_section_muscle_strength_001_3c752a7a",
+        "paper_pmc9935748_abstract_001_47d8e9e3"
+      ],
+      "final_top10": [
+        "paper_pmc9068575_discussion_001_3e59b24c",
+        "paper_pmc9068575_discussion_muscular_strength_001_6a147b47",
+        "paper_pmc9068575_discussion_areas_for_future_research_001_66124f46",
+        "paper_pmc9935748_conclusions_001_d77d57c2",
+        "paper_pmc9068575_conclusion_001_d4947343",
+        "paper_pmc9935748_discussion_influence_of_resistance_training_perf_002_8001f61d",
+        "paper_pmc10809978_introduction_002_8b66bdcc",
+        "paper_pmc9935748_introduction_001_bc43e570",
+        "paper_pmc6303131_discussion_section_muscle_strength_001_3c752a7a",
+        "paper_pmc9935748_abstract_001_47d8e9e3"
+      ]
+    },
+    {
+      "group": "e2e_v1",
+      "case_id": "LIT-004",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "initial_top10": [
+        "paper_pmc9935748_discussion_influence_of_resistance_training_perf_001_a83110f9",
+        "paper_pmc9935748_discussion_practical_application_of_key_findings_001_3938ad3a",
+        "paper_pmc9935748_abstract_001_47d8e9e3",
+        "paper_pmc9068575_discussion_muscle_hypertrophy_001_7edd91cb",
+        "paper_pmc9935748_introduction_001_bc43e570",
+        "paper_pmc9935748_conclusions_001_d77d57c2",
+        "paper_pmc9935748_discussion_influence_of_resistance_training_perf_001_20857df7",
+        "paper_pmc9935748_introduction_objectives_001_8b78823f",
+        "paper_pmc9068575_conclusion_001_d4947343",
+        "paper_pmc9935748_discussion_influence_of_different_velocity_loss__002_06d2cae4"
+      ],
+      "final_top10": [
+        "paper_pmc9935748_discussion_influence_of_resistance_training_perf_001_a83110f9",
+        "paper_pmc9935748_discussion_practical_application_of_key_findings_001_3938ad3a",
+        "paper_pmc9935748_abstract_001_47d8e9e3",
+        "paper_pmc9068575_discussion_muscle_hypertrophy_001_7edd91cb",
+        "paper_pmc9935748_introduction_001_bc43e570",
+        "paper_pmc9935748_conclusions_001_d77d57c2",
+        "paper_pmc9935748_discussion_influence_of_resistance_training_perf_001_20857df7",
+        "paper_pmc9935748_introduction_objectives_001_8b78823f",
+        "paper_pmc9068575_conclusion_001_d4947343",
+        "paper_pmc9935748_discussion_influence_of_different_velocity_loss__002_06d2cae4"
+      ]
+    },
+    {
+      "group": "e2e_v1",
+      "case_id": "LIT-005",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "initial_top10": [
+        "paper_pmc11239729_abstract_001_804fa841",
+        "paper_pmc11239729_introduction_001_14571977",
+        "paper_pmc11239729_introduction_003_967e00f6",
+        "paper_pmc11239729_discussion_001_d5c81f28",
+        "paper_pmc11239729_discussion_006_ddc663f6",
+        "paper_pmc8126497_discussion_001_4d630baf",
+        "paper_pmc8126497_body_002_b8fff929",
+        "paper_pmc11239729_conclusion_001_6c1a4564",
+        "paper_pmc8363540_discussion_001_d60867f2",
+        "paper_pmc11239729_methods_inclusion_criteria_and_data_extraction_001_4c99df10"
+      ],
+      "final_top10": [
+        "paper_pmc11239729_abstract_001_804fa841",
+        "paper_pmc11239729_introduction_001_14571977",
+        "paper_pmc11239729_introduction_003_967e00f6",
+        "paper_pmc11239729_discussion_001_d5c81f28",
+        "paper_pmc11239729_discussion_006_ddc663f6",
+        "paper_pmc8126497_discussion_001_4d630baf",
+        "paper_pmc8126497_body_002_b8fff929",
+        "paper_pmc11239729_conclusion_001_6c1a4564",
+        "paper_pmc8363540_discussion_001_d60867f2",
+        "paper_pmc11239729_methods_inclusion_criteria_and_data_extraction_001_4c99df10"
+      ]
+    },
+    {
+      "group": "e2e_v1",
+      "case_id": "LIT-006",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "initial_top10": [
+        "paper_pmc7994759_abstract_001_c2446fa2",
+        "paper_pmc7994759_conclusions_001_60ab1548",
+        "paper_pmc7994759_introduction_003_cc652440",
+        "paper_pmc7994759_discussion_001_96f42292",
+        "paper_pmc7994759_introduction_001_e39e015e",
+        "paper_pmc7994759_introduction_002_b85ab1ac",
+        "paper_pmc7994759_results_selection_of_studies_001_3e22df9e",
+        "paper_pmc7994759_discussion_002_d2373bde",
+        "paper_pmc7994759_discussion_003_41788cad",
+        "paper_pmc8363540_discussion_limitations_and_areas_for_future_rese_002_0f48777a"
+      ],
+      "final_top10": [
+        "paper_pmc7994759_abstract_001_c2446fa2",
+        "paper_pmc7994759_conclusions_001_60ab1548",
+        "paper_pmc7994759_introduction_003_cc652440",
+        "paper_pmc7994759_discussion_001_96f42292",
+        "paper_pmc7994759_introduction_001_e39e015e",
+        "paper_pmc7994759_introduction_002_b85ab1ac",
+        "paper_pmc7994759_results_selection_of_studies_001_3e22df9e",
+        "paper_pmc7994759_discussion_002_d2373bde",
+        "paper_pmc7994759_discussion_003_41788cad",
+        "paper_pmc8363540_discussion_limitations_and_areas_for_future_rese_002_0f48777a"
+      ]
+    },
+    {
+      "group": "e2e_v1",
+      "case_id": "LIT-007",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "initial_top10": [
+        "paper_pmc10511399_results_general_perceptions_of_deloading_001_e3d0f432",
+        "paper_pmc10511399_discussion_integrating_deloading_into_the_streng_001_834932bd",
+        "paper_pmc10511399_conclusion_001_ac6610bc",
+        "paper_pmc10511399_results_creating_an_inclusive_deloading_training_001_467bd9d9",
+        "paper_pmc10511399_results_potential_applications_of_deload_trainin_001_33fb7f61",
+        "paper_pmc10511399_discussion_the_applications_and_objectives_of_de_001_bf48ed37",
+        "paper_pmc10511399_abstract_001_81adf8c1",
+        "paper_pmc10511399_discussion_integrating_deloading_into_the_streng_004_2524efd2",
+        "paper_pmc10511399_results_designing_and_implementing_deload_traini_001_07df6a82",
+        "paper_pmc10511399_discussion_001_6b4cf449"
+      ],
+      "final_top10": [
+        "paper_pmc10511399_results_general_perceptions_of_deloading_001_e3d0f432",
+        "paper_pmc10511399_discussion_integrating_deloading_into_the_streng_001_834932bd",
+        "paper_pmc10511399_conclusion_001_ac6610bc",
+        "paper_pmc10511399_results_creating_an_inclusive_deloading_training_001_467bd9d9",
+        "paper_pmc10511399_results_potential_applications_of_deload_trainin_001_33fb7f61",
+        "paper_pmc10511399_discussion_the_applications_and_objectives_of_de_001_bf48ed37",
+        "paper_pmc10511399_abstract_001_81adf8c1",
+        "paper_pmc10511399_discussion_integrating_deloading_into_the_streng_004_2524efd2",
+        "paper_pmc10511399_results_designing_and_implementing_deload_traini_001_07df6a82",
+        "paper_pmc10511399_discussion_001_6b4cf449"
+      ]
+    },
+    {
+      "group": "e2e_v1",
+      "case_id": "LIT-008",
+      "recovery_triggered": true,
+      "initial": {
+        "egr10": 0.8,
+        "ce10": 0
+      },
+      "post_fusion_rounds": [
+        {
+          "egr10": 0.8,
+          "ce10": 0
+        },
+        {
+          "egr10": 0.8,
+          "ce10": 0
+        }
+      ],
+      "final": {
+        "egr10": 0.8,
+        "ce10": 0
+      },
+      "initial_top10": [
+        "paper_pmc10511399_background_002_40ba02e0",
+        "paper_pmc10511399_abstract_001_81adf8c1",
+        "paper_pmc11705206_abstract_001_2277be05",
+        "paper_pmc10511399_background_001_7a2a43f2",
+        "paper_pmc11705206_results_meta_regression_001_915732d7",
+        "paper_pmc11705206_perspectives_001_9f0348ad",
+        "paper_pmc10511399_background_003_38828bee",
+        "paper_pmc10511399_conclusion_001_ac6610bc",
+        "paper_pmc8363540_background_002_5b8b2c00",
+        "paper_pmc10511399_discussion_001_6b4cf449"
+      ],
+      "final_top10": [
+        "paper_pmc11705206_perspectives_001_9f0348ad",
+        "paper_pmc11705206_results_meta_regression_001_915732d7",
+        "paper_pmc10511399_background_002_40ba02e0",
+        "paper_pmc11705206_methods_study_selection_001_64097902",
+        "paper_pmc10511399_background_003_38828bee",
+        "paper_pmc11705206_introduction_001_688a6249",
+        "paper_pmc10511399_results_designing_and_implementing_deload_traini_002_1ebe29a1",
+        "paper_pmc11705206_abstract_001_2277be05",
+        "paper_pmc10511399_abstract_001_81adf8c1",
+        "paper_pmc7593778_potential_morphological_physiological_and_functi_003_4210b701"
+      ]
+    },
+    {
+      "group": "e2e_v1",
+      "case_id": "LIT-009",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "initial_top10": [
+        "paper_pmc6692867_discussion_001_60d9e64e",
+        "paper_pmc6692867_results_synthesis_of_results_001_6b2d4db1",
+        "paper_pmc6692867_results_results_of_individual_studies_001_0d575f98",
+        "paper_pmc6692867_results_study_characteristics_001_68c9ef7b",
+        "paper_pmc6692867_abstract_001_b33f7355",
+        "paper_pmc6692867_methods_data_items_001_ddf46d20",
+        "paper_pmc6692867_perspective_001_562852c2",
+        "paper_pmc6692867_discussion_002_c2c69a70",
+        "paper_pmc6692867_methods_risk_of_bias_in_individual_studies_001_10d4d5bb",
+        "paper_pmc6692867_methods_eligibility_criteria_001_b7a16ab2"
+      ],
+      "final_top10": [
+        "paper_pmc6692867_discussion_001_60d9e64e",
+        "paper_pmc6692867_results_synthesis_of_results_001_6b2d4db1",
+        "paper_pmc6692867_results_results_of_individual_studies_001_0d575f98",
+        "paper_pmc6692867_results_study_characteristics_001_68c9ef7b",
+        "paper_pmc6692867_abstract_001_b33f7355",
+        "paper_pmc6692867_methods_data_items_001_ddf46d20",
+        "paper_pmc6692867_perspective_001_562852c2",
+        "paper_pmc6692867_discussion_002_c2c69a70",
+        "paper_pmc6692867_methods_risk_of_bias_in_individual_studies_001_10d4d5bb",
+        "paper_pmc6692867_methods_eligibility_criteria_001_b7a16ab2"
+      ]
+    },
+    {
+      "group": "e2e_v1",
+      "case_id": "LIT-010",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "initial_top10": [
+        "paper_pmc13236796_definitional_inconsistencies_long_term_progressi_001_c16adcc6",
+        "paper_pmc12965823_discussion_002_daf8292e",
+        "paper_pmc12965823_discussion_001_96114f54",
+        "paper_pmc13236796_definitional_inconsistencies_long_term_progressi_001_6b10815d",
+        "paper_pmc11239729_discussion_003_2d80c6b9",
+        "paper_pmc6303131_discussion_section_muscle_strength_003_8df145fc",
+        "paper_pmc7994759_discussion_004_da9fb9dd",
+        "paper_pmc9302196_discussion_periodization_001_8ca95bbb",
+        "paper_pmc12965823_abstract_001_8343007d",
+        "paper_pmc6081873_results_sensitivity_analysis_001_b17da44f"
+      ],
+      "final_top10": [
+        "paper_pmc13236796_definitional_inconsistencies_long_term_progressi_001_c16adcc6",
+        "paper_pmc12965823_discussion_002_daf8292e",
+        "paper_pmc12965823_discussion_001_96114f54",
+        "paper_pmc13236796_definitional_inconsistencies_long_term_progressi_001_6b10815d",
+        "paper_pmc11239729_discussion_003_2d80c6b9",
+        "paper_pmc6303131_discussion_section_muscle_strength_003_8df145fc",
+        "paper_pmc7994759_discussion_004_da9fb9dd",
+        "paper_pmc9302196_discussion_periodization_001_8ca95bbb",
+        "paper_pmc12965823_abstract_001_8343007d",
+        "paper_pmc6081873_results_sensitivity_analysis_001_b17da44f"
+      ]
+    },
+    {
+      "group": "e2e_v1",
+      "case_id": "HYB-001",
+      "recovery_triggered": true,
+      "initial": {
+        "egr10": 0.0,
+        "ce10": 0
+      },
+      "post_fusion_rounds": [
+        {
+          "egr10": 0.0,
+          "ce10": 0
+        },
+        {
+          "egr10": 0.0,
+          "ce10": 0
+        }
+      ],
+      "final": {
+        "egr10": 0.0,
+        "ce10": 0
+      },
+      "initial_top10": [
+        "paper_pmc6081873_results_effects_of_frequency_on_volume_equated_c_001_9c538e18",
+        "paper_pmc8067909_discussion_002_5bf109e1",
+        "paper_pmc7994759_results_sensitivity_analysis_001_067a1233",
+        "paper_pmc8884877_conclusions_001_1c117287",
+        "paper_pmc6081873_results_effects_of_frequency_on_combined_multi_j_001_011af8eb",
+        "paper_pmc8962955_materials_and_methods_testing_sessions_strength__001_39a898e3",
+        "paper_pmc6081873_discussion_recommendations_on_weekly_training_fr_003_87e50d35",
+        "paper_pmc8962955_materials_and_methods_resistance_training_001_7fd0f416",
+        "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+        "paper_pmc8067909_methods_study_design_001_95e54bb1"
+      ],
+      "final_top10": [
+        "paper_pmc11239729_discussion_007_01077b25",
+        "paper_pmc6081873_results_effects_of_frequency_on_volume_equated_c_001_9c538e18",
+        "paper_pmc8962955_materials_and_methods_resistance_training_001_7fd0f416",
+        "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+        "paper_pmc11239729_discussion_009_c2754872",
+        "paper_pmc6303131_methods_maximal_strength_assessments_muscle_stre_001_fbb1207f",
+        "paper_pmc6081873_results_effects_of_frequency_on_combined_multi_j_002_fe29bf59",
+        "paper_pmc8067909_discussion_002_5bf109e1",
+        "paper_pmc7994759_results_sensitivity_analysis_001_067a1233",
+        "paper_pmc6303131_methods_rt_procedures_001_869b3a5a"
+      ]
+    },
+    {
+      "group": "e2e_v1",
+      "case_id": "HYB-002",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 0.0,
+        "ce10": 0
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 0.0,
+        "ce10": 0
+      },
+      "initial_top10": [],
+      "final_top10": []
+    },
+    {
+      "group": "e2e_v1",
+      "case_id": "HYB-003",
+      "recovery_triggered": true,
+      "initial": {
+        "egr10": 0.0,
+        "ce10": 0
+      },
+      "post_fusion_rounds": [
+        {
+          "egr10": 0.0,
+          "ce10": 0
+        },
+        {
+          "egr10": 0.0,
+          "ce10": 0
+        }
+      ],
+      "final": {
+        "egr10": 0.0,
+        "ce10": 0
+      },
+      "initial_top10": [
+        "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+        "paper_pmc8067909_discussion_002_5bf109e1",
+        "paper_pmc8067909_discussion_001_b274f347",
+        "paper_pmc10809978_discussion_hypertrophy_001_96936eff",
+        "paper_pmc6303131_methods_rt_procedures_001_869b3a5a",
+        "paper_pmc6303131_discussion_section_muscle_hypertrophy_002_604564d9",
+        "paper_pmc8962955_materials_and_methods_testing_sessions_strength__001_39a898e3",
+        "paper_pmc8962955_discussion_003_4bd917b5",
+        "paper_pmc8962955_materials_and_methods_resistance_training_001_7fd0f416",
+        "paper_pmc6303131_discussion_section_muscle_hypertrophy_001_90183ada"
+      ],
+      "final_top10": [
+        "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+        "paper_pmc6303131_methods_rt_procedures_001_869b3a5a",
+        "paper_pmc8962955_materials_and_methods_resistance_training_001_7fd0f416",
+        "paper_pmc8067909_discussion_001_b274f347",
+        "paper_pmc8067909_methods_study_design_001_95e54bb1",
+        "paper_pmc6303131_discussion_section_muscle_hypertrophy_002_604564d9",
+        "paper_pmc8962955_results_training_volume_and_strength_metrics_001_834cd1a4",
+        "paper_pmc10809978_discussion_hypertrophy_001_96936eff",
+        "paper_pmc11239729_discussion_003_2d80c6b9",
+        "paper_pmc8126497_discussion_002_fc1015d2"
+      ]
+    },
+    {
+      "group": "e2e_v1",
+      "case_id": "HYB-004",
+      "recovery_triggered": true,
+      "initial": {
+        "egr10": 0.0,
+        "ce10": 0
+      },
+      "post_fusion_rounds": [
+        {
+          "egr10": 0.0,
+          "ce10": 0
+        },
+        {
+          "egr10": 0.0,
+          "ce10": 0
+        }
+      ],
+      "final": {
+        "egr10": 0.0,
+        "ce10": 0
+      },
+      "initial_top10": [
+        "paper_pmc6303131_discussion_section_muscle_strength_002_71a665a3",
+        "paper_pmc8962955_materials_and_methods_testing_sessions_strength__001_39a898e3",
+        "paper_pmc6303131_methods_rt_procedures_001_869b3a5a",
+        "paper_pmc9068575_discussion_areas_for_future_research_001_66124f46",
+        "paper_pmc6303131_methods_maximal_strength_assessments_muscle_stre_001_fbb1207f",
+        "paper_pmc9068575_methods_statistical_analyses_001_1ae0d6f2",
+        "paper_pmc13236796_definitional_inconsistencies_long_term_progressi_002_20f45a00",
+        "paper_pmc8962955_discussion_002_89f86c8c",
+        "paper_pmc10809978_material_and_methods_measurements_004_40e0eb36",
+        "paper_pmc9935748_introduction_002_7770ed16"
+      ],
+      "final_top10": [
+        "paper_pmc6303131_methods_maximal_strength_assessments_muscle_stre_001_fbb1207f",
+        "paper_pmc8962955_materials_and_methods_testing_sessions_strength__001_39a898e3",
+        "paper_pmc6303131_methods_rt_procedures_001_869b3a5a",
+        "paper_pmc10809978_introduction_002_8b66bdcc",
+        "paper_pmc10818109_discussion_005_b3248e82",
+        "paper_pmc11239729_discussion_003_2d80c6b9",
+        "paper_pmc6081873_results_effects_of_frequency_on_combined_multi_j_001_011af8eb",
+        "paper_pmc6303131_discussion_section_muscle_strength_002_71a665a3",
+        "paper_pmc10809978_introduction_001_a6bc807f",
+        "paper_pmc6081873_results_effects_of_frequency_on_lower_body_exerc_001_56ca2921"
+      ]
+    },
+    {
+      "group": "e2e_v1",
+      "case_id": "HYB-005",
+      "recovery_triggered": true,
+      "initial": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "post_fusion_rounds": [
+        {
+          "egr10": 1.0,
+          "ce10": 1
+        },
+        {
+          "egr10": 1.0,
+          "ce10": 1
+        }
+      ],
+      "final": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "initial_top10": [
+        "paper_pmc7994759_conclusions_001_60ab1548",
+        "paper_pmc7994759_discussion_001_96f42292",
+        "paper_pmc8962955_materials_and_methods_resistance_training_001_7fd0f416",
+        "paper_pmc10511399_results_designing_and_implementing_deload_traini_001_07df6a82",
+        "paper_pmc8962955_materials_and_methods_testing_sessions_strength__001_39a898e3",
+        "paper_pmc7994759_introduction_003_cc652440",
+        "paper_pmc10511399_results_general_perceptions_of_deloading_001_e3d0f432",
+        "paper_pmc7994759_abstract_001_c2446fa2",
+        "paper_pmc10511399_discussion_integrating_deloading_into_the_streng_003_add4e354",
+        "paper_pmc9302196_discussion_repetition_duration_001_b70520a9"
+      ],
+      "final_top10": [
+        "paper_pmc7994759_abstract_001_c2446fa2",
+        "paper_pmc7994759_conclusions_001_60ab1548",
+        "paper_pmc7994759_discussion_004_da9fb9dd",
+        "paper_pmc10511399_results_general_perceptions_of_deloading_001_e3d0f432",
+        "paper_pmc7994759_discussion_003_41788cad",
+        "paper_pmc7994759_discussion_001_96f42292",
+        "paper_pmc7994759_results_selection_of_studies_001_3e22df9e",
+        "paper_pmc8962955_materials_and_methods_resistance_training_001_7fd0f416",
+        "paper_pmc10511399_results_designing_and_implementing_deload_traini_001_07df6a82",
+        "paper_pmc10511399_results_potential_applications_of_deload_trainin_001_33fb7f61"
+      ]
+    },
+    {
+      "group": "e2e_v1",
+      "case_id": "HYB-006",
+      "recovery_triggered": true,
+      "initial": {
+        "egr10": 0.0,
+        "ce10": 0
+      },
+      "post_fusion_rounds": [
+        {
+          "egr10": 1.0,
+          "ce10": 1
+        },
+        {
+          "egr10": 0.0,
+          "ce10": 0
+        }
+      ],
+      "final": {
+        "egr10": 0.0,
+        "ce10": 0
+      },
+      "initial_top10": [
+        "paper_pmc6303131_methods_rt_procedures_001_869b3a5a",
+        "paper_pmc9935748_discussion_limitations_002_5a874adc",
+        "paper_pmc8067909_results_002_22b50389",
+        "paper_pmc9935748_introduction_002_7770ed16",
+        "paper_pmc8962955_materials_and_methods_testing_sessions_strength__001_39a898e3",
+        "paper_pmc9935748_discussion_influence_of_resistance_training_perf_001_a83110f9",
+        "paper_pmc8884877_introduction_001_9d60700f",
+        "paper_pmc9935748_results_search_results_and_systematic_review_of__002_44bd7018",
+        "paper_pmc8067909_abstract_001_68ce5455",
+        "paper_pmc9935748_discussion_influence_of_resistance_training_perf_001_20857df7"
+      ],
+      "final_top10": [
+        "paper_pmc6950543_3_discussion_3_6_supersets_and_pre_exhaustion_te_001_2c7a0ae1",
+        "paper_pmc8126497_body_002_b8fff929",
+        "paper_pmc8962955_materials_and_methods_testing_sessions_strength__001_39a898e3",
+        "paper_pmc6303131_methods_rt_procedures_001_869b3a5a",
+        "paper_pmc8962955_materials_and_methods_resistance_training_001_7fd0f416",
+        "paper_pmc11239729_discussion_006_ddc663f6",
+        "paper_pmc9935748_discussion_limitations_002_5a874adc",
+        "paper_pmc9935748_introduction_002_7770ed16",
+        "paper_pmc11239729_introduction_001_14571977",
+        "paper_pmc8067909_abstract_001_68ce5455"
+      ]
+    },
+    {
+      "group": "e2e_v1",
+      "case_id": "HYB-007",
+      "recovery_triggered": true,
+      "initial": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "post_fusion_rounds": [
+        {
+          "egr10": 1.0,
+          "ce10": 1
+        },
+        {
+          "egr10": 1.0,
+          "ce10": 1
+        }
+      ],
+      "final": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "initial_top10": [
+        "paper_pmc10809978_results_body_composition_and_muscle_morphology_001_7c866f85",
+        "paper_pmc13236796_definitional_inconsistencies_long_term_progressi_001_c16adcc6",
+        "paper_pmc8067909_results_002_22b50389",
+        "paper_pmc8962955_results_body_composition_001_db9dcf80",
+        "paper_pmc10579494_results_network_meta_regression_001_d0864d5c",
+        "paper_pmc9302196_discussion_periodization_001_8ca95bbb",
+        "paper_pmc12965823_discussion_001_96114f54",
+        "paper_pmc8126497_methods_section_data_analysis_002_bb48880a",
+        "paper_pmc6303131_results_section_elbow_flexor_thickness_001_9de5c365",
+        "paper_pmc8363540_results_systematic_review_and_meta_analyses_find_001_fe985837"
+      ],
+      "final_top10": [
+        "paper_pmc12965823_discussion_001_96114f54",
+        "paper_pmc13236796_definitional_inconsistencies_long_term_progressi_001_c16adcc6",
+        "paper_pmc12965823_abstract_001_8343007d",
+        "paper_pmc10809978_results_body_composition_and_muscle_morphology_001_7c866f85",
+        "paper_pmc11239729_discussion_007_01077b25",
+        "paper_pmc12965823_discussion_002_daf8292e",
+        "paper_pmc6303131_discussion_section_muscle_strength_003_8df145fc",
+        "paper_pmc9302196_discussion_periodization_001_8ca95bbb",
+        "paper_pmc10579494_results_network_meta_regression_001_d0864d5c",
+        "paper_pmc11239729_discussion_008_28d984c7"
+      ]
+    },
+    {
+      "group": "e2e_v1",
+      "case_id": "HYB-008",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "initial_top10": [
+        "paper_pmc9302196_discussion_periodization_001_8ca95bbb",
+        "paper_pmc6692867_discussion_002_c2c69a70",
+        "paper_pmc6692867_methods_search_001_d951d9d7",
+        "paper_pmc6692867_results_synthesis_of_results_001_6b2d4db1",
+        "paper_pmc6692867_introduction_001_0f090423",
+        "paper_pmc6692867_abstract_001_b33f7355",
+        "paper_pmc6950543_3_discussion_3_6_supersets_and_pre_exhaustion_te_001_2c7a0ae1",
+        "paper_pmc12965823_discussion_002_daf8292e",
+        "paper_pmc6692867_perspective_001_562852c2",
+        "paper_pmc6692867_methods_eligibility_criteria_001_b7a16ab2"
+      ],
+      "final_top10": [
+        "paper_pmc9302196_discussion_periodization_001_8ca95bbb",
+        "paper_pmc6692867_discussion_002_c2c69a70",
+        "paper_pmc6692867_methods_search_001_d951d9d7",
+        "paper_pmc6692867_results_synthesis_of_results_001_6b2d4db1",
+        "paper_pmc6692867_introduction_001_0f090423",
+        "paper_pmc6692867_abstract_001_b33f7355",
+        "paper_pmc6950543_3_discussion_3_6_supersets_and_pre_exhaustion_te_001_2c7a0ae1",
+        "paper_pmc12965823_discussion_002_daf8292e",
+        "paper_pmc6692867_perspective_001_562852c2",
+        "paper_pmc6692867_methods_eligibility_criteria_001_b7a16ab2"
+      ]
+    },
+    {
+      "group": "e2e_v2",
+      "case_id": "LIT-001",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 0.3333333333333333,
+        "ce10": 0
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 0.3333333333333333,
+        "ce10": 0
+      },
+      "initial_top10": [
+        "paper_pmc8884877_discussion_002_3b5d0869",
+        "paper_pmc6081873_background_003_03a059b3",
+        "paper_pmc8884877_discussion_001_48d4b5b2",
+        "paper_pmc8884877_conclusions_001_1c117287",
+        "paper_pmc11239729_discussion_008_28d984c7",
+        "paper_pmc9302196_discussion_frequency_001_6a7a4717",
+        "paper_pmc6081873_discussion_considerations_towards_weekly_trainin_001_c448e257",
+        "paper_pmc6303131_conclusions_001_1016bba2",
+        "paper_pmc10818109_discussion_002_f42b3d17",
+        "paper_pmc10818109_results_strength_weekly_frequency_001_a2d047c7"
+      ],
+      "final_top10": [
+        "paper_pmc8884877_discussion_002_3b5d0869",
+        "paper_pmc6081873_background_003_03a059b3",
+        "paper_pmc8884877_discussion_001_48d4b5b2",
+        "paper_pmc8884877_conclusions_001_1c117287",
+        "paper_pmc11239729_discussion_008_28d984c7",
+        "paper_pmc9302196_discussion_frequency_001_6a7a4717",
+        "paper_pmc6081873_discussion_considerations_towards_weekly_trainin_001_c448e257",
+        "paper_pmc6303131_conclusions_001_1016bba2",
+        "paper_pmc10818109_discussion_002_f42b3d17",
+        "paper_pmc10818109_results_strength_weekly_frequency_001_a2d047c7"
+      ]
+    },
+    {
+      "group": "e2e_v2",
+      "case_id": "LIT-002",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "initial_top10": [
+        "paper_pmc8126497_discussion_001_4d630baf",
+        "paper_pmc8126497_body_002_b8fff929",
+        "paper_pmc8126497_discussion_002_fc1015d2",
+        "paper_pmc9068575_abstract_001_f8ce2da6",
+        "paper_pmc8126497_abstract_001_f200864c",
+        "paper_pmc8126497_body_003_68e7bb31",
+        "paper_pmc9935748_abstract_001_47d8e9e3",
+        "paper_pmc8126497_discussion_005_0105c19b",
+        "paper_pmc8126497_results_section_resistance_training_load_effects_001_741bb3eb",
+        "paper_pmc6950543_3_discussion_3_1_training_considerations_001_012adaac"
+      ],
+      "final_top10": [
+        "paper_pmc8126497_discussion_001_4d630baf",
+        "paper_pmc8126497_body_002_b8fff929",
+        "paper_pmc8126497_discussion_002_fc1015d2",
+        "paper_pmc9068575_abstract_001_f8ce2da6",
+        "paper_pmc8126497_abstract_001_f200864c",
+        "paper_pmc8126497_body_003_68e7bb31",
+        "paper_pmc9935748_abstract_001_47d8e9e3",
+        "paper_pmc8126497_discussion_005_0105c19b",
+        "paper_pmc8126497_results_section_resistance_training_load_effects_001_741bb3eb",
+        "paper_pmc6950543_3_discussion_3_1_training_considerations_001_012adaac"
+      ]
+    },
+    {
+      "group": "e2e_v2",
+      "case_id": "LIT-003",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 0.75,
+        "ce10": 0
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 0.75,
+        "ce10": 0
+      },
+      "initial_top10": [
+        "paper_pmc9068575_discussion_001_3e59b24c",
+        "paper_pmc9068575_discussion_muscular_strength_001_6a147b47",
+        "paper_pmc9068575_discussion_areas_for_future_research_001_66124f46",
+        "paper_pmc9935748_conclusions_001_d77d57c2",
+        "paper_pmc9068575_conclusion_001_d4947343",
+        "paper_pmc9935748_discussion_influence_of_resistance_training_perf_002_8001f61d",
+        "paper_pmc10809978_introduction_002_8b66bdcc",
+        "paper_pmc9935748_introduction_001_bc43e570",
+        "paper_pmc6303131_discussion_section_muscle_strength_001_3c752a7a",
+        "paper_pmc9935748_abstract_001_47d8e9e3"
+      ],
+      "final_top10": [
+        "paper_pmc9068575_discussion_001_3e59b24c",
+        "paper_pmc9068575_discussion_muscular_strength_001_6a147b47",
+        "paper_pmc9068575_discussion_areas_for_future_research_001_66124f46",
+        "paper_pmc9935748_conclusions_001_d77d57c2",
+        "paper_pmc9068575_conclusion_001_d4947343",
+        "paper_pmc9935748_discussion_influence_of_resistance_training_perf_002_8001f61d",
+        "paper_pmc10809978_introduction_002_8b66bdcc",
+        "paper_pmc9935748_introduction_001_bc43e570",
+        "paper_pmc6303131_discussion_section_muscle_strength_001_3c752a7a",
+        "paper_pmc9935748_abstract_001_47d8e9e3"
+      ]
+    },
+    {
+      "group": "e2e_v2",
+      "case_id": "LIT-004",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "initial_top10": [
+        "paper_pmc9935748_discussion_influence_of_resistance_training_perf_001_a83110f9",
+        "paper_pmc9935748_discussion_practical_application_of_key_findings_001_3938ad3a",
+        "paper_pmc9935748_abstract_001_47d8e9e3",
+        "paper_pmc9068575_discussion_muscle_hypertrophy_001_7edd91cb",
+        "paper_pmc9935748_introduction_001_bc43e570",
+        "paper_pmc9935748_conclusions_001_d77d57c2",
+        "paper_pmc9935748_discussion_influence_of_resistance_training_perf_001_20857df7",
+        "paper_pmc9935748_introduction_objectives_001_8b78823f",
+        "paper_pmc9068575_conclusion_001_d4947343",
+        "paper_pmc9935748_discussion_influence_of_different_velocity_loss__002_06d2cae4"
+      ],
+      "final_top10": [
+        "paper_pmc9935748_discussion_influence_of_resistance_training_perf_001_a83110f9",
+        "paper_pmc9935748_discussion_practical_application_of_key_findings_001_3938ad3a",
+        "paper_pmc9935748_abstract_001_47d8e9e3",
+        "paper_pmc9068575_discussion_muscle_hypertrophy_001_7edd91cb",
+        "paper_pmc9935748_introduction_001_bc43e570",
+        "paper_pmc9935748_conclusions_001_d77d57c2",
+        "paper_pmc9935748_discussion_influence_of_resistance_training_perf_001_20857df7",
+        "paper_pmc9935748_introduction_objectives_001_8b78823f",
+        "paper_pmc9068575_conclusion_001_d4947343",
+        "paper_pmc9935748_discussion_influence_of_different_velocity_loss__002_06d2cae4"
+      ]
+    },
+    {
+      "group": "e2e_v2",
+      "case_id": "LIT-005",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "initial_top10": [
+        "paper_pmc11239729_abstract_001_804fa841",
+        "paper_pmc11239729_introduction_001_14571977",
+        "paper_pmc11239729_introduction_003_967e00f6",
+        "paper_pmc11239729_discussion_001_d5c81f28",
+        "paper_pmc11239729_discussion_006_ddc663f6",
+        "paper_pmc8126497_discussion_001_4d630baf",
+        "paper_pmc8126497_body_002_b8fff929",
+        "paper_pmc11239729_conclusion_001_6c1a4564",
+        "paper_pmc8363540_discussion_001_d60867f2",
+        "paper_pmc11239729_methods_inclusion_criteria_and_data_extraction_001_4c99df10"
+      ],
+      "final_top10": [
+        "paper_pmc11239729_abstract_001_804fa841",
+        "paper_pmc11239729_introduction_001_14571977",
+        "paper_pmc11239729_introduction_003_967e00f6",
+        "paper_pmc11239729_discussion_001_d5c81f28",
+        "paper_pmc11239729_discussion_006_ddc663f6",
+        "paper_pmc8126497_discussion_001_4d630baf",
+        "paper_pmc8126497_body_002_b8fff929",
+        "paper_pmc11239729_conclusion_001_6c1a4564",
+        "paper_pmc8363540_discussion_001_d60867f2",
+        "paper_pmc11239729_methods_inclusion_criteria_and_data_extraction_001_4c99df10"
+      ]
+    },
+    {
+      "group": "e2e_v2",
+      "case_id": "LIT-006",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "initial_top10": [
+        "paper_pmc7994759_abstract_001_c2446fa2",
+        "paper_pmc7994759_conclusions_001_60ab1548",
+        "paper_pmc7994759_introduction_003_cc652440",
+        "paper_pmc7994759_discussion_001_96f42292",
+        "paper_pmc7994759_introduction_001_e39e015e",
+        "paper_pmc7994759_introduction_002_b85ab1ac",
+        "paper_pmc7994759_results_selection_of_studies_001_3e22df9e",
+        "paper_pmc7994759_discussion_002_d2373bde",
+        "paper_pmc7994759_discussion_003_41788cad",
+        "paper_pmc8363540_discussion_limitations_and_areas_for_future_rese_002_0f48777a"
+      ],
+      "final_top10": [
+        "paper_pmc7994759_abstract_001_c2446fa2",
+        "paper_pmc7994759_conclusions_001_60ab1548",
+        "paper_pmc7994759_introduction_003_cc652440",
+        "paper_pmc7994759_discussion_001_96f42292",
+        "paper_pmc7994759_introduction_001_e39e015e",
+        "paper_pmc7994759_introduction_002_b85ab1ac",
+        "paper_pmc7994759_results_selection_of_studies_001_3e22df9e",
+        "paper_pmc7994759_discussion_002_d2373bde",
+        "paper_pmc7994759_discussion_003_41788cad",
+        "paper_pmc8363540_discussion_limitations_and_areas_for_future_rese_002_0f48777a"
+      ]
+    },
+    {
+      "group": "e2e_v2",
+      "case_id": "LIT-007",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "initial_top10": [
+        "paper_pmc10511399_results_general_perceptions_of_deloading_001_e3d0f432",
+        "paper_pmc10511399_discussion_integrating_deloading_into_the_streng_001_834932bd",
+        "paper_pmc10511399_conclusion_001_ac6610bc",
+        "paper_pmc10511399_results_creating_an_inclusive_deloading_training_001_467bd9d9",
+        "paper_pmc10511399_results_potential_applications_of_deload_trainin_001_33fb7f61",
+        "paper_pmc10511399_discussion_the_applications_and_objectives_of_de_001_bf48ed37",
+        "paper_pmc10511399_abstract_001_81adf8c1",
+        "paper_pmc10511399_discussion_integrating_deloading_into_the_streng_004_2524efd2",
+        "paper_pmc10511399_results_designing_and_implementing_deload_traini_001_07df6a82",
+        "paper_pmc10511399_discussion_001_6b4cf449"
+      ],
+      "final_top10": [
+        "paper_pmc10511399_results_general_perceptions_of_deloading_001_e3d0f432",
+        "paper_pmc10511399_discussion_integrating_deloading_into_the_streng_001_834932bd",
+        "paper_pmc10511399_conclusion_001_ac6610bc",
+        "paper_pmc10511399_results_creating_an_inclusive_deloading_training_001_467bd9d9",
+        "paper_pmc10511399_results_potential_applications_of_deload_trainin_001_33fb7f61",
+        "paper_pmc10511399_discussion_the_applications_and_objectives_of_de_001_bf48ed37",
+        "paper_pmc10511399_abstract_001_81adf8c1",
+        "paper_pmc10511399_discussion_integrating_deloading_into_the_streng_004_2524efd2",
+        "paper_pmc10511399_results_designing_and_implementing_deload_traini_001_07df6a82",
+        "paper_pmc10511399_discussion_001_6b4cf449"
+      ]
+    },
+    {
+      "group": "e2e_v2",
+      "case_id": "LIT-008",
+      "recovery_triggered": true,
+      "initial": {
+        "egr10": 0.8,
+        "ce10": 0
+      },
+      "post_fusion_rounds": [
+        {
+          "egr10": 0.8,
+          "ce10": 0
+        },
+        {
+          "egr10": 0.8,
+          "ce10": 0
+        }
+      ],
+      "final": {
+        "egr10": 0.8,
+        "ce10": 0
+      },
+      "initial_top10": [
+        "paper_pmc10511399_background_002_40ba02e0",
+        "paper_pmc10511399_abstract_001_81adf8c1",
+        "paper_pmc11705206_abstract_001_2277be05",
+        "paper_pmc10511399_background_001_7a2a43f2",
+        "paper_pmc11705206_results_meta_regression_001_915732d7",
+        "paper_pmc11705206_perspectives_001_9f0348ad",
+        "paper_pmc10511399_background_003_38828bee",
+        "paper_pmc10511399_conclusion_001_ac6610bc",
+        "paper_pmc8363540_background_002_5b8b2c00",
+        "paper_pmc10511399_discussion_001_6b4cf449"
+      ],
+      "final_top10": [
+        "paper_pmc11705206_abstract_001_2277be05",
+        "paper_pmc11705206_perspectives_001_9f0348ad",
+        "paper_pmc11705206_results_meta_regression_001_915732d7",
+        "paper_pmc11705206_discussion_004_c98cdf71",
+        "paper_pmc11705206_introduction_001_688a6249",
+        "paper_pmc11705206_discussion_001_46581229",
+        "paper_pmc10511399_background_002_40ba02e0",
+        "paper_pmc11705206_discussion_005_a2b7c803",
+        "paper_pmc10511399_abstract_001_81adf8c1",
+        "paper_pmc10511399_background_001_7a2a43f2"
+      ]
+    },
+    {
+      "group": "e2e_v2",
+      "case_id": "LIT-009",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "initial_top10": [
+        "paper_pmc6692867_discussion_001_60d9e64e",
+        "paper_pmc6692867_results_synthesis_of_results_001_6b2d4db1",
+        "paper_pmc6692867_results_results_of_individual_studies_001_0d575f98",
+        "paper_pmc6692867_results_study_characteristics_001_68c9ef7b",
+        "paper_pmc6692867_abstract_001_b33f7355",
+        "paper_pmc6692867_methods_data_items_001_ddf46d20",
+        "paper_pmc6692867_perspective_001_562852c2",
+        "paper_pmc6692867_discussion_002_c2c69a70",
+        "paper_pmc6692867_methods_risk_of_bias_in_individual_studies_001_10d4d5bb",
+        "paper_pmc6692867_methods_eligibility_criteria_001_b7a16ab2"
+      ],
+      "final_top10": [
+        "paper_pmc6692867_discussion_001_60d9e64e",
+        "paper_pmc6692867_results_synthesis_of_results_001_6b2d4db1",
+        "paper_pmc6692867_results_results_of_individual_studies_001_0d575f98",
+        "paper_pmc6692867_results_study_characteristics_001_68c9ef7b",
+        "paper_pmc6692867_abstract_001_b33f7355",
+        "paper_pmc6692867_methods_data_items_001_ddf46d20",
+        "paper_pmc6692867_perspective_001_562852c2",
+        "paper_pmc6692867_discussion_002_c2c69a70",
+        "paper_pmc6692867_methods_risk_of_bias_in_individual_studies_001_10d4d5bb",
+        "paper_pmc6692867_methods_eligibility_criteria_001_b7a16ab2"
+      ]
+    },
+    {
+      "group": "e2e_v2",
+      "case_id": "LIT-010",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "initial_top10": [
+        "paper_pmc13236796_definitional_inconsistencies_long_term_progressi_001_c16adcc6",
+        "paper_pmc12965823_discussion_002_daf8292e",
+        "paper_pmc12965823_discussion_001_96114f54",
+        "paper_pmc13236796_definitional_inconsistencies_long_term_progressi_001_6b10815d",
+        "paper_pmc11239729_discussion_003_2d80c6b9",
+        "paper_pmc6303131_discussion_section_muscle_strength_003_8df145fc",
+        "paper_pmc7994759_discussion_004_da9fb9dd",
+        "paper_pmc9302196_discussion_periodization_001_8ca95bbb",
+        "paper_pmc12965823_abstract_001_8343007d",
+        "paper_pmc6081873_results_sensitivity_analysis_001_b17da44f"
+      ],
+      "final_top10": [
+        "paper_pmc13236796_definitional_inconsistencies_long_term_progressi_001_c16adcc6",
+        "paper_pmc12965823_discussion_002_daf8292e",
+        "paper_pmc12965823_discussion_001_96114f54",
+        "paper_pmc13236796_definitional_inconsistencies_long_term_progressi_001_6b10815d",
+        "paper_pmc11239729_discussion_003_2d80c6b9",
+        "paper_pmc6303131_discussion_section_muscle_strength_003_8df145fc",
+        "paper_pmc7994759_discussion_004_da9fb9dd",
+        "paper_pmc9302196_discussion_periodization_001_8ca95bbb",
+        "paper_pmc12965823_abstract_001_8343007d",
+        "paper_pmc6081873_results_sensitivity_analysis_001_b17da44f"
+      ]
+    },
+    {
+      "group": "e2e_v2",
+      "case_id": "HYB-001",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 0.0,
+        "ce10": 0
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 0.0,
+        "ce10": 0
+      },
+      "initial_top10": [
+        "paper_pmc6081873_results_effects_of_frequency_on_volume_equated_c_001_9c538e18",
+        "paper_pmc8067909_discussion_002_5bf109e1",
+        "paper_pmc7994759_results_sensitivity_analysis_001_067a1233",
+        "paper_pmc8884877_conclusions_001_1c117287",
+        "paper_pmc6081873_results_effects_of_frequency_on_combined_multi_j_001_011af8eb",
+        "paper_pmc8962955_materials_and_methods_testing_sessions_strength__001_39a898e3",
+        "paper_pmc6081873_discussion_recommendations_on_weekly_training_fr_003_87e50d35",
+        "paper_pmc8962955_materials_and_methods_resistance_training_001_7fd0f416",
+        "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+        "paper_pmc8067909_methods_study_design_001_95e54bb1"
+      ],
+      "final_top10": [
+        "paper_pmc6081873_results_effects_of_frequency_on_volume_equated_c_001_9c538e18",
+        "paper_pmc8067909_discussion_002_5bf109e1",
+        "paper_pmc7994759_results_sensitivity_analysis_001_067a1233",
+        "paper_pmc8884877_conclusions_001_1c117287",
+        "paper_pmc6081873_results_effects_of_frequency_on_combined_multi_j_001_011af8eb",
+        "paper_pmc8962955_materials_and_methods_testing_sessions_strength__001_39a898e3",
+        "paper_pmc6081873_discussion_recommendations_on_weekly_training_fr_003_87e50d35",
+        "paper_pmc8962955_materials_and_methods_resistance_training_001_7fd0f416",
+        "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+        "paper_pmc8067909_methods_study_design_001_95e54bb1"
+      ]
+    },
+    {
+      "group": "e2e_v2",
+      "case_id": "HYB-002",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 0.0,
+        "ce10": 0
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 0.0,
+        "ce10": 0
+      },
+      "initial_top10": [
+        "paper_pmc12965823_discussion_003_43d2e350",
+        "paper_pmc8884877_results_biceps_brachii_qualitative_analysis_001_564b2c94",
+        "paper_pmc10809978_conclusion_001_7b9fdcea",
+        "paper_pmc10818109_results_strength_volume_number_of_sets_001_b4e9a7dc",
+        "paper_pmc10809978_discussion_hypertrophy_001_96936eff",
+        "paper_pmc7593778_injured_athlete_during_the_covid_19_enforced_qua_001_57c1de7e",
+        "paper_pmc10818109_results_strength_set_end_point_momentary_muscula_001_78f76dd4",
+        "paper_pmc6081873_results_effects_of_frequency_on_lower_body_exerc_001_56ca2921",
+        "paper_pmc10818109_results_muscle_hypertrophy_weekly_frequency_001_9b6da608",
+        "paper_pmc6081873_results_effects_of_frequency_on_combined_multi_j_002_fe29bf59"
+      ],
+      "final_top10": [
+        "paper_pmc12965823_discussion_003_43d2e350",
+        "paper_pmc8884877_results_biceps_brachii_qualitative_analysis_001_564b2c94",
+        "paper_pmc10809978_conclusion_001_7b9fdcea",
+        "paper_pmc10818109_results_strength_volume_number_of_sets_001_b4e9a7dc",
+        "paper_pmc10809978_discussion_hypertrophy_001_96936eff",
+        "paper_pmc7593778_injured_athlete_during_the_covid_19_enforced_qua_001_57c1de7e",
+        "paper_pmc10818109_results_strength_set_end_point_momentary_muscula_001_78f76dd4",
+        "paper_pmc6081873_results_effects_of_frequency_on_lower_body_exerc_001_56ca2921",
+        "paper_pmc10818109_results_muscle_hypertrophy_weekly_frequency_001_9b6da608",
+        "paper_pmc6081873_results_effects_of_frequency_on_combined_multi_j_002_fe29bf59"
+      ]
+    },
+    {
+      "group": "e2e_v2",
+      "case_id": "HYB-003",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 0.0,
+        "ce10": 0
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 0.0,
+        "ce10": 0
+      },
+      "initial_top10": [
+        "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+        "paper_pmc8067909_discussion_002_5bf109e1",
+        "paper_pmc8067909_discussion_001_b274f347",
+        "paper_pmc10809978_discussion_hypertrophy_001_96936eff",
+        "paper_pmc6303131_methods_rt_procedures_001_869b3a5a",
+        "paper_pmc6303131_discussion_section_muscle_hypertrophy_002_604564d9",
+        "paper_pmc8962955_materials_and_methods_testing_sessions_strength__001_39a898e3",
+        "paper_pmc8962955_discussion_003_4bd917b5",
+        "paper_pmc8962955_materials_and_methods_resistance_training_001_7fd0f416",
+        "paper_pmc6303131_discussion_section_muscle_hypertrophy_001_90183ada"
+      ],
+      "final_top10": [
+        "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+        "paper_pmc8067909_discussion_002_5bf109e1",
+        "paper_pmc8067909_discussion_001_b274f347",
+        "paper_pmc10809978_discussion_hypertrophy_001_96936eff",
+        "paper_pmc6303131_methods_rt_procedures_001_869b3a5a",
+        "paper_pmc6303131_discussion_section_muscle_hypertrophy_002_604564d9",
+        "paper_pmc8962955_materials_and_methods_testing_sessions_strength__001_39a898e3",
+        "paper_pmc8962955_discussion_003_4bd917b5",
+        "paper_pmc8962955_materials_and_methods_resistance_training_001_7fd0f416",
+        "paper_pmc6303131_discussion_section_muscle_hypertrophy_001_90183ada"
+      ]
+    },
+    {
+      "group": "e2e_v2",
+      "case_id": "HYB-004",
+      "recovery_triggered": true,
+      "initial": {
+        "egr10": 0.0,
+        "ce10": 0
+      },
+      "post_fusion_rounds": [
+        {
+          "egr10": 0.0,
+          "ce10": 0
+        },
+        {
+          "egr10": 0.0,
+          "ce10": 0
+        }
+      ],
+      "final": {
+        "egr10": 0.0,
+        "ce10": 0
+      },
+      "initial_top10": [
+        "paper_pmc6303131_discussion_section_muscle_strength_002_71a665a3",
+        "paper_pmc8962955_materials_and_methods_testing_sessions_strength__001_39a898e3",
+        "paper_pmc6303131_methods_rt_procedures_001_869b3a5a",
+        "paper_pmc9068575_discussion_areas_for_future_research_001_66124f46",
+        "paper_pmc6303131_methods_maximal_strength_assessments_muscle_stre_001_fbb1207f",
+        "paper_pmc9068575_methods_statistical_analyses_001_1ae0d6f2",
+        "paper_pmc13236796_definitional_inconsistencies_long_term_progressi_002_20f45a00",
+        "paper_pmc8962955_discussion_002_89f86c8c",
+        "paper_pmc10809978_material_and_methods_measurements_004_40e0eb36",
+        "paper_pmc9935748_introduction_002_7770ed16"
+      ],
+      "final_top10": [
+        "paper_pmc6303131_methods_maximal_strength_assessments_muscle_stre_001_fbb1207f",
+        "paper_pmc6303131_methods_rt_procedures_001_869b3a5a",
+        "paper_pmc9935748_abstract_001_47d8e9e3",
+        "paper_pmc8962955_materials_and_methods_testing_sessions_strength__001_39a898e3",
+        "paper_pmc11239729_abstract_001_804fa841",
+        "paper_pmc8962955_discussion_002_89f86c8c",
+        "paper_pmc11239729_introduction_001_14571977",
+        "paper_pmc6303131_discussion_section_muscle_strength_002_71a665a3",
+        "paper_pmc8126497_body_002_b8fff929",
+        "paper_pmc10818109_discussion_004_77fc4815"
+      ]
+    },
+    {
+      "group": "e2e_v2",
+      "case_id": "HYB-005",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "initial_top10": [
+        "paper_pmc7994759_conclusions_001_60ab1548",
+        "paper_pmc7994759_discussion_001_96f42292",
+        "paper_pmc8962955_materials_and_methods_resistance_training_001_7fd0f416",
+        "paper_pmc10511399_results_designing_and_implementing_deload_traini_001_07df6a82",
+        "paper_pmc8962955_materials_and_methods_testing_sessions_strength__001_39a898e3",
+        "paper_pmc7994759_introduction_003_cc652440",
+        "paper_pmc10511399_results_general_perceptions_of_deloading_001_e3d0f432",
+        "paper_pmc7994759_abstract_001_c2446fa2",
+        "paper_pmc10511399_discussion_integrating_deloading_into_the_streng_003_add4e354",
+        "paper_pmc9302196_discussion_repetition_duration_001_b70520a9"
+      ],
+      "final_top10": [
+        "paper_pmc7994759_conclusions_001_60ab1548",
+        "paper_pmc7994759_discussion_001_96f42292",
+        "paper_pmc8962955_materials_and_methods_resistance_training_001_7fd0f416",
+        "paper_pmc10511399_results_designing_and_implementing_deload_traini_001_07df6a82",
+        "paper_pmc8962955_materials_and_methods_testing_sessions_strength__001_39a898e3",
+        "paper_pmc7994759_introduction_003_cc652440",
+        "paper_pmc10511399_results_general_perceptions_of_deloading_001_e3d0f432",
+        "paper_pmc7994759_abstract_001_c2446fa2",
+        "paper_pmc10511399_discussion_integrating_deloading_into_the_streng_003_add4e354",
+        "paper_pmc9302196_discussion_repetition_duration_001_b70520a9"
+      ]
+    },
+    {
+      "group": "e2e_v2",
+      "case_id": "HYB-006",
+      "recovery_triggered": true,
+      "initial": {
+        "egr10": 0.0,
+        "ce10": 0
+      },
+      "post_fusion_rounds": [
+        {
+          "egr10": 1.0,
+          "ce10": 1
+        }
+      ],
+      "final": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "initial_top10": [
+        "paper_pmc6303131_methods_rt_procedures_001_869b3a5a",
+        "paper_pmc9935748_discussion_limitations_002_5a874adc",
+        "paper_pmc8067909_results_002_22b50389",
+        "paper_pmc9935748_introduction_002_7770ed16",
+        "paper_pmc8962955_materials_and_methods_testing_sessions_strength__001_39a898e3",
+        "paper_pmc9935748_discussion_influence_of_resistance_training_perf_001_a83110f9",
+        "paper_pmc8884877_introduction_001_9d60700f",
+        "paper_pmc9935748_results_search_results_and_systematic_review_of__002_44bd7018",
+        "paper_pmc8067909_abstract_001_68ce5455",
+        "paper_pmc9935748_discussion_influence_of_resistance_training_perf_001_20857df7"
+      ],
+      "final_top10": [
+        "paper_pmc9935748_introduction_002_7770ed16",
+        "paper_pmc6303131_methods_rt_procedures_001_869b3a5a",
+        "paper_pmc9935748_abstract_001_47d8e9e3",
+        "paper_pmc8126497_discussion_001_4d630baf",
+        "paper_pmc9935748_discussion_limitations_002_5a874adc",
+        "paper_pmc8067909_results_002_22b50389",
+        "paper_pmc9935748_introduction_objectives_001_8b78823f",
+        "paper_pmc9068575_conclusion_001_d4947343",
+        "paper_pmc8962955_materials_and_methods_testing_sessions_strength__001_39a898e3",
+        "paper_pmc9935748_introduction_001_bc43e570"
+      ]
+    },
+    {
+      "group": "e2e_v2",
+      "case_id": "HYB-007",
+      "recovery_triggered": true,
+      "initial": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "post_fusion_rounds": [
+        {
+          "egr10": 1.0,
+          "ce10": 1
+        }
+      ],
+      "final": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "initial_top10": [
+        "paper_pmc10809978_results_body_composition_and_muscle_morphology_001_7c866f85",
+        "paper_pmc13236796_definitional_inconsistencies_long_term_progressi_001_c16adcc6",
+        "paper_pmc8067909_results_002_22b50389",
+        "paper_pmc8962955_results_body_composition_001_db9dcf80",
+        "paper_pmc10579494_results_network_meta_regression_001_d0864d5c",
+        "paper_pmc9302196_discussion_periodization_001_8ca95bbb",
+        "paper_pmc12965823_discussion_001_96114f54",
+        "paper_pmc8126497_methods_section_data_analysis_002_bb48880a",
+        "paper_pmc6303131_results_section_elbow_flexor_thickness_001_9de5c365",
+        "paper_pmc8363540_results_systematic_review_and_meta_analyses_find_001_fe985837"
+      ],
+      "final_top10": [
+        "paper_pmc12965823_discussion_001_96114f54",
+        "paper_pmc13236796_definitional_inconsistencies_long_term_progressi_001_c16adcc6",
+        "paper_pmc9302196_discussion_periodization_001_8ca95bbb",
+        "paper_pmc10809978_results_body_composition_and_muscle_morphology_001_7c866f85",
+        "paper_pmc8126497_discussion_003_2becbae7",
+        "paper_pmc12965823_abstract_001_8343007d",
+        "paper_pmc8067909_results_002_22b50389",
+        "paper_pmc8126497_body_002_b8fff929",
+        "paper_pmc8962955_results_body_composition_001_db9dcf80",
+        "paper_pmc10579494_results_network_meta_regression_001_d0864d5c"
+      ]
+    },
+    {
+      "group": "e2e_v2",
+      "case_id": "HYB-008",
+      "recovery_triggered": false,
+      "initial": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "post_fusion_rounds": [],
+      "final": {
+        "egr10": 1.0,
+        "ce10": 1
+      },
+      "initial_top10": [
+        "paper_pmc9302196_discussion_periodization_001_8ca95bbb",
+        "paper_pmc6692867_discussion_002_c2c69a70",
+        "paper_pmc6692867_methods_search_001_d951d9d7",
+        "paper_pmc6692867_results_synthesis_of_results_001_6b2d4db1",
+        "paper_pmc6692867_introduction_001_0f090423",
+        "paper_pmc6692867_abstract_001_b33f7355",
+        "paper_pmc6950543_3_discussion_3_6_supersets_and_pre_exhaustion_te_001_2c7a0ae1",
+        "paper_pmc12965823_discussion_002_daf8292e",
+        "paper_pmc6692867_perspective_001_562852c2",
+        "paper_pmc6692867_methods_eligibility_criteria_001_b7a16ab2"
+      ],
+      "final_top10": [
+        "paper_pmc9302196_discussion_periodization_001_8ca95bbb",
+        "paper_pmc6692867_discussion_002_c2c69a70",
+        "paper_pmc6692867_methods_search_001_d951d9d7",
+        "paper_pmc6692867_results_synthesis_of_results_001_6b2d4db1",
+        "paper_pmc6692867_introduction_001_0f090423",
+        "paper_pmc6692867_abstract_001_b33f7355",
+        "paper_pmc6950543_3_discussion_3_6_supersets_and_pre_exhaustion_te_001_2c7a0ae1",
+        "paper_pmc12965823_discussion_002_daf8292e",
+        "paper_pmc6692867_perspective_001_562852c2",
+        "paper_pmc6692867_methods_eligibility_criteria_001_b7a16ab2"
+      ]
+    }
+  ]
+}
