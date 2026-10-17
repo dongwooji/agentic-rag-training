@@ -1,0 +1,1499 @@
+{
+  "diagnostic_only": true,
+  "independent_validation": false,
+  "selected_grader": "legacy",
+  "recovery_enabled": true,
+  "cases": [
+    {
+      "case_id": "HOV2-001",
+      "initial": {
+        "egr10": 0.0,
+        "ce10": 0.0
+      },
+      "final": {
+        "egr10": 0.0,
+        "ce10": 0.0
+      },
+      "final_behavior": "answer_ready",
+      "execution_failure": false,
+      "grade": {
+        "execution_status": "completed",
+        "evidence_sufficient": true,
+        "error_code": null,
+        "missing_component_ids": [],
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "8주 동안 한쪽 팔은 failure, 반대쪽은 1–3 RIR로 훈련한 비교에서 초음파로 잰 팔 근육 두께 차이의 추정치",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc13609929_abstract_001_45d1bf5e"
+            ]
+          },
+          {
+            "component_id": "C2",
+            "requirement": "그 차이의 불확실성(예: 95% HDI)",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc13609929_abstract_001_45d1bf5e"
+            ]
+          }
+        ],
+        "requirements": null
+      },
+      "final_ids": [
+        "paper_pmc13609929_abstract_001_45d1bf5e",
+        "paper_pmc13609929_4_materials_and_methods_4_6_muscle_thickness_ass_001_7d389254",
+        "paper_pmc6303131_discussion_section_limitations_001_b49f3c3c",
+        "paper_pmc8067909_abstract_001_68ce5455",
+        "paper_pmc13609929_2_results_2_2_change_in_elbow_flexor_thickness_f_001_f7c97091",
+        "paper_pmc11829627_materials_and_methods_assessments_001_a04120fb",
+        "paper_pmc6303131_methods_measurements_muscle_thickness_001_ea1276ed",
+        "paper_pmc13609929_4_materials_and_methods_4_7_maximal_strength_ass_001_d036ad56",
+        "paper_pmc8067909_methods_anthropometric_measures_001_dd42c478",
+        "paper_pmc8067909_methods_study_design_001_95e54bb1"
+      ],
+      "retry_count": 0,
+      "recovery_attempts": 0,
+      "initial_latency_ms": 4142.355899995891,
+      "continuation_latency_ms": 0.02440001117065549,
+      "event_ids": [
+        1
+      ],
+      "llm_calls": 1,
+      "llm_latency_ms": 4136.749099998269,
+      "input_tokens": 5425,
+      "output_tokens": 151,
+      "estimated_cost_usd": 0.00474825,
+      "errors": []
+    },
+    {
+      "case_id": "HOV2-002",
+      "initial": {
+        "egr10": 1.0,
+        "ce10": 1.0
+      },
+      "final": {
+        "egr10": 1.0,
+        "ce10": 1.0
+      },
+      "final_behavior": "answer_ready",
+      "execution_failure": false,
+      "grade": {
+        "execution_status": "completed",
+        "evidence_sufficient": true,
+        "error_code": null,
+        "missing_component_ids": [],
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "RTEV와 RTUV가 무엇을 다르게 통제했는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc9560172_methods_experimental_design_001_ba6c51f8",
+              "paper_pmc9560172_methods_resistance_training_protocols_001_c46aa6f3"
+            ]
+          },
+          {
+            "component_id": "C2",
+            "requirement": "1RM 결과를 RTEV와 RTUV 두 조건으로 나누어 설명",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc9560172_results_001_d09a7b6e",
+              "paper_pmc9560172_abstract_001_9aeb2348",
+              "paper_pmc9560172_conclusion_001_5d133194"
+            ]
+          },
+          {
+            "component_id": "C3",
+            "requirement": "MRI 근육 단면적 결과를 RTEV와 RTUV 두 조건으로 나누어 설명",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc9560172_results_001_d09a7b6e",
+              "paper_pmc9560172_abstract_001_9aeb2348",
+              "paper_pmc9560172_conclusion_001_5d133194"
+            ]
+          }
+        ],
+        "requirements": null
+      },
+      "final_ids": [
+        "paper_pmc9560172_methods_experimental_design_001_ba6c51f8",
+        "paper_pmc9560172_results_001_d09a7b6e",
+        "paper_pmc9560172_conclusion_001_5d133194",
+        "paper_pmc9560172_discussion_001_fc821cad",
+        "paper_pmc9560172_abstract_001_9aeb2348",
+        "paper_pmc12965823_results_hypertrophy_001_6c8e7ec9",
+        "paper_pmc9560172_discussion_002_5509b23d",
+        "paper_pmc9560172_methods_statistical_analysis_001_f7864675",
+        "paper_pmc9560172_methods_resistance_training_protocols_001_c46aa6f3",
+        "paper_pmc9935748_results_meta_analysis_results_what_magnitudes_of_001_46ea3648"
+      ],
+      "retry_count": 0,
+      "recovery_attempts": 0,
+      "initial_latency_ms": 1600.5887000064831,
+      "continuation_latency_ms": 0.008099974365904927,
+      "event_ids": [
+        2
+      ],
+      "llm_calls": 1,
+      "llm_latency_ms": 1596.5222000086214,
+      "input_tokens": 5954,
+      "output_tokens": 270,
+      "estimated_cost_usd": 0.0056805,
+      "errors": []
+    },
+    {
+      "case_id": "HOV2-003",
+      "initial": {
+        "egr10": 0.4,
+        "ce10": 0.0
+      },
+      "final": {
+        "egr10": 0.4,
+        "ce10": 0.0
+      },
+      "final_behavior": "answer_ready",
+      "execution_failure": false,
+      "grade": {
+        "execution_status": "completed",
+        "evidence_sufficient": true,
+        "error_code": null,
+        "missing_component_ids": [],
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "세트 시작 전에 가능한 최대 반복수를 예상하는 검사와 sdRM 조건을 별도의 실제 failure 조건과 비교하는 검사가 같은 RIR 정확도 검사인지 여부",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc9908800_methods_procedures_pre_visit_sessions_003_a8a1f5c5",
+              "paper_pmc7785525_materials_and_methods_experimental_approach_001_8f58bf45",
+              "paper_pmc5712461_methods_experimental_approach_to_the_problem_001_d8f1e68c"
+            ]
+          },
+          {
+            "component_id": "C2",
+            "requirement": "각 검사에서 어떤 오차를 측정했는지의 구분",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc9908800_methods_procedures_pre_visit_sessions_003_a8a1f5c5",
+              "paper_pmc5712461_methods_statistical_analysis_001_33b1229e",
+              "paper_pmc7785525_discussion_001_e84fdbdd"
+            ]
+          }
+        ],
+        "requirements": null
+      },
+      "final_ids": [
+        "paper_pmc9908800_methods_procedures_pre_visit_sessions_003_a8a1f5c5",
+        "paper_pmc7785525_discussion_001_e84fdbdd",
+        "paper_pmc7785525_materials_and_methods_experiment_1_resistance_ex_001_0188f81c",
+        "paper_pmc5712461_methods_experimental_approach_to_the_problem_001_d8f1e68c",
+        "paper_pmc7785525_introduction_003_7395ce9c",
+        "paper_pmc7785525_materials_and_methods_experimental_approach_001_8f58bf45",
+        "paper_pmc5712461_discussion_006_12730b19",
+        "paper_pmc7785525_abstract_001_0ca0662e",
+        "paper_pmc5712461_methods_statistical_analysis_001_33b1229e",
+        "paper_pmc5712461_discussion_001_1827f753"
+      ],
+      "retry_count": 0,
+      "recovery_attempts": 0,
+      "initial_latency_ms": 1642.629299982218,
+      "continuation_latency_ms": 0.006599992047995329,
+      "event_ids": [
+        3
+      ],
+      "llm_calls": 1,
+      "llm_latency_ms": 1639.1664000111632,
+      "input_tokens": 5715,
+      "output_tokens": 236,
+      "estimated_cost_usd": 0.00534825,
+      "errors": []
+    },
+    {
+      "case_id": "HOV2-004",
+      "initial": {
+        "egr10": 0.0,
+        "ce10": 0.0
+      },
+      "final": {
+        "egr10": 0.0,
+        "ce10": 0.0
+      },
+      "final_behavior": "abstain_ready",
+      "execution_failure": false,
+      "grade": {
+        "execution_status": "completed",
+        "evidence_sufficient": false,
+        "error_code": null,
+        "missing_component_ids": [
+          "C2"
+        ],
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "급성 수면 제한이 벤치프레스 수행에 미치는 영향",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc9584849_discussion_001_05cbe409",
+              "paper_pmc9584849_results_overall_exercise_performance_all_exercis_001_f389f7c8",
+              "paper_pmc9584849_discussion_pattern_of_sleep_loss_001_cb04a3fb",
+              "paper_pmc9584849_abstract_001_030a5d98"
+            ]
+          },
+          {
+            "component_id": "C2",
+            "requirement": "급성 수면 제한이 e1RM에 미치는 영향",
+            "status": "missing",
+            "supporting_chunk_ids": []
+          }
+        ],
+        "requirements": null
+      },
+      "final_ids": [
+        "paper_pmc9584849_discussion_influence_of_acute_sleep_loss_on_exer_001_bffda693",
+        "paper_pmc9584849_discussion_pattern_of_sleep_loss_001_cb04a3fb",
+        "paper_pmc9584849_results_overall_exercise_performance_all_exercis_001_f389f7c8",
+        "paper_pmc9584849_conclusion_001_4ba06151",
+        "paper_pmc9584849_discussion_001_05cbe409",
+        "paper_pmc9584849_introduction_001_ab91ff81",
+        "paper_pmc9584849_introduction_002_c71f0a58",
+        "paper_pmc9584849_discussion_influence_of_time_of_day_exercise_is__001_0596725c",
+        "paper_pmc8067909_results_002_22b50389",
+        "paper_pmc9584849_abstract_001_030a5d98"
+      ],
+      "retry_count": 1,
+      "recovery_attempts": 2,
+      "initial_latency_ms": 1388.6946999991778,
+      "continuation_latency_ms": 6492.907899984857,
+      "event_ids": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "llm_calls": 4,
+      "llm_latency_ms": 7618.654599995352,
+      "input_tokens": 13235,
+      "output_tokens": 408,
+      "estimated_cost_usd": 0.01176225,
+      "errors": [
+        {
+          "stage": "recovery_agent",
+          "code": "duplicate_query"
+        }
+      ]
+    },
+    {
+      "case_id": "HOV2-005",
+      "initial": {
+        "egr10": 0.0,
+        "ce10": 0.0
+      },
+      "final": {
+        "egr10": 0.0,
+        "ce10": 0.0
+      },
+      "final_behavior": "answer_ready",
+      "execution_failure": false,
+      "grade": {
+        "execution_status": "completed",
+        "evidence_sufficient": true,
+        "error_code": null,
+        "missing_component_ids": [],
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "8주 동안 운동별 1·3·5세트를 수행한 훈련된 남성 시험에서 세트 수가 많은 집단의 근육 두께가 더 유리했는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc6303131_abstract_001_d2bd9f30",
+              "paper_pmc6303131_discussion_section_muscle_hypertrophy_002_604564d9"
+            ]
+          },
+          {
+            "component_id": "C2",
+            "requirement": "8주 동안 운동별 1·3·5세트를 수행한 훈련된 남성 시험에서 세트 수가 많은 집단의 1RM이 더 유리했는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc6303131_abstract_001_d2bd9f30",
+              "paper_pmc6303131_discussion_section_muscle_strength_001_3c752a7a"
+            ]
+          },
+          {
+            "component_id": "C3",
+            "requirement": "근육별 결과(어떤 근육에서 차이가 있었는지)를 구분해 제시할 수 있는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc6303131_abstract_001_d2bd9f30",
+              "paper_pmc6303131_discussion_section_muscle_hypertrophy_002_604564d9",
+              "paper_pmc6303131_discussion_section_muscle_strength_001_3c752a7a"
+            ]
+          }
+        ],
+        "requirements": null
+      },
+      "final_ids": [
+        "paper_pmc6303131_discussion_section_muscle_strength_001_3c752a7a",
+        "paper_pmc8067909_introduction_001_8287cc00",
+        "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+        "paper_pmc6303131_discussion_section_muscle_hypertrophy_002_604564d9",
+        "paper_pmc9528903_discussion_hypertrophy_001_e0388191",
+        "paper_pmc6303131_discussion_section_muscle_endurance_001_c5b0ebb6",
+        "paper_pmc8762534_results_effect_of_autoregulated_versus_standardi_001_5d1e4ed9",
+        "paper_pmc9528903_abstract_001_0d876a4d",
+        "paper_pmc8067909_abstract_001_68ce5455",
+        "paper_pmc6303131_abstract_001_d2bd9f30"
+      ],
+      "retry_count": 0,
+      "recovery_attempts": 0,
+      "initial_latency_ms": 1812.742000009166,
+      "continuation_latency_ms": 0.006699992809444666,
+      "event_ids": [
+        8
+      ],
+      "llm_calls": 1,
+      "llm_latency_ms": 1808.9674999937415,
+      "input_tokens": 7078,
+      "output_tokens": 328,
+      "estimated_cost_usd": 0.0067845,
+      "errors": []
+    },
+    {
+      "case_id": "HOV2-006",
+      "initial": {
+        "egr10": 0.0,
+        "ce10": 0.0
+      },
+      "final": {
+        "egr10": 0.0,
+        "ce10": 0.0
+      },
+      "final_behavior": "answer_ready",
+      "execution_failure": false,
+      "grade": {
+        "execution_status": "completed",
+        "evidence_sufficient": true,
+        "error_code": null,
+        "missing_component_ids": [],
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "8주 비교 시험에서 대퇴직근 두께가 매주 중량을 올리는 방식과 같은 중량에서 반복수를 늘리는 방식 사이에 같은 방향의 차이를 보였는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc9528903_abstract_001_0d876a4d",
+              "paper_pmc9528903_introduction_002_adf9984d"
+            ]
+          },
+          {
+            "component_id": "C2",
+            "requirement": "8주 비교 시험에서 하체 1RM이 매주 중량을 올리는 방식과 같은 중량에서 반복수를 늘리는 방식 사이에 같은 방향의 차이를 보였는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc9528903_abstract_001_0d876a4d",
+              "paper_pmc9528903_introduction_002_adf9984d"
+            ]
+          },
+          {
+            "component_id": "C3",
+            "requirement": "어느 방식이 항상 우월하다고 할 수 있는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc9528903_abstract_001_0d876a4d",
+              "paper_pmc9528903_introduction_002_adf9984d"
+            ]
+          }
+        ],
+        "requirements": null
+      },
+      "final_ids": [
+        "paper_pmc8762534_discussion_load_autoregulation_muscular_strength_001_f0706223",
+        "paper_pmc9528903_abstract_001_0d876a4d",
+        "paper_pmc8363540_background_001_08c5287c",
+        "paper_pmc9908800_methods_procedures_pre_visit_sessions_003_a8a1f5c5",
+        "paper_pmc7785525_materials_and_methods_experiment_2_resistance_ex_001_59d39e62",
+        "paper_pmc9560172_conclusion_001_5d133194",
+        "paper_pmc6303131_results_section_mid_thigh_thickness_001_776c4d8e",
+        "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+        "paper_pmc9528903_introduction_002_adf9984d",
+        "paper_pmc9560172_discussion_001_fc821cad"
+      ],
+      "retry_count": 0,
+      "recovery_attempts": 0,
+      "initial_latency_ms": 1513.4674000146333,
+      "continuation_latency_ms": 0.010199990356341004,
+      "event_ids": [
+        9
+      ],
+      "llm_calls": 1,
+      "llm_latency_ms": 1508.7764000054449,
+      "input_tokens": 5747,
+      "output_tokens": 271,
+      "estimated_cost_usd": 0.00552975,
+      "errors": []
+    },
+    {
+      "case_id": "HOV2-007",
+      "initial": {
+        "egr10": 0.6666666666666666,
+        "ce10": 0.0
+      },
+      "final": {
+        "egr10": 0.6666666666666666,
+        "ce10": 0.0
+      },
+      "final_behavior": "abstain_ready",
+      "execution_failure": false,
+      "grade": {
+        "execution_status": "completed",
+        "evidence_sufficient": false,
+        "error_code": null,
+        "missing_component_ids": [
+          "C3"
+        ],
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "훈련자의 상체 운동에서 lengthened partial과 full ROM을 8주 비교한 결과에서 근육 두께 변화가 어떻게 나왔는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc11829627_abstract_001_5f253f08",
+              "paper_pmc11829627_conclusion_001_e12f877f"
+            ]
+          },
+          {
+            "component_id": "C2",
+            "requirement": "훈련자의 상체 운동에서 lengthened partial과 full ROM을 8주 비교한 결과에서 lat pulldown 10RM 변화가 어떻게 나왔는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc11829627_abstract_001_5f253f08",
+              "paper_pmc11829627_discussion_004_46ff3a1e",
+              "paper_pmc11829627_materials_and_methods_assessments_dynamic_muscle_001_50205bd3"
+            ]
+          },
+          {
+            "component_id": "C3",
+            "requirement": "이 결과가 하체 1RM에도 그대로 적용되는지",
+            "status": "missing",
+            "supporting_chunk_ids": []
+          }
+        ],
+        "requirements": null
+      },
+      "final_ids": [
+        "paper_pmc6977096_discussion_upper_extremity_musculature_001_2b1d73b0",
+        "paper_pmc6977096_discussion_lower_body_musculature_001_21a15b5f",
+        "paper_pmc11829627_abstract_001_5f253f08",
+        "paper_pmc11829627_materials_and_methods_001_66381d9c",
+        "paper_pmc11829627_conclusion_001_e12f877f",
+        "paper_pmc11829627_discussion_004_46ff3a1e",
+        "paper_pmc11829627_materials_and_methods_assessments_dynamic_muscle_001_50205bd3",
+        "paper_pmc11829627_materials_and_methods_resistance_training_proced_001_4ff95ce3",
+        "paper_pmc10809978_material_and_methods_resistance_training_procedu_002_968a3d85",
+        "paper_pmc11829627_discussion_005_19e75ad7"
+      ],
+      "retry_count": 1,
+      "recovery_attempts": 2,
+      "initial_latency_ms": 1696.5083999966737,
+      "continuation_latency_ms": 3546.5142999892123,
+      "event_ids": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "llm_calls": 4,
+      "llm_latency_ms": 5061.650199990254,
+      "input_tokens": 12740,
+      "output_tokens": 647,
+      "estimated_cost_usd": 0.0124665,
+      "errors": [
+        {
+          "stage": "recovery_agent",
+          "code": "duplicate_query"
+        }
+      ]
+    },
+    {
+      "case_id": "HOV2-008",
+      "initial": {
+        "egr10": 0.25,
+        "ce10": 0.0
+      },
+      "final": {
+        "egr10": 0.25,
+        "ce10": 0.0
+      },
+      "final_behavior": "answer_ready",
+      "execution_failure": false,
+      "grade": {
+        "execution_status": "completed",
+        "evidence_sufficient": true,
+        "error_code": null,
+        "missing_component_ids": [],
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "동일한 저항운동을 하는 두 집단 중 한쪽만 유산소를 병행했을 때 최대근력에 대한 영향이 같은지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc8891239_abstract_001_06f2ebe5",
+              "paper_pmc8891239_discussion_001_f975c028",
+              "paper_pmc8891239_conclusion_001_bcf49c5e"
+            ]
+          },
+          {
+            "component_id": "C2",
+            "requirement": "동일한 저항운동을 하는 두 집단 중 한쪽만 유산소를 병행했을 때 근비대에 대한 영향이 같은지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc8891239_abstract_001_06f2ebe5",
+              "paper_pmc8891239_discussion_001_f975c028",
+              "paper_pmc8891239_conclusion_001_bcf49c5e"
+            ]
+          },
+          {
+            "component_id": "C3",
+            "requirement": "동일한 저항운동을 하는 두 집단 중 한쪽만 유산소를 병행했을 때 폭발력에 대한 영향이 같은지, 최대근력·근비대와 구분하여 제시할 수 있는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc8891239_abstract_001_06f2ebe5",
+              "paper_pmc8891239_discussion_001_f975c028",
+              "paper_pmc8891239_conclusion_001_bcf49c5e"
+            ]
+          }
+        ],
+        "requirements": null
+      },
+      "final_ids": [
+        "paper_pmc8891239_discussion_002_c2993d10",
+        "paper_pmc8891239_abstract_001_06f2ebe5",
+        "paper_pmc8891239_discussion_001_f975c028",
+        "paper_pmc8891239_conclusion_001_bcf49c5e",
+        "paper_pmc8891239_methods_data_synthesis_and_analyses_002_4b899bcb",
+        "paper_pmc9068575_abstract_001_f8ce2da6",
+        "paper_pmc8126497_discussion_001_4d630baf",
+        "paper_pmc8891239_methods_eligibility_criteria_001_73638be0",
+        "paper_pmc8126497_results_section_studies_included_001_ddecf875",
+        "paper_pmc8891239_methods_data_synthesis_and_analyses_001_d2d4b62e"
+      ],
+      "retry_count": 0,
+      "recovery_attempts": 0,
+      "initial_latency_ms": 1865.4107000038493,
+      "continuation_latency_ms": 0.020400009816512465,
+      "event_ids": [
+        14
+      ],
+      "llm_calls": 1,
+      "llm_latency_ms": 1859.1880000021774,
+      "input_tokens": 5908,
+      "output_tokens": 342,
+      "estimated_cost_usd": 0.00597,
+      "errors": []
+    },
+    {
+      "case_id": "HOV2-009",
+      "initial": {
+        "egr10": 0.25,
+        "ce10": 0.0
+      },
+      "final": {
+        "egr10": 0.25,
+        "ce10": 0.0
+      },
+      "final_behavior": "answer_ready",
+      "execution_failure": false,
+      "grade": {
+        "execution_status": "completed",
+        "evidence_sufficient": true,
+        "error_code": null,
+        "missing_component_ids": [],
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "벤치프레스와 스쿼트 직전에 40% 부하, 80% 부하, 두 부하를 결합한 워밍업을 비교한 시험에서 관찰된 급성 수행 차이",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc7558980_abstract_001_5301cf05",
+              "paper_pmc7558980_4_discussion_001_36375f93",
+              "paper_pmc7558980_4_discussion_002_13babcde",
+              "paper_pmc7558980_5_conclusions_001_308a12e2"
+            ]
+          },
+          {
+            "component_id": "C2",
+            "requirement": "저자 설명과 유의확률 표기가 일치하는지 여부",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc7558980_abstract_001_5301cf05"
+            ]
+          }
+        ],
+        "requirements": null
+      },
+      "final_ids": [
+        "paper_pmc7558980_5_conclusions_001_308a12e2",
+        "paper_pmc7558980_4_discussion_002_13babcde",
+        "paper_pmc7558980_4_discussion_001_36375f93",
+        "paper_pmc7558980_1_introduction_002_ef100fa5",
+        "paper_pmc7558980_2_materials_and_methods_2_3_procedures_002_eaae1d9f",
+        "paper_pmc7558980_1_introduction_001_1d899726",
+        "paper_pmc7558980_2_materials_and_methods_2_1_experimental_approac_001_db8cc54a",
+        "paper_pmc7558980_abstract_001_5301cf05",
+        "paper_pmc7785525_materials_and_methods_experiment_2_resistance_ex_001_59d39e62",
+        "paper_pmc9908800_methods_procedures_pre_visit_sessions_003_a8a1f5c5"
+      ],
+      "retry_count": 1,
+      "recovery_attempts": 1,
+      "initial_latency_ms": 1775.5200999963563,
+      "continuation_latency_ms": 2655.6213000149,
+      "event_ids": [
+        15,
+        16,
+        17
+      ],
+      "llm_calls": 3,
+      "llm_latency_ms": 4199.48149996344,
+      "input_tokens": 13375,
+      "output_tokens": 504,
+      "estimated_cost_usd": 0.01229925,
+      "errors": []
+    },
+    {
+      "case_id": "HOV2-010",
+      "initial": {
+        "egr10": 0.2,
+        "ce10": 0.0
+      },
+      "final": {
+        "egr10": 0.2,
+        "ce10": 0.0
+      },
+      "final_behavior": "abstain_ready",
+      "execution_failure": false,
+      "grade": {
+        "execution_status": "completed",
+        "evidence_sufficient": false,
+        "error_code": null,
+        "missing_component_ids": [
+          "C1"
+        ],
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "9주 훈련 중간에 1주일 저항운동을 완전히 중단한 시험이 중량이나 세트만 줄이는 deload와 같은 효과로 읽어도 되는지",
+            "status": "missing",
+            "supporting_chunk_ids": []
+          },
+          {
+            "component_id": "C2",
+            "requirement": "중단 조건과 근력 결과를 구분해 제시할 수 있는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc10809978_abstract_001_5cc98494",
+              "paper_pmc10809978_conclusion_001_7b9fdcea",
+              "paper_pmc10809978_discussion_001_dda94456",
+              "paper_pmc10809978_discussion_limitations_001_a421203d",
+              "paper_pmc10511399_discussion_integrating_deloading_into_the_streng_001_834932bd"
+            ]
+          },
+          {
+            "component_id": "C3",
+            "requirement": "중단 조건과 근비대 결과를 구분해 제시할 수 있는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc10809978_abstract_001_5cc98494",
+              "paper_pmc10809978_conclusion_001_7b9fdcea",
+              "paper_pmc10809978_discussion_001_dda94456",
+              "paper_pmc10809978_discussion_limitations_001_a421203d",
+              "paper_pmc10511399_discussion_integrating_deloading_into_the_streng_001_834932bd"
+            ]
+          }
+        ],
+        "requirements": null
+      },
+      "final_ids": [
+        "paper_pmc10809978_abstract_001_5cc98494",
+        "paper_pmc10809978_conclusion_001_7b9fdcea",
+        "paper_pmc10161210_abstract_002_977aa45d",
+        "paper_pmc7552788_1_introduction_003_fd339e6e",
+        "paper_pmc10161210_discussion_003_fbf99a9d",
+        "paper_pmc10809978_introduction_001_a6bc807f",
+        "paper_pmc10809978_discussion_limitations_001_a421203d",
+        "paper_pmc7552788_4_discussion_006_44d8de76",
+        "paper_pmc10511399_discussion_integrating_deloading_into_the_streng_001_834932bd",
+        "paper_pmc10809978_discussion_001_dda94456"
+      ],
+      "retry_count": 1,
+      "recovery_attempts": 2,
+      "initial_latency_ms": 1451.7225000017788,
+      "continuation_latency_ms": 4308.912900014548,
+      "event_ids": [
+        18,
+        19,
+        20,
+        21
+      ],
+      "llm_calls": 4,
+      "llm_latency_ms": 5581.289499998093,
+      "input_tokens": 13146,
+      "output_tokens": 690,
+      "estimated_cost_usd": 0.0129645,
+      "errors": [
+        {
+          "stage": "recovery_agent",
+          "code": "duplicate_query"
+        }
+      ]
+    },
+    {
+      "case_id": "HOV2-011",
+      "initial": {
+        "egr10": 0.25,
+        "ce10": 0.0
+      },
+      "final": {
+        "egr10": 0.25,
+        "ce10": 0.0
+      },
+      "final_behavior": "answer_ready",
+      "execution_failure": false,
+      "grade": {
+        "execution_status": "completed",
+        "evidence_sufficient": true,
+        "error_code": null,
+        "missing_component_ids": [],
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "파워리프팅 대회 전 taper에서 훈련량과 강도 조절이 어떻게 구분되는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc7552788_5_conclusions_001_b7be8ccc",
+              "paper_pmc7552788_4_discussion_004_833866ed",
+              "paper_pmc7552788_4_discussion_001_f43dfe5e",
+              "paper_pmc7552788_4_discussion_007_b85bac5a",
+              "paper_pmc7552788_4_discussion_008_e1c2068c"
+            ]
+          },
+          {
+            "component_id": "C2",
+            "requirement": "짧은 완전 중단(short-term training cessation)에서 정확히 며칠을 쉬라고 이 자료만으로 정할 수 있는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc7552788_5_conclusions_001_b7be8ccc",
+              "paper_pmc7552788_4_discussion_006_44d8de76",
+              "paper_pmc7552788_1_introduction_003_fd339e6e",
+              "paper_pmc7552788_abstract_001_698a6f81"
+            ]
+          }
+        ],
+        "requirements": null
+      },
+      "final_ids": [
+        "paper_pmc7552788_5_conclusions_001_b7be8ccc",
+        "paper_pmc7552788_4_discussion_004_833866ed",
+        "paper_pmc7552788_4_discussion_006_44d8de76",
+        "paper_pmc7552788_4_discussion_001_f43dfe5e",
+        "paper_pmc7552788_4_discussion_005_e2cd7378",
+        "paper_pmc7552788_1_introduction_003_fd339e6e",
+        "paper_pmc7552788_abstract_001_698a6f81",
+        "paper_pmc7552788_4_discussion_007_b85bac5a",
+        "paper_pmc7552788_4_discussion_008_e1c2068c",
+        "paper_pmc10809978_discussion_001_dda94456"
+      ],
+      "retry_count": 0,
+      "recovery_attempts": 0,
+      "initial_latency_ms": 2143.6647000082303,
+      "continuation_latency_ms": 0.011500000255182385,
+      "event_ids": [
+        22
+      ],
+      "llm_calls": 1,
+      "llm_latency_ms": 2138.5820000141393,
+      "input_tokens": 5953,
+      "output_tokens": 273,
+      "estimated_cost_usd": 0.00569325,
+      "errors": []
+    },
+    {
+      "case_id": "HOV2-012",
+      "initial": {
+        "egr10": 0.0,
+        "ce10": 0.0
+      },
+      "final": {
+        "egr10": 0.5,
+        "ce10": 0.0
+      },
+      "final_behavior": "answer_ready",
+      "execution_failure": false,
+      "grade": {
+        "execution_status": "completed",
+        "evidence_sufficient": true,
+        "error_code": null,
+        "missing_component_ids": [],
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "‘가동범위를 절반으로 줄였다’는 표현만으로 lengthened partial 연구 결과를 일반 partial ROM 연구 결과와 동일하게 가져와도 되는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc11829627_discussion_004_46ff3a1e",
+              "paper_pmc11829627_introduction_001_d68d2226",
+              "paper_pmc6977096_abstract_001_883e307b"
+            ]
+          },
+          {
+            "component_id": "C2",
+            "requirement": "일반 partial ROM 연구가 실제로 사용한 근육 길이 구간이 무엇인지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc6977096_discussion_lower_body_musculature_001_21a15b5f",
+              "paper_pmc6977096_discussion_upper_extremity_musculature_001_2b1d73b0",
+              "paper_pmc6977096_introduction_002_8f118f76"
+            ]
+          },
+          {
+            "component_id": "C3",
+            "requirement": "상체 lengthened partial 시험이 실제로 사용한 근육 길이 구간이 무엇인지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc11829627_discussion_004_46ff3a1e",
+              "paper_pmc11829627_discussion_003_0f2f4630",
+              "paper_pmc11829627_abstract_001_5f253f08"
+            ]
+          }
+        ],
+        "requirements": null
+      },
+      "final_ids": [
+        "paper_pmc11829627_abstract_001_5f253f08",
+        "paper_pmc6977096_discussion_upper_extremity_musculature_001_2b1d73b0",
+        "paper_pmc6977096_abstract_001_883e307b",
+        "paper_pmc11829627_conclusion_001_e12f877f",
+        "paper_pmc11829627_discussion_004_46ff3a1e",
+        "paper_pmc11829627_discussion_002_e00f02a2",
+        "paper_pmc11829627_introduction_001_d68d2226",
+        "paper_pmc6977096_introduction_002_8f118f76",
+        "paper_pmc11829627_discussion_003_0f2f4630",
+        "paper_pmc6977096_discussion_lower_body_musculature_001_21a15b5f"
+      ],
+      "retry_count": 1,
+      "recovery_attempts": 1,
+      "initial_latency_ms": 1846.1959999985993,
+      "continuation_latency_ms": 3345.0427999778185,
+      "event_ids": [
+        23,
+        24,
+        25
+      ],
+      "llm_calls": 3,
+      "llm_latency_ms": 4995.03389999154,
+      "input_tokens": 12829,
+      "output_tokens": 638,
+      "estimated_cost_usd": 0.01249275,
+      "errors": []
+    },
+    {
+      "case_id": "HOV2-013",
+      "initial": {
+        "egr10": 0.25,
+        "ce10": 0.0
+      },
+      "final": {
+        "egr10": 0.0,
+        "ce10": 0.0
+      },
+      "final_behavior": "abstain_ready",
+      "execution_failure": false,
+      "grade": {
+        "execution_status": "completed",
+        "evidence_sufficient": false,
+        "error_code": null,
+        "missing_component_ids": [
+          "C1"
+        ],
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "RIR 처방을 이용해 부하를 조절한 연구와 velocity loss로 세트를 멈춘 연구를 함께 고려했을 때, RIR 처방이 고정 %1RM보다 장기 근비대에 우월하다고 직접 결론낼 수 있는지",
+            "status": "missing",
+            "supporting_chunk_ids": []
+          },
+          {
+            "component_id": "C2",
+            "requirement": "직접 뒷받침되는 비교(예: RIR 기반 부하 처방 vs 표준화된 %1RM 처방, velocity loss 기반 세트 종료 vs 다른 처방)와 보류해야 할 결론을 구분할 수 있는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc8762534_discussion_load_autoregulation_muscular_strength_001_f0706223",
+              "paper_pmc8762534_discussion_future_directions_and_practical_appli_001_0feeb208",
+              "paper_pmc9935748_introduction_001_bc43e570"
+            ]
+          }
+        ],
+        "requirements": null
+      },
+      "final_ids": [
+        "paper_pmc8762534_discussion_future_directions_and_practical_appli_001_0feeb208",
+        "paper_pmc11127506_discussion_contextual_feasibility_001_8a82b03a",
+        "paper_pmc13609929_4_materials_and_methods_4_4_procedures_002_491304a5",
+        "paper_pmc9908800_introduction_002_9c49c00f",
+        "paper_pmc8762534_discussion_volume_autoregulation_muscular_streng_004_60742dbc",
+        "paper_pmc9935748_introduction_001_bc43e570",
+        "paper_pmc8762534_discussion_load_autoregulation_muscular_strength_001_f0706223",
+        "paper_pmc9908800_discussion_limitations_of_current_research_and_f_001_a6329545",
+        "paper_pmc10161210_discussion_002_caf108ba",
+        "paper_pmc11349676_conclusion_001_0c978043"
+      ],
+      "retry_count": 2,
+      "recovery_attempts": 2,
+      "initial_latency_ms": 1766.4178000122774,
+      "continuation_latency_ms": 4876.263900019694,
+      "event_ids": [
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "llm_calls": 5,
+      "llm_latency_ms": 6281.948899966665,
+      "input_tokens": 20688,
+      "output_tokens": 753,
+      "estimated_cost_usd": 0.0189045,
+      "errors": []
+    },
+    {
+      "case_id": "HOV2-014",
+      "initial": {
+        "egr10": 0.0,
+        "ce10": 0.0
+      },
+      "final": {
+        "egr10": 0.0,
+        "ce10": 0.0
+      },
+      "final_behavior": "answer_ready",
+      "execution_failure": false,
+      "grade": {
+        "execution_status": "completed",
+        "evidence_sufficient": true,
+        "error_code": null,
+        "missing_component_ids": [],
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "주관적 RIR 2라고 보고된 기록이 실제로도 정확히 2회가 남았다고 볼 수 있는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc5712461_abstract_001_353baa48",
+              "paper_pmc5712461_discussion_006_12730b19",
+              "paper_pmc5712461_introduction_002_ed37d6a5",
+              "paper_pmc11127506_discussion_contextual_feasibility_003_b2643016",
+              "paper_pmc11127506_discussion_contextual_feasibility_001_8a82b03a",
+              "paper_pmc9908800_discussion_limitations_of_current_research_and_f_001_a6329545"
+            ]
+          },
+          {
+            "component_id": "C2",
+            "requirement": "훈련 경험에 따른 RIR 정확도 연구",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc5712461_abstract_001_353baa48",
+              "paper_pmc5712461_introduction_002_ed37d6a5",
+              "paper_pmc11127506_discussion_contextual_feasibility_003_b2643016",
+              "paper_pmc11127506_discussion_limitations_and_future_research_direc_001_525e57b8"
+            ]
+          }
+        ],
+        "requirements": null
+      },
+      "final_ids": [
+        "paper_pmc5712461_abstract_001_353baa48",
+        "paper_pmc11127506_discussion_contextual_feasibility_003_b2643016",
+        "paper_pmc5712461_discussion_006_12730b19",
+        "paper_pmc9908800_introduction_003_56dbf666",
+        "paper_pmc11127506_discussion_contextual_feasibility_001_8a82b03a",
+        "paper_pmc9908800_discussion_limitations_of_current_research_and_f_001_a6329545",
+        "paper_pmc11127506_introduction_002_ed11b62f",
+        "paper_pmc13609929_1_introduction_002_3be97e76",
+        "paper_pmc5712461_introduction_002_ed37d6a5",
+        "paper_pmc11127506_discussion_limitations_and_future_research_direc_001_525e57b8"
+      ],
+      "retry_count": 0,
+      "recovery_attempts": 0,
+      "initial_latency_ms": 1818.015099997865,
+      "continuation_latency_ms": 0.01200000406242907,
+      "event_ids": [
+        31
+      ],
+      "llm_calls": 1,
+      "llm_latency_ms": 1811.7311999958474,
+      "input_tokens": 6622,
+      "output_tokens": 285,
+      "estimated_cost_usd": 0.006249,
+      "errors": []
+    },
+    {
+      "case_id": "HOV2-015",
+      "initial": {
+        "egr10": 0.4,
+        "ce10": 0.0
+      },
+      "final": {
+        "egr10": 0.4,
+        "ce10": 0.0
+      },
+      "final_behavior": "abstain_ready",
+      "execution_failure": false,
+      "grade": {
+        "execution_status": "completed",
+        "evidence_sufficient": false,
+        "error_code": null,
+        "missing_component_ids": [
+          "C1",
+          "C2"
+        ],
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "3분 휴식이 90초 휴식보다 모든 훈련자의 근비대를 반드시 더 높인다고 말할 수 있는지",
+            "status": "missing",
+            "supporting_chunk_ids": []
+          },
+          {
+            "component_id": "C2",
+            "requirement": "3분 휴식이 90초 휴식보다 최대근력을 반드시 더 높인다고 말할 수 있는지",
+            "status": "missing",
+            "supporting_chunk_ids": []
+          },
+          {
+            "component_id": "C3",
+            "requirement": "연구가 실제로 다룬 결과와 불확실성을 구분해 제시할 수 있는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc11349676_discussion_rest_interval_duration_and_volume_loa_001_ebe5579b",
+              "paper_pmc11349676_conclusion_001_0c978043",
+              "paper_pmc11349676_discussion_sub_analysis_of_body_regions_001_f69751f9"
+            ]
+          }
+        ],
+        "requirements": null
+      },
+      "final_ids": [
+        "paper_pmc11349676_discussion_rest_interval_duration_and_volume_loa_001_ebe5579b",
+        "paper_pmc11349676_conclusion_001_0c978043",
+        "paper_pmc8067909_methods_resistance_training_program_001_82769e40",
+        "paper_pmc11349676_introduction_001_afd6816a",
+        "paper_pmc11829627_discussion_003_0f2f4630",
+        "paper_pmc10809978_material_and_methods_measurements_004_40e0eb36",
+        "paper_pmc8067909_methods_muscular_endurance_001_cf75c936",
+        "paper_pmc13609929_4_materials_and_methods_4_7_maximal_strength_ass_001_d036ad56",
+        "paper_pmc11349676_discussion_sub_analysis_of_body_regions_001_f69751f9",
+        "paper_pmc8067909_introduction_002_c4d0951e"
+      ],
+      "retry_count": 2,
+      "recovery_attempts": 2,
+      "initial_latency_ms": 1463.1215000117663,
+      "continuation_latency_ms": 6159.1237999964505,
+      "event_ids": [
+        32,
+        33,
+        34,
+        35,
+        36
+      ],
+      "llm_calls": 5,
+      "llm_latency_ms": 7194.53340000473,
+      "input_tokens": 19598,
+      "output_tokens": 819,
+      "estimated_cost_usd": 0.018384,
+      "errors": []
+    },
+    {
+      "case_id": "HOV2-016",
+      "initial": {
+        "egr10": 0.0,
+        "ce10": 0.0
+      },
+      "final": {
+        "egr10": 0.0,
+        "ce10": 0.0
+      },
+      "final_behavior": "answer_ready",
+      "execution_failure": false,
+      "grade": {
+        "execution_status": "completed",
+        "evidence_sufficient": true,
+        "error_code": null,
+        "missing_component_ids": [],
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "벤치프레스에서 tonnage가 늘었다는 사실만으로 대흉근이 받은 유효 세트 수나 근비대 자극도 같은 비율로 늘었다고 볼 수 있는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc9935748_introduction_001_bc43e570",
+              "paper_pmc9935748_discussion_influence_of_resistance_training_perf_001_a462c7d7",
+              "paper_pmc8762534_results_effect_of_volume_autoregulation_on_muscu_001_1383d3fa"
+            ]
+          },
+          {
+            "component_id": "C2",
+            "requirement": "문헌의 volume 정의를 제시할 수 있는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc9935748_introduction_001_bc43e570",
+              "paper_pmc9935748_discussion_influence_of_resistance_training_perf_001_a462c7d7"
+            ]
+          }
+        ],
+        "requirements": null
+      },
+      "final_ids": [
+        "paper_pmc8762534_results_effect_of_volume_autoregulation_on_muscu_001_1383d3fa",
+        "paper_pmc9935748_introduction_001_bc43e570",
+        "paper_pmc8762534_results_effect_of_autoregulated_versus_standardi_001_89a2c5a4",
+        "paper_pmc8762534_results_study_selection_001_9e0383c7",
+        "paper_pmc9935748_discussion_influence_of_resistance_training_perf_001_a462c7d7",
+        "paper_pmc7558980_1_introduction_002_ef100fa5",
+        "paper_pmc8067909_discussion_003_5bf109e1",
+        "paper_pmc5712461_discussion_002_37bb09ec",
+        "paper_pmc7558980_2_materials_and_methods_2_3_procedures_001_5ee67f9e",
+        "paper_pmc7558980_2_materials_and_methods_2_3_procedures_003_0bb1dead"
+      ],
+      "retry_count": 2,
+      "recovery_attempts": 2,
+      "initial_latency_ms": 1822.0373000076506,
+      "continuation_latency_ms": 6111.428100004559,
+      "event_ids": [
+        37,
+        38,
+        39,
+        40,
+        41
+      ],
+      "llm_calls": 5,
+      "llm_latency_ms": 7613.95959998481,
+      "input_tokens": 21373,
+      "output_tokens": 852,
+      "estimated_cost_usd": 0.01986375,
+      "errors": []
+    },
+    {
+      "case_id": "HOV2-017",
+      "initial": {
+        "egr10": 0.5,
+        "ce10": 0.0
+      },
+      "final": {
+        "egr10": 0.0,
+        "ce10": 0.0
+      },
+      "final_behavior": "abstain_ready",
+      "execution_failure": false,
+      "grade": {
+        "execution_status": "completed",
+        "evidence_sufficient": false,
+        "error_code": null,
+        "missing_component_ids": [
+          "C1"
+        ],
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "부분 가동범위로 훈련한 뒤 부분 범위 검사에서 반복 수행이 좋아졌을 때, 그 결과를 full ROM 1RM 향상과 같은 정도로 해석할 수 있는지",
+            "status": "missing",
+            "supporting_chunk_ids": []
+          },
+          {
+            "component_id": "C2",
+            "requirement": "문헌에서 훈련 범위(부분/전체 ROM)와 실제 검사 범위(부분 ROM 반복수 검사 vs full ROM 1RM)를 구분해 제시할 수 있는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc11829627_abstract_001_5f253f08",
+              "paper_pmc6977096_introduction_001_9ac97a37",
+              "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+              "paper_pmc11829627_discussion_004_46ff3a1e"
+            ]
+          }
+        ],
+        "requirements": null
+      },
+      "final_ids": [
+        "paper_pmc11829627_abstract_001_5f253f08",
+        "paper_pmc6977096_introduction_001_9ac97a37",
+        "paper_pmc7558980_2_materials_and_methods_2_3_procedures_003_0bb1dead",
+        "paper_pmc5712461_abstract_001_353baa48",
+        "paper_pmc6977096_abstract_001_883e307b",
+        "paper_pmc6977096_discussion_lower_body_musculature_001_21a15b5f",
+        "paper_pmc6977096_introduction_002_8f118f76",
+        "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+        "paper_pmc11829627_conclusion_001_e12f877f",
+        "paper_pmc11829627_discussion_004_46ff3a1e"
+      ],
+      "retry_count": 2,
+      "recovery_attempts": 2,
+      "initial_latency_ms": 1360.6174000015017,
+      "continuation_latency_ms": 5481.433100008871,
+      "event_ids": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "llm_calls": 5,
+      "llm_latency_ms": 6613.481600012165,
+      "input_tokens": 18848,
+      "output_tokens": 744,
+      "estimated_cost_usd": 0.017484,
+      "errors": []
+    },
+    {
+      "case_id": "HOV2-018",
+      "initial": {
+        "egr10": 0.0,
+        "ce10": 0.0
+      },
+      "final": {
+        "egr10": 0.0,
+        "ce10": 0.0
+      },
+      "final_behavior": "answer_ready",
+      "execution_failure": false,
+      "grade": {
+        "execution_status": "completed",
+        "evidence_sufficient": true,
+        "error_code": null,
+        "missing_component_ids": [],
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "머신에 적힌 kg가 더 높다는 이유만으로 벤치프레스와 해머 디클라인 체스트프레스 머신 중 근력이 더 크다고 비교할 수 있는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc9528903_discussion_strength_001_c05673ac",
+              "paper_pmc7558980_2_materials_and_methods_2_3_procedures_001_5ee67f9e",
+              "paper_pmc8067909_methods_muscular_strength_001_524c9b30"
+            ]
+          },
+          {
+            "component_id": "C2",
+            "requirement": "머신에 적힌 kg가 더 높다는 이유만으로 벤치프레스와 해머 디클라인 체스트프레스 머신 중 근비대 효과가 더 좋다고 비교할 수 있는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc6303131_abstract_001_d2bd9f30",
+              "paper_pmc8762534_discussion_001_d30b44a6",
+              "paper_pmc9068575_conclusion_001_d4947343"
+            ]
+          },
+          {
+            "component_id": "C3",
+            "requirement": "운동 방식별 검사 특이성 근거를 들어 설명할 수 있는지",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc9528903_discussion_strength_001_c05673ac",
+              "paper_pmc7558980_2_materials_and_methods_2_3_procedures_001_5ee67f9e",
+              "paper_pmc8067909_methods_muscular_strength_001_524c9b30"
+            ]
+          }
+        ],
+        "requirements": null
+      },
+      "final_ids": [
+        "paper_pmc7552788_4_discussion_008_e1c2068c",
+        "paper_pmc9528903_discussion_strength_001_c05673ac",
+        "paper_pmc7552788_4_discussion_002_0a5a6590",
+        "paper_pmc7558980_2_materials_and_methods_2_3_procedures_001_5ee67f9e",
+        "paper_pmc8067909_methods_muscular_strength_001_524c9b30",
+        "paper_pmc8762534_discussion_001_d30b44a6",
+        "paper_pmc6303131_abstract_001_d2bd9f30",
+        "paper_pmc9908800_conclusion_001_de0fb935",
+        "paper_pmc8363540_discussion_intervention_exercise_prescriptions_002_22ede730",
+        "paper_pmc9068575_conclusion_001_d4947343"
+      ],
+      "retry_count": 0,
+      "recovery_attempts": 0,
+      "initial_latency_ms": 1751.7694999987725,
+      "continuation_latency_ms": 0.01200000406242907,
+      "event_ids": [
+        47
+      ],
+      "llm_calls": 1,
+      "llm_latency_ms": 1746.4333999960218,
+      "input_tokens": 5774,
+      "output_tokens": 354,
+      "estimated_cost_usd": 0.0059235,
+      "errors": []
+    },
+    {
+      "case_id": "HOV2-020",
+      "initial": {
+        "egr10": 0.0,
+        "ce10": 0.0
+      },
+      "final": {
+        "egr10": 0.0,
+        "ce10": 0.0
+      },
+      "final_behavior": "abstain_ready",
+      "execution_failure": false,
+      "grade": {
+        "execution_status": "completed",
+        "evidence_sufficient": false,
+        "error_code": null,
+        "missing_component_ids": [
+          "C1"
+        ],
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "바벨 속도가 첫 반복보다 20% 떨어지면 세트를 끝내는 방식이 모든 세트에서 2 RIR로 끝내는 방식과 같은지",
+            "status": "missing",
+            "supporting_chunk_ids": []
+          },
+          {
+            "component_id": "C2",
+            "requirement": "volume autoregulation 근거에서 실제 측정한 변수의 차이",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc8762534_abstract_001_dca003f8",
+              "paper_pmc8762534_results_effect_of_volume_autoregulation_on_muscu_001_1383d3fa",
+              "paper_pmc8762534_discussion_volume_autoregulation_muscular_streng_004_60742dbc",
+              "paper_pmc9908800_abstract_001_9a93e847",
+              "paper_pmc13609929_4_materials_and_methods_4_4_procedures_002_491304a5",
+              "paper_pmc8762534_discussion_load_autoregulation_primary_limitatio_001_d86ba1da"
+            ]
+          }
+        ],
+        "requirements": null
+      },
+      "final_ids": [
+        "paper_pmc8762534_discussion_future_directions_and_practical_appli_001_0feeb208",
+        "paper_pmc13609929_4_materials_and_methods_4_4_procedures_002_491304a5",
+        "paper_pmc9908800_abstract_001_9a93e847",
+        "paper_pmc8762534_abstract_001_dca003f8",
+        "paper_pmc8762534_discussion_load_autoregulation_primary_limitatio_001_d86ba1da",
+        "paper_pmc8762534_discussion_volume_autoregulation_muscular_streng_004_60742dbc",
+        "paper_pmc8762534_introduction_background_001_f4b35214",
+        "paper_pmc5712461_abstract_001_353baa48",
+        "paper_pmc8762534_results_effect_of_volume_autoregulation_on_muscu_001_1383d3fa",
+        "paper_pmc7552788_4_discussion_005_e2cd7378"
+      ],
+      "retry_count": 1,
+      "recovery_attempts": 2,
+      "initial_latency_ms": 1542.825400014408,
+      "continuation_latency_ms": 3894.462800002657,
+      "event_ids": [
+        48,
+        49,
+        50,
+        51
+      ],
+      "llm_calls": 4,
+      "llm_latency_ms": 5247.321299975738,
+      "input_tokens": 13404,
+      "output_tokens": 574,
+      "estimated_cost_usd": 0.012636,
+      "errors": [
+        {
+          "stage": "recovery_agent",
+          "code": "duplicate_query"
+        }
+      ]
+    },
+    {
+      "case_id": "HOV2-021",
+      "initial": {
+        "egr10": 0.0,
+        "ce10": 0.0
+      },
+      "final": {
+        "egr10": 0.0,
+        "ce10": 0.0
+      },
+      "final_behavior": "abstain_ready",
+      "execution_failure": false,
+      "grade": {
+        "execution_status": "completed",
+        "evidence_sufficient": false,
+        "error_code": null,
+        "missing_component_ids": [
+          "C1"
+        ],
+        "components": [
+          {
+            "component_id": "C1",
+            "requirement": "훈련 경험이 있는 여성 엘리트 선수에게도 주간 volume을 맞추면 훈련 빈도 효과가 같다고 단정할 수 있는지",
+            "status": "missing",
+            "supporting_chunk_ids": []
+          },
+          {
+            "component_id": "C2",
+            "requirement": "훈련자 빈도 리뷰의 참가자 범위(어떤 대상이 포함되었는지)",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc8363540_methods_study_design_001_6bda22c3",
+              "paper_pmc8363540_discussion_baseline_strength_level_001_2b927f58",
+              "paper_pmc8363540_discussion_001_d60867f2"
+            ]
+          },
+          {
+            "component_id": "C3",
+            "requirement": "network meta-analysis의 모집 범위(어떤 대상이 포함되었는지)",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc10579494_abstract_001_00cd9d11",
+              "paper_pmc10579494_discussion_limitations_001_07d58f15",
+              "paper_pmc8126497_body_003_68e7bb31",
+              "paper_pmc12965823_discussion_007_6875ab6b"
+            ]
+          },
+          {
+            "component_id": "C4",
+            "requirement": "위 범위를 바탕으로 적용 한계",
+            "status": "supported",
+            "supporting_chunk_ids": [
+              "paper_pmc10579494_discussion_limitations_001_07d58f15",
+              "paper_pmc8363540_discussion_baseline_strength_level_001_2b927f58",
+              "paper_pmc12965823_discussion_007_6875ab6b"
+            ]
+          }
+        ],
+        "requirements": null
+      },
+      "final_ids": [
+        "paper_pmc8363540_discussion_baseline_strength_level_001_2b927f58",
+        "paper_pmc8363540_discussion_001_d60867f2",
+        "paper_pmc8126497_body_003_68e7bb31",
+        "paper_pmc10579494_abstract_001_00cd9d11",
+        "paper_pmc10579494_discussion_limitations_001_07d58f15",
+        "paper_pmc8363540_methods_study_design_001_6bda22c3",
+        "paper_pmc10511399_methods_panel_selection_001_1efabe84",
+        "paper_pmc12965823_discussion_007_6875ab6b",
+        "paper_pmc8126497_discussion_001_4d630baf",
+        "paper_pmc7552788_abstract_001_698a6f81"
+      ],
+      "retry_count": 2,
+      "recovery_attempts": 2,
+      "initial_latency_ms": 1740.5505999922752,
+      "continuation_latency_ms": 6093.680300022243,
+      "event_ids": [
+        52,
+        53,
+        54,
+        55,
+        56
+      ],
+      "llm_calls": 5,
+      "llm_latency_ms": 7391.350899997633,
+      "input_tokens": 19431,
+      "output_tokens": 1113,
+      "estimated_cost_usd": 0.01958175,
+      "errors": []
+    }
+  ]
+}

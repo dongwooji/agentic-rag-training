@@ -1,0 +1,14 @@
+{
+  "version": "grader_fixed_requirements_v1_results",
+  "artifacts": {
+    "dev_decision.json": "e46555cb6a923430322113918bebae9d37f3e6db08fe3c66535d2148c797f8e2",
+    "dev_results.json": "24ddb1faf44293e6a69d7925ab5e25d465b1823094f27890f38e641941aca201",
+    "dev_usage.json": "0715ef67d7993dc97e286a14f954cd776f44241a3d05b09abccb777b6bcc189c",
+    "heldout_diagnostic.json": "d1e81ed1bad7653a4a23b785ea8e60ccfb59359521ccbff1d5a48db8600d11eb",
+    "heldout_usage.json": "2927cec9ee09a12c37ac294fe460f3b3c1cc483d6b160d6b2f1088693e35609e",
+    "integrity.json": "80996897a88544eeabbe9961b3a49482cc97b6d7bf66bc28be87e9015911ed35",
+    "REPORT.md": "b049cf2300c5d6010709a89901dce89c1d088665c15928f8c3d7e0d9f2aec158"
+  },
+  "implementation_sha": "454177751180e4a88853e1a3e09e40899e6ef0c3",
+  "protocol_sha256": "2155eb9fefb2440664153d4caa304b5c17a15119cd9bf9674a3d24216f37651e"
+}
