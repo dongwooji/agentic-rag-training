@@ -78,6 +78,7 @@ class DebugTrace(PublicModel):
     recovery: list[dict] = Field(max_length=2)
     fusions: list[dict] = Field(max_length=2)
     final_evidence: list[dict] = Field(max_length=10)
+    grader_requirements_v1: dict | None = None
 
 
 class DebugResponseMetadata(PublicModel):

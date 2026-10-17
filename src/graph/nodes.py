@@ -530,7 +530,7 @@ class WorkflowNodes:
             if callable(getattr(self.runtime_grader, "grade_fixed", None)):
                 from src.grading.fixed_requirements_v1.contracts import FixedGraderInput, select_question
                 try:
-                    question, source = select_question(state)
+                    question, source = getattr(self.runtime_grader, "select_question", select_question)(state)
                 except ValueError:
                     failure = {"execution_status": "failure", "evidence_sufficient": False,
                                "components": [], "error_code": "input_failure"}
@@ -541,7 +541,8 @@ class WorkflowNodes:
                             "No validated literature question is available"), "final_status": "execution_failure"}
                 inputs.update(literature_subquestion=question, question_source=source,
                               requirements=state.get("literature_requirements"))
-                result = self.runtime_grader.grade_fixed(FixedGraderInput.model_validate(inputs))
+                input_type = getattr(self.runtime_grader, "input_type", FixedGraderInput)
+                result = self.runtime_grader.grade_fixed(input_type.model_validate(inputs))
             else:
                 result = self.runtime_grader.grade(RuntimeEvidenceGraderInput.model_validate(inputs))
             payload = _json_safe(result)

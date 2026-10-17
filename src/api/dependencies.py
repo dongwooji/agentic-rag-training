@@ -135,6 +135,10 @@ def _build_runtime_workflow() -> RuntimeWorkflow:
             from src.grading.fixed_requirements_v1.grader import FixedRequirementsGrader
             from src.grading.fixed_requirements_v1.provider import FixedRequirementsProvider
             grader = FixedRequirementsGrader(FixedRequirementsProvider(api_key=openai_api_key))
+        elif grader_version == "fixed_requirements_v1_1":
+            from src.grading.fixed_requirements_v1_1.grader import FixedRequirementsGrader
+            from src.grading.fixed_requirements_v1_1.provider import FixedRequirementsProvider
+            grader = FixedRequirementsGrader(FixedRequirementsProvider(api_key=openai_api_key))
         else:
             raise WorkflowConfigurationError("Unknown Grader version")
         recovery = EvidenceRecoveryAgent(
