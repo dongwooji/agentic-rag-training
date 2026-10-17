@@ -205,6 +205,7 @@ class AgenticRAGWorkflow:
         *,
         literature_subquestion: str | None = None,
         initial_query: str | None = None,
+        requirement_context: dict[str, Any] | None = None,
         tool_inputs: Mapping[str, Mapping[str, Any]] | None = None,
     ) -> AgenticRAGState:
         if not isinstance(question, str) or not question.strip():
@@ -287,4 +288,6 @@ class AgenticRAGWorkflow:
             "errors": [],
             "final_response": None,
         }
+        if requirement_context is not None:
+            initial_state["requirement_context"] = dict(requirement_context)
         return self.graph.invoke(initial_state, config={"recursion_limit": 32})

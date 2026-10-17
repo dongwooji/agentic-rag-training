@@ -1,0 +1,12 @@
+{
+  "calls": 56,
+  "by_stage": {
+    "old_grader": 36,
+    "recovery": 20
+  },
+  "input_tokens": 232843,
+  "cached_input_tokens": 0,
+  "output_tokens": 10252,
+  "llm_latency_ms": 86044.82159990584,
+  "estimated_cost_usd": 0.22076625
+}

@@ -1,0 +1,17 @@
+{
+  "component": "runtime_evidence_grader",
+  "version": "runtime_evidence_grader_fixed_requirements_v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "temperature": 0.0,
+  "reasoning_effort": "none",
+  "verbosity": "low",
+  "max_output_tokens": 1800,
+  "store": false,
+  "service_tier": "default",
+  "timeout_seconds": 120.0,
+  "max_retries": 0,
+  "prompt_path": "config/runtime_evidence_grader_fixed_requirements_v1_prompt.md",
+  "pricing_usd_per_million_tokens": {"input": 0.75, "cached_input": 0.075, "output": 4.5}
+}

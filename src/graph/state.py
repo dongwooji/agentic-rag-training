@@ -28,6 +28,8 @@ class AgenticRAGState(TypedDict, total=False):
     tool_input_resolution: dict[str, Any] | None
     tool_results: list[dict[str, Any]]
     literature_subquestion: str
+    requirement_context: dict[str, Any]
+    literature_requirements: dict[str, Any] | None
     initial_query: str
     current_query: str
     first_query_selection: dict[str, Any]
