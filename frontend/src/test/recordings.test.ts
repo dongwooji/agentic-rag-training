@@ -20,6 +20,21 @@ function recorded(): Recording {
   }
 }
 describe('recording contract and provenance', () => {
+  it('keeps legacy clarify captures readable and replays stored responses without adding trace', () => {
+    const value = recorded()
+    const saved = response({ response_metadata: undefined })
+    value.steps.push({
+      request: { endpoint: '/query/clarify', body: { clarification_id: 'legacy-id', selected_option: '1' } },
+      response: saved,
+    })
+    const parsed = recordingSchema.parse(value)
+    expect(parsed.steps[1].request.body).not.toHaveProperty('debug')
+    expect(replayStep(parsed, 1, {
+      endpoint: '/query/clarify',
+      body: { clarification_id: 'legacy-id', selected_option: '1', debug: true },
+    })).toEqual(saved)
+    expect(saved.response_metadata).toBeUndefined()
+  })
   it('requires an actual date for recorded captures and no invented date on examples', () => {
     expect(recordingSchema.safeParse({ ...recorded(), recorded_at: null }).success).toBe(false)
     expect(recordingSchema.safeParse({ ...recorded(), kind: 'format_example' }).success).toBe(false)

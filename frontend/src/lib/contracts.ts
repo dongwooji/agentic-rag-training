@@ -16,7 +16,7 @@ const gradeComponentSchema = z.looseObject({
 const traceSchema = z.looseObject({
   version: z.string(),
   interpreter: z.looseObject({
-    // The current API omits parsing_source. Never infer it from other fields.
+    // Never infer parsing_source when this optional field is absent.
     parsing_source: z.enum(['rule', 'llm']).nullish(),
     validation: z.looseObject({ status: z.string().optional() }).optional(),
   }),
@@ -98,9 +98,13 @@ export const requestSchema = z.discriminatedUnion('endpoint', [
   z
     .object({
       endpoint: z.literal('/query/clarify'),
-      // The backend forbids debug here; do not send an unsupported field.
+      // Live requests use debug=true; omission remains valid for older v1 recordings.
       body: z
-        .object({ clarification_id: z.string().min(1), selected_option: z.string().min(1) })
+        .object({
+          clarification_id: z.string().min(1),
+          selected_option: z.string().min(1),
+          debug: z.literal(true).optional(),
+        })
         .strict(),
     })
     .strict(),
