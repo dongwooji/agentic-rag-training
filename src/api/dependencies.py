@@ -162,11 +162,18 @@ def _build_runtime_workflow() -> RuntimeWorkflow:
                 OpenAILiteratureQueryProvider(stage='generation', api_key=openai_api_key), translation)
         mode = os.environ.get("AGENTIC_RAG_QUESTION_INTERPRETATION", "legacy")
         if mode == "phase_a":
+            extraction = os.environ.get("AGENTIC_RAG_PHASE_A_EXTRACTION_VERSION", "original")
+            interpreter_configs = {
+                "original": "question_interpreter_semantics_v1.json",
+                "personal_metric_v1": "question_interpreter_semantics_v1_1.json",
+            }
+            if extraction not in interpreter_configs:
+                raise WorkflowConfigurationError("Unknown Phase A extraction version")
             # Do not even construct the legacy LLM argument provider here.
             workflow = InterpretedWorkflow(
                 interpreter=QuestionInterpreter(exercise_repository=training_repository,
                                                 provider=OpenAIQuestionInterpreterProvider(api_key=openai_api_key,
-                                                    config_path=PROJECT_ROOT / "config/question_interpreter_semantics_v1.json"),
+                                                    config_path=PROJECT_ROOT / "config" / interpreter_configs[extraction]),
                                                 semantics_enabled=True),
                 **shared,
             )
