@@ -5,13 +5,57 @@ import json
 from pathlib import Path
 import re
 
-from .contracts import InterpretationDraft, SemanticInterpretationDraft
+from .contracts import InterpretationDraft, SemanticInterpretationDraft, TimeCondition
 from .semantic_contracts import (ARGUMENT_FIELDS, PURPOSE_FIELDS, ArgumentResolution,
     DefaultTimeWindow, EvidenceNeed, PhaseASemantics, ScopeObservation)
 from .date_ranges import explicit_period, full_dates, DateExpressionError
 from .validator import _personal_record_requirement, _SESSION_NUMBER
 
 CONFIG = Path(__file__).resolve().parents[2] / "config/phase_a_semantics_v1.json"
+
+# Detection only: unsupported relative constraints must never become all records.
+_TEMPORAL_CONSTRAINT = re.compile(
+    r"최근|요즘|지난|이번|다음|현재|오늘|어제|내일|전보다|이전|이후|전후|"
+    r"작년|재작년|올해|내년|분기|상반기|하반기|요일|주말|평일|기간별|구간별|"
+    r"\d+\s*(?:일|주|개월|달|년)|\b(?:recent|last|past|next|today|yesterday|before|after|current)\b", re.I)
+
+
+def normalize_record_time(question, draft, need, observation):
+    """Resolve omitted calendar time, never invent or discard a user period."""
+    if observation.scope.out_of_scope or observation.evidence_need.status != "resolved":
+        return draft
+    if "training_records" not in observation.evidence_need.required_sources:
+        return draft
+    # Do not resolve time while the requested computation itself is unsettled.
+    if not draft.requested_analyses:
+        return draft
+    time = draft.time_condition
+    if time.start_date or time.end_date or observation.default_time_window.applied:
+        return draft
+    try:
+        if explicit_period(question) or full_dates(question):
+            return draft
+    except DateExpressionError:
+        return draft
+    operations = {x.operation.value for x in draft.requested_analyses}
+    # A first/last comparison selects sessions within the underlying record set;
+    # it is not an absolute calendar range. Keep all other time constraints.
+    remaining = question
+    session_comparison = operations == {"first_last_n_session_median_e1rm"}
+    if session_comparison:
+        remaining = re.sub(r"(?:처음|최초|첫|초반|최근|마지막|first|last|latest)\s*"
+                           r"(?:\d+|하나|한|둘|두|셋|세|넷|네|다섯|여섯|일곱|여덟|아홉|열)"
+                           r"\s*(?:[- ]?session|세션)", "", remaining, flags=re.I)
+    if _TEMPORAL_CONSTRAINT.search(remaining):
+        return draft
+    if time.source_text and not (session_comparison and time.source_text in question):
+        return draft
+    if need["requires_current_window"] and not session_comparison:
+        return draft
+    return draft.model_copy(update={"time_condition": TimeCondition(
+        scope="all_records", start_date=None, end_date=None, source_text=""),
+        "unresolved_fields": [x for x in draft.unresolved_fields
+                              if x.field not in {"time_condition", "start_date", "end_date"}]})
 
 
 def interpret_need(question, raw, *, source, observation):
