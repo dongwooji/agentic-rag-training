@@ -9,7 +9,7 @@ from src.routing.runtime_language import InputLanguageError, RuntimeQuestionNorm
 from .contracts import InterpretationDraft, QuestionInterpretation, UnresolvedField, PersonalRecordNormalization, DateRangeNormalization, TimeCondition, DateValidationDiagnostic, ArgumentContractNormalization
 from .exercise_selection import ExerciseSelectionPolicy
 from .date_ranges import explicit_period, full_dates, DateExpressionError
-from .operation_arguments import EXERCISE_FIELDS, load_contract, required_user_arguments, normalize_llm_issues
+from .operation_arguments import EXERCISE_FIELDS, load_contract, required_user_arguments, normalize_llm_issues, record_operation_for_metric
 
 
 class GroundingError(ValueError):
@@ -313,7 +313,14 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
         unresolved("literature_requested", "문헌 질문과 문헌 요청 여부가 일치하지 않습니다.")
     if draft.personal_record_requested and draft.record_operation is None and not draft.requested_analyses:
         unresolved("record_operation", "조회 작업을 지정해주세요.")
-    if draft.record_operation not in {None, "exercise_records", "list_sessions"}:
+    record_operation = draft.record_operation
+    if (record_operation == "exercise_first_last" and len(draft.requested_analyses) == 1
+            and draft.requested_analyses[0].operation.value == "first_last_n_session_median_e1rm"):
+        # Binding already derives the full record input from this Metric. Check
+        # that same contract without enabling standalone endpoint-only lookups.
+        record_operation = record_operation_for_metric(draft.requested_analyses[0].operation.value)
+        policies.append("metric_derived_first_last_record_validation_v1")
+    if record_operation not in {None, "exercise_records", "list_sessions"}:
         unresolved("record_operation", "Phase A의 전체/기간 기록 조회로 표현할 수 없는 세션 선택입니다.")
     if draft.session_id:
         if draft.session_id not in question:
