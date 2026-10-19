@@ -261,6 +261,8 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
             policies.append("omitted_period_means_all_stored_records_v1")
 
     operations = {x.operation.value for x in draft.requested_analyses}
+    unique_analyses = []
+    analysis_keys = set()
     for analysis in draft.requested_analyses:
         if analysis.source_text and analysis.source_text.casefold() not in original_nfkc.casefold():
             raise GroundingError("analysis source is absent from the question")
@@ -278,10 +280,19 @@ def validate_interpretation(question, raw, *, source, canonicalizer: ExerciseCan
                 unresolved("n_sessions", "처음과 최근의 동일한 세션 수를 지정해주세요.")
             if not re.search(r"처음|최초|첫|초반|first", question, re.I) or not re.search(r"최근|마지막|last|latest", question, re.I):
                 unresolved("comparison", "처음과 최근 세션의 비교 조건을 확인해주세요.")
+        # Ground EVERY source and argument before deduplication. Provenance
+        # phrases may differ; execution identity is operation plus arguments.
+        key = (analysis.operation, analysis.n_sessions)
+        if key not in analysis_keys:
+            unique_analyses.append(analysis)
+            analysis_keys.add(key)
+    if len(unique_analyses) != len(draft.requested_analyses):
+        policies.append("identical_metric_execution_deduplication_v1")
+        draft = draft.model_copy(update={"requested_analyses": unique_analyses})
     for operation, pattern in _ANALYSIS_SIGNALS.items():
         if re.search(pattern, question, re.I) and operation not in operations:
             unresolved("requested_analyses", f"질문에 명시된 {operation} 분석이 해석에서 누락되었습니다.")
-    if re.search(r"e1rm|추정\s*1rm", question, re.I) and not operations.intersection({"estimated_1rm", "first_last_n_session_median_e1rm"}):
+    if re.search(r"e1rm|추정\s*1rm", question, re.I) and not operations.intersection({"estimated_1rm", "first_last_n_session_median_e1rm", "plateau_candidates"}):
         unresolved("requested_analyses", "질문의 e1RM 분석 요청을 확인해주세요.")
     if len(draft.requested_analyses) > 1:
         unresolved("requested_analyses", "Phase A는 한 요청에서 하나의 Metric만 지원합니다. 지표별로 질문해주세요.")

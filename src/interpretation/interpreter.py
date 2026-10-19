@@ -14,7 +14,7 @@ from .exercise_catalog import RepositoryExerciseCatalog, catalog_sha256
 from .exercise_relations import RuntimeExerciseRelations
 from src.observability import log_failure, log_validation_error
 from .semantic_contracts import PhaseASemantics, ArgumentResolution
-from .semantic_policy import interpret_need, resolve_window, finish_arguments
+from .semantic_policy import interpret_need, resolve_window, normalize_record_time, finish_arguments
 
 
 class InterpreterProvider(Protocol):
@@ -86,10 +86,15 @@ class QuestionInterpreter:
                     return InterpretationResult(execution_status="ready", interpretation=interpretation, provider=provider_result,
                         phase_a_semantics=semantics, latency_ms=(perf_counter() - started) * 1000)
                 resolve_window(question, draft, need, self.canonicalizer.repository, semantics)
+                resolved = normalize_record_time(question, draft, need, semantics)
+                scope_normalized = resolved.time_condition != draft.time_condition
+                raw = resolved.model_dump(mode="json")
             interpretation = validate_interpretation(question, raw, source=source, canonicalizer=self.canonicalizer,
                                                        normalizer=self.rule_parser.normalizer,
                                                        canonical_exercises=candidates, exercise_relations=self.exercise_relations, semantics=semantics)
             if semantics:
+                if scope_normalized:
+                    interpretation.applied_policies.append("record_scope_normalization_v1")
                 finish_arguments(semantics, interpretation)
             return InterpretationResult(execution_status="clarification_required" if interpretation.clarification_required else "ready",
                                         interpretation=interpretation, provider=provider_result, phase_a_semantics=semantics,

@@ -13,8 +13,13 @@ def clarification_questions(interpretation):
             text = "어떤 운동 기록을 볼까요? 운동명과 장비·그립을 알려주세요."
         elif field == "n_sessions":
             text = "처음과 최근 각각 몇 세션을 비교할까요?"
-        elif field in {"requested_analyses", "comparison"}:
-            text = "어떤 지표를 확인할까요? 한 번에 하나의 지표를 선택해주세요."
+        elif field == "comparison":
+            text = "어떤 대상이나 구간을 서로 비교할까요?"
+        elif field == "requested_analyses":
+            if len(interpretation.requested_analyses) > 1:
+                text = "한 번에 하나의 지표를 계산할 수 있습니다. 먼저 확인할 지표를 선택해주세요."
+            else:
+                text = "어떤 지표를 계산하거나 확인할까요?"
         elif field in {"literature_requested", "literature_subquestion"}:
             text = "문헌에서 어떤 내용을 확인할까요?"
         else:
