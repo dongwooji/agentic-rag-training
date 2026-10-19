@@ -1,0 +1,64 @@
+{
+  "cases": [
+    {
+      "case_id": "V2-01",
+      "korean_query_equal": true,
+      "english_query_equal": true,
+      "top10_ids_and_order_equal": true
+    },
+    {
+      "case_id": "V2-02",
+      "korean_query_equal": true,
+      "english_query_equal": true,
+      "top10_ids_and_order_equal": true
+    },
+    {
+      "case_id": "V2-03",
+      "korean_query_equal": true,
+      "english_query_equal": false,
+      "top10_ids_and_order_equal": false
+    },
+    {
+      "case_id": "V2-04",
+      "korean_query_equal": true,
+      "english_query_equal": true,
+      "top10_ids_and_order_equal": true
+    },
+    {
+      "case_id": "V2-05",
+      "korean_query_equal": true,
+      "english_query_equal": false,
+      "top10_ids_and_order_equal": false
+    },
+    {
+      "case_id": "V2-06",
+      "korean_query_equal": true,
+      "english_query_equal": true,
+      "top10_ids_and_order_equal": true
+    },
+    {
+      "case_id": "V2-07",
+      "korean_query_equal": true,
+      "english_query_equal": true,
+      "top10_ids_and_order_equal": true
+    },
+    {
+      "case_id": "V2-08",
+      "korean_query_equal": true,
+      "english_query_equal": true,
+      "top10_ids_and_order_equal": true
+    },
+    {
+      "case_id": "V2-09",
+      "korean_query_equal": true,
+      "english_query_equal": true,
+      "top10_ids_and_order_equal": true
+    },
+    {
+      "case_id": "V2-10",
+      "korean_query_equal": true,
+      "english_query_equal": true,
+      "top10_ids_and_order_equal": true
+    }
+  ]
+}

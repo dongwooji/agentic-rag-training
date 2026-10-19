@@ -1,0 +1,15 @@
+{
+  "version": "phase_a_acceptance_v2_result_export_v1",
+  "evaluated_code_sha": "992b495024e2f3a5b2db2abd3890e9a4f356a094",
+  "source_manifest_sha256": "c2fe070c0be6b18e1a2a397f3f316c2c068397c283ee07cce2204a0ef857dd63",
+  "files": {
+    "cases.json": "dc42ce57dc90f4edc9f10c855dbc591e9e8860ca9a2de8146df0108418345335",
+    "DETAILS.md": "abd7222c559e665dc57c95aabb9aa2ab3ebf1d404a186eafa49e5e92b2d5bf3e",
+    "groups.json": "4baa6895e9f7dee47daf5b4bec3a9fcf4e73347183916856b08bff22fa113ae2",
+    "initial_search_comparison.json": "0cd71ef27fc22c40a509f05b5fd7c0f88b32c17399fb9d25a861f63c0e325f4f",
+    "integrity.json": "a00a5a9ae5b449ad26086a49227e0eb1f71a5dc5b0d8c658a6239c5e69017bae",
+    "REPORT.md": "a6475eee11db7e6b0ced355b40e0867c7baaaf6ba3409b9397b025ef78f5bd2e",
+    "scores.json": "70f8420789e9eadc3ee68b6d581d9b590a8cd6ec67e88f6252f7add11c78f432",
+    "usage.json": "f6d4a357d4f5fd77f3784fe10ff9dda275e6fab1d54a54b4e2e36617450d2b1e"
+  }
+}

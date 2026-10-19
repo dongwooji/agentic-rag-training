@@ -1,0 +1,20 @@
+{
+  "evaluated_code_sha": "992b495024e2f3a5b2db2abd3890e9a4f356a094",
+  "tracked_files_checked": 644,
+  "tracked_changed": [],
+  "input_sha256": {
+    "manifest": "c2fe070c0be6b18e1a2a397f3f316c2c068397c283ee07cce2204a0ef857dd63",
+    "questions": "6eb8bb397d54c7c7f6cec6f6080c0be34d0edd9a7a007fb5877168828aa02713",
+    "gold": "0c1d8f7dcb114cfe99600ccd2fe29ab29ac9bc05fce5154ff656cdb994c91b7e"
+  },
+  "environment_matches_preflight": true,
+  "db_fingerprint_sha256": "60b9a863ad9aa874699fa80c9d06f53f3152bfda6bb52c20c8e877e259c27804",
+  "db_tables": 12,
+  "runner_completed_environment_checks": true,
+  "raw_files_checked": 86,
+  "raw_freeze_sha256": "533b94a47303093657160e4fe286d7d053af42a66a798bd99b9f277b515e204f",
+  "scores_sha256": "70f8420789e9eadc3ee68b6d581d9b590a8cd6ec67e88f6252f7add11c78f432",
+  "http_requests_per_variant": 21,
+  "reruns": 0,
+  "service_default_changed": false
+}
