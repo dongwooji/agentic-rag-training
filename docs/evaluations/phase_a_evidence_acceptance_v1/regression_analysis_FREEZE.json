@@ -1,9 +1,0 @@
-{
-  "frozen_at_utc": "2026-10-15T17:12:47.491873+00:00",
-  "files": {
-    "REGRESSION.md": "f354973a1e97494d1cf73eb0a58d82553fd5ef530e7f12b8105add9128d6ace1",
-    "regression_scores.json": "0bf5c2c7cb098487d44bedb0fddaaf2b0f817c812e63a4a85b57a25b683003c7",
-    "regression_historical_snapshot.json": "857d84a063603a671f2f611a43bf36f60c1050ef3adc68872ea4871f0a7b21bc"
-  },
-  "acceptance_decision_sha256": "80b5602d77a51f63837cd63b3d51368d1411df010b85b9f6885fae9e968eb1f0"
-}
