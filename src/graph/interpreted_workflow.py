@@ -165,11 +165,8 @@ class InterpretedWorkflow:
                 retrieval_config=self.retrieval_config,
                 query_generator=self.query_generator,
             )
-            requirement_args = ({"requirement_context": {"validated": True,
-                "literature_subquestion": interpretation.literature_subquestion}}
-                if callable(getattr(self.runtime_grader, "grade_fixed", None)) else {})
             state = workflow.invoke(question, literature_subquestion=interpretation.literature_subquestion,
-                                    initial_query=question, tool_inputs=tool_inputs, **requirement_args)
+                                    initial_query=question, tool_inputs=tool_inputs)
             state.update({k: v for k, v in base.items() if k in {"interpretation_status", "question_interpretation", "interpretation_trace", "exercise_relation_policy", "exercise_selection_provenance"}})
             state["tool_input_resolution"] = {"execution_status": "ready", "tool_inputs": tool_inputs,
                                               "provenance": {"method": "interpretation_binding", "parsing_source": interpretation.parsing_source}}

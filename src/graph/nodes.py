@@ -527,24 +527,7 @@ class WorkflowNodes:
                         for rank, item in enumerate(evidence, 1)
                     ],
                 }
-            if callable(getattr(self.runtime_grader, "grade_fixed", None)):
-                from src.grading.fixed_requirements_v1.contracts import FixedGraderInput, select_question
-                try:
-                    question, source = getattr(self.runtime_grader, "select_question", select_question)(state)
-                except ValueError:
-                    failure = {"execution_status": "failure", "evidence_sufficient": False,
-                               "components": [], "error_code": "input_failure"}
-                    return {"grader_result": failure,
-                        "grader_history": [*state.get("grader_history", []), {"retry_count": state.get("retry_count", 0),
-                            "query": state.get("current_query"), "evidence": list(evidence), "result": failure}],
-                        "errors": _append_error(state, "grader", "invalid_requirement_source",
-                            "No validated literature question is available"), "final_status": "execution_failure"}
-                inputs.update(literature_subquestion=question, question_source=source,
-                              requirements=state.get("literature_requirements"))
-                input_type = getattr(self.runtime_grader, "input_type", FixedGraderInput)
-                result = self.runtime_grader.grade_fixed(input_type.model_validate(inputs))
-            else:
-                result = self.runtime_grader.grade(RuntimeEvidenceGraderInput.model_validate(inputs))
+            result = self.runtime_grader.grade(RuntimeEvidenceGraderInput.model_validate(inputs))
             payload = _json_safe(result)
         except Exception as exc:
             return {
@@ -563,9 +546,6 @@ class WorkflowNodes:
         update: AgenticRAGState = {"grader_result": payload, "grader_history": [
             *state.get("grader_history", []), {"retry_count": state.get("retry_count", 0),
                 "query": state.get("current_query"), "evidence": list(evidence), "result": payload}]}
-        if payload.get("requirements") is not None:
-            update["literature_requirements"] = payload["requirements"]
-            update["literature_subquestion"] = payload["requirements"]["literature_question"]
         if payload.get("execution_status") != "completed":
             update["errors"] = _append_error(
                 state,
