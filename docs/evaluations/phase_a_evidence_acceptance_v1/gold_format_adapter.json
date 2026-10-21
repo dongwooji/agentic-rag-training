@@ -1,6 +1,0 @@
-{
-  "original_sha256": "ba4ae2af655bb401344d3058af7243d94ef0f3bc082ec43a8a14f40fda25b7ae",
-  "derived_sha256": "4f26a0f009c33f314220c36d1ad690330a94080309a8c3b42e7108045c03a128",
-  "change": "Top-level schema_version renamed to version for frozen GoldFile; cases byte-independent JSON equality asserted; no labels changed",
-  "cases_identical": true
-}

@@ -31,7 +31,7 @@ def main():
     sources = {p: sha256(ROOT/p) for p in (
         config_path, 'src/retrieval/dense.py', 'src/retrieval/runtime_config.py',
         'src/retrieval/hybrid.py', 'src/retrieval/child.py', 'src/evaluation/dense_length.py',
-        'scripts/build_retrieval_parent_lengths.py', 'docs/decisions/RETRIEVAL_V2_CHILD_CORRECTION_LENGTH.md')}
+        'scripts/build_retrieval_parent_lengths.py', 'docs/EVALUATION.md')}
     assets = load_frozen_literature_assets(ROOT, config=config)
     os.environ['HF_HUB_OFFLINE'] = os.environ['TRANSFORMERS_OFFLINE'] = '1'
     encoder = MiniLMEncoder(model_id=config.dense.model_id, model_revision=config.dense.model_revision,

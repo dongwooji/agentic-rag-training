@@ -22,6 +22,6 @@ the frozen `literature_corpus_v1` paper and chunk records. The loader is
 transactional, validates artifact hashes and counts, and rejects an accidental
 duplicate version load. Use `--replace` only for an intentional rebuild.
 
-Phase 4 stores text and provenance only. Embeddings, the pgvector extension,
-and retrieval indexes are deferred until after the Phase 5 evaluation set is
-frozen.
+Phase 4 stores text and provenance. The current service also requires the
+pgvector schema and the existing frozen embedding run. See
+[SETUP.md](../docs/SETUP.md) for preparation order and required local assets.

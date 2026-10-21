@@ -49,3 +49,18 @@ secrets*.json
 .agents/
 .DS_Store
 Thumbs.db
+
+# Archived evaluation outputs and disposable local experiments
+/docs/evaluations/
+/docs/analysis/
+/docs/ci/*.json
+/eval_frozen/
+/models/
+/embeddings/
+*.temp
+*.bak
+*~
+/corpus/
+/embedding/
+*.npy
+*.npz

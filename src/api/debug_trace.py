@@ -140,14 +140,6 @@ def _build_debug_trace(state):
     trace = dict(version="query_debug_trace_v1", request_id=REQUEST_ID.get(), interpreter=interpreter,
         initial_queries=queries, retrievals=retrievals[:3], graders=graders, recovery=recovery, fusions=fusions,
         final_evidence=_evidence(state.get("fused_evidence") or state.get("literature_evidence")))
-    fixed = _map(state.get("literature_requirements"))
-    if fixed:
-        trace["grader_requirements_v1"] = dict(version=fixed.get("version"),
-            question_source=fixed.get("question_source"), literature_question=_text(fixed.get("literature_question")),
-            sha256=fixed.get("sha256"), components=[dict(component_id=_text(x.get("component_id"),16),
-                topic=_text(x.get("topic"),450), direction=x.get("direction"),
-                source_span=_text(x.get("source_span"),1500), direction_span=_text(x.get("direction_span"),2000))
-                for x in fixed.get("components",[])[:8] if isinstance(x,dict)])
     return trace
 
 

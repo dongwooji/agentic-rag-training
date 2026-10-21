@@ -129,18 +129,9 @@ def _build_runtime_workflow() -> RuntimeWorkflow:
             retrieval_config=retrieval_config,
         )
         grader_version = os.environ.get("AGENTIC_RAG_GRADER_VERSION", "legacy")
-        if grader_version == "legacy":
-            grader = RuntimeEvidenceGrader(OpenAIRuntimeEvidenceProvider(api_key=openai_api_key))
-        elif grader_version == "fixed_requirements_v1":
-            from src.grading.fixed_requirements_v1.grader import FixedRequirementsGrader
-            from src.grading.fixed_requirements_v1.provider import FixedRequirementsProvider
-            grader = FixedRequirementsGrader(FixedRequirementsProvider(api_key=openai_api_key))
-        elif grader_version == "fixed_requirements_v1_1":
-            from src.grading.fixed_requirements_v1_1.grader import FixedRequirementsGrader
-            from src.grading.fixed_requirements_v1_1.provider import FixedRequirementsProvider
-            grader = FixedRequirementsGrader(FixedRequirementsProvider(api_key=openai_api_key))
-        else:
+        if grader_version != "legacy":
             raise WorkflowConfigurationError("Unknown Grader version")
+        grader = RuntimeEvidenceGrader(OpenAIRuntimeEvidenceProvider(api_key=openai_api_key))
         recovery = EvidenceRecoveryAgent(
             OpenAIEvidenceRecoveryProvider(api_key=openai_api_key)
         )

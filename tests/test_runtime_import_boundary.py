@@ -3,7 +3,7 @@
 Historical experiment code was removed from the current tree and is preserved in
 the ``legacy-pre-retrieval-v2`` Git tag. The FastAPI entrypoint must load only
 runtime modules: evaluation infrastructure and data-preparation code stay
-outside the request path (see docs/REPOSITORY_MAP.md).
+outside the request path (see docs/ARCHITECTURE.md).
 """
 
 import ast

@@ -26,7 +26,7 @@ def main():
     config=load_retrieval_config(ROOT/'config/retrieval_step4_child_v1.json')
     sources={path:sha256(ROOT/path) for path in ('src/retrieval/child.py','src/retrieval/dense.py',
         'src/retrieval/runtime_config.py','src/retrieval/hybrid.py','scripts/build_retrieval_children.py',
-        'config/retrieval_step4_child_v1.json','docs/decisions/RETRIEVAL_V2_STEP45.md')}
+        'config/retrieval_step4_child_v1.json','docs/EVALUATION.md')}
     assets=load_frozen_literature_assets(ROOT,config=config)
     os.environ['HF_HUB_OFFLINE']=os.environ['TRANSFORMERS_OFFLINE']='1'
     encoder=MiniLMEncoder(model_id=config.dense.model_id,model_revision=config.dense.model_revision,

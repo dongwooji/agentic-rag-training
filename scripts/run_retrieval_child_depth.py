@@ -71,7 +71,7 @@ def main():
     child_manifest=verified_json_folder(args.children)
     children=[json.loads(line) for line in (args.children/'children.jsonl').read_text(encoding='utf-8').splitlines()]
     sources={p:sha256(ROOT/p) for p in (
-        'docs/decisions/RETRIEVAL_V2_STEP45.md','src/evaluation/child_depth.py',
+        'docs/EVALUATION.md','src/evaluation/child_depth.py',
         'scripts/run_retrieval_child_depth.py','src/retrieval/child.py','src/retrieval/hybrid.py',
         'src/retrieval/runtime_config.py','src/retrieval/dense.py','src/retrieval/bm25.py','src/retrieval/rrf.py')}
     sources.update({'config/'+v+'.json':sha256(ROOT/'config'/(v+'.json')) for v in versions})
