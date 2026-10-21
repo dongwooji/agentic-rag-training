@@ -1,6 +1,6 @@
 # 개발 이력
 
-현재 실행 구조는 [ARCHITECTURE.md](ARCHITECTURE.md), 설치는 [SETUP.md](SETUP.md), 수치와 한계는 [EVALUATION.md](EVALUATION.md)에 정리한다.
+현재 실행 구조는 [ARCHITECTURE.md](ARCHITECTURE.md), 설치는 [SETUP.md](SETUP.md), 수치와 한계는 [EVALUATION.md](EVALUATION.md)에 정리합니다.
 
 | 단계 | 구현·검증과 결정 |
 |---|---|
@@ -14,11 +14,11 @@
 | Acceptance·후속 수정 | Acceptance v1의 API 경계 실패, operation 인자·세션 범위 수정, Acceptance v2의 비채택 판정. 이후 실행 정규화·personal_metric_v1 추출 규칙·first/last 기록 계약 수정은 과거 평가 이후의 변경 |
 | 프론트엔드·공개 정리 | React 질문·추가 확인·근거 패널과 녹화 재생. 상세 산출물·전용 실험 경로 제거, 공개 문서를 네 개로 통합 |
 
-과거 E2E v1/v2는 같은 30문항의 반복 통합 비교다. Retrieval v1 진단에서 488 chunks 중 462개(94.67%)가 encoder의 128토큰을 넘었고, zero-match BM25도 RRF에 기여하는 문제가 확인됐다. 이후 실험을 핵심 변수 하나씩 나누었으며, 개발셋과 별도 평가를 구분했다. 후속 정확성 수정의 단위·연결 검증을 과거 평가 성능 향상으로 해석하지 않는다.
+과거 E2E v1/v2는 같은 30문항의 반복 통합 비교입니다. Retrieval v1 진단에서 488 chunks 중 462개(94.67%)가 encoder의 128토큰을 넘었고, zero-match BM25도 RRF에 기여하는 문제가 확인됐습니다. 이후 실험을 핵심 변수 하나씩 나누었으며, 개발셋과 별도 평가를 구분했습니다. 후속 정확성 수정의 단위·연결 검증을 과거 평가 성능 향상으로 해석하지 않습니다.
 
 ## 보존 위치
 
-이번 정리 전 master는 annotated tag [archive-pre-cleanup](https://github.com/dongwooji/agentic-rag-training/tree/archive-pre-cleanup)에 보존한다. 가리키는 commit은 `17654f70781c565d8ee2434908a62008dda46674`다. tag는 tracked 파일만 보존하며 ignored `data/`, `reports/`, corpus·모델·embedding·`eval_frozen/`을 포함하지 않는다. ZIP 백업이나 이력 재작성·force push는 하지 않았다.
+이번 정리 전 master는 annotated tag [archive-pre-cleanup](https://github.com/dongwooji/agentic-rag-training/tree/archive-pre-cleanup)에 보존합니다. 가리키는 commit은 `17654f70781c565d8ee2434908a62008dda46674`입니다. tag는 tracked 파일만 보존하며 ignored `data/`, `reports/`, corpus·모델·embedding·`eval_frozen/`을 포함하지 않습니다. ZIP 백업이나 이력 재작성·force push는 하지 않았습니다.
 
 | 자료 | 고정 보존 링크 |
 |---|---|
@@ -30,11 +30,11 @@
 | Reranker·과거 Step 2 진단 | [src/retrieval/reranker.py](https://github.com/dongwooji/agentic-rag-training/blob/archive-pre-cleanup/src/retrieval/reranker.py), [first_literature_query.py](https://github.com/dongwooji/agentic-rag-training/blob/archive-pre-cleanup/src/graph/first_literature_query.py) |
 | 일회성 CLI·평가 실행기·전용 테스트 | [scripts](https://github.com/dongwooji/agentic-rag-training/tree/archive-pre-cleanup/scripts), [tests](https://github.com/dongwooji/agentic-rag-training/tree/archive-pre-cleanup/tests) |
 
-더 이전의 Retrieval v1 baseline, LLM Planner, Grader v1/v2/v2.1, E2E v1/v2 전용 소스는 [legacy-pre-retrieval-v2](https://github.com/dongwooji/agentic-rag-training/tree/legacy-pre-retrieval-v2)에 보존한다. 예를 들어 역사적 Dense 생성 코드는 [run_dense_baseline.py](https://github.com/dongwooji/agentic-rag-training/blob/legacy-pre-retrieval-v2/scripts/run_dense_baseline.py)에 있다.
+더 이전의 Retrieval v1 baseline, LLM Planner, Grader v1/v2/v2.1, E2E v1/v2 전용 소스는 [legacy-pre-retrieval-v2](https://github.com/dongwooji/agentic-rag-training/tree/legacy-pre-retrieval-v2)에 보존합니다. 예를 들어 역사적 Dense 생성 코드는 [run_dense_baseline.py](https://github.com/dongwooji/agentic-rag-training/blob/legacy-pre-retrieval-v2/scripts/run_dense_baseline.py)에 있습니다.
 
 ```powershell
 git show archive-pre-cleanup:docs/RETRIEVAL_V2_RERANKER_RESULTS.md
 git show archive-pre-cleanup:src/grading/fixed_requirements_v1/grader.py
 ```
 
-tag의 코드가 모든 역사적 manifest의 소스 해시와 일치하는 것은 아니다. 일부 소스는 tag 이전부터 바뀌었고 ignored 자료도 필요하므로, tag만으로 과거 평가의 정확한 재실행을 보장하지 않는다. 역사적 문서의 당시 기본값·미수행 단계·PR 상태는 당시 기록이며 현재 상태 안내는 이 네 문서를 따른다.
+tag의 코드가 모든 역사적 manifest의 소스 해시와 일치하는 것은 아닙니다. 일부 소스는 tag 이전부터 바뀌었고 ignored 자료도 필요하므로, tag만으로 과거 평가의 정확한 재실행을 보장하지 않습니다. 역사적 문서의 당시 기본값·미수행 단계·PR 상태는 당시 기록이며 현재 상태 안내는 이 네 문서를 따릅니다.
