@@ -255,7 +255,7 @@ def test_parent_embedding_preparation_freezes_complete_output_without_questions(
     encoder = MiniLMEncoder(max_seq_length=256)
     files = ('config/retrieval_parent_length256_v1.json','src/retrieval/dense.py','src/retrieval/runtime_config.py',
         'src/retrieval/hybrid.py','src/retrieval/child.py','src/evaluation/dense_length.py',
-        'scripts/build_retrieval_parent_lengths.py','docs/decisions/RETRIEVAL_V2_CHILD_CORRECTION_LENGTH.md')
+        'scripts/build_retrieval_parent_lengths.py','docs/EVALUATION.md')
     for name in files:
         path = tmp_path/name
         path.parent.mkdir(parents=True,exist_ok=True)

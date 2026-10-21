@@ -60,3 +60,7 @@ Thumbs.db
 *.temp
 *.bak
 *~
+/corpus/
+/embedding/
+*.npy
+*.npz

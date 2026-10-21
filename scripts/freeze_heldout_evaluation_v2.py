@@ -173,7 +173,7 @@ def publish_freeze(root: Path, output: Path, reports: Path, cases: dict, gold: d
                 "validation_code": [reference(root, root / p) for p in
                                     ("src/evaluation/heldout_v2.py", "scripts/freeze_heldout_evaluation_v2.py",
                                      "src/evaluation/retrieval_metrics.py", "src/metrics/definitions.py",
-                                     "tests/test_heldout_v2.py", "docs/specs/HELDOUT_EVALUATION_V2.md")
+                                     "tests/test_heldout_v2.py", "docs/EVALUATION.md")
                                     if (root / p).is_file()],
                 "files": {n: final_ref(temporary / n, output / n) for n in ("evaluation_cases.json", "gold_evidence.json", "authoring_record.json", "authored_cases_before_mapping.json", "semantic_gold_before_mapping.json", "initial_questions.json")},
                 "reports": {p.name: final_ref(p, reports / p.name) for p in sorted(report_temporary.iterdir())},

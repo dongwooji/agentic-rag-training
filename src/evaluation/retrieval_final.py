@@ -35,7 +35,7 @@ EXECUTION_SOURCES = QUERY_SOURCES + (
     'src/evaluation/heldout_v2.py', 'src/evaluation/retrieval_preparation.py',
     'src/evaluation/literature_query_freeze.py', 'src/evaluation/retrieval_final.py',
     'src/tools/literature.py', 'src/llm_support.py',
-    'scripts/run_retrieval_final.py', 'docs/decisions/RETRIEVAL_V2_FINAL.md')
+    'scripts/run_retrieval_final.py', 'docs/EVALUATION.md')
 
 
 def read_json(path):
@@ -133,10 +133,9 @@ def freeze_configuration(root, output):
                     abstention_correctness='not_measured_retrieval_only',
                     selection_origin='Step 3b post-hoc user decision; not retrospective preregistered adoption')
     write_new_json(output/'protocol.json', protocol)
-    write_new_json(root/'docs/retrieval_v2_final_manifest_v1.json', protocol)
     freeze_bundle(output, stage='configuration', corpus=build_data['corpus_version'], gold_version=GOLD_VERSION,
                   final_config_sha256=sha256(paths['final_v2']), settings_frozen_before_queries=True,
-                  public_manifest=reference(root,root/'docs/retrieval_v2_final_manifest_v1.json'))
+                  public_manifest=reference(root,output/'protocol.json'))
     return protocol
 
 

@@ -59,7 +59,7 @@ def main():
         parent512=ROOT/'data/literature/representations/retrieval_parent_length512_v1')
     manifests = {name: verify_frozen_folder(path) for name,path in representations.items()}
     sources = {p: sha256(ROOT/p) for p in (
-        'docs/decisions/RETRIEVAL_V2_CHILD_CORRECTION_LENGTH.md',
+        'docs/EVALUATION.md',
         'scripts/run_retrieval_child_length.py', 'src/evaluation/dense_length.py',
         'src/evaluation/child_depth.py','src/evaluation/retrieval_preparation.py',
         'src/evaluation/retrieval_metrics.py','src/retrieval/child_quota.py','src/retrieval/child.py',
