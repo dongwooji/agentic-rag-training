@@ -1,0 +1,620 @@
+{
+  "description": "실제 React 화면의 실제 서버 모드에서 질문을 전송하고 답변·근거 패널을 확인했습니다.",
+  "capture_started_at": "2026-10-22T10:24:12.040Z",
+  "question": "내 Deadlift (Barbell)의 처음 3세션과 최근 3세션 e1RM 중앙값을 비교하고, 점진적 과부하와 관련된 문헌 근거를 함께 설명해줘.",
+  "response_source": "웹 화면의 전체 공개 응답 확인에서 읽은 원문 JSON입니다.",
+  "response": {
+    "final_status": "answer_ready",
+    "answer_text": "당신의 기록에서는 Deadlift (Barbell)의 처음 3세션 e1RM 중앙값은 379.17, 최근 3세션 중앙값은 414.17로, 9.23% 증가했습니다. 처음 3세션은 2015-12-27, 2016-01-31, 2016-08-05였고, 최근 3세션은 2018-09-06, 2018-09-15, 2018-09-24였습니다.\n\n문헌에서는 문헌에서는 점진적 과부하를 훈련 중 자극을 점차 늘리는 원리로 설명합니다. 저항훈련의 지속적 적응을 위해서는 부하, 볼륨, 빈도, 운동 선택, 지속시간 등을 조금씩 조정해 자극을 늘릴 수 있다고 정리합니다. 또한 건강한 성인에서 저항훈련은 근력과 근비대, 수행능력을 향상시키며, 더 무거운 부하나 더 높은 볼륨 같은 변수 조절이 일부 적응을 뒷받침할 수 있다고 보고합니다.\n\n두 정보를 함께 보면 기록상 Deadlift (Barbell)의 최근 3세션 e1RM 중앙값이 처음 3세션보다 높아, 훈련 성과 지표가 상승한 패턴이 보입니다. 문헌은 이런 장기적 향상을 위해 훈련 자극을 점진적으로 늘리는 점진적 과부하가 중요하다고 설명하지만, 개별 기록의 변화만으로 그 원인을 단정할 수는 없습니다.\n\n제한사항: e1RM은 실제 1RM이 아니라 추정치입니다.; 처음/최근 3세션 비교는 기록된 세션만 반영하며, 훈련 외 요인은 포함하지 않습니다.; 문헌은 집단 수준 근거이며, 이 개인 기록에 직접적인 인과를 확정하지 않습니다.",
+    "route": "hybrid",
+    "tools_used": [
+      "query_training_log",
+      "compute_metrics",
+      "search_literature"
+    ],
+    "retry_count": 0,
+    "recovery_used": false,
+    "used_literature_chunk_ids": [
+      "paper_pmc13236796_definitional_inconsistencies_long_term_progressi_001_c16adcc6",
+      "paper_pmc12965823_discussion_001_96114f54"
+    ],
+    "limitations": [
+      "e1RM은 실제 1RM이 아니라 추정치입니다.",
+      "처음/최근 3세션 비교는 기록된 세션만 반영하며, 훈련 외 요인은 포함하지 않습니다.",
+      "문헌은 집단 수준 근거이며, 이 개인 기록에 직접적인 인과를 확정하지 않습니다.",
+      "개인 기록의 관찰된 변화만으로 인과관계를 확정할 수 없습니다.",
+      "일반 문헌 결과가 개인에게 동일하게 적용된다고 확정할 수 없습니다.",
+      "이 응답은 의료적 진단이나 개인 처방이 아닙니다."
+    ],
+    "latency_ms": 23607.9462999478,
+    "response_metadata": {
+      "response_mode": "debug",
+      "trace": {
+        "version": "query_debug_trace_v1",
+        "interpreter": {
+          "validation": {
+            "status": "ready",
+            "check_id": null,
+            "normalized_summary": {
+              "personal_record_requested": true,
+              "literature_requested": true,
+              "canonical_exercise_name": "Deadlift (Barbell)",
+              "candidate_exercises": [
+                "Deadlift (Barbell)"
+              ],
+              "time_condition": {
+                "scope": "all_records",
+                "start_date": null,
+                "end_date": null
+              },
+              "analyses": [
+                "first_last_n_session_median_e1rm"
+              ],
+              "candidate_count": 1
+            },
+            "date_mismatch": false,
+            "personal_record_mismatch": false,
+            "record_coverage_status": null
+          },
+          "output_summary": {
+            "personal_record_requested": true,
+            "literature_requested": true,
+            "canonical_exercise_name": "Deadlift (Barbell)",
+            "candidate_exercises": [
+              "Deadlift (Barbell)"
+            ],
+            "time_condition": {
+              "scope": "unresolved",
+              "start_date": null,
+              "end_date": null
+            },
+            "analyses": [
+              "first_last_n_session_median_e1rm"
+            ],
+            "candidate_count": 1
+          },
+          "phase_a": {
+            "version": "phase_a_semantics_v1",
+            "parsing_source": "llm",
+            "evidence_need": {
+              "status": "resolved",
+              "answer_type": "general",
+              "literature_needed_for_answer": true,
+              "explicit_literature_request": "required",
+              "required_sources": [
+                "training_records",
+                "literature"
+              ],
+              "optional_sources": [],
+              "source_spans": [
+                "내 Deadlift (Barbell)의 처음 3세션과 최근 3세션 e1RM 중앙값을 비교하고",
+                "점진적 과부하와 관련된 문헌 근거를 함께 설명해줘"
+              ],
+              "unresolved_fields": []
+            },
+            "argument_resolution": {
+              "status": "ready",
+              "unresolved_fields": []
+            },
+            "default_time_window": {
+              "applied": false,
+              "policy": null,
+              "trigger": null,
+              "recent_window_weeks": null,
+              "anchor_date": null,
+              "start_date": null,
+              "end_date": null
+            },
+            "scope": {
+              "out_of_scope": false,
+              "reason_code": null
+            }
+          }
+        },
+        "initial_queries": {
+          "korean": "점진적 과부하와 관련된 문헌 근거",
+          "english": "literature evidence related to progressive overload",
+          "dense": "literature evidence related to progressive overload",
+          "bm25": "literature evidence related to progressive overload",
+          "step2_fallback": false,
+          "step3_fallback": false
+        },
+        "retrievals": [
+          {
+            "phase": "initial",
+            "attempt": 0,
+            "query": "literature evidence related to progressive overload",
+            "evidence": [
+              {
+                "chunk_id": "paper_pmc13236796_definitional_inconsistencies_long_term_progressi_001_c16adcc6",
+                "paper_id": "paper_pmc13236796",
+                "title": "What is resistance exercise? A review of current uses and potential ways forward.",
+                "section": "Definitional inconsistencies > Long-term, progressive overload > Intensity",
+                "rank": 1,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc12965823_discussion_001_96114f54",
+                "paper_id": "paper_pmc12965823",
+                "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+                "section": "DISCUSSION",
+                "rank": 2,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc13236796_definitional_inconsistencies_long_term_progressi_001_6b10815d",
+                "paper_id": "paper_pmc13236796",
+                "title": "What is resistance exercise? A review of current uses and potential ways forward.",
+                "section": "Definitional inconsistencies > Long-term, progressive overload",
+                "rank": 3,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc11239729_discussion_003_2d80c6b9",
+                "paper_id": "paper_pmc11239729",
+                "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+                "section": "Discussion",
+                "rank": 4,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6303131_discussion_section_muscle_strength_003_8df145fc",
+                "paper_id": "paper_pmc6303131",
+                "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+                "section": "DISCUSSION > section > Muscle strength",
+                "rank": 5,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc12965823_abstract_001_8343007d",
+                "paper_id": "paper_pmc12965823",
+                "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+                "section": "Abstract",
+                "rank": 6,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6081873_results_sensitivity_analysis_001_b17da44f",
+                "paper_id": "paper_pmc6081873",
+                "title": "Weekly Training Frequency Effects on Strength Gain: A Meta-Analysis.",
+                "section": "Results > Sensitivity Analysis",
+                "rank": 7,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc11705206_perspectives_001_9f0348ad",
+                "paper_id": "paper_pmc11705206",
+                "title": "Residual Effects of Physical Exercise After Periods of Training Cessation in Older Adults: A Systematic Review With Meta-Analysis and Meta-Regression.",
+                "section": "Perspectives",
+                "rank": 8,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc12965823_body_002_be8cfc24",
+                "paper_id": "paper_pmc12965823",
+                "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+                "section": "Body",
+                "rank": 9,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc10809978_results_body_composition_and_muscle_morphology_001_7c866f85",
+                "paper_id": "paper_pmc10809978",
+                "title": "Gaining more from doing less? The effects of a one-week deload period during supervised resistance training on muscular adaptations.",
+                "section": "Results > Body composition and muscle morphology",
+                "rank": 10,
+                "fusion_score": null,
+                "sources": []
+              }
+            ]
+          }
+        ],
+        "graders": [
+          {
+            "attempt": 0,
+            "execution_status": "completed",
+            "evidence_sufficient": true,
+            "components": [
+              {
+                "component_id": "C1",
+                "requirement": "점진적 과부하와 관련된 문헌 근거",
+                "status": "supported",
+                "supporting_chunk_ids": [
+                  "paper_pmc12965823_discussion_001_96114f54",
+                  "paper_pmc12965823_abstract_001_8343007d",
+                  "paper_pmc13236796_definitional_inconsistencies_long_term_progressi_001_c16adcc6",
+                  "paper_pmc13236796_definitional_inconsistencies_long_term_progressi_001_6b10815d",
+                  "paper_pmc11239729_discussion_003_2d80c6b9"
+                ]
+              }
+            ],
+            "query": "literature evidence related to progressive overload",
+            "missing_components": [],
+            "supplied_evidence": [
+              {
+                "chunk_id": "paper_pmc13236796_definitional_inconsistencies_long_term_progressi_001_c16adcc6",
+                "paper_id": "paper_pmc13236796",
+                "title": "What is resistance exercise? A review of current uses and potential ways forward.",
+                "section": "Definitional inconsistencies > Long-term, progressive overload > Intensity",
+                "rank": 1,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc12965823_discussion_001_96114f54",
+                "paper_id": "paper_pmc12965823",
+                "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+                "section": "DISCUSSION",
+                "rank": 2,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc13236796_definitional_inconsistencies_long_term_progressi_001_6b10815d",
+                "paper_id": "paper_pmc13236796",
+                "title": "What is resistance exercise? A review of current uses and potential ways forward.",
+                "section": "Definitional inconsistencies > Long-term, progressive overload",
+                "rank": 3,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc11239729_discussion_003_2d80c6b9",
+                "paper_id": "paper_pmc11239729",
+                "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+                "section": "Discussion",
+                "rank": 4,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6303131_discussion_section_muscle_strength_003_8df145fc",
+                "paper_id": "paper_pmc6303131",
+                "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+                "section": "DISCUSSION > section > Muscle strength",
+                "rank": 5,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc12965823_abstract_001_8343007d",
+                "paper_id": "paper_pmc12965823",
+                "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+                "section": "Abstract",
+                "rank": 6,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc6081873_results_sensitivity_analysis_001_b17da44f",
+                "paper_id": "paper_pmc6081873",
+                "title": "Weekly Training Frequency Effects on Strength Gain: A Meta-Analysis.",
+                "section": "Results > Sensitivity Analysis",
+                "rank": 7,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc11705206_perspectives_001_9f0348ad",
+                "paper_id": "paper_pmc11705206",
+                "title": "Residual Effects of Physical Exercise After Periods of Training Cessation in Older Adults: A Systematic Review With Meta-Analysis and Meta-Regression.",
+                "section": "Perspectives",
+                "rank": 8,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc12965823_body_002_be8cfc24",
+                "paper_id": "paper_pmc12965823",
+                "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+                "section": "Body",
+                "rank": 9,
+                "fusion_score": null,
+                "sources": []
+              },
+              {
+                "chunk_id": "paper_pmc10809978_results_body_composition_and_muscle_morphology_001_7c866f85",
+                "paper_id": "paper_pmc10809978",
+                "title": "Gaining more from doing less? The effects of a one-week deload period during supervised resistance training on muscular adaptations.",
+                "section": "Results > Body composition and muscle morphology",
+                "rank": 10,
+                "fusion_score": null,
+                "sources": []
+              }
+            ]
+          }
+        ],
+        "recovery": [],
+        "fusions": [],
+        "final_evidence": [
+          {
+            "chunk_id": "paper_pmc13236796_definitional_inconsistencies_long_term_progressi_001_c16adcc6",
+            "paper_id": "paper_pmc13236796",
+            "title": "What is resistance exercise? A review of current uses and potential ways forward.",
+            "section": "Definitional inconsistencies > Long-term, progressive overload > Intensity",
+            "rank": 1,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc12965823_discussion_001_96114f54",
+            "paper_id": "paper_pmc12965823",
+            "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+            "section": "DISCUSSION",
+            "rank": 2,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc13236796_definitional_inconsistencies_long_term_progressi_001_6b10815d",
+            "paper_id": "paper_pmc13236796",
+            "title": "What is resistance exercise? A review of current uses and potential ways forward.",
+            "section": "Definitional inconsistencies > Long-term, progressive overload",
+            "rank": 3,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc11239729_discussion_003_2d80c6b9",
+            "paper_id": "paper_pmc11239729",
+            "title": "Dose-Response Modelling of Resistance Exercise Across Outcome Domains in Strength and Conditioning: A Meta-analysis.",
+            "section": "Discussion",
+            "rank": 4,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6303131_discussion_section_muscle_strength_003_8df145fc",
+            "paper_id": "paper_pmc6303131",
+            "title": "Resistance Training Volume Enhances Muscle Hypertrophy but Not Strength in Trained Men.",
+            "section": "DISCUSSION > section > Muscle strength",
+            "rank": 5,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc12965823_abstract_001_8343007d",
+            "paper_id": "paper_pmc12965823",
+            "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+            "section": "Abstract",
+            "rank": 6,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc6081873_results_sensitivity_analysis_001_b17da44f",
+            "paper_id": "paper_pmc6081873",
+            "title": "Weekly Training Frequency Effects on Strength Gain: A Meta-Analysis.",
+            "section": "Results > Sensitivity Analysis",
+            "rank": 7,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc11705206_perspectives_001_9f0348ad",
+            "paper_id": "paper_pmc11705206",
+            "title": "Residual Effects of Physical Exercise After Periods of Training Cessation in Older Adults: A Systematic Review With Meta-Analysis and Meta-Regression.",
+            "section": "Perspectives",
+            "rank": 8,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc12965823_body_002_be8cfc24",
+            "paper_id": "paper_pmc12965823",
+            "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews.",
+            "section": "Body",
+            "rank": 9,
+            "fusion_score": null,
+            "sources": []
+          },
+          {
+            "chunk_id": "paper_pmc10809978_results_body_composition_and_muscle_morphology_001_7c866f85",
+            "paper_id": "paper_pmc10809978",
+            "title": "Gaining more from doing less? The effects of a one-week deload period during supervised resistance training on muscular adaptations.",
+            "section": "Results > Body composition and muscle morphology",
+            "rank": 10,
+            "fusion_score": null,
+            "sources": []
+          }
+        ],
+        "request_id": "c639aa8c3b6f4f0d87c544d2604116fb"
+      }
+    }
+  },
+  "editing": {
+    "source": "실제 브라우저 캡처",
+    "chronological_order_preserved": true,
+    "cuts": "긴 대기 구간과 중복된 화면 이동을 생략했습니다.",
+    "reading_pauses": "읽기 편의를 위해 일부 화면의 표시 시간을 늘렸습니다.",
+    "caption": "캡처 영역 위에 촬영일과 대기 구간 단축 안내를 덧붙였습니다.",
+    "answer_or_application_pixels_modified": false,
+    "replayed_saved_response": false
+  },
+  "selected_frames": [
+    {
+      "path": "000-question.png",
+      "time_ms": 142,
+      "label": "question",
+      "gif_duration_ms": 2800,
+      "screenshot_sha256": "f655ee622973c258e57d2b3f6723fe6434c954a4b6dd669583bd415f7b8ab243"
+    },
+    {
+      "path": "001-submitted.png",
+      "time_ms": 1162,
+      "label": "submitted",
+      "gif_duration_ms": 400,
+      "screenshot_sha256": "9bd6fee9aff69c6c6eaca5c4441ee8e70ad618334b367d68190a68e7cde86ad4"
+    },
+    {
+      "path": "002-waiting.png",
+      "time_ms": 14482,
+      "label": "waiting",
+      "gif_duration_ms": 400,
+      "screenshot_sha256": "6112d78f2008bd341a2f481a82bf70a54c045b97ee9ba486e5f3a610117be3fd"
+    },
+    {
+      "path": "004-waiting.png",
+      "time_ms": 40394,
+      "label": "waiting",
+      "gif_duration_ms": 400,
+      "screenshot_sha256": "a723edb50b0410f77e5ca85bda416ac9ea1d74de084ce07490574c793848fd13"
+    },
+    {
+      "path": "006-waiting.png",
+      "time_ms": 102582,
+      "label": "waiting",
+      "gif_duration_ms": 400,
+      "screenshot_sha256": "20d8842f12448e109810971efea2c3749f95b76a140b556c323ab1b0fb4c79bc"
+    },
+    {
+      "path": "013-answer-top.png",
+      "time_ms": 207278,
+      "label": "answer-top",
+      "gif_duration_ms": 6500,
+      "screenshot_sha256": "bdd1f7232f7e0213547eb69c5001701fd08ba18ecef36e5de1579626e21d6dbc"
+    },
+    {
+      "path": "014-evidence-open.png",
+      "time_ms": 208135,
+      "label": "evidence-open",
+      "gif_duration_ms": 5200,
+      "screenshot_sha256": "682a8a383b273a243b13f53e4eafc4a8e4607126b60b61be4d2daec8e4233c88"
+    },
+    {
+      "path": "015-evidence-scroll.png",
+      "time_ms": 230894,
+      "label": "evidence-scroll",
+      "gif_duration_ms": 150,
+      "screenshot_sha256": "ecd33a70c1615420092b259d1270f520fc14c6be5b9ae51ceac87b580a6bdf00"
+    },
+    {
+      "path": "016-evidence-scroll.png",
+      "time_ms": 231384,
+      "label": "evidence-scroll",
+      "gif_duration_ms": 150,
+      "screenshot_sha256": "f094929e6cf02a998073d2cdfe356ca88031063e461239ee2e615174ba3bc194"
+    },
+    {
+      "path": "017-evidence-scroll.png",
+      "time_ms": 231805,
+      "label": "evidence-scroll",
+      "gif_duration_ms": 150,
+      "screenshot_sha256": "1e9045205be5a80b1ded4741844dc2dc1a47229180854f22c74c42f994fd7048"
+    },
+    {
+      "path": "018-evidence-verdict.png",
+      "time_ms": 269949,
+      "label": "evidence-verdict",
+      "gif_duration_ms": 6000,
+      "screenshot_sha256": "1e9045205be5a80b1ded4741844dc2dc1a47229180854f22c74c42f994fd7048"
+    },
+    {
+      "path": "019-answer-return.png",
+      "time_ms": 270727,
+      "label": "answer-return",
+      "gif_duration_ms": 2300,
+      "screenshot_sha256": "bdd1f7232f7e0213547eb69c5001701fd08ba18ecef36e5de1579626e21d6dbc"
+    },
+    {
+      "path": "020-answer-read.png",
+      "time_ms": 271724,
+      "label": "answer-read",
+      "gif_duration_ms": 120,
+      "screenshot_sha256": "26686c23f19549dea92ba58a80578e391c092ab69f84c94900844b9d6f198109"
+    },
+    {
+      "path": "021-answer-read.png",
+      "time_ms": 272122,
+      "label": "answer-read",
+      "gif_duration_ms": 120,
+      "screenshot_sha256": "b182901c759f57a1f645f5eede82ae65c42c3751a34db96cf69e866478143436"
+    },
+    {
+      "path": "022-answer-read.png",
+      "time_ms": 272489,
+      "label": "answer-read",
+      "gif_duration_ms": 120,
+      "screenshot_sha256": "821840281b0fd0bad170754dabc32bb52eeb466c9f01fd3b8db8664889d65a91"
+    },
+    {
+      "path": "023-answer-read.png",
+      "time_ms": 272853,
+      "label": "answer-read",
+      "gif_duration_ms": 120,
+      "screenshot_sha256": "ffba5d15fe46c7ab0bafd23ca8ab6d22a3432fa1ce2ff23eb1f9020f6c7c5383"
+    },
+    {
+      "path": "024-answer-read.png",
+      "time_ms": 273228,
+      "label": "answer-read",
+      "gif_duration_ms": 120,
+      "screenshot_sha256": "5e46f7c4ab0cdc8c121e1c1dd4bf0f779222c434a24a8352b280e732d65e8e9d"
+    },
+    {
+      "path": "025-answer-read.png",
+      "time_ms": 273588,
+      "label": "answer-read",
+      "gif_duration_ms": 120,
+      "screenshot_sha256": "61239a01304240c25b5b0cf1e5e91b644d603ca7be70d0551f8d94171dacf76f"
+    },
+    {
+      "path": "026-answer-read.png",
+      "time_ms": 273934,
+      "label": "answer-read",
+      "gif_duration_ms": 120,
+      "screenshot_sha256": "a258a109e4b8f8d0ae77ea0d3400192ba25ed7c1f2d3695bf4683837d57d9a2c"
+    },
+    {
+      "path": "027-answer-read.png",
+      "time_ms": 274300,
+      "label": "answer-read",
+      "gif_duration_ms": 120,
+      "screenshot_sha256": "a258a109e4b8f8d0ae77ea0d3400192ba25ed7c1f2d3695bf4683837d57d9a2c"
+    },
+    {
+      "path": "028-answer-read.png",
+      "time_ms": 274688,
+      "label": "answer-read",
+      "gif_duration_ms": 120,
+      "screenshot_sha256": "a258a109e4b8f8d0ae77ea0d3400192ba25ed7c1f2d3695bf4683837d57d9a2c"
+    },
+    {
+      "path": "029-answer-read.png",
+      "time_ms": 275059,
+      "label": "answer-read",
+      "gif_duration_ms": 120,
+      "screenshot_sha256": "a258a109e4b8f8d0ae77ea0d3400192ba25ed7c1f2d3695bf4683837d57d9a2c"
+    },
+    {
+      "path": "030-answer-read.png",
+      "time_ms": 275448,
+      "label": "answer-read",
+      "gif_duration_ms": 120,
+      "screenshot_sha256": "a258a109e4b8f8d0ae77ea0d3400192ba25ed7c1f2d3695bf4683837d57d9a2c"
+    },
+    {
+      "path": "031-answer-read.png",
+      "time_ms": 275815,
+      "label": "answer-read",
+      "gif_duration_ms": 120,
+      "screenshot_sha256": "a258a109e4b8f8d0ae77ea0d3400192ba25ed7c1f2d3695bf4683837d57d9a2c"
+    },
+    {
+      "path": "032-answer-end.png",
+      "time_ms": 332883,
+      "label": "answer-end",
+      "gif_duration_ms": 5500,
+      "screenshot_sha256": "a258a109e4b8f8d0ae77ea0d3400192ba25ed7c1f2d3695bf4683837d57d9a2c"
+    }
+  ]
+}
